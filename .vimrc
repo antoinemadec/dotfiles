@@ -9,6 +9,7 @@ Plug 'vhda/verilog_systemverilog.vim'                                           
 Plug 'vcscommand.vim'                                                                       " diff local CVS SVN and GIT files with current version on the server
 Plug 'bufexplorer.zip'                                                                      " BufExplorer Plugin for Vim (use \be)
 call plug#end()
+
 if empty(glob("~/.vim/plugins_by_vimplug"))
   PlugInstall
 endif
@@ -33,8 +34,18 @@ set numberwidth=2               " number of columns to use for the line number
 set mouse=a                     " use mouse in all mode. Allow to resize and copy/paste without selecting text outside of the window.
 set ttyfast                     " improves smoothness of redrawing when there are multiple windows
 set tags=tags;                  " tries to locate the 'tags' file, it first looks at the current directory, then the parent directory, etc
+set title                       " change terminal title
+set pastetoggle=<F12>           " press F12 before copying text pasted outside of vim to avoid auto indentation
 filetype plugin on              " enable loading the plugin files for specific file types
 filetype plugin indent on       " enables filetype-specific indent scripts
+"--------------------------------------------------------------
+
+"--------------------------------------------------------------
+" nvim settings
+"--------------------------------------------------------------
+if has('nvim')
+  tnoremap <Esc> <C-\><C-n>     " in terminal mode, Esc goes to normal mode
+endif
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
