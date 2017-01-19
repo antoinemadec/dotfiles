@@ -9,6 +9,9 @@ Plug 'vhda/verilog_systemverilog.vim'                                           
 Plug 'vcscommand.vim'                                                                       " diff local CVS SVN and GIT files with current version on the server
 Plug 'bufexplorer.zip'                                                                      " BufExplorer Plugin for Vim (use \be)
 call plug#end()
+if empty(glob("~/.vim/plugins_by_vimplug"))
+  PlugInstall
+endif
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
