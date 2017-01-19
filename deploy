@@ -8,11 +8,15 @@ rm -rf dotfiles_bak
 mkdir dotfiles_bak
 
 deploy_core(){
-  dotfile="$1"
-  location_from_home="$2"
-  [ "$location_from_home" = "" ] && location_from_home="$dotfile"
-  [ -e "$location_from_home" ] && mv "$location_from_home" dotfiles_bak
-  ln -sv dotfiles/$dotfile $location_from_home
+  target="$1"
+  link_name="$2"
+  [ "$link_name" = "" ] && link_name="$target"
+  target="$(readlink -m dotfiles/$target)"  # absolute path
+  if [ -e "$link_name" ] || [ -h "$link_name" ]
+  then
+    mv "$link_name" dotfiles_bak
+  fi
+  ln -sv $target $link_name
 }
 
 deploy_core .vimrc
