@@ -75,8 +75,8 @@ vmap <F8> :call VerilogInstance()<CR>
 " highlight
 "--------------------------------------------------------------
 " highlight non breakable space
-"set list
-"set listchars=nbsp:¬
+set list
+set listchars=nbsp:¬
 
 " redifine Todo for more readability
 highlight Todo term=standout cterm=bold ctermfg=235 ctermbg=167 gui=bold guifg=#282828 guibg=#fb4934
