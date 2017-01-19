@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+cd ~
+[ ! -d dotfiles ] && echo "ERROR: dotfiles dir must be in ~." && exit 1
+rm -rf dotfiles_bak
+mkdir dotfiles_bak
+
+deploy_core(){
+  dotfile="$1"
+  location_from_home="$2"
+  [ "$location_from_home" = "" ] && location_from_home="$dotfile"
+  [ -e "$location_from_home" ] && mv "$location_from_home" dotfiles_bak
+  ln -sv dotfiles/$dotfile $location_from_home
+}
+
+deploy_core .vimrc
+deploy_core .vim
+deploy_core .config/i3/config
