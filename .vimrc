@@ -3,6 +3,7 @@
 "--------------------------------------------------------------
 call plug#begin('~/.vim/plugins_by_vimplug')
 Plug 'morhetz/gruvbox'                                                                      " colorscheme
+Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'                             " file navigator
 Plug 'itchyny/lightline.vim' | Plug 'shinchu/lightline-gruvbox.vim'                         " status line
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim' " fuzzy search in a dir
 Plug 'vhda/verilog_systemverilog.vim'                                                       " Vim Syntax Plugin for Verilog and SystemVerilog
@@ -35,14 +36,26 @@ set mouse=a                     " use mouse in all mode. Allow to resize and cop
 set ttyfast                     " improves smoothness of redrawing when there are multiple windows
 set tags=tags;                  " tries to locate the 'tags' file, it first looks at the current directory, then the parent directory, etc
 set title                       " change terminal title
-set pastetoggle=<F12>           " press F12 before copying text pasted outside of vim to avoid auto indentation
 filetype plugin on              " enable loading the plugin files for specific file types
 filetype plugin indent on       " enables filetype-specific indent scripts
+runtime! ftplugin/man.vim       " allow man to be displayed in vim
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
-" nvim settings
+" mappings
 "--------------------------------------------------------------
+set pastetoggle=<F12>           " press F12 before copying text pasted outside of vim to avoid auto indentation
+nmap <F2> :NERDTreeToggle<CR>
+vmap <F8> :call VerilogInstance()<CR>
+nnoremap K :Man <cword> <CR>
+nmap <F5> :call HighlightGroup("OwnSearch0", 0)<CR>
+nmap <F6> :call HighlightGroup("OwnSearch1", 0)<CR>
+nmap <S-F5> :call ClearGroup("OwnSearch0", 0)<CR>
+nmap <S-F6> :call ClearGroup("OwnSearch1", 0)<CR>
+nmap <C-F5> :call HighlightGroup("OwnSearch0", 1)<CR>
+nmap <C-F6> :call HighlightGroup("OwnSearch1", 1)<CR>
+nmap <C-S-F5> :call ClearGroup("OwnSearch0", 1)<CR>
+nmap <C-S-F6> :call ClearGroup("OwnSearch1", 1)<CR>
 if has('nvim')
   tnoremap <Esc> <C-\><C-n>     " in terminal mode, Esc goes to normal mode
 endif
@@ -69,9 +82,11 @@ function! LightLineFilename()
   return expand('%')
 endfunction
 
-set t_Co=256    " vim uses more colors
+set t_Co=256                " vim uses more colors
 set background=dark
 colorscheme gruvbox
+
+let NERDTreeShowHidden=1    " show hidden files in NERDTree by default
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
@@ -82,7 +97,6 @@ function! VerilogInstance() range
   let cmd=a:firstline . "," . a:lastline . "!" . "~/.vim/scripts/verilog_instance.pl"
   execute cmd
 endfunction
-vmap <F8> :call VerilogInstance()<CR>
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
@@ -127,23 +141,11 @@ function! ClearGroup(gr, w)
   endif
   exe cur_win . "wincmd w"
 endfunction
-nmap <F5> :call HighlightGroup("OwnSearch0", 0)<CR>
-nmap <F6> :call HighlightGroup("OwnSearch1", 0)<CR>
-nmap <S-F5> :call ClearGroup("OwnSearch0", 0)<CR>
-nmap <S-F6> :call ClearGroup("OwnSearch1", 0)<CR>
-nmap <C-F5> :call HighlightGroup("OwnSearch0", 1)<CR>
-nmap <C-F6> :call HighlightGroup("OwnSearch1", 1)<CR>
-nmap <C-S-F5> :call ClearGroup("OwnSearch0", 1)<CR>
-nmap <C-S-F6> :call ClearGroup("OwnSearch1", 1)<CR>
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
 " misc
 "--------------------------------------------------------------
-" allow man to be displayed in vim
-runtime! ftplugin/man.vim
-nnoremap K :Man <cword> <CR>
-
 " abreviations
 abbr sigm_print `SIGM_PRINT(`SIGM_NOTICE, ("\n"));<Left><Left><Left><Left><Left><Left>
 "--------------------------------------------------------------
