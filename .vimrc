@@ -110,16 +110,23 @@ endfunction
 set list
 set listchars=nbsp:?
 
-" redifine Todo for more readability
+" redifine Todo highlight group for more readability
 highlight Todo term=standout cterm=bold ctermfg=235 ctermbg=167 gui=bold guifg=#282828 guibg=#fb4934
 
 " highlight extra whitespace
-highlight link ExtraWhitespace Todo
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+highlight link CustomHighlight_TrailingSpace Todo
+match CustomHighlight_TrailingSpace /\s\+$/
+autocmd BufWinEnter * match CustomHighlight_TrailingSpace /\s\+$/
+autocmd InsertEnter * match CustomHighlight_TrailingSpace /\s\+\%#\@<!$/
+autocmd InsertLeave * match CustomHighlight_TrailingSpace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
+
+" always highlight TODO and FIXME no matter the filetype
+highlight link CustomHighlight_Warning Todo
+augroup HiglightTODO
+    autocmd!
+    autocmd WinEnter,VimEnter * :silent! call matchadd('CustomHighlight_Warning', 'TODO\|FIXME', -1)
+augroup END
 
 " hightlight 2 different groups with different colors for readability,
 " F5: pink group; F6: blue group
