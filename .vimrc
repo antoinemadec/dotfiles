@@ -44,10 +44,14 @@ runtime! ftplugin/man.vim       " allow man to be displayed in vim
 "--------------------------------------------------------------
 " mappings
 "--------------------------------------------------------------
-set pastetoggle=<F12>           " press F12 before copying text pasted outside of vim to avoid auto indentation
+" press F12 before copying text pasted outside of vim to avoid auto indentation
+set pastetoggle=<F12>
+" always use tjump instead of tag, query the user when multiple files match a tag
+nnoremap <C-]> g<C-]>
 nmap <F2> :NERDTreeToggle<CR>
 vmap <F8> :call VerilogInstance()<CR>
 nnoremap K :Man <cword> <CR>
+" text highlighting
 nmap <F5> :call HighlightGroup("OwnSearch0", 0)<CR>
 nmap <F6> :call HighlightGroup("OwnSearch1", 0)<CR>
 nmap <S-F5> :call ClearGroup("OwnSearch0", 0)<CR>
