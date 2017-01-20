@@ -1,0 +1,88 @@
+export PATH=${PATH}:~/bin
+
+#########################
+#### Prompt amélioré ####
+#########################
+function _exit()	# function to run upon exit of shell
+{
+    echo -e "${red}A plus dans le bus!\n${nc}"
+}
+trap _exit EXIT
+
+#---------------
+# Shell Prompt
+#---------------
+if tput colors &> /dev/null
+then
+  # see man 4 console_codes
+  # \[ and \] are used in bash prompt (see man bash PROMPTING) to start and
+  # end a sequence character so size of prompt is correctly computed.
+  export COLOR_BLACK="\[\033[0;30m\]"
+  export COLOR_DARKGRAY="\[\033[1;30m\]"
+  export COLOR_RED="\[\033[0;31m\]"
+  export COLOR_LIGHT_RED="\[\033[1;31m\]"
+  export COLOR_GREEN="\[\033[0;32m\]"
+  export COLOR_LIGHT_GREEN="\[\033[1;32m\]"
+  export COLOR_BROWN="\[\033[0;33m\]"
+  export COLOR_YELLOW="\[\033[1;33m\]"
+  export COLOR_BLUE="\[\033[0;34m\]"
+  export COLOR_LIGHT_BLUE="\[\033[1;34m\]"
+  export COLOR_PURPLE="\[\033[0;35m\]"
+  export COLOR_LIGHT_PURPLE="\[\033[1;35m\]"
+  export COLOR_CYAN="\[\033[0;36m\]"
+  export COLOR_LIGHT_CYAN="\[\033[1;36m\]"
+  export COLOR_GRAY="\[\033[0;37m\]"
+  export COLOR_WHITE="\[\033[1;37m\]"
+  export COLOR_NEUTRAL="\[\033[0m\]"
+else
+  export COLOR_BLACK=""
+  export COLOR_DARKGRAY=""
+  export COLOR_RED=""
+  export COLOR_LIGHT_RED=""
+  export COLOR_GREEN=""
+  export COLOR_LIGHT_GREEN=""
+  export COLOR_BROWN=""
+  export COLOR_YELLOW=""
+  export COLOR_BLUE=""
+  export COLOR_LIGHT_BLUE=""
+  export COLOR_PURPLE=""
+  export COLOR_LIGHT_PURPLE=""
+  export COLOR_CYAN=""
+  export COLOR_LIGHT_CYAN=""
+  export COLOR_GRAY=""
+  export COLOR_WHITE=""
+  export COLOR_NEUTRAL=""
+fi
+
+fancy_prompt () {
+  return_code="$?"
+  if [ "$return_code" = 0 ]
+  then
+      pretty_return="${COLOR_LIGHT_GREEN}:)${NC}"
+  else
+      pretty_return="${COLOR_RED}:(${NC}"
+  fi
+  PS1="${COLOR_RED}\u${COLOR_NEUTRAL}@${HILIT}\h${COLOR_NEUTRAL}:${COLOR_YELLOW}\w$pretty_return${COLOR_NEUTRAL} "
+}
+
+if [[ "${DISPLAY#$HOST}" != ":0.0" &&  "${DISPLAY}" != ":0" ]]; then
+    HILIT=${COLOR_LIGHT_BLUE}   # remote machine: prompt will be partly red
+else
+    HILIT=${COLOR_LIGHT_GREEN}  # local machine: prompt will be partly cyan
+fi
+
+# execute xterm_autotitle for each prompt
+PROMPT_COMMAND="fancy_prompt ; $PROMPT_COMMAND"
+
+# copy ip address on nc-madec for DISPLAY export (dynamic IP address issue)
+if ifconfig &> /dev/null
+then
+  echo $(ifconfig | grep inet | head -n1 | sed -e 's/.*addr://' -e 's/ .*//') > ~/madec-laptop_ip.txt
+  rsync ~/madec-laptop_ip.txt madec@nc-madec:~
+fi
+
+# use ag instead of grep for fzf
+if type ag &> /dev/null; then
+   export FZF_DEFAULT_COMMAND='ag -g ""'
+   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+fi

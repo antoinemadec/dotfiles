@@ -1,0 +1,21 @@
+shell -$SHELL
+# display correct 256 colors
+attrcolor b ".I"    # allow bold colors - necessary for some reason
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'   # tell screen how to set colors. AB = background, AF=foreground
+defbce on    # use current bg color for erased chars
+
+altscreen on
+
+# Ctrl + Shift +
+bindkey "^O" eval "split -h" "focus down" "screen"
+bindkey "^E" eval "split -v" "focus right" "screen"
+bindkey "^K" eval "kill" "remove"
+
+# Alt + arrow
+bindkey ^[[1;3A focus up
+bindkey ^[[1;3B focus down
+bindkey ^[[1;3D focus left
+bindkey ^[[1;3C focus right
+
+# launch layout
+layout new
