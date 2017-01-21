@@ -1,8 +1,5 @@
 export PATH=${PATH}:~/bin
 
-#########################
-#### Prompt amélioré ####
-#########################
 function _exit()	# function to run upon exit of shell
 {
     echo -e "${red}A plus dans le bus!\n${nc}"
