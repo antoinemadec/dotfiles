@@ -20,8 +20,10 @@ deploy_core(){
   ln -sv $target $link_name
 }
 
-deploy_core .vimrc
 deploy_core .vim
+deploy_core .vimrc
+deploy_core .vim   .config/nvim
+deploy_core .vimrc .config/nvim/init.vim
 deploy_core .bashrc
 deploy_core .bash_profile
 deploy_core .tmux.conf
