@@ -121,6 +121,9 @@ if type ag &> /dev/null; then
 fi
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# tmux in 256 colors
+alias tmux='tmux -2'
+
 # put custom binaries in ~/bin
 export PATH=${PATH}:~/bin
 for file in ~/bin/completion/*

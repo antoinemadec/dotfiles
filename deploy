@@ -16,6 +16,7 @@ deploy_core(){
   then
     mv "$link_name" dotfiles_bak
   fi
+  mkdir -p "$(dirname $link_name)"
   ln -sv $target $link_name
 }
 
@@ -23,5 +24,6 @@ deploy_core .vimrc
 deploy_core .vim
 deploy_core .bashrc
 deploy_core .bash_profile
+deploy_core .tmux.conf
 deploy_core .screenrc
 deploy_core .config/i3/config
