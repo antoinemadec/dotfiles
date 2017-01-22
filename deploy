@@ -21,6 +21,7 @@ deploy_core(){
 
 deploy_core .vimrc
 deploy_core .vim
-deploy_core .config/i3/config
 deploy_core .bashrc
+deploy_core .bash_profile
 deploy_core .screenrc
+deploy_core .config/i3/config

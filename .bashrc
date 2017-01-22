@@ -44,7 +44,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
 alias ll='ls -alF'
@@ -54,7 +54,6 @@ alias l='ls -CF'
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -122,11 +121,19 @@ if type ag &> /dev/null; then
 fi
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# put custom binaries in ~/bin
 export PATH=${PATH}:~/bin
+for file in ~/bin/completion/*
+do
+  [ -f $file ] && source $file
+done
+
+# cd --
+[ -f ~/bin/acd_func.sh ] && source ~/bin/acd_func.sh
 
 # Some more alias to avoid making mistakes:
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
-[ -f ~./bashrc.local ] && source ~/.bashrc.local
+[ -f ~/.bashrc.local ] && source ~/.bashrc.local
