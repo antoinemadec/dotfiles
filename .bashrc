@@ -8,6 +8,8 @@ case $- in
       *) return;;
 esac
 
+export SHELL=/bin/bash
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -65,6 +67,19 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+#--------------------------------------------------------------
+# xterm title
+#--------------------------------------------------------------
+XTERM_TITLE='${USER}@${HOSTNAME/.*}:${PWD/$HOME/\~}'
+case "$TERM" in
+  xterm*|rxvt*)
+    PROMPT_COMMAND='eval "echo -ne \"\033]0;${XTERM_TITLE}\007\""'
+    ;;
+  *)
+    ;;
+esac
+#--------------------------------------------------------------
 
 #--------------------------------------------------------------
 # prompt
