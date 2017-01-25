@@ -36,6 +36,7 @@ set mouse=a                     " use mouse in all mode. Allow to resize and cop
 set ttyfast                     " improves smoothness of redrawing when there are multiple windows
 set tags=tags;                  " tries to locate the 'tags' file, it first looks at the current directory, then the parent directory, etc
 set title                       " change terminal title
+set ttimeoutlen=50              " time (ms) waited for a key code or mapped key sequence to complete. Allow faster insert to normal mode
 filetype plugin on              " enable loading the plugin files for specific file types
 filetype plugin indent on       " enables filetype-specific indent scripts
 runtime! ftplugin/man.vim       " allow man to be displayed in vim
@@ -123,7 +124,7 @@ endfunction
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
-" highlight
+" highlighting
 "--------------------------------------------------------------
 " highlight non breakable space
 set list
