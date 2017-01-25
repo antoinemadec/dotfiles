@@ -71,19 +71,38 @@ endif
 " lightline
 set laststatus=2
 let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
-      \ 'component_function': {
-      \   'filename': 'LightLineFilename'
-      \ },
-      \ 'active': {
-      \    'right': [ [ 'syntastic', 'lineinfo' ],
-      \                          [ 'percent' ],
-      \                          [ 'filetype' ] ]
-      \ },
-      \ }
+    \ 'colorscheme': 'gruvbox',
+    \ 'active': {
+    \   'right': [ [ 'syntastic', 'lineinfo' ],
+    \                          [ 'percent' ],
+    \                          [ 'detecttrailingspace', 'filetype' ] ]
+    \ },
+    \ 'component_function': {
+    \   'detecttrailingspace': 'DetectTrailingSpace',
+    \   'filename': 'LightLineFilename'
+    \ },
+    \ }
+" TODO: use expand to highlight trailing spaces in lightline
+"    \ 'component_expand': {
+"    \   'detecttrailingspace': 'DetectTrailingSpace'
+"    \ },
+"    \ 'component_type': {
+"    \   'detecttrailingspace': 'error'
+"    \ },
 
 function! LightLineFilename()
   return expand('%')
+endfunction
+function! DetectTrailingSpace()
+  if mode() == 'n'
+    let save_cursor = getcurpos()
+    call cursor(1,1)
+    let search_result = search("  *$", "c")
+    call setpos('.', save_cursor)
+    return search_result ? "trailing_space" : ""
+  else
+    return ""
+  endif
 endfunction
 
 set t_Co=256                " vim uses more colors
