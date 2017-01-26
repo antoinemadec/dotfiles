@@ -209,9 +209,10 @@ bindsym --release Print exec scrot -e 'mv $f /tmp/ && pinta /tmp/$f'
 bindsym --release shift+Print exec scrot -s -e 'mv $f /tmp/ && pinta /tmp/$f'
 
 #------------------------------
-# always floating windows
+# enable/disable floating windows
 #------------------------------
 #for_window [class="Gvim"] floating enable
+for_window [class="rdesktop"] floating disable
 
 #------------------------------
 # assign program to workspace
@@ -221,18 +222,11 @@ assign [class="Evolution"] 1
 #------------------------------
 # exec always at startup
 #------------------------------
-exec_always evolution
+exec --no-startup-id i3-msg 'workspace 1; layout stacked; exec evolution; exec sky'
+exec --no-startup-id i3-msg 'workspace 10; exec firefox'
 # network widget
 exec_always nm-applet
 # scratchpad
 for_window[class="Nautilus"] move window to scratchpad
 exec_always i3-msg 'exec (nautilus --no-desktop)&'
-#for_window[class="Gnome-calculator"] move window to scratchpad
-#exec_always i3-msg 'exec (gnome-calculator)&'
-#for_window[class="Gnome-calendar"] move window to scratchpad
-#exec_always i3-msg 'exec (gnome-calendar)&'
-for_window[class="rdesktop"] move window to scratchpad
-exec_always i3-msg 'exec (windows_rdp)&'
-#for_window[title="i3_scratchpad"] move window to scratchpad
-#exec_always i3-msg 'exec (google-chrome-stable i3_scratchpad)&'
 #==============================================================
