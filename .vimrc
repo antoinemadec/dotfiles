@@ -74,13 +74,14 @@ set laststatus=2
 let g:lightline = {
     \ 'colorscheme': 'gruvbox',
     \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'myreadonly', 'relativepath', 'modified' ] ],
     \   'right': [ [ 'syntastic', 'lineinfo' ],
     \                          [ 'percent' ],
     \                          [ 'detecttrailingspace', 'filetype' ] ]
     \ },
     \ 'component_function': {
-    \   'detecttrailingspace': 'DetectTrailingSpace',
-    \   'filename': 'LightLineFilename'
+    \   'detecttrailingspace': 'DetectTrailingSpace'
     \ },
     \ }
 " TODO: use expand to highlight trailing spaces in lightline
@@ -91,9 +92,6 @@ let g:lightline = {
 "    \   'detecttrailingspace': 'error'
 "    \ },
 
-function! LightLineFilename()
-  return expand('%')
-endfunction
 function! DetectTrailingSpace()
   if mode() == 'n'
     let save_cursor = getcurpos()
