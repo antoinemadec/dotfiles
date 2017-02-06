@@ -29,3 +29,4 @@ deploy_core .bash_profile
 deploy_core .tmux.conf
 deploy_core .screenrc
 deploy_core .config/i3/config
+deploy_core .config/terminator/config

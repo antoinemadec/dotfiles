@@ -1,0 +1,61 @@
+[global_config]
+  title_font = Sans 18
+[keybindings]
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    #----------------------------------------------------------
+    # gruvbox-dark theme
+    #----------------------------------------------------------
+    background_color = "#282828"
+    cursor_color = "#7c6f64"
+    foreground_color = "#ebdbb2"
+    palette = "#181818:#cc241d:#98971a:#d79921:#458588:#b16286:#689d6a:#a89984:#928374:#fb4934:#b8bb26:#fabd2f:#83a598:#d3869b:#8ec07c:#ebdbb2"
+    #----------------------------------------------------------
+    background_image = None
+    font = DejaVu Sans Mono for Powerline 10
+    scroll_on_output = False
+    show_titlebar = False
+    use_system_font = False
+  [[nc-madec]]
+    #----------------------------------------------------------
+    # gruvbox-dark theme
+    #----------------------------------------------------------
+    background_color = "#282828"
+    cursor_color = "#7c6f64"
+    foreground_color = "#ebdbb2"
+    palette = "#181818:#cc241d:#98971a:#d79921:#458588:#b16286:#689d6a:#a89984:#928374:#fb4934:#b8bb26:#fabd2f:#83a598:#d3869b:#8ec07c:#ebdbb2"
+    #----------------------------------------------------------
+    background_image = None
+    custom_command = ssh madec@nc-madec-co6
+    font = DejaVu Sans Mono for Powerline 10
+    login_shell = True
+    scroll_on_output = False
+    show_titlebar = False
+    use_custom_command = True
+    use_system_font = False
+  [[nc-madec_rdp]]
+    #----------------------------------------------------------
+    # gruvbox-dark theme
+    #----------------------------------------------------------
+    background_color = "#282828"
+    cursor_color = "#7c6f64"
+    foreground_color = "#ebdbb2"
+    palette = "#181818:#cc241d:#98971a:#d79921:#458588:#b16286:#689d6a:#a89984:#928374:#fb4934:#b8bb26:#fabd2f:#83a598:#d3869b:#8ec07c:#ebdbb2"
+    #----------------------------------------------------------
+    background_image = None
+    custom_command = ssh -X madec@nc-madec-co6
+    font = DejaVu Sans Mono for Powerline 10
+    login_shell = True
+    scroll_on_output = False
+    show_titlebar = False
+    use_custom_command = True
+    use_system_font = False
