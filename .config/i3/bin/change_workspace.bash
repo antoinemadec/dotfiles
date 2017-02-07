@@ -4,32 +4,20 @@ set -e
 # this script assumes we are always using dual screen
 
 input="$1"
-cur_dir="$(dirname $0)"
-file="current_workspace.txt"
-cur_workspace=1
-if [ -f "$file" ]
-then
-  cur_workspace=$(cat $file)
-fi
-ws0=$((cur_workspace))
-ws1=$((cur_workspace+1))
+focused_ws=$(i3-msg -t get_workspaces                   \
+              | jq '.[] | select(.focused==true).name'  \
+              | cut -d"\"" -f2)
+ws0=$(((focused_ws-1)/2*2 + 1))
+ws1=$((ws0+1))
 
-if [ "$input" = 0 ]
+if [ "$input" = 0 ] && [ $ws0 -ge 3 ]
 then
-  # left
-  if [ $cur_workspace -ge 3 ]
-  then
-    ws0=$((cur_workspace-2))
-    ws1=$((cur_workspace-1))
-  fi
-else
-  # right
-  if [ $cur_workspace -le 7 ]
-  then
-    ws0=$((cur_workspace+2))
-    ws1=$((cur_workspace+3))
-  fi
+  ((ws0-=2))
+  ((ws1-=2))
+elif [ "$input" = 1 ] && [ $ws0 -le 7 ]
+then
+  ((ws0+=2))
+  ((ws1+=2))
 fi
 
 i3-msg "workspace $ws1; workspace $ws0"
-echo $ws0 > $file

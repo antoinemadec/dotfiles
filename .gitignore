@@ -2,4 +2,3 @@
 .vim/plugins_by_vimplug/
 .vim/init.vim
 .*swp
-.config/i3/bin/current_workspace.txt
