@@ -134,7 +134,6 @@ if type ag &> /dev/null; then
    export FZF_DEFAULT_COMMAND='ag -g ""'
    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # tmux in 256 colors
 alias tmux='tmux -2'
@@ -155,3 +154,4 @@ alias cp='cp -i'
 alias mv='mv -i'
 
 [ -f ~/.bashrc.local ] && source ~/.bashrc.local
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
