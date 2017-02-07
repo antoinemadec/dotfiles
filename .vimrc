@@ -9,6 +9,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegu
 Plug 'vhda/verilog_systemverilog.vim'                                                       " Vim Syntax Plugin for Verilog and SystemVerilog
 Plug 'vcscommand.vim'                                                                       " diff local CVS SVN and GIT files with current version on the server
 Plug 'bufexplorer.zip'                                                                      " BufExplorer Plugin for Vim (use \be)
+Plug 'PotatoesMaster/i3-vim-syntax' " i3/config highlighting
 call plug#end()
 
 if empty(glob("~/.vim/plugins_by_vimplug"))

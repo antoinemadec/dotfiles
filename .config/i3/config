@@ -162,12 +162,14 @@ bar {
 #==============================================================
 # custom
 #==============================================================
+set $wallpaper ~/.config/i3/sf.png
+
 #------------------------------
 # screen
 #------------------------------
 exec_always /home/antoine/.screenlayout/i3_dualmonitor.sh
 exec_always --no-startup-id dual-screen
-exec_always feh --bg-scale ~/Pictures/wallpaper.jpg
+exec_always feh --bg-scale $wallpaper
 workspace 1 output DP1-1
 workspace 2 output DP1-2
 workspace 3 output DP1-1
@@ -189,7 +191,7 @@ bindsym $mod+Next move workspace to output left
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 # locker
-bindsym $mod+Shift+w exec i3lock -i ~/Pictures/wallpaper.png
+bindsym $mod+Shift+w exec i3lock -i $wallpaper -t
 # terminals
 bindsym $mod+Return exec terminator -p nc-madec
 bindsym $mod+shift+Return exec i3-sensible-terminal
