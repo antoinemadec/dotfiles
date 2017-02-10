@@ -40,6 +40,7 @@ set title                       " change terminal title
 set ttimeoutlen=50              " time (ms) waited for a key code or mapped key sequence to complete. Allow faster insert to normal mode
 set complete=.,w,b,u,i          " specifies how keyword completion works when CTRL-P or CTRL-N are used
 set showcmd                     " in Visual mode the size of the selected area is shown
+set viminfo='100,f1,<50,s10     " save 100 lines of marks, 50 lines of registers, max size of item 10kB, hlsearch active when loading file
 filetype plugin on              " enable loading the plugin files for specific file types
 filetype plugin indent on       " enables filetype-specific indent scripts
 runtime! ftplugin/man.vim       " allow man to be displayed in vim
@@ -180,4 +181,11 @@ endfunction
 "--------------------------------------------------------------
 " abreviations
 abbr sigm_print `SIGM_PRINT(`SIGM_NOTICE, ("\n"));<Left><Left><Left><Left><Left><Left>
+
+" redirection of vim commands in clipboard
+command! -nargs=1 RediCmdToClipboard call RediCmdToClipboard(<f-args>)
+function! RediCmdToClipboard(cmd)
+  let a = 'redi @* | ' . a:cmd . ' | redi END'
+  execute a
+endfunction
 "--------------------------------------------------------------
