@@ -39,6 +39,7 @@ set tags=tags;                  " tries to locate the 'tags' file, it first look
 set title                       " change terminal title
 set ttimeoutlen=50              " time (ms) waited for a key code or mapped key sequence to complete. Allow faster insert to normal mode
 set complete=.,w,b,u,i          " specifies how keyword completion works when CTRL-P or CTRL-N are used
+set showcmd                     " in Visual mode the size of the selected area is shown
 filetype plugin on              " enable loading the plugin files for specific file types
 filetype plugin indent on       " enables filetype-specific indent scripts
 runtime! ftplugin/man.vim       " allow man to be displayed in vim
