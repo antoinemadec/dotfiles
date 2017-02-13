@@ -98,7 +98,7 @@ let g:lightline = {
 
 function! DetectTrailingSpace()
   if mode() == 'n'
-    let save_cursor = getcurpos()
+    let save_cursor = getpos('.')
     call cursor(1,1)
     let search_result = search("  *$", "c")
     call setpos('.', save_cursor)
