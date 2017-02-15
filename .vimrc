@@ -3,7 +3,9 @@
 "--------------------------------------------------------------
 call plug#begin('~/.vim/plugins_by_vimplug')
 Plug 'morhetz/gruvbox'                                                                      " colorscheme
-Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'                             " file navigator
+if v:version >= 740
+  Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'                           " file navigator
+endif
 Plug 'itchyny/lightline.vim' | Plug 'shinchu/lightline-gruvbox.vim'                         " status line
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim' " fuzzy search in a dir
 Plug 'vhda/verilog_systemverilog.vim'                                                       " Vim Syntax Plugin for Verilog and SystemVerilog
