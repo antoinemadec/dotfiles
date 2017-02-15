@@ -31,8 +31,10 @@ set incsearch                   " while typing a search command, show where the 
 set expandtab                   " tab expand to space
 set tabstop=4                   " number of spaces that a <Tab> in the file counts for
 set shiftwidth=2                " Number of spaces to use for each step of (auto)indent.  Used for 'cindent', >>, <<, etc
-set relativenumber              " Show the line number relative to the line with the cursor
-set numberwidth=2               " number of columns to use for the line number
+if exists("&relativenumber")
+  set relativenumber            " Show the line number relative to the line with the cursor
+  set numberwidth=2             " number of columns to use for the line number
+endif
 set mouse=a                     " use mouse in all mode. Allow to resize and copy/paste without selecting text outside of the window.
 set ttyfast                     " improves smoothness of redrawing when there are multiple windows
 set tags=tags;                  " tries to locate the 'tags' file, it first looks at the current directory, then the parent directory, etc
