@@ -8,6 +8,7 @@ if v:version >= 704
 endif
 Plug 'itchyny/lightline.vim' | Plug 'shinchu/lightline-gruvbox.vim'                         " status line
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim' " fuzzy search in a dir
+Plug 'junegunn/vim-easy-align'                                                              " easy alignement of line fields
 Plug 'vhda/verilog_systemverilog.vim'                                                       " Vim Syntax Plugin for Verilog and SystemVerilog
 Plug 'vcscommand.vim'                                                                       " diff local CVS SVN and GIT files with current version on the server
 Plug 'bufexplorer.zip'                                                                      " BufExplorer Plugin for Vim (use \be)
@@ -54,6 +55,10 @@ runtime! ftplugin/man.vim       " allow man to be displayed in vim
 "--------------------------------------------------------------
 " mappings
 "--------------------------------------------------------------
+" start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 " press F12 before copying text pasted outside of vim to avoid auto indentation
 set pastetoggle=<F12>
 " always use tjump instead of tag, query the user when multiple files match a tag
