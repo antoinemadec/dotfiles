@@ -173,7 +173,7 @@ bar {
 # get rid of all borders (needed for i3-gaps)
 #for_window [class="^.*"] border pixel 0
 
-set $wallpaper ~/.config/i3/sf.png
+set $wallpaper ~/.config/i3/wallpaper/94.jpg
 
 #------------------------------
 # screen
