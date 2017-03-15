@@ -86,25 +86,25 @@ endif
 " lightline
 set laststatus=2
 let g:lightline = {
-    \ 'colorscheme': 'gruvbox',
-    \ 'active': {
-    \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'myreadonly', 'relativepath', 'modified' ] ],
-    \   'right': [ [ 'syntastic', 'lineinfo' ],
-    \                          [ 'percent' ],
-    \                          [ 'detecttrailingspace', 'filetype' ] ]
-    \ },
-    \ 'component_function': {
-    \   'detecttrailingspace': 'DetectTrailingSpace'
-    \ },
-    \ }
+  \ 'colorscheme': 'gruvbox',
+  \ 'active': {
+  \   'left': [ [ 'mode', 'paste' ],
+  \             [ 'myreadonly', 'relativepath', 'modified' ] ],
+  \   'right': [ [ 'syntastic', 'lineinfo' ],
+  \                          [ 'percent' ],
+  \                          [ 'detecttrailingspace', 'filetype' ] ]
+  \ },
+  \ 'component_function': {
+  \   'detecttrailingspace': 'DetectTrailingSpace'
+  \ },
+  \ }
 " TODO: use expand to highlight trailing spaces in lightline
-"    \ 'component_expand': {
-"    \   'detecttrailingspace': 'DetectTrailingSpace'
-"    \ },
-"    \ 'component_type': {
-"    \   'detecttrailingspace': 'error'
-"    \ },
+"  \ 'component_expand': {
+"  \   'detecttrailingspace': 'DetectTrailingSpace'
+"  \ },
+"  \ 'component_type': {
+"  \   'detecttrailingspace': 'error'
+"  \ },
 
 function! DetectTrailingSpace()
   if mode() == 'n'
@@ -156,8 +156,8 @@ autocmd BufWinLeave * call clearmatches()
 " always highlight TODO and FIXME no matter the filetype
 highlight link CustomHighlight_Warning Todo
 augroup HiglightTODO
-    autocmd!
-    autocmd WinEnter,VimEnter * :silent! call matchadd('CustomHighlight_Warning', 'TODO\|FIXME', -1)
+  autocmd!
+  autocmd WinEnter,VimEnter * :silent! call matchadd('CustomHighlight_Warning', 'TODO\|FIXME', -1)
 augroup END
 
 " hightlight 2 different groups with different colors for readability,
@@ -183,6 +183,26 @@ function! ClearGroup(gr, w)
     windo execute a
   endif
   exe cur_win . "wincmd w"
+endfunction
+"--------------------------------------------------------------
+
+"--------------------------------------------------------------
+" folding
+"--------------------------------------------------------------
+set foldmethod=indent
+set foldnestmax=10
+set nofoldenable
+nmap zi :call ToggleFoldEnable()<CR>
+function! ToggleFoldEnable()
+  let cur_foldlevel = &foldlevel
+  set foldenable!
+  if &foldenable
+    execute "normal zR"
+    let &foldcolumn = &foldlevel + 1
+    let &foldlevel = cur_foldlevel
+  else
+    set foldcolumn=0
+  endif
 endfunction
 "--------------------------------------------------------------
 
