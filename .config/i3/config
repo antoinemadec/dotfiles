@@ -228,6 +228,7 @@ bindsym --release shift+Print exec scrot -s -e 'mv $f /tmp/ && pinta /tmp/$f'
 # enable/disable floating windows
 #------------------------------
 for_window [class="rdesktop"] floating disable
+for_window [class="Vncviewer"] floating enable
 
 #------------------------------
 # assign program to workspace
