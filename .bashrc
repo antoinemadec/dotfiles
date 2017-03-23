@@ -121,7 +121,7 @@ fancy_prompt () {
   GIT_PS1_SHOWSTASHSTATE=true
   GIT_PS1_SHOWUPSTREAM="auto"
   GIT_PS1_DESCRIBE_STYLE="branch"
-  local git=$(__git_ps1 "${COLOR_NEUTRAL}on ${COLOR_CYAN}%s${COLOR_NEUTRAL}" 2> /dev/null)
+  local git=$(__git_ps1 "${COLOR_NEUTRAL}on ${COLOR_LIGHT_CYAN}%s${COLOR_NEUTRAL}" 2> /dev/null)
   export PS1="${COLOR_RED}\u${COLOR_NEUTRAL}@${HILIT}\h${COLOR_NEUTRAL}:${COLOR_YELLOW}\w $git\n$arrow${COLOR_NEUTRAL} "
 }
 
