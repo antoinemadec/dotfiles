@@ -112,17 +112,23 @@ fancy_prompt () {
   return_code="$?"
   if [ "$return_code" = 0 ]
   then
-      pretty_return="${COLOR_LIGHT_GREEN}:)${NC}"
+      local arrow="${COLOR_LIGHT_GREEN}"
   else
-      pretty_return="${COLOR_RED}:(${NC}"
+      local arrow="${COLOR_RED}"
   fi
-  PS1="${COLOR_RED}\u${COLOR_NEUTRAL}@${HILIT}\h${COLOR_NEUTRAL}:${COLOR_YELLOW}\w$pretty_return${COLOR_NEUTRAL} "
+  local arrow+=">"
+  GIT_PS1_SHOWDIRTYSTATE=true
+  GIT_PS1_SHOWSTASHSTATE=true
+  GIT_PS1_SHOWUPSTREAM="auto"
+  GIT_PS1_DESCRIBE_STYLE="branch"
+  local git=$(__git_ps1 "${COLOR_NEUTRAL}on ${COLOR_CYAN}%s${COLOR_NEUTRAL}" 2> /dev/null)
+  export PS1="${COLOR_RED}\u${COLOR_NEUTRAL}@${HILIT}\h${COLOR_NEUTRAL}:${COLOR_YELLOW}\w $git\n$arrow${COLOR_NEUTRAL} "
 }
 
 if [[ "${DISPLAY#$HOST}" != ":0.0" &&  "${DISPLAY}" != ":0" ]]; then
-    HILIT=${COLOR_LIGHT_BLUE}   # remote machine: prompt will be partly red
+    HILIT=${COLOR_LIGHT_BLUE}   # remote machine
 else
-    HILIT=${COLOR_LIGHT_GREEN}  # local machine: prompt will be partly cyan
+    HILIT=${COLOR_LIGHT_GREEN}  # local machine
 fi
 
 # execute xterm_autotitle for each prompt
