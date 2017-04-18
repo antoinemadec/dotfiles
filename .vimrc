@@ -55,17 +55,17 @@ runtime! ftplugin/man.vim       " allow man to be displayed in vim
 "--------------------------------------------------------------
 " mappings
 "--------------------------------------------------------------
+" open man page in vim
+nnoremap K :Man <cword> <CR>
+" always use tjump instead of tag, query the user when multiple files match a tag
+nnoremap <C-]> g<C-]>
 " start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 " start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
-" press F12 before copying text pasted outside of vim to avoid auto indentation
-set pastetoggle=<F12>
-" always use tjump instead of tag, query the user when multiple files match a tag
-nnoremap <C-]> g<C-]>
 nmap <F2> :NERDTreeToggle<CR>
-vmap <F8> :call VerilogInstance()<CR>
-nnoremap K :Man <cword> <CR>
+" get rid of trailing spaces
+nnoremap <silent> <F3> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 " text highlighting
 nmap <F5> :call HighlightGroup("OwnSearch0", 0)<CR>
 nmap <F6> :call HighlightGroup("OwnSearch1", 0)<CR>
@@ -75,6 +75,10 @@ nmap <C-F5> :call HighlightGroup("OwnSearch0", 1)<CR>
 nmap <C-F6> :call HighlightGroup("OwnSearch1", 1)<CR>
 nmap <C-S-F5> :call ClearGroup("OwnSearch0", 1)<CR>
 nmap <C-S-F6> :call ClearGroup("OwnSearch1", 1)<CR>
+" autoinstantiate selected IO definition
+vmap <F8> :call VerilogInstance()<CR>
+" press F12 before copying text pasted outside of vim to avoid auto indentation
+set pastetoggle=<F12>
 if has('nvim')
   tnoremap <Esc> <C-\><C-n>     " in terminal mode, Esc goes to normal mode
 endif
