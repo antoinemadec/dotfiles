@@ -23,6 +23,11 @@ endif
 "--------------------------------------------------------------
 " vim options
 "--------------------------------------------------------------
+if has('nvim')
+  " TODO wait for NVIM support of clipboard=autoselect
+  " in order to make mouse=a copy/paste work
+  set clipboard+=unnamedplus
+end
 set nobackup                    " don't keep a backup file
 set backspace=2                 " allow backspacing over everything in insert mode
 set textwidth=0                 " don't wrap words by default
@@ -79,9 +84,9 @@ nmap <C-S-F6> :call ClearGroup("OwnSearch1", 1)<CR>
 vmap <F8> :call VerilogInstance()<CR>
 " press F12 before copying text pasted outside of vim to avoid auto indentation
 set pastetoggle=<F12>
-if has('nvim')
-  tnoremap <Esc> <C-\><C-n>     " in terminal mode, Esc goes to normal mode
-endif
+"if has('nvim')
+"  tnoremap <Esc> <C-\><C-n>     " in terminal mode, Esc goes to normal mode
+"endif
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------

@@ -135,14 +135,29 @@ fi
 PROMPT_COMMAND="fancy_prompt ; $PROMPT_COMMAND"
 #--------------------------------------------------------------
 
+#--------------------------------------------------------------
+# custom aliases
+#--------------------------------------------------------------
+# tmux in 256 colors
+alias tmux='tmux -2'
+
+# Some more alias to avoid making mistakes:
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+# use nvim
+if type nvim &> /dev/null
+then
+  alias vim='nvim'
+fi
+#--------------------------------------------------------------
+
 # fzf: fuzzy search
 if type ag &> /dev/null; then
    export FZF_DEFAULT_COMMAND='ag -g ""'
    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
-
-# tmux in 256 colors
-alias tmux='tmux -2'
 
 # put custom binaries in ~/bin
 export PATH=${PATH}:~/bin
@@ -153,11 +168,6 @@ done
 
 # cd --
 [ -f ~/bin/acd_func.sh ] && source ~/bin/acd_func.sh
-
-# Some more alias to avoid making mistakes:
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
 
 [ -f ~/.bashrc.local ] && source ~/.bashrc.local
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
