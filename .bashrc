@@ -146,11 +146,11 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
-# use nvim
-if type nvim &> /dev/null
-then
-  alias vim='nvim'
-fi
+## use nvim
+#if type nvim &> /dev/null
+#then
+#  alias vim='nvim'
+#fi
 #--------------------------------------------------------------
 
 # fzf: fuzzy search
