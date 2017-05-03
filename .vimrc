@@ -227,4 +227,7 @@ function! RediCmdToClipboard(cmd)
   let a = 'redi @* | ' . a:cmd . ' | redi END'
   execute a
 endfunction
+
+" set ft=sh for *.bashrc files
+au BufNewFile,BufRead *.bashrc* call SetFileTypeSH("bash")
 "--------------------------------------------------------------
