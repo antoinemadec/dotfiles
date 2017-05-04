@@ -1,0 +1,5 @@
+#!/bin/bash
+
+ssh_opt="$@"
+path=$(pwd)
+ssh -t $ssh_opt "cd $path ; exec $SHELL -i"

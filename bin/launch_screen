@@ -1,0 +1,10 @@
+#!/bin/bash
+
+first_detached_screen_list="$(screen -list | grep Detached | head -n 1 | cut -f 2)"
+
+if [ "$first_detached_screen_list" != "" ]
+then
+  screen -x $first_detached_screen_list
+else
+  screen
+fi

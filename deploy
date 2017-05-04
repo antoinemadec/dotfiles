@@ -33,3 +33,4 @@ deploy_core .config/terminator
 deploy_core .config/htop
 deploy_core .ctags
 deploy_core .screenlayout
+deploy_core bin

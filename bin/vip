@@ -1,0 +1,21 @@
+#!/bin/bash
+
+cd /projects/video_ip/madec
+
+if [ "$1" = "-list" ]
+then
+  echo */ | sed 's#/##g'
+  exit 0
+else
+  dir="$1"
+  [ "$dir" = "" ] && dir="trunk"
+  cd "$dir"
+  export W="$(pwd)"
+fi
+
+source /utils/scripts/verilog.bashrc
+source /utils/scripts/simvision.bashrc
+source /utils/scripts/UXE.bashrc
+source /utils/scripts/Veloce.bashrc
+
+exec $SHELL -i

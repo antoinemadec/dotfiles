@@ -1,0 +1,20 @@
+#!/bin/tcsh
+
+
+set prosx7_list=`ls /project/ProSX7/worktrees | grep madec | sed 's/madec.//'`
+
+set checkout=""
+if ( "$argv[1]" == "-list" ) then
+  echo "$prosx7_list"
+  exit 0
+else
+  set checkout="$argv[1]"
+endif
+
+set p=`echo $checkout | sed 's/\..*//'`
+set s=`echo $checkout | sed 's/.*\.//'`
+( echo $checkout | grep -q '\.' ) || set s=''
+
+source /tools/utils/cadenv/rc/sha.tcshrc
+module load tflow
+tgo -a ProSX7 -p "$p" -suffix "$s" -exec "source /utils/scripts/Veloce.bashrc; bash -i"

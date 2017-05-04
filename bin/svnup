@@ -1,0 +1,5 @@
+#!/bin/bash
+
+svn up > svnup.log
+svn st > svnst.log
+grep -v '?' svnst.log

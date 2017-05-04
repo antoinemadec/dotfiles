@@ -1,0 +1,2 @@
+#!/bin/bash
+ps -ef | sed -e 's/.*..:..:.. //' -e 's/ .*//' | sort | uniq -c | sort -n
