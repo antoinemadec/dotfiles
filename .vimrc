@@ -10,8 +10,8 @@ Plug 'itchyny/lightline.vim' | Plug 'shinchu/lightline-gruvbox.vim'             
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim' " fuzzy search in a dir
 Plug 'junegunn/vim-easy-align'                                                              " easy alignement of line fields
 Plug 'vhda/verilog_systemverilog.vim'                                                       " Vim Syntax Plugin for Verilog and SystemVerilog
-Plug 'vcscommand.vim'                                                                       " diff local CVS SVN and GIT files with current version on the server
-Plug 'bufexplorer.zip'                                                                      " BufExplorer Plugin for Vim (use \be)
+Plug 'vim-scripts/vcscommand.vim'                                                           " diff local CVS SVN and GIT files with current version on the server
+Plug 'vim-scripts/bufexplorer.zip'                                                          " BufExplorer Plugin for Vim (use \be)
 Plug 'PotatoesMaster/i3-vim-syntax'                                                         " i3/config highlighting
 call plug#end()
 
