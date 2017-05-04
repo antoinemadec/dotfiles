@@ -1,0 +1,3 @@
+#!/bin/bash
+
+nohup test_ping_nc-madec_core &

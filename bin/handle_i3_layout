@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# sourcing the next
+layout_array=("laptop" "dualmonitor" "hdmi")
+
+layout_number=${#layout_array[@]}
+current_value="$(cat /home/antoine/bin/i3_layout.txt | cut -d ' ' -f 1)"
+
+if [ "$current_value" = "" ]
+then
+  new_value=0
+else
+  new_value=$(( (current_value + 1)%layout_number ))
+fi
+new_layout="${layout_array[$new_value]}"
+
+/home/antoine/.screenlayout/i3_$new_layout.sh
+echo "$new_value $new_layout" > /home/antoine/bin/i3_layout.txt

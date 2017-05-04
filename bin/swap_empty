@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo "Swap off: empty swap"
+sudo swapoff -a
+echo "Swap on: re enable swap"
+sudo swapon -a
