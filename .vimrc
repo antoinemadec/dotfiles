@@ -60,6 +60,8 @@ runtime! ftplugin/man.vim       " allow man to be displayed in vim
 "--------------------------------------------------------------
 " mappings
 "--------------------------------------------------------------
+" save file as sudo when vim has not been run with sudo
+cmap w!! w !sudo tee > /dev/null %
 " open man page in vim
 nnoremap K :Man <cword> <CR>
 " always use tjump instead of tag, query the user when multiple files match a tag
