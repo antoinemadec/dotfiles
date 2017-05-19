@@ -1,0 +1,7 @@
+[submodule ".config/i3/bin/i3lock/i3lock-color"]
+	path = .config/i3/bin/i3lock/i3lock-color
+	url = https://github.com/chrjguill/i3lock-color
+[submodule ".config/i3/bin/i3lock/i3lock-fancy"]
+	path = .config/i3/bin/i3lock/i3lock-fancy
+	url = https://github.com/meskarune/i3lock-fancy
+	branch = dualmonitors
