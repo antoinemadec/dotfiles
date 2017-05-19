@@ -5,7 +5,7 @@ set -e
 
 input="$1"
 focused_ws=$(i3-msg -t get_workspaces                   \
-              | jq '.[] | select(.focused==true).name'  \
+              | jq '.[] | select(.focused==true).num'   \
               | cut -d"\"" -f2)
 ws0=$(((focused_ws-1)/2*2 + 1))
 ws1=$((ws0+1))
@@ -20,4 +20,4 @@ then
   ((ws1+=2))
 fi
 
-i3-msg "workspace $ws1; workspace $ws0"
+i3-msg "workspace number $ws1; workspace number $ws0"
