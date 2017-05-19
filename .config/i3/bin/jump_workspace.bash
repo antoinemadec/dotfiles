@@ -1,11 +1,15 @@
 #!/bin/bash
 
 # user input is (<nb>:)<name>
-# if <nb>:<name> exist:
-#   jump into workspaces mathing .*:<name>
+#
+# if workspace <nb>:<name> already exists:
+#   jump into all workspaces mathing .*:<name>
 # else:
-#   if <nb> is defined
-#       create workspace <nb>:<name>
+#   if <nb> is defined:
+#       if workspace number <nb> already exists:
+#           rename workspace <nb>:<name>
+#       else:
+#           create workspace <nb>:<name>
 #   else
 #       create workspace <next_available_odd_nb>:<name>
 #       create workspace <next_available_even_nb>:<name>
@@ -47,7 +51,7 @@ find_consecutive_available_odd_even_pair()
   done
 }
 
-ws="$( gen_workspaces  | rofi -dmenu -p "workspace:")"
+ws="$(gen_workspaces  | rofi -dmenu -p "workspace:")"
 
 ws_nb=""
 (echo "$ws" | grep -q ':') && ws_nb="$(echo "$ws" | cut -d ':' -f 1)"
@@ -64,7 +68,9 @@ then
 else
   if [ "$ws_nb" != "" ]
   then
-    i3-msg "workspace $ws"
+    number_already_exist=0
+    i3-msg "workspace number $ws_nb"
+    i3-msg "rename workspace to $ws"
   elif [ "$ws" != "" ]
   then
     ws_nb="$(find_consecutive_available_odd_even_pair)"
