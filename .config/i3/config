@@ -193,7 +193,7 @@ bindsym $mod+Next move workspace to output left
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 # locker
-bindsym $mod+Shift+l exec "PATH=~/.config/i3/bin/i3lock/i3lock-color:$PATH ~/.config/i3/bin/i3lock/i3lock-fancy/lock"
+bindsym $mod+Shift+l exec "PATH=~/.config/i3/bin/i3lock/i3lock-color:$PATH ~/.config/i3/bin/i3lock/i3lock-fancy/lock -f Lato-Hairline"
 # terminals
 bindsym $mod+Return exec terminator -p nc-madec
 bindsym $mod+Shift+Return exec i3-sensible-terminal
