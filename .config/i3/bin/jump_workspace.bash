@@ -24,6 +24,12 @@ gen_workspaces_number()
   i3-msg -t get_workspaces | tr ',' '\n' | grep '"num":' | sed 's/.*"num"://' | sort -n
 }
 
+test_workspace_already_exist()
+{
+  (gen_workspaces | grep "$1") && return 0
+  return 1
+}
+
 find_consecutive_available_odd_even_pair()
 {
   for ((i=1; i<=10; i++))
@@ -59,16 +65,15 @@ ws_name="$(echo "$ws" | cut -d ':' -f 2)"
 
 match_list="$(gen_workspaces | grep "\(:\|^\)$ws_name$" | sort -nr)"
 
-if [ "$match_list" != "" ]
+if [ "$match_list" != "" ] && (test_workspace_already_exist "$ws")
 then
-  for ws in $match_list
+  for w in $match_list
   do
-    i3-msg "workspace $ws"
+    i3-msg "workspace $w"
   done
 else
   if [ "$ws_nb" != "" ]
   then
-    number_already_exist=0
     i3-msg "workspace number $ws_nb"
     i3-msg "rename workspace to $ws"
   elif [ "$ws" != "" ]
