@@ -13,6 +13,7 @@ Plug 'vhda/verilog_systemverilog.vim'                                           
 Plug 'vim-scripts/vcscommand.vim'                                                           " diff local CVS SVN and GIT files with current version on the server
 Plug 'vim-scripts/bufexplorer.zip'                                                          " BufExplorer Plugin for Vim (use \be)
 Plug 'PotatoesMaster/i3-vim-syntax'                                                         " i3/config highlighting
+Plug 'valloric/youcompleteme'                                                               " fast, as-you-type, fuzzy-search code completion engine for Vim
 call plug#end()
 
 if empty(glob("~/.vim/plugins_by_vimplug"))
@@ -215,6 +216,13 @@ function! ToggleFoldEnable()
     set foldcolumn=0
   endif
 endfunction
+"--------------------------------------------------------------
+
+"--------------------------------------------------------------
+" completion
+"--------------------------------------------------------------
+let g:ycm_global_ycm_extra_conf = '~/.vim/ycm/.ycm_extra_conf.py'
+let g:ycm_autoclose_preview_window_after_insertion = 1
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
