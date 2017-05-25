@@ -223,6 +223,10 @@ endfunction
 "--------------------------------------------------------------
 let g:ycm_global_ycm_extra_conf = '~/.vim/ycm/.ycm_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
+nnoremap <leader>g :YcmCompleter GoTo<CR>
+nnoremap <leader>pd :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>pc :YcmCompleter GoToDeclaration<CR>
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
@@ -240,4 +244,7 @@ endfunction
 
 " set ft=sh for *.bashrc files
 au BufNewFile,BufRead *.bashrc* call SetFileTypeSH("bash")
+
+" override default indent based on plugin
+autocmd FileType c,cpp setlocal shiftwidth=4
 "--------------------------------------------------------------
