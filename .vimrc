@@ -74,6 +74,8 @@ nmap ga <Plug>(EasyAlign)
 nmap <F2> :NERDTreeToggle<CR>
 " get rid of trailing spaces
 nnoremap <silent> <F3> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+" run debugger
+nmap <F4> :call ToggleDebugger()<CR>
 " text highlighting
 nmap <F5> :call HighlightGroup("OwnSearch0", 0)<CR>
 nmap <F6> :call HighlightGroup("OwnSearch1", 0)<CR>
@@ -135,16 +137,6 @@ set background=dark
 colorscheme gruvbox
 
 let NERDTreeShowHidden=1    " show hidden files in NERDTree by default
-"--------------------------------------------------------------
-
-"--------------------------------------------------------------
-" verilog
-"--------------------------------------------------------------
-" instatiation from ports
-function! VerilogInstance() range
-  let cmd=a:firstline . "," . a:lastline . "!" . "~/.vim/scripts/verilog_instance.pl"
-  execute cmd
-endfunction
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
@@ -230,6 +222,53 @@ nnoremap <leader>pc :YcmCompleter GoToDeclaration<CR>
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
+" verilog
+"--------------------------------------------------------------
+" instatiation from ports
+function! VerilogInstance() range
+  let cmd=a:firstline . "," . a:lastline . "!" . "~/.vim/scripts/verilog_instance.pl"
+  execute cmd
+endfunction
+"--------------------------------------------------------------
+
+"--------------------------------------------------------------
+" cpp
+"--------------------------------------------------------------
+" override default indent based on plugin
+autocmd FileType c,cpp setlocal shiftwidth=4
+
+" Command Make will call make and then cwindow which
+" opens a 3 line error window if any errors are found.
+" If no errors, it closes any open cwindow.
+command -nargs=* Make make <args> | cwindow 3
+
+" setup gdb front end
+let g:pyclewn_terminal = "xterm, -e"
+let g:pyclewn_python   = "python3"
+let g:pyclewn_args     = "-d --gdb=async --window=right"
+
+function! ToggleDebugger()
+  if has("netbeans_enabled")
+    Cunmapkeys
+    Cexitclewn
+  else
+    call inputsave()
+    let cmdline = input("Turn on debugger, overrides some remaps (to undo :Cunmapkeys)\n
+          \Gdb commands can be run in vim with :C<gdb_cmd>\n
+          \Running 'gdb --args <cmdline>', please enter <cmdline>: ", '', 'file')
+    call inputrestore()
+    let run_pyclewn = 'Pyclewn gdb'
+    if cmdline != ""
+      let run_pyclewn = run_pyclewn . ' --args ' . cmdline
+    endif
+    execute run_pyclewn
+    Cmapkeys
+    Cinferiortty
+  endif
+endfunction
+"--------------------------------------------------------------
+
+"--------------------------------------------------------------
 " misc
 "--------------------------------------------------------------
 " abreviations
@@ -245,6 +284,9 @@ endfunction
 " set ft=sh for *.bashrc files
 au BufNewFile,BufRead *.bashrc* call SetFileTypeSH("bash")
 
-" override default indent based on plugin
-autocmd FileType c,cpp setlocal shiftwidth=4
+" simple gvim
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
+set guioptions-=L  "remove left-hand scroll bar
 "--------------------------------------------------------------

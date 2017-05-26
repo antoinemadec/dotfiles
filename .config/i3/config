@@ -217,6 +217,7 @@ bindsym --release Shift+Print exec scrot -s -e 'mv $f /tmp/ && pinta /tmp/$f'
 for_window [class="rdesktop"] floating disable
 for_window [class="Vncviewer"] floating enable
 for_window [title="Terminator Preferences"] floating enable
+for_window [class="XTerm"] floating enable
 
 #------------------------------
 # assign program to workspace
