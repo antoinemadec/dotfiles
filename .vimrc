@@ -2,18 +2,19 @@
 " plugins
 "--------------------------------------------------------------
 call plug#begin('~/.vim/plugins_by_vimplug')
-Plug 'morhetz/gruvbox'                                                                      " colorscheme
+Plug 'morhetz/gruvbox'                                                              " colorscheme
 if v:version >= 704
-  Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'                           " file navigator
+  Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'                   " file navigator
 endif
-Plug 'itchyny/lightline.vim' | Plug 'shinchu/lightline-gruvbox.vim'                         " status line
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim' " fuzzy search in a dir
-Plug 'junegunn/vim-easy-align'                                                              " easy alignement of line fields
-Plug 'vhda/verilog_systemverilog.vim'                                                       " Vim Syntax Plugin for Verilog and SystemVerilog
-Plug 'vim-scripts/vcscommand.vim'                                                           " diff local CVS SVN and GIT files with current version on the server
-Plug 'vim-scripts/bufexplorer.zip'                                                          " BufExplorer Plugin for Vim (use \be)
-Plug 'PotatoesMaster/i3-vim-syntax'                                                         " i3/config highlighting
-Plug 'valloric/youcompleteme'                                                               " fast, as-you-type, fuzzy-search code completion engine for Vim
+Plug 'itchyny/lightline.vim' | Plug 'shinchu/lightline-gruvbox.vim'                 " status line
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-completion' }   " fuzzy search in a dir
+Plug 'junegunn/fzf.vim'                                                             " fuzzy search in a dir
+Plug 'junegunn/vim-easy-align'                                                      " easy alignement of line fields
+Plug 'vhda/verilog_systemverilog.vim'                                               " Vim Syntax Plugin for Verilog and SystemVerilog
+Plug 'vim-scripts/vcscommand.vim'                                                   " diff local CVS SVN and GIT files with current version on the server
+Plug 'vim-scripts/bufexplorer.zip'                                                  " BufExplorer Plugin for Vim (use \be)
+Plug 'PotatoesMaster/i3-vim-syntax'                                                 " i3/config highlighting
+Plug 'valloric/youcompleteme'                                                       " fast, as-you-type, fuzzy-search code completion engine for Vim
 call plug#end()
 
 if empty(glob("~/.vim/plugins_by_vimplug"))

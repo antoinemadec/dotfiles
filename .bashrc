@@ -170,4 +170,5 @@ done
 [ -f ~/bin/acd_func.sh ] && source ~/bin/acd_func.sh
 
 [ -f ~/.bashrc.local ] && source ~/.bashrc.local
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
