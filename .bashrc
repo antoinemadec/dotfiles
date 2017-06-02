@@ -171,4 +171,4 @@ done
 
 [ -f ~/.bashrc.local ] && source ~/.bashrc.local
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
