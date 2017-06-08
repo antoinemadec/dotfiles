@@ -15,6 +15,7 @@ Plug 'vim-scripts/vcscommand.vim'                                               
 Plug 'vim-scripts/bufexplorer.zip'                                                  " BufExplorer Plugin for Vim (use \be)
 Plug 'PotatoesMaster/i3-vim-syntax'                                                 " i3/config highlighting
 Plug 'valloric/youcompleteme'                                                       " fast, as-you-type, fuzzy-search code completion engine for Vim
+"Plug 'critiqjo/lldb.nvim'
 call plug#end()
 
 if empty(glob("~/.vim/plugins_by_vimplug"))
@@ -28,7 +29,8 @@ endif
 if has('nvim')
   " TODO wait for NVIM support of clipboard=autoselect
   " in order to make mouse=a copy/paste work
-  set clipboard+=unnamedplus
+  set clipboard+=unnamed
+  "vmap <LeftRelease> "*ygv     " does not work with mouse=n or mouse=a
 end
 set nobackup                    " don't keep a backup file
 set backspace=2                 " allow backspacing over everything in insert mode
