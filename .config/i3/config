@@ -218,6 +218,8 @@ for_window [class="rdesktop"] floating disable
 for_window [class="Vncviewer"] floating enable
 for_window [title="Terminator Preferences"] floating enable
 for_window [class="XTerm"] floating enable
+for_window [class="Evince"] floating enable
+for_window [class="Xpdf"] floating enable
 
 #------------------------------
 # assign program to workspace
@@ -231,8 +233,8 @@ assign [class="Sky"] 1:email
 exec --no-startup-id i3-msg 'workspace 1:email; layout stacked; exec evolution; exec sky'
 exec --no-startup-id i3-msg 'workspace 10:internet; exec firefox'
 # network widget
-exec_always nm-applet
+exec nm-applet
 # scratchpad
 for_window[class="Nautilus"] move window to scratchpad
-exec_always i3-msg 'exec (nautilus --no-desktop)&'
+exec i3-msg 'exec (nautilus --no-desktop)&'
 #==============================================================
