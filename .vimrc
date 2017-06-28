@@ -8,14 +8,13 @@ if v:version >= 704
 endif
 Plug 'itchyny/lightline.vim' | Plug 'shinchu/lightline-gruvbox.vim'                 " status line
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-completion' }   " fuzzy search in a dir
-Plug 'junegunn/fzf.vim'                                                             " fuzzy search in a dir
+Plug 'junegunn/fzf.vim'                                                             " fuzzy search in a dir/buffers/files etc
 Plug 'junegunn/vim-easy-align'                                                      " easy alignement of line fields
 Plug 'vhda/verilog_systemverilog.vim'                                               " Vim Syntax Plugin for Verilog and SystemVerilog
 Plug 'vim-scripts/vcscommand.vim'                                                   " diff local CVS SVN and GIT files with current version on the server
-Plug 'vim-scripts/bufexplorer.zip'                                                  " BufExplorer Plugin for Vim (use \be)
+Plug 'tpope/vim-fugitive'                                                           " Git wrapper
 Plug 'PotatoesMaster/i3-vim-syntax'                                                 " i3/config highlighting
 Plug 'valloric/youcompleteme'                                                       " fast, as-you-type, fuzzy-search code completion engine for Vim
-"Plug 'critiqjo/lldb.nvim'
 call plug#end()
 
 if empty(glob("~/.vim/plugins_by_vimplug"))
@@ -92,9 +91,8 @@ nmap <C-S-F6> :call ClearGroup("OwnSearch1", 1)<CR>
 vmap <F8> :call VerilogInstance()<CR>
 " press F12 before copying text pasted outside of vim to avoid auto indentation
 set pastetoggle=<F12>
-"if has('nvim')
-"  tnoremap <Esc> <C-\><C-n>     " in terminal mode, Esc goes to normal mode
-"endif
+" buffer explorer style mapping for fzf.vim
+nnoremap <script> <silent> <unique> <Leader>be :Buffers<CR>
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
