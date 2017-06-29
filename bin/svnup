@@ -2,4 +2,4 @@
 
 svn up > svnup.log
 svn st > svnst.log
-grep -v '?' svnst.log
+grep -v '^\($\|?\|X\|Performing status on external item at\)' svnst.log
