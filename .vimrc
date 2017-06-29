@@ -6,7 +6,7 @@ Plug 'morhetz/gruvbox'                                                          
 if v:version >= 704
   Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'                   " file navigator
 endif
-Plug 'itchyny/lightline.vim' | Plug 'shinchu/lightline-gruvbox.vim'                 " status line
+Plug 'itchyny/lightline.vim'                                                        " status line
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-completion' }   " fuzzy search in a dir
 Plug 'junegunn/fzf.vim'                                                             " fuzzy search in a dir/buffers/files etc
 Plug 'junegunn/vim-easy-align'                                                      " easy alignement of line fields
@@ -98,28 +98,90 @@ nnoremap <script> <silent> <unique> <Leader>be :Buffers<CR>
 "--------------------------------------------------------------
 " appearence
 "--------------------------------------------------------------
+set t_Co=256                " vim uses more colors
+set background=dark
+colorscheme gruvbox
+
 " lightline
 set laststatus=2
+
 let g:lightline = {
   \ 'colorscheme': 'gruvbox',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'myreadonly', 'relativepath', 'modified' ] ],
+  \             [ 'readonly', 'relativepath', 'modified' ],
+  \             [ 'fugitive'] ],
   \   'right': [ [ 'syntastic', 'lineinfo' ],
   \                          [ 'percent' ],
   \                          [ 'detecttrailingspace', 'filetype' ] ]
   \ },
+  \ 'inactive' : {
+  \   'left': [ [ 'filename', 'modified' ] ],
+  \   'right': [ [ 'lineinfo' ],
+  \              [ 'percent' ] ]
+  \ },
   \ 'component_function': {
+  \   'fugitive': 'LightlineFugitive',
   \   'detecttrailingspace': 'DetectTrailingSpace'
   \ },
   \ }
-" TODO: use expand to highlight trailing spaces in lightline
-"  \ 'component_expand': {
-"  \   'detecttrailingspace': 'DetectTrailingSpace'
-"  \ },
-"  \ 'component_type': {
-"  \   'detecttrailingspace': 'error'
-"  \ },
+
+autocmd BufEnter,BufWinEnter,InsertLeave * call UpdateGitStatus()
+function! UpdateGitStatus()
+  let b:GitStatus = ''
+  if exists('*fugitive#head')
+    let branch = fugitive#head()
+    if branch != ''
+      let l:gitcmd = 'git -c color.status=false status -s ' . @%
+      let b:GitStatus = system(l:gitcmd)
+    endif
+  endif
+endfunction
+
+" copied from NERDTree
+let g:NERDTreeIndicatorMap = {
+      \ 'Modified'  : '✹',
+      \ 'Staged'    : '✚',
+      \ 'Untracked' : '✭',
+      \ 'Renamed'   : '➜',
+      \ 'Unmerged'  : '═',
+      \ 'Deleted'   : '✖',
+      \ 'Dirty'     : '✗',
+      \ 'Clean'     : '✔︎',
+      \ 'Ignored'   : '☒',
+      \ 'Unknown'   : '?'
+      \ }
+function! LightlineFugitive()
+  let b:lightline_fugitive = ''
+  if exists('*fugitive#head')
+    let branch = fugitive#head()
+    if branch != ''
+      let l:statusKey = GetFileGitStatusKey(b:GitStatus[0], b:GitStatus[1])
+      let l:indicator = get(g:NERDTreeIndicatorMap, l:statusKey, '')
+      let b:lightline_fugitive = branch . ' ' . l:indicator
+    endif
+  endif
+  return b:lightline_fugitive
+endfunction
+function! GetFileGitStatusKey(us, them)
+    if a:us ==# '?' && a:them ==# '?'
+        return 'Untracked'
+    elseif a:us ==# ' ' && a:them ==# 'M'
+        return 'Modified'
+    elseif a:us =~# '[MAC]'
+        return 'Staged'
+    elseif a:us ==# 'R'
+        return 'Renamed'
+    elseif a:us ==# 'U' || a:them ==# 'U' || a:us ==# 'A' && a:them ==# 'A' || a:us ==# 'D' && a:them ==# 'D'
+        return 'Unmerged'
+    elseif a:them ==# 'D'
+        return 'Deleted'
+    elseif a:us ==# '!'
+        return 'Ignored'
+    else
+        return 'Clean'
+    endif
+endfunction
 
 function! DetectTrailingSpace()
   if mode() == 'n'
@@ -132,10 +194,6 @@ function! DetectTrailingSpace()
     return ""
   endif
 endfunction
-
-set t_Co=256                " vim uses more colors
-set background=dark
-colorscheme gruvbox
 
 let NERDTreeShowHidden=1    " show hidden files in NERDTree by default
 "--------------------------------------------------------------
