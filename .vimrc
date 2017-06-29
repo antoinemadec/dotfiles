@@ -105,6 +105,7 @@ colorscheme gruvbox
 " lightline
 set laststatus=2
 
+autocmd TextChanged,InsertLeave * call lightline#update()
 let g:lightline = {
   \ 'colorscheme': 'gruvbox',
   \ 'active': {
@@ -113,7 +114,8 @@ let g:lightline = {
   \             [ 'fugitive'] ],
   \   'right': [ [ 'syntastic', 'lineinfo' ],
   \                          [ 'percent' ],
-  \                          [ 'detecttrailingspace', 'filetype' ] ]
+  \                          [ 'filetype' ],
+  \                          [ 'detecttrailingspace' ] ]
   \ },
   \ 'inactive' : {
   \   'left': [ [ 'filename', 'modified' ] ],
@@ -121,12 +123,17 @@ let g:lightline = {
   \              [ 'percent' ] ]
   \ },
   \ 'component_function': {
-  \   'fugitive': 'LightlineFugitive',
+  \   'fugitive': 'LightlineFugitive'
+  \ },
+  \ 'component_expand': {
   \   'detecttrailingspace': 'DetectTrailingSpace'
+  \ },
+  \ 'component_type': {
+  \   'detecttrailingspace': 'error'
   \ },
   \ }
 
-autocmd BufEnter,BufWinEnter,InsertLeave * call UpdateGitStatus()
+autocmd BufEnter,BufWinEnter,BufWritePost * call UpdateGitStatus()
 function! UpdateGitStatus()
   let b:GitStatus = ''
   if exists('*fugitive#head')
