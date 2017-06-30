@@ -42,6 +42,7 @@ set incsearch                   " while typing a search command, show where the 
 set expandtab                   " tab expand to space
 set tabstop=4                   " number of spaces that a <Tab> in the file counts for
 set shiftwidth=2                " Number of spaces to use for each step of (auto)indent.  Used for 'cindent', >>, <<, etc
+set lazyredraw                  " screen will not be redrawn while executing macros, registers and other commands that have not been typed
 if exists("&relativenumber")
   set relativenumber            " Show the line number relative to the line with the cursor
   set numberwidth=2             " number of columns to use for the line number
