@@ -161,7 +161,7 @@ let g:NERDTreeIndicatorMap = {
       \ }
 function! LightlineFugitive()
   let b:lightline_fugitive = ''
-  if exists('*fugitive#head')
+  if exists('*fugitive#head') && exists("b:GitStatus")
     let branch = fugitive#head()
     if branch != ''
       let l:statusKey = GetFileGitStatusKey(b:GitStatus[0], b:GitStatus[1])
