@@ -11,8 +11,7 @@
 #       else:
 #           create workspace <nb>:<name>
 #   else
-#       create workspace <next_available_odd_nb>:<name>
-#       create workspace <next_available_even_nb>:<name>
+#       create workspace <first_available_nb>:<name>
 
 gen_workspaces()
 {
@@ -30,28 +29,18 @@ test_workspace_already_exist()
   return 1
 }
 
-find_consecutive_available_odd_even_pair()
+find_first_available_ws()
 {
   for ((i=1; i<=10; i++))
   do
-    if ((i%2 == 1))
+    available=1
+    for n in $(gen_workspaces_number)
+    do
+      [ "$n" = "$i" ] && available=0
+    done
+    if ((available))
     then
-      even_available=0
-      odd_available=1
-      for n in $(gen_workspaces_number)
-      do
-        [ "$n" = "$i" ] && odd_available=0
-      done
-    else
-      even_available=1
-      for n in $(gen_workspaces_number)
-      do
-        [ "$n" = "$i" ] && even_available=0
-      done
-    fi
-    if (((odd_available == 1) && (even_available == 1)))
-    then
-      echo $((i-1))
+      echo $i
       return 0
     fi
   done
@@ -78,7 +67,7 @@ else
     i3-msg "rename workspace to $ws"
   elif [ "$ws" != "" ]
   then
-    ws_nb="$(find_consecutive_available_odd_even_pair)"
-    [ "$ws_nb" != "" ] && i3-msg "workspace \"$((ws_nb+1)):$ws_name\"; workspace \"$ws_nb:$ws_name\""
+    ws_nb="$(find_first_available_ws)"
+    [ "$ws_nb" != "" ] && i3-msg "workspace \"$ws_nb:$ws_name\""
   fi
 fi
