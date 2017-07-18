@@ -14,7 +14,9 @@ Plug 'vhda/verilog_systemverilog.vim'                                           
 Plug 'vim-scripts/vcscommand.vim'                                                   " diff local CVS SVN and GIT files with current version on the server
 Plug 'tpope/vim-fugitive'                                                           " Git wrapper
 Plug 'PotatoesMaster/i3-vim-syntax'                                                 " i3/config highlighting
-Plug 'valloric/youcompleteme'                                                       " fast, as-you-type, fuzzy-search code completion engine for Vim
+if v:version == 704 && has('patch1578')
+  Plug 'valloric/youcompleteme'                                                     " fast, as-you-type, fuzzy-search code completion engine for Vim
+endif
 call plug#end()
 
 if empty(glob("~/.vim/plugins_by_vimplug"))
@@ -106,7 +108,11 @@ colorscheme gruvbox
 " lightline
 set laststatus=2
 
-autocmd TextChanged,InsertLeave * call lightline#update()
+if v:version >= 704
+  autocmd TextChanged,InsertLeave * call lightline#update()
+else
+  autocmd InsertLeave * call lightline#update()
+endif
 let g:lightline = {
   \ 'colorscheme': 'gruvbox',
   \ 'active': {
