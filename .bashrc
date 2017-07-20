@@ -108,6 +108,23 @@ then
   export COLOR_NEUTRAL="\[\033[0m\]"
 fi
 
+
+# test speed of __git_ps1 in background and set git_show_dirty_state file accordingly
+# 200ms is the threshold; don't run it if current directory has not change
+test_git_show_dirty_state_speed() {
+  file="$1"
+  if [ "$PREVPWD" != "$PWD" ]
+  then
+    (
+    t=$( (time (GIT_PS1_SHOWDIRTYSTATE=true __git_ps1)) 2>&1 | grep real | sed -e 's/.*m//' -e 's/s//' -e 's/\.//' )
+    value="true"
+    [ "$t" -gt 200 ] && value=""
+    echo "$value" > $file
+    )& disown
+  fi
+  PREVPWD="$PWD"
+}
+
 fancy_prompt () {
   return_code="$?"
   if [ "$return_code" = 0 ]
@@ -117,12 +134,15 @@ fancy_prompt () {
       local arrow="${COLOR_RED}"
   fi
   local arrow+=">"
-  GIT_PS1_SHOWDIRTYSTATE=true
+  git_ds_file="/tmp/git_show_dirty_state$(tty | sed 's#/#_#g')"
+  test_git_show_dirty_state_speed "$git_ds_file"
+  GIT_PS1_SHOWDIRTYSTATE="$(cat $git_ds_file 2>/dev/null)"
   GIT_PS1_SHOWSTASHSTATE=true
   GIT_PS1_SHOWUPSTREAM="auto"
   GIT_PS1_DESCRIBE_STYLE="branch"
-  local git=$(__git_ps1 "${COLOR_NEUTRAL}on ${COLOR_LIGHT_CYAN}%s${COLOR_NEUTRAL}" 2> /dev/null)
-  export PS1="${COLOR_RED}\u${COLOR_NEUTRAL}@${HILIT}\h${COLOR_NEUTRAL}:${COLOR_YELLOW}\w $git\n$arrow${COLOR_NEUTRAL} "
+  local git=$(__git_ps1 "${COLOR_NEUTRAL}on ${COLOR_LIGHT_CYAN}%s" 2> /dev/null)
+  [ "$GIT_PS1_SHOWDIRTYSTATE" = "" ] && [ "$git" != "" ] && git+=" ${COLOR_GRAY}(no-ds)"
+  export PS1="${COLOR_RED}\u${COLOR_NEUTRAL}@${HILIT}\h${COLOR_NEUTRAL}:${COLOR_YELLOW}\w ${git}${COLOR_NEUTRAL}\n$arrow${COLOR_NEUTRAL} "
 }
 
 if [[ "${DISPLAY#$HOST}" != ":0.0" &&  "${DISPLAY}" != ":0" ]]; then
