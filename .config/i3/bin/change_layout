@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# usage: using the next layout in this list
+layout_array=("laptop" "dualmonitor" "hdmi")
+
+get_current_layout=0
+[ "$1" = "--get_current_layout" ] && get_current_layout=1
+
+file="/home/antoine/.config/i3/bin/layout.txt"
+layout_number=${#layout_array[@]}
+current_value="$(cat $file | cut -d ' ' -f 1)"
+current_name="$(cat $file | cut -d ' ' -f 2)"
+[ "$current_value" = "" ] && new_value=0
+
+if ((get_current_layout))
+then
+  echo "$current_name"
+  exit 0
+fi
+
+layout_exit_status=1
+while ((layout_exit_status))
+do
+  new_value=$(( (current_value + 1)%layout_number ))
+  new_layout="${layout_array[$new_value]}"
+
+  /home/antoine/.screenlayout/$new_layout.sh
+  layout_exit_status="$?"
+
+  current_value=$new_value
+done
+
+echo "$new_value $new_layout" > $file
