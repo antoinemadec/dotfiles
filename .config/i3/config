@@ -138,10 +138,12 @@ bindsym $mod+r mode "resize"
 bar {
   colors {
     background #333333
+    separator  #777777
     # Type             border  background font
     active_workspace   #333333 #5f676a #ffffff
     inactive_workspace #333333 #222222 #888888
   }
+  separator_symbol " │ "
   # Using custom i3status.conf
   status_command py3status -c ~/.config/i3/i3status.conf
   # provides a system tray area where programs such as NetworkManager, VLC, Pidgin, etc
