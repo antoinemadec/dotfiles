@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # usage: using the next layout in this list
-layout_array=("laptop" "dualmonitor" "hdmi")
+layout_array=("laptop" "dualmonitor" "hdmi" "hdmi_laptop" "laptop_hdmi")
 
 get_current_layout=0
 [ "$1" = "--get_current_layout" ] && get_current_layout=1
