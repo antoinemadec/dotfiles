@@ -2,4 +2,4 @@
 .vim/plugins_by_vimplug/
 .vim/init.vim
 .*swp
-bin/i3_layout.txt
+.config/i3/bin/i3_layout.txt

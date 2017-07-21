@@ -205,7 +205,7 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle # mute s
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 # Screen output
-bindsym XF86Search exec handle_i3_layout
+bindsym XF86Search exec ~/.config/i3/bin/handle_i3_layout
 # print screen - scrot & pinta - root
 bindsym --release Print exec scrot -e 'mv $f /tmp/ && pinta /tmp/$f'
 # print screen - scrot & pinta - select window or rectangle
