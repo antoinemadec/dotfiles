@@ -162,9 +162,9 @@ set $wallpaper ~/.config/i3/wallpaper/94.jpg
 #------------------------------
 # screen
 #------------------------------
-exec_always /home/antoine/.screenlayout/dualmonitor.sh
-exec_always --no-startup-id dual-screen
-exec_always "sleep 1; feh --bg-scale $wallpaper"
+exec /home/antoine/.screenlayout/dualmonitor.sh
+exec --no-startup-id dual-screen
+exec "sleep 1; feh --bg-scale $wallpaper"
 workspace 1 output DP-1-1
 workspace 2 output DP-1-2
 workspace 3 output DP-1-1

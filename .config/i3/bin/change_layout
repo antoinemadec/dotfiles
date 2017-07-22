@@ -31,3 +31,4 @@ do
 done
 
 echo "$new_value $new_layout" > $file
+i3-msg "restart"
