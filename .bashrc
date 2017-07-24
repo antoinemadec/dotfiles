@@ -112,7 +112,8 @@ fi
 # 200ms is the threshold; don't run it if current directory has not change
 test_git_show_dirty_state_speed() {
   file="$1"
-  if [ "$PREVPWD" != "$PWD" ]
+  cmd_output="$((time (GIT_PS1_SHOWDIRTYSTATE=true __git_ps1)) 2>&1)"
+  if [ "$PREVPWD" != "$PWD" ] && [ "$(echo "$cmd_output" | head -n 1)" != "" ]
   then
     (
     t=$( (time (GIT_PS1_SHOWDIRTYSTATE=true __git_ps1)) 2>&1 | grep real | sed -e 's/.*m//' -e 's/s//' -e 's/\.//' )
