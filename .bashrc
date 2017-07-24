@@ -108,7 +108,6 @@ then
   export COLOR_NEUTRAL="\[\033[0m\]"
 fi
 
-
 # test speed of __git_ps1 in background and set git_show_dirty_state file accordingly
 # 200ms is the threshold; don't run it if current directory has not change
 test_git_show_dirty_state_speed() {
@@ -120,7 +119,7 @@ test_git_show_dirty_state_speed() {
     value="true"
     [ "$t" -gt 200 ] && value=""
     echo "$value" > $file
-    )& disown
+    )& disown %-
   fi
   PREVPWD="$PWD"
 }
