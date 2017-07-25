@@ -3,7 +3,7 @@
 set titlestring=""
 
 " title bar: bookmark, search engines and firefox location bar entries
-set complete=Sl
+set complete=lS
 
 colorscheme solarized_dark
 "colorscheme janus
