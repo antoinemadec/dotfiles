@@ -235,7 +235,7 @@ assign [class="Sky"] 1:email
 exec --no-startup-id i3-msg 'workspace 1:email; layout stacked; exec evolution; exec sky'
 exec --no-startup-id i3-msg 'workspace 10:internet; exec firefox'
 # network widget
-exec nm-applet
+exec_always nm-applet
 # scratchpad
 for_window[class="Nautilus"] move window to scratchpad
 exec i3-msg 'exec (nautilus --no-desktop)&'
