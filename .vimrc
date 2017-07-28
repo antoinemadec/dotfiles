@@ -270,6 +270,7 @@ endfunction
 set foldmethod=indent
 set foldnestmax=8
 set nofoldenable
+set foldlevelstart=8
 nmap zi :call ToggleFoldEnable()<CR>
 function! ToggleFoldEnable()
   let cur_foldlevel = &foldlevel
