@@ -61,6 +61,7 @@ set ignorecase smartcase        " pattern with at least one uppercase character:
 filetype plugin on              " enable loading the plugin files for specific file types
 filetype plugin indent on       " enables filetype-specific indent scripts
 runtime! ftplugin/man.vim       " allow man to be displayed in vim
+runtime! macros/matchit.vim     " allow usage of % to match 'begin end' and other '{ }' kind of pairs
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
