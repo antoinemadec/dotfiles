@@ -3,3 +3,4 @@
 .vim/init.vim
 .*swp
 .config/i3/bin/layout.txt
+.vimperator/info
