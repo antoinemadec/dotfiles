@@ -117,9 +117,9 @@ endif
 let g:lightline = {
   \ 'colorscheme': 'gruvbox',
   \ 'active': {
-  \   'left': [ [ 'mode', 'paste' ],
+  \   'left': [ [ 'foldinfo', 'mode', 'paste' ],
   \             [ 'readonly', 'relativepath', 'modified' ],
-  \             [ 'fugitive'] ],
+  \             [ 'fugitive' ] ],
   \   'right': [ [ 'syntastic', 'lineinfo' ],
   \                          [ 'percent' ],
   \                          [ 'filetype' ],
@@ -134,9 +134,11 @@ let g:lightline = {
   \   'fugitive': 'LightlineFugitive'
   \ },
   \ 'component_expand': {
+  \   'foldinfo': 'FoldInfo',
   \   'detecttrailingspace': 'DetectTrailingSpace'
   \ },
   \ 'component_type': {
+  \   'foldinfo': 'middle',
   \   'detecttrailingspace': 'error'
   \ },
   \ }
@@ -198,6 +200,14 @@ function! GetFileGitStatusKey(us, them)
     endif
 endfunction
 
+function! FoldInfo()
+  if &foldenable
+    return "lvl" . &foldlevel
+  else
+    return ""
+  endif
+endfunction
+
 function! DetectTrailingSpace()
   if mode() == 'n'
     let save_cursor = getpos('.')
@@ -208,6 +218,13 @@ function! DetectTrailingSpace()
   else
     return ""
   endif
+endfunction
+
+function! UpdateLightlineAfterNormalCmd(cmd)
+  execute "unmap " .  a:cmd
+  execute "normal " . a:cmd
+  call lightline#update()
+  execute "nmap " . a:cmd . " :call UpdateLightlineAfterNormalCmd(\"" . a:cmd . "\")<CR>"
 endfunction
 
 let NERDTreeShowHidden=1    " show hidden files in NERDTree by default
@@ -268,20 +285,26 @@ endfunction
 " folding
 "--------------------------------------------------------------
 set foldmethod=indent
-set foldnestmax=8
 set nofoldenable
-set foldlevelstart=8
+" max foldlevel = 5
+set foldnestmax=5
+set foldlevelstart=5
 nmap zi :call ToggleFoldEnable()<CR>
+nmap zm :call UpdateLightlineAfterNormalCmd("zm")<CR>
+nmap zM :call UpdateLightlineAfterNormalCmd("zM")<CR>
+nmap zr :call UpdateLightlineAfterNormalCmd("zr")<CR>
+nmap zR :call UpdateLightlineAfterNormalCmd("zR")<CR>
 function! ToggleFoldEnable()
   let cur_foldlevel = &foldlevel
   set foldenable!
   if &foldenable
     execute "normal zR"
-    let &foldcolumn = &foldlevel + 1
+    let &foldcolumn = 5 + 1
     let &foldlevel = cur_foldlevel
   else
     set foldcolumn=0
   endif
+  call lightline#update()
 endfunction
 "--------------------------------------------------------------
 
