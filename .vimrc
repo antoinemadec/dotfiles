@@ -201,8 +201,8 @@ function! GetFileGitStatusKey(us, them)
 endfunction
 
 function! FoldInfo()
-  if &foldenable
-    return "lvl" . &foldlevel
+  if &foldenable && &foldcolumn >= 6
+    return "lvl" . &foldlevel . repeat(" ", &foldcolumn - 6)
   else
     return ""
   endif
@@ -218,13 +218,6 @@ function! DetectTrailingSpace()
   else
     return ""
   endif
-endfunction
-
-function! UpdateLightlineAfterNormalCmd(cmd)
-  execute "unmap " .  a:cmd
-  execute "normal " . a:cmd
-  call lightline#update()
-  execute "nmap " . a:cmd . " :call UpdateLightlineAfterNormalCmd(\"" . a:cmd . "\")<CR>"
 endfunction
 
 let NERDTreeShowHidden=1    " show hidden files in NERDTree by default
@@ -286,20 +279,44 @@ endfunction
 "--------------------------------------------------------------
 set foldmethod=indent
 set nofoldenable
-" max foldlevel = 5
-set foldnestmax=5
-set foldlevelstart=5
-nmap zi :call ToggleFoldEnable()<CR>
-nmap zm :call UpdateLightlineAfterNormalCmd("zm")<CR>
-nmap zM :call UpdateLightlineAfterNormalCmd("zM")<CR>
-nmap zr :call UpdateLightlineAfterNormalCmd("zr")<CR>
-nmap zR :call UpdateLightlineAfterNormalCmd("zR")<CR>
+set foldnestmax=9
+set foldlevelstart=9
+nmap <silent> zi :call ToggleFoldEnable()<CR>
+nmap <silent> zm :call NormalFoldCmd("zm")<CR>
+nmap <silent> zM :call NormalFoldCmd("zM")<CR>
+nmap <silent> zr :call NormalFoldCmd("zr")<CR>
+nmap <silent> zR :call NormalFoldCmd("zR")<CR>
+nmap <silent> zc :call NormalFoldCmd("zc")<CR>
+nmap <silent> zC :call NormalFoldCmd("zC")<CR>
+nmap <silent> zo :call NormalFoldCmd("zo")<CR>
+nmap <silent> zO :call NormalFoldCmd("zO")<CR>
+
+function NormalFoldCmd(cmd)
+  if &foldenable == 0
+    call ToggleFoldEnable()
+  endif
+  execute "unmap " .  a:cmd
+  execute "normal " . a:cmd
+  call lightline#update()
+  execute "nmap <silent> " . a:cmd . " :call NormalFoldCmd(\"" . a:cmd . "\")<CR>"
+endfunction
+
 function! ToggleFoldEnable()
   let cur_foldlevel = &foldlevel
   set foldenable!
   if &foldenable
+    " get max foldlevel and set foldcolumn accordingly,
+    " min foldcolumn = 6
     execute "normal zR"
-    let &foldcolumn = 5 + 1
+    let &foldcolumn = &foldlevel + 1
+    if &foldcolumn < 6
+      let &foldcolumn = 6
+    endif
+    " set back previous foldlevel, make sure it is in
+    " [0:max(foldlevel)]
+    if cur_foldlevel > &foldlevel
+      let cur_foldlevel = &foldlevel
+    endif
     let &foldlevel = cur_foldlevel
   else
     set foldcolumn=0
