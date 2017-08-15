@@ -13,6 +13,7 @@ Plug 'junegunn/vim-easy-align'                                                  
 Plug 'vhda/verilog_systemverilog.vim'                                               " Vim Syntax Plugin for Verilog and SystemVerilog
 Plug 'vim-scripts/vcscommand.vim'                                                   " diff local CVS SVN and GIT files with current version on the server
 Plug 'tpope/vim-fugitive'                                                           " Git wrapper
+Plug 'tpope/vim-surround'                                                           " provides mappings to easily delete, change and add such surroundings in pairs
 Plug 'PotatoesMaster/i3-vim-syntax'                                                 " i3/config highlighting
 if v:version == 704 && has('patch1578')
   Plug 'valloric/youcompleteme'                                                     " fast, as-you-type, fuzzy-search code completion engine for Vim
@@ -344,6 +345,13 @@ function! VerilogInstance() range
   let cmd=a:firstline . "," . a:lastline . "!" . "~/.vim/scripts/verilog_instance.pl"
   execute cmd
 endfunction
+
+" map '-' to 'begin end' surrounding
+autocmd FileType verilog_systemverilog let b:surround_45 = "begin \r end"
+
+" verilog_systemverilog mappings
+nnoremap <leader>i :VerilogFollowInstance<CR>
+nnoremap <leader>I :VerilogFollowPort<CR>
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
