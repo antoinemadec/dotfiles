@@ -14,6 +14,7 @@ Plug 'vhda/verilog_systemverilog.vim'                                           
 Plug 'vim-scripts/vcscommand.vim'                                                   " diff local CVS SVN and GIT files with current version on the server
 Plug 'tpope/vim-fugitive'                                                           " Git wrapper
 Plug 'tpope/vim-surround'                                                           " provides mappings to easily delete, change and add such surroundings in pairs
+Plug 'tpope/vim-commentary'                                                         " comment stuff out
 Plug 'PotatoesMaster/i3-vim-syntax'                                                 " i3/config highlighting
 if v:version == 704 && has('patch1578')
   Plug 'valloric/youcompleteme'                                                     " fast, as-you-type, fuzzy-search code completion engine for Vim
