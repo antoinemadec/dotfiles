@@ -353,6 +353,9 @@ autocmd FileType verilog_systemverilog let b:surround_45 = "begin \r end"
 " verilog_systemverilog mappings
 nnoremap <leader>i :VerilogFollowInstance<CR>
 nnoremap <leader>I :VerilogFollowPort<CR>
+
+" commentary
+autocmd FileType verilog_systemverilog setlocal commentstring=//%s
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
