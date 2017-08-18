@@ -16,7 +16,7 @@ Plug 'tpope/vim-fugitive'                                                       
 Plug 'tpope/vim-surround'                                                           " provides mappings to easily delete, change and add such surroundings in pairs
 Plug 'tpope/vim-commentary'                                                         " comment stuff out
 Plug 'PotatoesMaster/i3-vim-syntax'                                                 " i3/config highlighting
-if v:version == 704 && has('patch1578')
+if (v:version >= 704 && has('patch1578')) || has('nvim')
   Plug 'valloric/youcompleteme'                                                     " fast, as-you-type, fuzzy-search code completion engine for Vim
 endif
 call plug#end()
@@ -34,6 +34,7 @@ if has('nvim')
   " in order to make mouse=a copy/paste work
   set clipboard+=unnamed
   "vmap <LeftRelease> "*ygv     " does not work with mouse=n or mouse=a
+  set guicursor=                " fancy guiscursor feature are not working with Terminator
 end
 set nobackup                    " don't keep a backup file
 set backspace=2                 " allow backspacing over everything in insert mode
