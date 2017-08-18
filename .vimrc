@@ -83,8 +83,6 @@ nmap ga <Plug>(EasyAlign)
 nmap <F2> :NERDTreeToggle<CR>
 " get rid of trailing spaces
 nnoremap <silent> <F3> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
-" run debugger
-nmap <F4> :call ToggleDebugger()<CR>
 " text highlighting
 nmap <F5> :call HighlightGroup("OwnSearch0", 0)<CR>
 nmap <F6> :call HighlightGroup("OwnSearch1", 0)<CR>
@@ -369,31 +367,6 @@ autocmd FileType c,cpp setlocal shiftwidth=4
 " opens a 3 line error window if any errors are found.
 " If no errors, it closes any open cwindow.
 command -nargs=* Make make <args> | cwindow 3
-
-" setup gdb front end
-let g:pyclewn_terminal = "xterm, -e"
-let g:pyclewn_python   = "python3"
-let g:pyclewn_args     = "-d --gdb=async --window=right"
-
-function! ToggleDebugger()
-  if has("netbeans_enabled")
-    Cunmapkeys
-    Cexitclewn
-  else
-    call inputsave()
-    let cmdline = input("Turn on debugger, overrides some remaps (to undo :Cunmapkeys)\n
-          \Gdb commands can be run in vim with :C<gdb_cmd>\n
-          \Running 'gdb --args <cmdline>', please enter <cmdline>: ", '', 'file')
-    call inputrestore()
-    let run_pyclewn = 'Pyclewn gdb'
-    if cmdline != ""
-      let run_pyclewn = run_pyclewn . ' --args ' . cmdline
-    endif
-    execute run_pyclewn
-    Cmapkeys
-    Cinferiortty
-  endif
-endfunction
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
