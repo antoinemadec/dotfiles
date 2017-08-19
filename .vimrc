@@ -109,7 +109,7 @@ colorscheme gruvbox
 
 " lightline
 set laststatus=2
-source .vim/my_lightline.vim
+source ~/.vim/my_lightline.vim
 
 let NERDTreeShowHidden=1    " show hidden files in NERDTree by default
 "--------------------------------------------------------------
