@@ -15,6 +15,7 @@ Plug 'vim-scripts/vcscommand.vim'                                               
 Plug 'tpope/vim-fugitive'                                                           " Git wrapper
 Plug 'tpope/vim-surround'                                                           " provides mappings to easily delete, change and add such surroundings in pairs
 Plug 'tpope/vim-commentary'                                                         " comment stuff out
+Plug 'tpope/vim-sensible'                                                           " vim defaults that (hopefully) everyone can agree on
 Plug 'PotatoesMaster/i3-vim-syntax'                                                 " i3/config highlighting
 if (v:version >= 704 && has('patch1578')) || has('nvim')
   Plug 'valloric/youcompleteme'                                                     " fast, as-you-type, fuzzy-search code completion engine for Vim
@@ -36,14 +37,11 @@ if has('nvim')
   "vmap <LeftRelease> "*ygv     " does not work with mouse=n or mouse=a
   set guicursor=                " fancy guiscursor feature are not working with Terminator
 end
+set nocompatible                " get rid of vi compatibility
 set nobackup                    " don't keep a backup file
-set backspace=2                 " allow backspacing over everything in insert mode
 set textwidth=0                 " don't wrap words by default
 set wildmode=longest,list,full  " wildchar completion mode
-set wildmenu                    " command-line completion in an enhanced mode
-set nocompatible                " get rid of vi compatibility
 set hlsearch                    " hilght search
-set incsearch                   " while typing a search command, show where the pattern
 set expandtab                   " tab expand to space
 set tabstop=4                   " number of spaces that a <Tab> in the file counts for
 set shiftwidth=2                " Number of spaces to use for each step of (auto)indent.  Used for 'cindent', >>, <<, etc
@@ -54,15 +52,11 @@ if exists("&relativenumber")
 endif
 set mouse=a                     " use mouse in all mode. Allow to resize and copy/paste without selecting text outside of the window.
 set ttyfast                     " improves smoothness of redrawing when there are multiple windows
-set tags=tags;                  " tries to locate the 'tags' file, it first looks at the current directory, then the parent directory, etc
 set title                       " change terminal title
 set ttimeoutlen=50              " time (ms) waited for a key code or mapped key sequence to complete. Allow faster insert to normal mode
-set complete=.,w,b,u,i          " specifies how keyword completion works when CTRL-P or CTRL-N are used
+set complete=.,w,b,u            " specifies how keyword completion works when CTRL-P or CTRL-N are used
 set showcmd                     " in Visual mode the size of the selected area is shown
-set viminfo='100,f1,<50,s10     " save 100 lines of marks, 50 lines of registers, max size of item 10kB, hlsearch active when loading file
 set ignorecase smartcase        " pattern with at least one uppercase character: search becomes case sensitive
-filetype plugin on              " enable loading the plugin files for specific file types
-filetype plugin indent on       " enables filetype-specific indent scripts
 runtime! ftplugin/man.vim       " allow man to be displayed in vim
 runtime! macros/matchit.vim     " allow usage of % to match 'begin end' and other '{ }' kind of pairs
 "--------------------------------------------------------------
@@ -108,7 +102,6 @@ set background=dark
 colorscheme gruvbox
 
 " lightline
-set laststatus=2
 source ~/.vim/my_lightline.vim
 
 let NERDTreeShowHidden=1    " show hidden files in NERDTree by default
