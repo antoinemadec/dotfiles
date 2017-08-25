@@ -68,7 +68,7 @@ vnoremap . :<C-w>let cidx = col(".")<CR> :'<,'>call DotAtColumnIndex(cidx)<CR>
 " save file as sudo when vim has not been run with sudo
 cmap w!! w !sudo tee > /dev/null %
 " open man page in vim
-nnoremap K :Man <cword> <CR>
+nnoremap K :call DisplayDoc() <CR>
 " always use tjump instead of tag, query the user when multiple files match a tag
 nnoremap <C-]> g<C-]>
 " start interactive EasyAlign in visual mode (e.g. vipga)
@@ -220,6 +220,14 @@ let g:ycm_python_binary_path = 'python'
 nnoremap <leader>g :YcmCompleter GoTo<CR>
 nnoremap <leader>pd :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>pc :YcmCompleter GoToDeclaration<CR>
+
+function! DisplayDoc()
+  if &filetype == "python"
+    YcmCompleter GetDoc
+  else
+    execute "Man " . expand('<cword>')
+  endif
+endfunction
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
