@@ -65,11 +65,12 @@ filetype plugin on              " enable loading the plugin files for specific f
 filetype plugin indent on       " enables filetype-specific indent scripts
 runtime! ftplugin/man.vim       " allow man to be displayed in vim
 runtime! macros/matchit.vim     " allow usage of % to match 'begin end' and other '{ }' kind of pairs
-"--------------------------------------------------------------
+"-------------------------------------------------------------
 
 "--------------------------------------------------------------
 " mappings
 "--------------------------------------------------------------
+vnoremap . :<C-w>let cidx = col(".")<CR> :'<,'>call DotAtColumnIndex(cidx)<CR>
 " save file as sudo when vim has not been run with sudo
 cmap w!! w !sudo tee > /dev/null %
 " open man page in vim
@@ -281,4 +282,9 @@ set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove left-hand scroll bar
+
+function! DotAtColumnIndex(cidx)
+  let a = a:cidx - 1
+  execute "normal " . a . "l."
+endfunction
 "--------------------------------------------------------------
