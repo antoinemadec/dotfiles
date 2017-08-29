@@ -1,6 +1,7 @@
 [global_config]
   title_font = Sans 18
 [keybindings]
+  layout_launcher = None
 [layouts]
   [[default]]
     [[[child1]]]
