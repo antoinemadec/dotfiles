@@ -64,6 +64,27 @@ runtime! macros/matchit.vim     " allow usage of % to match 'begin end' and othe
 "--------------------------------------------------------------
 " mappings
 "--------------------------------------------------------------
+" terminal mode mappings
+if has('nvim')
+  tnoremap <Esc> <C-\><C-n>
+  tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
+endif
+" ALT+{h,j,k,l} to navigate windows from any mode:
+if has('nvim')
+  tnoremap <A-h> <C-\><C-N><C-w>h
+  tnoremap <A-j> <C-\><C-N><C-w>j
+  tnoremap <A-k> <C-\><C-N><C-w>k
+  tnoremap <A-l> <C-\><C-N><C-w>l
+endif
+inoremap <A-h> <C-\><C-N><C-w>h
+inoremap <A-j> <C-\><C-N><C-w>j
+inoremap <A-k> <C-\><C-N><C-w>k
+inoremap <A-l> <C-\><C-N><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+" add '.' support in visual mode
 vnoremap . :<C-w>let cidx = col(".")<CR> :'<,'>call DotAtColumnIndex(cidx)<CR>
 " save file as sudo when vim has not been run with sudo
 cmap w!! w !sudo tee > /dev/null %
