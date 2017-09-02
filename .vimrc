@@ -20,6 +20,8 @@ Plug 'PotatoesMaster/i3-vim-syntax'                                             
 if (v:version >= 704 && has('patch1578')) || has('nvim')
   Plug 'valloric/youcompleteme'                                                     " fast, as-you-type, fuzzy-search code completion engine for Vim
 endif
+" just for fun:
+Plug 'itchyny/screensaver.vim'                                                      " vim screensavers
 call plug#end()
 
 if empty(glob("~/.vim/plugins_by_vimplug"))
@@ -99,6 +101,7 @@ nmap ga <Plug>(EasyAlign)
 nmap <F2> :NERDTreeToggle<CR>
 " get rid of trailing spaces
 nnoremap <silent> <F3> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+nnoremap <F4> :ScreenSaver largeclock<CR>
 " text highlighting
 nmap <F5> :call HighlightGroup("OwnSearch0", 0)<CR>
 nmap <F6> :call HighlightGroup("OwnSearch1", 0)<CR>
@@ -305,8 +308,19 @@ set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove left-hand scroll bar
 
+" repeat last change at a column index
 function! DotAtColumnIndex(cidx)
   let a = a:cidx - 1
   execute "normal " . a . "l."
 endfunction
+
+" add command to open terminals
+if has('nvim')
+  command! -nargs=* T split | terminal <args>
+  command! -nargs=* VT vsplit | terminal <args>
+endif
+
+" screensaver requires password
+let g:screensaver_password = 1
+call screensaver#source#password#set('fbbf2ec210fa1e6eb7d7f7e1bc34a4a8f93798b546fb5047be7ab21be75c61cc')
 "--------------------------------------------------------------
