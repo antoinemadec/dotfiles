@@ -11,6 +11,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-completion' 
 Plug 'junegunn/fzf.vim'                                                             " fuzzy search in a dir/buffers/files etc
 Plug 'junegunn/vim-easy-align'                                                      " easy alignement of line fields
 Plug 'vhda/verilog_systemverilog.vim'                                               " Vim Syntax Plugin for Verilog and SystemVerilog
+Plug 'antoinemadec/vim-verilog-instance'                                            " TODO
 Plug 'vim-scripts/vcscommand.vim'                                                   " diff local CVS SVN and GIT files with current version on the server
 Plug 'tpope/vim-fugitive'                                                           " Git wrapper
 Plug 'tpope/vim-surround'                                                           " provides mappings to easily delete, change and add such surroundings in pairs
@@ -112,7 +113,7 @@ nmap <C-F6> :call HighlightGroup("OwnSearch1", 1)<CR>
 nmap <C-S-F5> :call ClearGroup("OwnSearch0", 1)<CR>
 nmap <C-S-F6> :call ClearGroup("OwnSearch1", 1)<CR>
 " autoinstantiate selected IO definition
-vmap <F8> :call VerilogInstance()<CR>
+vmap <F8> :VerilogInstance<CR>
 " press F12 before copying text pasted outside of vim to avoid auto indentation
 set pastetoggle=<F12>
 " buffer explorer style mapping for fzf.vim
@@ -254,15 +255,9 @@ function! DisplayDoc()
 endfunction
 "--------------------------------------------------------------
 
-"--------------------------------------------------------------
-" verilog
-"--------------------------------------------------------------
-" instatiation from ports
-function! VerilogInstance() range
-  let cmd=a:firstline . "," . a:lastline . "!" . "~/.vim/scripts/verilog_instance.pl"
-  execute cmd
-endfunction
-
+" "--------------------------------------------------------------
+" " verilog
+" "--------------------------------------------------------------
 " map '-' to 'begin end' surrounding
 autocmd FileType verilog_systemverilog let b:surround_45 = "begin \r end"
 
