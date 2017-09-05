@@ -112,8 +112,6 @@ nmap <C-F5> :call HighlightGroup("OwnSearch0", 1)<CR>
 nmap <C-F6> :call HighlightGroup("OwnSearch1", 1)<CR>
 nmap <C-S-F5> :call ClearGroup("OwnSearch0", 1)<CR>
 nmap <C-S-F6> :call ClearGroup("OwnSearch1", 1)<CR>
-" autoinstantiate selected IO definition
-vmap <F8> :VerilogInstance<CR>
 " press F12 before copying text pasted outside of vim to avoid auto indentation
 set pastetoggle=<F12>
 " buffer explorer style mapping for fzf.vim
