@@ -1,6 +1,6 @@
-" --------------------------------------------------------------
+"--------------------------------------------------------------
 " plugins
-" --------------------------------------------------------------
+"--------------------------------------------------------------
 call plug#begin('~/.vim/plugins_by_vimplug')
 Plug 'morhetz/gruvbox'                   " colorscheme
 if v:version >= 704
@@ -14,6 +14,7 @@ Plug 'junegunn/fzf.vim'                  " fuzzy search in a dir/buffers/files e
 Plug 'junegunn/vim-easy-align'           " easy alignement of line fields
 Plug 'vhda/verilog_systemverilog.vim'    " Vim Syntax Plugin for Verilog and SystemVerilog
 Plug 'antoinemadec/vim-verilog-instance' " Verilog port instantiation from port declaration
+Plug 'antoinemadec/vim-highlight-groups' " TODO
 Plug 'vim-scripts/vcscommand.vim'        " diff local CVS SVN and GIT files with server version
 Plug 'tpope/vim-fugitive'                " Git wrapper
 Plug 'tpope/vim-surround'                " easily delete, change and add such surroundings in pairs
@@ -99,14 +100,14 @@ nmap <F2> :NERDTreeToggle<CR>
 " get rid of trailing spaces
 nnoremap <silent> <F3> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 nnoremap <F4> :ScreenSaver largeclock<CR>
-nmap <F5> :call HighlightGroup("OwnSearch0", 0)<CR>
-nmap <F6> :call HighlightGroup("OwnSearch1", 0)<CR>
-nmap <S-F5> :call ClearGroup("OwnSearch0", 0)<CR>
-nmap <S-F6> :call ClearGroup("OwnSearch1", 0)<CR>
-nmap <C-F5> :call HighlightGroup("OwnSearch0", 1)<CR>
-nmap <C-F6> :call HighlightGroup("OwnSearch1", 1)<CR>
-nmap <C-S-F5> :call ClearGroup("OwnSearch0", 1)<CR>
-nmap <C-S-F6> :call ClearGroup("OwnSearch1", 1)<CR>
+nmap <F5> :HighlightGroup 4 0<CR>
+nmap <F6> :HighlightGroup 6 0<CR>
+nmap <S-F5> :ClearGroup 4 0<CR>
+nmap <S-F6> :ClearGroup 6 0<CR>
+nmap <C-F5> :HighlightGroup 4 1<CR>
+nmap <C-F6> :HighlightGroup 6 1<CR>
+nmap <C-S-F5> :ClearGroup 4 1<CR>
+nmap <C-S-F6> :ClearGroup 6 1<CR>
 " paste avoiding auto indentation
 set pastetoggle=<F12>
 nnoremap <script> <silent> <unique> <Leader>be :Buffers<CR>
@@ -148,31 +149,6 @@ augroup HiglightTODO
   autocmd!
   autocmd WinEnter,VimEnter * :silent! call matchadd('CustomHighlight_Warning', 'TODO\|FIXME', -1)
 augroup END
-
-" hightlight 2 different groups with different colors for readability,
-" F5: pink group; F6: blue group
-highlight OwnSearch0  term=bold,undercurl,reverse cterm=bold,reverse ctermfg=magenta gui=bold,reverse guifg=magenta
-highlight OwnSearch1 term=bold,reverse cterm=bold,reverse gui=bold,reverse ctermfg=6
-function! HighlightGroup(gr, w)
-  let a = "syntax match " . a:gr . " '\\\<" . expand ("<cword>") . "\\\>' containedin=ALL"
-  let cur_win = winnr()
-  if a:w == 0
-    execute a
-  else
-    windo execute a
-  endif
-  exe cur_win . "wincmd w"
-endfunction
-function! ClearGroup(gr, w)
-  let a = "syntax clear " . a:gr
-  let cur_win = winnr()
-  if a:w == 0
-    execute a
-  else
-    windo execute a
-  endif
-  exe cur_win . "wincmd w"
-endfunction
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
