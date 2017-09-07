@@ -1,6 +1,10 @@
 [global_config]
   title_font = Sans 18
 [keybindings]
+  go_down = <Alt><Super>Down
+  go_left = <Alt><Super>Left
+  go_right = <Alt><Super>Right
+  go_up = <Alt><Super>Up
   layout_launcher = None
 [layouts]
   [[default]]

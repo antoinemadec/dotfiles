@@ -1,28 +1,30 @@
-"--------------------------------------------------------------
+" --------------------------------------------------------------
 " plugins
-"--------------------------------------------------------------
+" --------------------------------------------------------------
 call plug#begin('~/.vim/plugins_by_vimplug')
-Plug 'morhetz/gruvbox'                                                            " colorscheme
+Plug 'morhetz/gruvbox'                   " colorscheme
 if v:version >= 704
-  Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'                 " file navigator
+  Plug 'scrooloose/nerdtree'             " file navigator
+  Plug 'Xuyuanp/nerdtree-git-plugin'
 endif
-Plug 'itchyny/lightline.vim'                                                      " status line
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-completion' } " fuzzy search in a dir
-Plug 'junegunn/fzf.vim'                                                           " fuzzy search in a dir/buffers/files etc
-Plug 'junegunn/vim-easy-align'                                                    " easy alignement of line fields
-Plug 'vhda/verilog_systemverilog.vim'                                             " Vim Syntax Plugin for Verilog and SystemVerilog
-Plug 'antoinemadec/vim-verilog-instance'                                          " TODO
-Plug 'vim-scripts/vcscommand.vim'                                                 " diff local CVS SVN and GIT files with current version on the server
-Plug 'tpope/vim-fugitive'                                                         " Git wrapper
-Plug 'tpope/vim-surround'                                                         " provides mappings to easily delete, change and add such surroundings in pairs
-Plug 'tpope/vim-commentary'                                                       " comment stuff out
-Plug 'tpope/vim-sensible'                                                         " vim defaults that (hopefully) everyone can agree on
-Plug 'PotatoesMaster/i3-vim-syntax'                                               " i3/config highlighting
+Plug 'itchyny/lightline.vim'             " status line
+Plug 'junegunn/fzf',                     " fuzzy search in a dir
+\ {'dir': '~/.fzf','do': './install --all --no-completion'}
+Plug 'junegunn/fzf.vim'                  " fuzzy search in a dir/buffers/files etc
+Plug 'junegunn/vim-easy-align'           " easy alignement of line fields
+Plug 'vhda/verilog_systemverilog.vim'    " Vim Syntax Plugin for Verilog and SystemVerilog
+Plug 'antoinemadec/vim-verilog-instance' " Verilog port instantiation from port declaration
+Plug 'vim-scripts/vcscommand.vim'        " diff local CVS SVN and GIT files with server version
+Plug 'tpope/vim-fugitive'                " Git wrapper
+Plug 'tpope/vim-surround'                " easily delete, change and add such surroundings in pairs
+Plug 'tpope/vim-commentary'              " comment stuff out
+Plug 'tpope/vim-sensible'                " vim defaults that (hopefully) everyone can agree on
+Plug 'PotatoesMaster/i3-vim-syntax'      " i3/config highlighting
 if (v:version >= 704 && has('patch1578')) || has('nvim')
-  Plug 'valloric/youcompleteme'                                                   " fast, as-you-type, fuzzy-search code completion engine for Vim
+  Plug 'valloric/youcompleteme'          " fast, as-you-type, code completion engine for Vim
 endif
 " just for fun:
-Plug 'itchyny/screensaver.vim'                                                    " vim screensavers
+Plug 'itchyny/screensaver.vim'           " vim screensavers
 call plug#end()
 
 if empty(glob("~/.vim/plugins_by_vimplug"))
@@ -37,73 +39,66 @@ if has('nvim')
   " TODO wait for NVIM support of clipboard=autoselect
   " in order to make mouse=a copy/paste work
   set clipboard+=unnamed
-  "vmap <LeftRelease> "*ygv     " does not work with mouse=n or mouse=a
-  set guicursor=                " fancy guiscursor feature are not working with Terminator
+  set guicursor=               " fancy guiscursor feature are not working with Terminator
 end
-set nocompatible                " get rid of vi compatibility
-set nobackup                    " don't keep a backup file
-set textwidth=0                 " don't wrap words by default
-set wildmode=longest,list,full  " wildchar completion mode
-set hlsearch                    " hilght search
-set expandtab                   " tab expand to space
-set tabstop=4                   " number of spaces that a <Tab> in the file counts for
-set shiftwidth=2                " Number of spaces to use for each step of (auto)indent.  Used for 'cindent', >>, <<, etc
-set lazyredraw                  " screen will not be redrawn while executing macros, registers and other commands that have not been typed
+set nocompatible               " get rid of vi compatibility
+set nobackup                   " don't keep a backup file
+set textwidth=0                " don't wrap words by default
+set wildmode=longest,list,full " wildchar completion mode
+set hlsearch                   " hilght search
+set expandtab                  " tab expand to space
+set tabstop=4                  " number of spaces that a <Tab> in the file counts for
+set shiftwidth=2               " number of spaces to use for each step of (auto)indent
+set lazyredraw                 " no screen redrawing while executing macros, registers etc
 if exists("&relativenumber")
-  set relativenumber            " Show the line number relative to the line with the cursor
-  set numberwidth=2             " number of columns to use for the line number
+  set relativenumber           " show the line number relative to the line with the cursor
+  set numberwidth=2            " number of columns to use for the line number
 endif
-set mouse=a                     " use mouse in all mode. Allow to resize and copy/paste without selecting text outside of the window.
-set ttyfast                     " improves smoothness of redrawing when there are multiple windows
-set title                       " change terminal title
-set ttimeoutlen=50              " time (ms) waited for a key code or mapped key sequence to complete. Allow faster insert to normal mode
-set complete=.,w,b,u            " specifies how keyword completion works when CTRL-P or CTRL-N are used
-set showcmd                     " in Visual mode the size of the selected area is shown
-set ignorecase smartcase        " pattern with at least one uppercase character: search becomes case sensitive
-runtime! ftplugin/man.vim       " allow man to be displayed in vim
-runtime! macros/matchit.vim     " allow usage of % to match 'begin end' and other '{ }' kind of pairs
+set mouse=a                    " allow to resize and copy/paste without selecting text outside of the window
+set ttyfast                    " improves smoothness of redrawing when there are multiple windows
+set title                      " change terminal title
+set ttimeoutlen=50             " ms waited for a key code/sequence to complete. Allow faster insert to normal mode
+set complete=.,w,b,u           " specifies how keyword completion works when CTRL-P or CTRL-N are used
+set showcmd                    " in Visual mode the size of the selected area is shown
+set ignorecase smartcase       " pattern with at least one uppercase character: search becomes case sensitive
+runtime! ftplugin/man.vim      " allow man to be displayed in vim
+runtime! macros/matchit.vim    " allow usage of % to match 'begin end' and other '{ }' kind of pairs
 "-------------------------------------------------------------
 
 "--------------------------------------------------------------
 " mappings
 "--------------------------------------------------------------
-" terminal mode mappings
 if has('nvim')
   tnoremap <Esc> <C-\><C-n>
   tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 endif
-" ALT+{h,j,k,l} to navigate windows from any mode:
 if has('nvim')
-  tnoremap <A-h> <C-\><C-N><C-w>h
-  tnoremap <A-j> <C-\><C-N><C-w>j
-  tnoremap <A-k> <C-\><C-N><C-w>k
-  tnoremap <A-l> <C-\><C-N><C-w>l
+  tnoremap <A-Left> <C-\><C-N><C-w>h
+  tnoremap <A-Down> <C-\><C-N><C-w>j
+  tnoremap <A-Up> <C-\><C-N><C-w>k
+  tnoremap <A-Right> <C-\><C-N><C-w>l
 endif
-inoremap <A-h> <C-\><C-N><C-w>h
-inoremap <A-j> <C-\><C-N><C-w>j
-inoremap <A-k> <C-\><C-N><C-w>k
-inoremap <A-l> <C-\><C-N><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
+inoremap <A-Left>  <C-\><C-N><C-w>h
+inoremap <A-Down>  <C-\><C-N><C-w>j
+inoremap <A-Up>    <C-\><C-N><C-w>k
+inoremap <A-Right> <C-\><C-N><C-w>l
+nnoremap <A-Left>  <C-w>h
+nnoremap <A-Down>  <C-w>j
+nnoremap <A-Up>    <C-w>k
+nnoremap <A-Right> <C-w>l
 " add '.' support in visual mode
 vnoremap . :<C-w>let cidx = col(".")<CR> :'<,'>call DotAtColumnIndex(cidx)<CR>
-" save file as sudo when vim has not been run with sudo
+" save file as sudo
 cmap w!! w !sudo tee > /dev/null %
-" open man page in vim
 nnoremap K :call DisplayDoc() <CR>
-" always use tjump instead of tag, query the user when multiple files match a tag
+" use tjump instead of tag, query the user when multiple files match a tag
 nnoremap <C-]> g<C-]>
-" start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
-" start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 nmap <F2> :NERDTreeToggle<CR>
 " get rid of trailing spaces
 nnoremap <silent> <F3> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 nnoremap <F4> :ScreenSaver largeclock<CR>
-" text highlighting
 nmap <F5> :call HighlightGroup("OwnSearch0", 0)<CR>
 nmap <F6> :call HighlightGroup("OwnSearch1", 0)<CR>
 nmap <S-F5> :call ClearGroup("OwnSearch0", 0)<CR>
@@ -112,23 +107,21 @@ nmap <C-F5> :call HighlightGroup("OwnSearch0", 1)<CR>
 nmap <C-F6> :call HighlightGroup("OwnSearch1", 1)<CR>
 nmap <C-S-F5> :call ClearGroup("OwnSearch0", 1)<CR>
 nmap <C-S-F6> :call ClearGroup("OwnSearch1", 1)<CR>
-" press F12 before copying text pasted outside of vim to avoid auto indentation
+" paste avoiding auto indentation
 set pastetoggle=<F12>
-" buffer explorer style mapping for fzf.vim
 nnoremap <script> <silent> <unique> <Leader>be :Buffers<CR>
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
 " appearence
 "--------------------------------------------------------------
-set t_Co=256                " vim uses more colors
+set t_Co=256 " vim uses 256 colors
 set background=dark
 colorscheme gruvbox
 
-" lightline
 source ~/.vim/my_lightline.vim
 
-let NERDTreeShowHidden=1    " show hidden files in NERDTree by default
+let NERDTreeShowHidden=1 " show hidden files in NERDTree by default
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
@@ -253,9 +246,9 @@ function! DisplayDoc()
 endfunction
 "--------------------------------------------------------------
 
-" "--------------------------------------------------------------
-" " verilog
-" "--------------------------------------------------------------
+"--------------------------------------------------------------
+" verilog
+"--------------------------------------------------------------
 " map '-' to 'begin end' surrounding
 autocmd FileType verilog_systemverilog let b:surround_45 = "begin \r end"
 
@@ -275,18 +268,13 @@ let g:verilog_instance_skip_last_coma = 1
 " override default indent based on plugin
 autocmd FileType c,cpp setlocal shiftwidth=4
 
-" Command Make will call make and then cwindow which
-" opens a 3 line error window if any errors are found.
-" If no errors, it closes any open cwindow.
+" Make opens a 3 line error window if any errors
 command -nargs=* Make make <args> | cwindow 3
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
 " misc
 "--------------------------------------------------------------
-" abreviations
-abbr sigm_print `SIGM_PRINT(`SIGM_NOTICE, ("\n"));<Left><Left><Left><Left><Left><Left>
-
 " redirection of vim commands in clipboard
 command! -nargs=1 RediCmdToClipboard call RediCmdToClipboard(<f-args>)
 function! RediCmdToClipboard(cmd)
@@ -298,10 +286,10 @@ endfunction
 au BufNewFile,BufRead *.bashrc* call SetFileTypeSH("bash")
 
 " simple gvim
-set guioptions-=m  "remove menu bar
-set guioptions-=T  "remove toolbar
-set guioptions-=r  "remove right-hand scroll bar
-set guioptions-=L  "remove left-hand scroll bar
+set guioptions-=m "remove menu bar
+set guioptions-=T "remove toolbar
+set guioptions-=r "remove right-hand scroll bar
+set guioptions-=L "remove left-hand scroll bar
 
 " repeat last change at a column index
 function! DotAtColumnIndex(cidx)
