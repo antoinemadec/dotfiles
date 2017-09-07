@@ -108,12 +108,11 @@ then
   export COLOR_NEUTRAL="\[\033[0m\]"
 fi
 
-# test speed of __git_ps1 in background and set git_show_dirty_state file accordingly
+# test speed of __git_ps1 in background in relation to different options
 # 200ms is the threshold; don't run it if current directory has not change
-test_git_show_dirty_state_speed() {
+test_git_ps1_speed() {
   file="$1"
-  cmd_output="$((time (GIT_PS1_SHOWDIRTYSTATE=true __git_ps1)) 2>&1)"
-  if [ "$PREVPWD" != "$PWD" ] && [ "$(echo "$cmd_output" | head -n 1)" != "" ]
+  if [ "$PREVPWD" != "$PWD" ]
   then
     (
     t=$( (time (GIT_PS1_SHOWDIRTYSTATE=true __git_ps1)) 2>&1 | grep real | sed -e 's/.*m//' -e 's/s//' -e 's/\.//' )
@@ -134,8 +133,8 @@ fancy_prompt () {
       local arrow="${COLOR_RED}"
   fi
   local arrow+=">"
-  git_ds_file="/tmp/git_show_dirty_state$(tty | sed 's#/#_#g')"
-  test_git_show_dirty_state_speed "$git_ds_file"
+  git_ds_file="/tmp/git_ps1_speed$(tty | sed 's#/#_#g')"
+  test_git_ps1_speed "$git_ds_file"
   GIT_PS1_SHOWDIRTYSTATE="$(cat $git_ds_file 2>/dev/null)"
   GIT_PS1_SHOWSTASHSTATE=true
   GIT_PS1_SHOWUPSTREAM="auto"
