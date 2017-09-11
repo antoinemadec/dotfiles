@@ -99,15 +99,15 @@ nmap ga <Plug>(EasyAlign)
 nmap <F2> :NERDTreeToggle<CR>
 " get rid of trailing spaces
 nnoremap <silent> <F3> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
-nnoremap <F4> :ScreenSaver largeclock<CR>
-nmap <F5> :HighlightGroup 4 0<CR>
-nmap <F6> :HighlightGroup 6 0<CR>
-nmap <S-F5> :ClearGroup 4 0<CR>
-nmap <S-F6> :ClearGroup 6 0<CR>
-nmap <C-F5> :HighlightGroup 4 1<CR>
-nmap <C-F6> :HighlightGroup 6 1<CR>
-nmap <C-S-F5> :ClearGroup 4 1<CR>
-nmap <C-S-F6> :ClearGroup 6 1<CR>
+nnoremap <silent> <F4> :ScreenSaver largeclock<CR>
+nnoremap <silent> <F5> :HighlightGroupsAddWord 4 0<CR>
+nnoremap <silent> <F6> :HighlightGroupsAddWord 6 0<CR>
+nnoremap <silent> <S-F5> :HighlightGroupsClearGroup 4 0<CR>
+nnoremap <silent> <S-F6> :HighlightGroupsClearGroup 6 0<CR>
+nnoremap <silent> <C-F5> :HighlightGroupsAddWord 4 1<CR>
+nnoremap <silent> <C-F6> :HighlightGroupsAddWord 6 1<CR>
+nnoremap <silent> <C-S-F5> :HighlightGroupsClearGroup 4 1<CR>
+nnoremap <silent> <C-S-F6> :HighlightGroupsClearGroup 6 1<CR>
 " paste avoiding auto indentation
 set pastetoggle=<F12>
 nnoremap <script> <silent> <unique> <Leader>be :Buffers<CR>
