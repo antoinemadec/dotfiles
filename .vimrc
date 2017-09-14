@@ -108,13 +108,14 @@ nnoremap <silent> <C-F5> :HighlightGroupsAddWord 4 1<CR>
 nnoremap <silent> <C-F6> :HighlightGroupsAddWord 6 1<CR>
 nnoremap <silent> <C-S-F5> :HighlightGroupsClearGroup 4 1<CR>
 nnoremap <silent> <C-S-F6> :HighlightGroupsClearGroup 6 1<CR>
+nnoremap <silent> <F9> :set spell!<CR>
 " paste avoiding auto indentation
 set pastetoggle=<F12>
 nnoremap <script> <silent> <unique> <Leader>be :Buffers<CR>
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
-" appearence
+" appearance
 "--------------------------------------------------------------
 set t_Co=256 " vim uses 256 colors
 set background=dark

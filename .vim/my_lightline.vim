@@ -9,10 +9,10 @@ let g:lightline = {
   \   'left': [ [ 'foldinfo', 'mode', 'paste' ],
   \             [ 'readonly', 'relativepath', 'modified' ],
   \             [ 'fugitive' ] ],
-  \   'right': [ [ 'syntastic', 'lineinfo' ],
-  \                          [ 'percent' ],
-  \                          [ 'filetype' ],
-  \                          [ 'detecttrailingspace' ] ]
+  \   'right': [ [ 'lineinfo' ],
+  \              [ 'percent' ],
+  \              [ 'spell', 'filetype' ],
+  \              [ 'detecttrailingspace' ] ]
   \ },
   \ 'inactive' : {
   \   'left': [ [ 'filename', 'modified' ] ],
