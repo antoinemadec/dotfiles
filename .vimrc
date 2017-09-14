@@ -11,7 +11,7 @@ Plug 'itchyny/lightline.vim'             " status line
 Plug 'junegunn/fzf',                     " fuzzy search in a dir
 \ {'dir': '~/.fzf','do': './install --all --no-completion'}
 Plug 'junegunn/fzf.vim'                  " fuzzy search in a dir/buffers/files etc
-Plug 'junegunn/vim-easy-align'           " easy alignement of line fields
+Plug 'junegunn/vim-easy-align'           " easy alignment of line fields
 Plug 'vhda/verilog_systemverilog.vim'    " Vim Syntax Plugin for Verilog and SystemVerilog
 Plug 'antoinemadec/vim-verilog-instance' " Verilog port instantiation from port declaration
 Plug 'antoinemadec/vim-highlight-groups' " TODO
@@ -46,7 +46,7 @@ set nocompatible               " get rid of vi compatibility
 set nobackup                   " don't keep a backup file
 set textwidth=0                " don't wrap words by default
 set wildmode=longest,list,full " wildchar completion mode
-set hlsearch                   " hilght search
+set hlsearch                   " highlight search
 set expandtab                  " tab expand to space
 set tabstop=4                  " number of spaces that a <Tab> in the file counts for
 set shiftwidth=2               " number of spaces to use for each step of (auto)indent
@@ -133,7 +133,7 @@ let NERDTreeShowHidden=1 " show hidden files in NERDTree by default
 set list
 set listchars=nbsp:?
 
-" redifine Todo highlight group for more readability
+" redefine Todo highlight group for more readability
 highlight Todo term=standout cterm=bold ctermfg=235 ctermbg=167 gui=bold guifg=#282828 guibg=#fb4934
 
 " highlight extra whitespace
