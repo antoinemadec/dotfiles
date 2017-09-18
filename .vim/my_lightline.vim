@@ -10,14 +10,13 @@ let g:lightline = {
   \             [ 'readonly', 'relativepath', 'modified' ],
   \             [ 'fugitive' ] ],
   \   'right': [ [ 'lineinfo' ],
-  \              [ 'percent' ],
+  \              [ 'percentwin' ],
   \              [ 'spell', 'filetype' ],
   \              [ 'detecttrailingspace' ] ]
   \ },
   \ 'inactive' : {
   \   'left': [ [ 'filename', 'modified' ] ],
-  \   'right': [ [ 'lineinfo' ],
-  \              [ 'percent' ] ]
+  \   'right': [ [ 'lineinfo' ] ]
   \ },
   \ 'component_function': {
   \   'fugitive': 'LightlineFugitive'
