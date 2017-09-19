@@ -7,7 +7,7 @@ let g:lightline = {
   \ 'colorscheme': 'gruvbox',
   \ 'active': {
   \   'left': [ [ 'foldinfo', 'mode', 'paste' ],
-  \             [ 'readonly', 'relativepath', 'modified' ],
+  \             [ 'readonly', 'myrelativepath', 'modified' ],
   \             [ 'fugitive' ] ],
   \   'right': [ [ 'lineinfo' ],
   \              [ 'percentwin' ],
@@ -22,6 +22,7 @@ let g:lightline = {
   \   'fugitive': 'LightlineFugitive'
   \ },
   \ 'component_expand': {
+  \   'myrelativepath': 'MyRelativePath',
   \   'foldinfo': 'FoldInfo',
   \   'detecttrailingspace': 'DetectTrailingSpace'
   \ },
@@ -30,6 +31,10 @@ let g:lightline = {
   \   'detecttrailingspace': 'error'
   \ },
   \ }
+
+function! MyRelativePath()
+  return '%<%f'
+endfunction
 
 autocmd BufEnter,BufWinEnter,BufWritePost * call UpdateGitStatus()
 function! UpdateGitStatus()
