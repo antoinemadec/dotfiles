@@ -14,12 +14,13 @@ Plug 'junegunn/fzf.vim'                  " fuzzy search in a dir/buffers/files e
 Plug 'junegunn/vim-easy-align'           " easy alignment of line fields
 Plug 'vhda/verilog_systemverilog.vim'    " Vim Syntax Plugin for Verilog and SystemVerilog
 Plug 'antoinemadec/vim-verilog-instance' " Verilog port instantiation from port declaration
-Plug 'antoinemadec/vim-highlight-groups' " TODO
+Plug 'antoinemadec/vim-highlight-groups' " add words in highlight groups on the fly
 Plug 'vim-scripts/vcscommand.vim'        " diff local CVS SVN and GIT files with server version
 Plug 'tpope/vim-fugitive'                " Git wrapper
 Plug 'tpope/vim-surround'                " easily delete, change and add such surroundings in pairs
 Plug 'tpope/vim-commentary'              " comment stuff out
 Plug 'tpope/vim-sensible'                " vim defaults that (hopefully) everyone can agree on
+Plug 'tpope/vim-repeat'                  " remaps '.' in a way that plygubs can tap into it
 Plug 'PotatoesMaster/i3-vim-syntax'      " i3/config highlighting
 if (v:version >= 704 && has('patch1578')) || has('nvim')
   Plug 'valloric/youcompleteme'          " fast, as-you-type, code completion engine for Vim
