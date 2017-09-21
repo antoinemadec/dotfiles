@@ -2,31 +2,31 @@
 " plugins
 "--------------------------------------------------------------
 call plug#begin('~/.vim/plugins_by_vimplug')
-Plug 'morhetz/gruvbox'                   " colorscheme
+Plug 'morhetz/gruvbox'                                                         " colorscheme
 if v:version >= 704
-  Plug 'scrooloose/nerdtree'             " file navigator
+  Plug 'scrooloose/nerdtree'                                                   " file navigator
   Plug 'Xuyuanp/nerdtree-git-plugin'
 endif
-Plug 'itchyny/lightline.vim'             " status line
-Plug 'junegunn/fzf',                     " fuzzy search in a dir
-\ {'dir': '~/.fzf','do': './install --all --no-completion'}
-Plug 'junegunn/fzf.vim'                  " fuzzy search in a dir/buffers/files etc
-Plug 'junegunn/vim-easy-align'           " easy alignment of line fields
-Plug 'vhda/verilog_systemverilog.vim'    " Vim Syntax Plugin for Verilog and SystemVerilog
-Plug 'antoinemadec/vim-verilog-instance' " Verilog port instantiation from port declaration
-Plug 'antoinemadec/vim-highlight-groups' " add words in highlight groups on the fly
-Plug 'vim-scripts/vcscommand.vim'        " diff local CVS SVN and GIT files with server version
-Plug 'tpope/vim-fugitive'                " Git wrapper
-Plug 'tpope/vim-surround'                " easily delete, change and add such surroundings in pairs
-Plug 'tpope/vim-commentary'              " comment stuff out
-Plug 'tpope/vim-sensible'                " vim defaults that (hopefully) everyone can agree on
-Plug 'tpope/vim-repeat'                  " remaps '.' in a way that plygubs can tap into it
-Plug 'PotatoesMaster/i3-vim-syntax'      " i3/config highlighting
+Plug 'itchyny/lightline.vim'                                                   " status line
+Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all --no-completion'} " fuzzy search in a dir
+Plug 'junegunn/fzf.vim'                                                        " fuzzy search in a dir/buffers/files etc
+Plug 'junegunn/vim-easy-align'                                                 " easy alignment of line fields
+Plug 'vhda/verilog_systemverilog.vim', {'for': 'verilog_systemverilog'}        " Vim Syntax Plugin for Verilog and SystemVerilog
+Plug 'antoinemadec/vim-verilog-instance', {'for': 'verilog_systemverilog'}     " Verilog port instantiation from port declaration
+Plug 'antoinemadec/vim-highlight-groups'                                       " add words in highlight groups on the fly
+Plug 'vim-scripts/vcscommand.vim'                                              " diff local CVS SVN and GIT files with server version
+Plug 'tpope/vim-fugitive'                                                      " Git wrapper
+Plug 'tpope/vim-surround'                                                      " easily delete, change and add such surroundings in pairs
+Plug 'tpope/vim-commentary'                                                    " comment stuff out
+Plug 'tpope/vim-sensible'                                                      " vim defaults that (hopefully) everyone can agree on
+Plug 'tpope/vim-repeat'                                                        " remaps '.' in a way that plygubs can tap into it
+Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}                             " i3/config highlighting
 if (v:version >= 704 && has('patch1578')) || has('nvim')
-  Plug 'valloric/youcompleteme'          " fast, as-you-type, code completion engine for Vim
+  Plug 'valloric/youcompleteme'                                                " fast, as-you-type, code completion engine for Vim
 endif
 " just for fun:
-Plug 'itchyny/screensaver.vim'           " vim screensavers
+Plug 'itchyny/screensaver.vim'                                                 " vim screensavers
+Plug 'johngrib/vim-game-code-break'                                            " fun game
 call plug#end()
 
 if empty(glob("~/.vim/plugins_by_vimplug"))
