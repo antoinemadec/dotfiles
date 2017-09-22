@@ -4,8 +4,8 @@
 call plug#begin('~/.vim/plugins_by_vimplug')
 Plug 'morhetz/gruvbox'                                                         " colorscheme
 if v:version >= 704
-  Plug 'scrooloose/nerdtree'                                                   " file navigator
-  Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'scrooloose/nerdtree',         {'on': 'NERDTreeToggle'}                 " file navigator
+  Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
 endif
 Plug 'itchyny/lightline.vim'                                                   " status line
 Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all --no-completion'} " fuzzy search in a dir
@@ -22,11 +22,8 @@ Plug 'tpope/vim-sensible'                                                      "
 Plug 'tpope/vim-repeat'                                                        " remaps '.' in a way that plygubs can tap into it
 Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}                             " i3/config highlighting
 if (v:version >= 704 && has('patch1578')) || has('nvim')
-  Plug 'valloric/youcompleteme'                                                " fast, as-you-type, code completion engine for Vim
+  Plug 'valloric/YouCompleteMe', {'on': []}                                    " fast, as-you-type, code completion engine for Vim
 endif
-" just for fun:
-Plug 'itchyny/screensaver.vim'                                                 " vim screensavers
-Plug 'johngrib/vim-game-code-break'                                            " fun game
 call plug#end()
 
 if empty(glob("~/.vim/plugins_by_vimplug"))
@@ -97,7 +94,7 @@ nmap ga <Plug>(EasyAlign)
 nmap <F2> :NERDTreeToggle<CR>
 " get rid of trailing spaces
 nnoremap <silent> <F3> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
-nnoremap <silent> <F4> :ScreenSaver largeclock<CR>
+nnoremap <silent> <F4> :EnableYCM<CR>
 nnoremap <silent> <F5> :HighlightGroupsAddWord 4 0<CR>
 nnoremap <silent> <F6> :HighlightGroupsAddWord 6 0<CR>
 nnoremap <silent> <S-F5> :HighlightGroupsClearGroup 4 0<CR>
@@ -208,12 +205,21 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/ycm/.ycm_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_python_binary_path = 'python'
-nnoremap <leader>g :YcmCompleter GoTo<CR>
-nnoremap <leader>pd :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>pc :YcmCompleter GoToDeclaration<CR>
+
+command! EnableYCM call EnableYCM()
+function EnableYCM()
+  if !exists( "g:loaded_youcompleteme" )
+    call plug#load('YouCompleteMe')
+    nnoremap <leader>g :YcmCompleter GoTo<CR>
+    nnoremap <leader>pd :YcmCompleter GoToDefinition<CR>
+    nnoremap <leader>pc :YcmCompleter GoToDeclaration<CR>
+    echom "YouCompleteMe is now loaded."
+  endif
+endfunction
 
 function! DisplayDoc()
   if &filetype == "python"
+    call EnableYCM()
     YcmCompleter GetDoc
   else
     execute "Man " . expand('<cword>')
@@ -277,8 +283,4 @@ if has('nvim')
   command! -nargs=* T split | terminal <args>
   command! -nargs=* VT vsplit | terminal <args>
 endif
-
-" screensaver requires password
-let g:screensaver_password = 1
-call screensaver#source#password#set('fbbf2ec210fa1e6eb7d7f7e1bc34a4a8f93798b546fb5047be7ab21be75c61cc')
 "--------------------------------------------------------------
