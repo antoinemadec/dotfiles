@@ -38,10 +38,9 @@ endfunction
 
 autocmd BufEnter,BufWinEnter,BufWritePost * call UpdateGitStatus()
 function! UpdateGitStatus()
-  let b:GitStatus = ''
   if exists('*fugitive#head')
-    let branch = fugitive#head()
-    if branch != ''
+    let b:GitBranch = fugitive#head()
+    if b:GitBranch != ''
       let l:filename  = expand('%:t')
       let l:dirname   = expand('%:h')
       let l:gitcmd    = 'git -C ' . l:dirname . ' status --porcelain ' . l:filename
@@ -65,12 +64,11 @@ let g:NERDTreeIndicatorMap = {
       \ }
 function! LightlineFugitive()
   let b:lightline_fugitive = ''
-  if exists('*fugitive#head') && exists("b:GitStatus") && (match(b:GitStatus, "fatal:") == -1)
-    let branch = fugitive#head()
-    if branch != ''
+  if exists("b:GitStatus") && (match(b:GitStatus, "fatal:") == -1)
+    if b:GitBranch != ''
       let l:statusKey = GetFileGitStatusKey(b:GitStatus[0], b:GitStatus[1])
       let l:indicator = get(g:NERDTreeIndicatorMap, l:statusKey, '')
-      let b:lightline_fugitive = branch . ' ' . l:indicator
+      let b:lightline_fugitive = b:GitBranch . ' ' . l:indicator
     endif
   endif
   return b:lightline_fugitive

@@ -57,7 +57,6 @@ if exists("&relativenumber")
   set numberwidth=2            " number of columns to use for the line number
 endif
 set mouse=a                    " allow to resize and copy/paste without selecting text outside of the window
-set ttyfast                    " improves smoothness of redrawing when there are multiple windows
 set title                      " change terminal title
 set ttimeoutlen=50             " ms waited for a key code/sequence to complete. Allow faster insert to normal mode
 set complete=.,w,b,u           " specifies how keyword completion works when CTRL-P or CTRL-N are used
@@ -73,8 +72,6 @@ runtime! macros/matchit.vim    " allow usage of % to match 'begin end' and other
 if has('nvim')
   tnoremap <Esc> <C-\><C-n>
   tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
-endif
-if has('nvim')
   tnoremap <A-Left> <C-\><C-N><C-w>h
   tnoremap <A-Down> <C-\><C-N><C-w>j
   tnoremap <A-Up> <C-\><C-N><C-w>k
