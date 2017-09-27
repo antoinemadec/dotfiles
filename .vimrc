@@ -107,6 +107,11 @@ nnoremap <silent> <F9> :set spell!<CR>
 " paste avoiding auto indentation
 set pastetoggle=<F12>
 nnoremap <script> <silent> <unique> <Leader>be :Buffers<CR>
+" open files directory
+nmap <leader>ew :e    %:h <cr>
+nmap <leader>es :sp   %:h <cr>
+nmap <leader>ev :vsp  %:h <cr>
+nmap <leader>et :tabe %:h <cr>
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
