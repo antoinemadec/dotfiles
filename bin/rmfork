@@ -2,5 +2,5 @@
 
 tmp_dir="$(mktemp -d temp_XXXXXXXX)"
 
-mv $@ $tmp_dir
+mv "$@" $tmp_dir
 rm -rf $tmp_dir &
