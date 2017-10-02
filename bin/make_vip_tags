@@ -1,3 +1,0 @@
-#! /bin/bash
-
-( find . \( -name 'tb' -o -name 'proVIT' \) -prune -o -name '*.v'; find ./tb/ -name "*.v" )   | ctags -L -

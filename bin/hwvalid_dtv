@@ -1,5 +1,0 @@
-#!/bin/bash
-
-ssh -t hwvalid_dtv@echo 'export DISPLAY=madec-laptop:0.0
-source /utils/scripts/svn-1.7.8.bashrc
-bash -i'
