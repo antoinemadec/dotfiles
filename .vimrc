@@ -104,6 +104,7 @@ nnoremap <silent> <C-F6> :HighlightGroupsAddWord 6 1<CR>
 nnoremap <silent> <C-S-F5> :HighlightGroupsClearGroup 4 1<CR>
 nnoremap <silent> <C-S-F6> :HighlightGroupsClearGroup 6 1<CR>
 nnoremap <silent> <F9> :set spell!<CR>
+inoremap <silent> <F9> <C-o>:set spell!<CR>
 " paste avoiding auto indentation
 set pastetoggle=<F12>
 nnoremap <script> <silent> <unique> <Leader>be :Buffers<CR>
