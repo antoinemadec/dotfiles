@@ -24,6 +24,7 @@ deploy_core .vim
 deploy_core .vimrc
 deploy_core .vim   .config/nvim
 deploy_core .vimrc .config/nvim/init.vim
+deploy_core .gitconfig
 deploy_core .emacs
 deploy_core .bashrc
 deploy_core .bash_profile

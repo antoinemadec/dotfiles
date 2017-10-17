@@ -180,6 +180,10 @@ if type ag &> /dev/null; then
    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
 
+# use vim in Git and other programs
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
 # put custom binaries in ~/bin
 export PATH=${PATH}:~/bin
 for file in ~/bin/completion/*
