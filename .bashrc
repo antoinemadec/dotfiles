@@ -187,8 +187,11 @@ do
   [ -f $file ] && source $file
 done
 
-# cd --
-[ -f ~/bin/acd_func.sh ] && source ~/bin/acd_func.sh
+# cd -- ; pathfuncs ...
+for file in ~/bin/source/*
+do
+  [ -f $file ] && source $file
+done
 
 [ -f ~/.bashrc.local ] && source ~/.bashrc.local
 
