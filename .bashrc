@@ -184,15 +184,15 @@ fi
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
-# put custom binaries in ~/bin
-export PATH=${PATH}:~/bin
-for file in ~/bin/completion/*
+# cd -- ; pathfuncs ...
+for file in ~/bin/source/*
 do
   [ -f $file ] && source $file
 done
 
-# cd -- ; pathfuncs ...
-for file in ~/bin/source/*
+# put custom binaries in ~/bin
+add_path ~/bin
+for file in ~/bin/completion/*
 do
   [ -f $file ] && source $file
 done
