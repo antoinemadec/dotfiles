@@ -1,5 +1,42 @@
 #!/bin/bash
 
-svn up > svnup.log
-svn st > svnst.log
-grep -v '^\($\|?\|X\|Performing status on external item at\)' svnst.log
+svn_version="$(svn --version --quiet | sed -e 's/\.//' -e 's/\..*//')"
+if ((svn_version < 17))
+then
+  echo "ERROR: this script requires at least svn 1.7"
+  exit 1
+fi
+
+svn_clean=1
+svn_found=0
+
+svnup_in_current_dir() {
+  svn up > svnup.log
+  svn st > svnst.log
+  if grep -v '^ *\($\|?\|X\|Performing status on external item at\)' svnst.log
+  then
+    echo ""
+    svn_clean=0
+  fi
+}
+
+svnup_core() {
+  local depth="$1"
+  if [ -d ".svn" ]
+  then
+    svn_found=1
+    echo "dir=$(pwd)"
+    svnup_in_current_dir
+  else
+    for dir in *
+    do
+      ((depth > 1)) && break
+      cd $dir
+      svnup_core $((depth + 1))
+      cd ..
+    done
+  fi
+}
+
+svnup_core 0
+exit $(( !(svn_found && svn_clean) ))
