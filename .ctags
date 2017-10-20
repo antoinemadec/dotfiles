@@ -6,6 +6,7 @@
 
 --regex-systemverilog=/^\s*\bmodule\b\s*(\b\w+\b)/\1/m,module/
 --regex-systemverilog=/^\s*\bprogram\b\s*(\b\w+\b)/\1/p,program/
+--regex-systemverilog=/^\s*\bpackage\b\s*(\b\w+\b)/\1/k,package/
 --regex-systemverilog=/^\s*\binterface\b\s*(\b\w+\b)/\1/i,interface/
 --regex-systemverilog=/^\s*\btypedef\b\s+.*\s+(\b\w+\b)\s*;/\1/e,typedef/
 --regex-systemverilog=/^\s*`define\b\s*(\b\w+\b)/\1/d,define/
