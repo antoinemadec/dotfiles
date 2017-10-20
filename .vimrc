@@ -237,7 +237,7 @@ endfunction
 " verilog
 "--------------------------------------------------------------
 " add UVM tags
-set tags+=~/.vim/tags/UVM
+set tags+=~/.vim/tags/UVM_CDNS-1.1d
 
 " map '-' to 'begin end' surrounding
 autocmd FileType verilog_systemverilog let b:surround_45 = "begin \r end"
