@@ -11,3 +11,4 @@ scrot
 pinta
 py3status
 feh
+jq
