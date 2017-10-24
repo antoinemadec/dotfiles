@@ -1,10 +1,13 @@
 # dotfiles
 
 # dependencies
+pactl       (coming with Ubuntu)
+nautilus    (coming with Ubuntu)
+xrandr      (coming with Ubuntu)
+terminator
 rofi
-pactl
 xbacklight
 scrot
 pinta
-nautilus
-xrandr
+py3status
+feh
