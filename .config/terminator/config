@@ -34,7 +34,7 @@
     background_image = None
     background_type = transparent
     cursor_color = "#7c6f64"
-    custom_command = ssh amb-vnc14
+    custom_command = ssh -X amb-vnc14
     font = DejaVu Sans Mono 10
     foreground_color = "#ebdbb2"
     login_shell = True
