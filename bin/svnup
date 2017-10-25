@@ -30,6 +30,7 @@ svnup_core() {
   else
     for dir in *
     do
+      [ -d "$dir" ] || continue
       ((depth > 1)) && break
       cd $dir
       svnup_core $((depth + 1))

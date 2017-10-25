@@ -292,4 +292,7 @@ if has('nvim')
   command! -nargs=* T split | terminal <args>
   command! -nargs=* VT vsplit | terminal <args>
 endif
+
+" open window with results for grep
+autocmd QuickFixCmdPost *grep* copen
 "--------------------------------------------------------------
