@@ -224,6 +224,8 @@ for_window [title="Terminator Preferences"] floating enable
 for_window [class="XTerm"] floating enable
 for_window [class="Evince"] floating enable
 for_window [class="Xpdf"] floating enable
+# Verdi
+for_window [class="Novas"] floating enable
 
 #------------------------------
 # assign program to workspace
@@ -234,7 +236,7 @@ assign [class="Sky"] 1:email
 #------------------------------
 # exec always at startup
 #------------------------------
-exec --no-startup-id i3-msg 'workspace 1:email; layout stacked; exec evolution; exec sky'
+exec --no-startup-id i3-msg 'workspace 1:email; layout stacked; exec evolution --force-online; exec sky'
 exec --no-startup-id i3-msg 'workspace 10:internet; exec firefox'
 # network widget
 exec_always nm-applet
