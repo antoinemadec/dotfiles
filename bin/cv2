@@ -28,7 +28,13 @@ pre_path /a12/tools2/local/bin
 pre_path /a12/tools2/tv2/exe
 pre_path /a8/tools2/local/bin
 pre_path /a8/tools2/tv2/exe
-pre_path /amb/tools2/tv2/exe
+if [ "$HOSTNAME" = "ubu-amadec" ]
+then
+  # avoid overriding svn with version only working for RHEL
+  add_path /amb/tools2/tv2/exe
+else
+  pre_path /amb/tools2/tv2/exe
+fi
 export PATH
 
 # MANPATH

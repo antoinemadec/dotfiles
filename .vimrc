@@ -14,6 +14,7 @@ Plug 'junegunn/vim-easy-align'                                                 "
 Plug 'vhda/verilog_systemverilog.vim', {'for': 'verilog_systemverilog'}        " Vim Syntax Plugin for Verilog and SystemVerilog
 Plug 'antoinemadec/vim-verilog-instance', {'for': 'verilog_systemverilog'}     " Verilog port instantiation from port declaration
 Plug 'antoinemadec/vim-highlight-groups'                                       " add words in highlight groups on the fly
+Plug 'antoinemadec/vim-conf2_filetype'                                         " copy of conf filetype with // comments instead of #
 Plug 'vim-scripts/vcscommand.vim'                                              " diff local CVS SVN and GIT files with server version
 Plug 'tpope/vim-fugitive'                                                      " Git wrapper
 Plug 'tpope/vim-surround'                                                      " easily delete, change and add such surroundings in pairs
@@ -295,4 +296,7 @@ endif
 
 " open window with results for grep
 autocmd QuickFixCmdPost *grep* copen
+
+" add filetype for custom file
+au BufNewFile,BufRead *.tabasco set filetype=conf2
 "--------------------------------------------------------------
