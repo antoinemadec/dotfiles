@@ -104,6 +104,7 @@ nnoremap <silent> <C-F5> :HighlightGroupsAddWord 4 1<CR>
 nnoremap <silent> <C-F6> :HighlightGroupsAddWord 6 1<CR>
 nnoremap <silent> <C-S-F5> :HighlightGroupsClearGroup 4 1<CR>
 nnoremap <silent> <C-S-F6> :HighlightGroupsClearGroup 6 1<CR>
+nnoremap <silent> <F8> :call ToggleListTrailingSpacesDisplay()<CR>
 nnoremap <silent> <F9> :set spell!<CR>
 inoremap <silent> <F9> <C-o>:set spell!<CR>
 " paste avoiding auto indentation
@@ -131,27 +132,34 @@ let NERDTreeShowHidden=1 " show hidden files in NERDTree by default
 "--------------------------------------------------------------
 " highlighting
 "--------------------------------------------------------------
+" toggle display of (tabs etc, trailing spaces)
+function ToggleListTrailingSpacesDisplay()
+  if &list
+    set nolist
+    highlight CustomHighlight_TrailingSpace NONE
+  else
+    set list
+    highlight CustomHighlight_TrailingSpace term=standout cterm=bold ctermfg=235 ctermbg=167 gui=bold guifg=#282828 guibg=#fb4934
+  endif
+  call lightline#update()
+endfunction
+call ToggleListTrailingSpacesDisplay()
+
 " highlight non breakable space
-set list
 set listchars=nbsp:?
 
-" redefine Todo highlight group for more readability
-highlight Todo term=standout cterm=bold ctermfg=235 ctermbg=167 gui=bold guifg=#282828 guibg=#fb4934
-
-" highlight extra whitespace
-highlight link CustomHighlight_TrailingSpace Todo
-match CustomHighlight_TrailingSpace /\s\+$/
+" highlight trailing spaces
 autocmd BufWinEnter * match CustomHighlight_TrailingSpace /\s\+$/
 autocmd InsertEnter * match CustomHighlight_TrailingSpace /\s\+\%#\@<!$/
 autocmd InsertLeave * match CustomHighlight_TrailingSpace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
+" redefine Todo highlight group for more readability
+highlight Todo term=standout cterm=bold ctermfg=235 ctermbg=167 gui=bold guifg=#282828 guibg=#fb4934
+
 " always highlight TODO and FIXME no matter the filetype
 highlight link CustomHighlight_Warning Todo
-augroup HiglightTODO
-  autocmd!
-  autocmd WinEnter,VimEnter * :silent! call matchadd('CustomHighlight_Warning', 'TODO\|FIXME', -1)
-augroup END
+autocmd WinEnter,VimEnter * :silent! call matchadd('CustomHighlight_Warning', 'TODO\|FIXME', -1)
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------

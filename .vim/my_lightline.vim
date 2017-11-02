@@ -107,7 +107,11 @@ function! DetectTrailingSpace()
     call cursor(1,1)
     let search_result = search("  *$", "c")
     call setpos('.', save_cursor)
-    return search_result ? "trailing_space" : ""
+    if &list
+      return search_result ? "trailing space" : ""
+    else
+      return "tab & ts hidden"
+    endif
   else
     return ""
   endif
