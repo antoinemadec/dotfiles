@@ -47,7 +47,7 @@ set textwidth=0                " don't wrap words by default
 set wildmode=longest,list,full " wildchar completion mode
 set hlsearch                   " highlight search
 set expandtab                  " tab expand to space
-set tabstop=4                  " number of spaces that a <Tab> in the file counts for
+set tabstop=2                  " number of spaces that a <Tab> in the file counts for
 set shiftwidth=2               " number of spaces to use for each step of (auto)indent
 set lazyredraw                 " no screen redrawing while executing macros, registers etc
 if exists("&relativenumber")
@@ -219,7 +219,7 @@ endfunction
 let g:ycm_global_ycm_extra_conf = '~/.vim/ycm/.ycm_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_python_binary_path = 'python'
+let g:ycm_python_binary_path = 'python3'
 
 command! EnableYCM call EnableYCM()
 function EnableYCM()
@@ -228,7 +228,15 @@ function EnableYCM()
     nnoremap <leader>g :YcmCompleter GoTo<CR>
     nnoremap <leader>pd :YcmCompleter GoToDefinition<CR>
     nnoremap <leader>pc :YcmCompleter GoToDeclaration<CR>
-    echom "YouCompleteMe is now loaded."
+    echom "YouCompleteMe loaded (" . g:ycm_python_binary_path . ")."
+  else
+    if g:ycm_python_binary_path == "python3"
+      let g:ycm_python_binary_path = "python"
+    else
+      let g:ycm_python_binary_path = "python3"
+    endif
+    execute "YcmCompleter RestartServer " . g:ycm_python_binary_path
+    echom "YouCompleteMe restarted (" . g:ycm_python_binary_path . ")."
   endif
 endfunction
 
