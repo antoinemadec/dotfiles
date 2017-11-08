@@ -95,7 +95,7 @@ nmap ga <Plug>(EasyAlign)
 nmap <F2> :NERDTreeToggle<CR>
 " get rid of trailing spaces
 nnoremap <silent> <F3> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
-nnoremap <silent> <F4> :EnableYCM<CR>
+nnoremap <silent> <F4> :ToggleYCM<CR>
 nnoremap <silent> <F5> :HighlightGroupsAddWord 4 0<CR>
 nnoremap <silent> <F6> :HighlightGroupsAddWord 6 0<CR>
 nnoremap <silent> <S-F5> :HighlightGroupsClearGroup 4 0<CR>
@@ -221,8 +221,8 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_python_binary_path = 'python3'
 
-command! EnableYCM call EnableYCM()
-function EnableYCM()
+command! ToggleYCM call ToggleYCM()
+function ToggleYCM()
   if !exists( "g:loaded_youcompleteme" )
     call plug#load('YouCompleteMe')
     nnoremap <leader>g :YcmCompleter GoTo<CR>
@@ -242,7 +242,9 @@ endfunction
 
 function! DisplayDoc()
   if &filetype == "python"
-    call EnableYCM()
+    if !exists( "g:loaded_youcompleteme" )
+      call ToggleYCM()
+    endif
     YcmCompleter GetDoc
   else
     execute "Man " . expand('<cword>')
