@@ -157,7 +157,7 @@ bar {
 # get rid of all borders (needed for i3-gaps)
 #for_window [class="^.*"] border pixel 0
 
-set $wallpaper ~/.config/i3/wallpaper/94.jpg
+set $wallpaper ~/.config/i3/wallpaper/rocks.jpg
 
 #------------------------------
 # screen
@@ -224,6 +224,7 @@ for_window [title="Terminator Preferences"] floating enable
 for_window [class="XTerm"] floating enable
 for_window [class="Evince"] floating enable
 for_window [class="Xpdf"] floating enable
+for_window [class="Gvim"] floating enable
 # Verdi
 for_window [class="Novas"] floating enable
 
@@ -238,9 +239,10 @@ assign [class="Sky"] 1:email
 #------------------------------
 exec --no-startup-id i3-msg 'workspace 1:email; layout stacked; exec evolution --force-online; exec sky'
 exec --no-startup-id i3-msg 'workspace 10:internet; exec firefox'
+exec --no-startup-id ~/bin/ghost-text-vim/ghost-text-server.tcl &
 # network widget
 exec_always nm-applet
 # scratchpad
 for_window[class="Nautilus"] move window to scratchpad
-exec i3-msg 'exec (nautilus --no-desktop)&'
+exec (nautilus --no-desktop)&
 #==============================================================
