@@ -5,6 +5,6 @@
 	path = .config/i3/bin/i3lock/i3lock-fancy
 	url = https://github.com/meskarune/i3lock-fancy
 	branch = dualmonitors
-[submodule ".vimperator/colors"]
-	path = .vimperator/colors
-	url = https://github.com/vimpr/vimperator-colors
+[submodule "bin/ghost-text-vim"]
+	path = bin/ghost-text-vim
+	url = https://github.com/falstro/ghost-text-vim
