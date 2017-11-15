@@ -4,3 +4,4 @@
 .*swp
 .config/i3/bin/layout.txt
 .vimperator/info
+__pycache__
