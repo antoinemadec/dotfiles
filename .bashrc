@@ -173,13 +173,6 @@ alias mv='mv -i'
 #  alias vim='nvim'
 #fi
 #--------------------------------------------------------------
-
-# fzf: fuzzy search
-if type ag &> /dev/null; then
-   export FZF_DEFAULT_COMMAND='ag -g ""'
-   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-fi
-
 # use vim in Git and other programs
 export VISUAL=vim
 export EDITOR="$VISUAL"
@@ -199,4 +192,21 @@ done
 
 [ -f ~/.bashrc.local ] && source ~/.bashrc.local
 
+# fzf: fuzzy search
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+if (type ag &> /dev/null) && (type fzf &> /dev/null)
+then
+  export FZF_DEFAULT_COMMAND='ag -g ""'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  # vim grep
+  g() {
+    local ag_opts
+    local file
+    file="$(ag --nobreak --noheading . $1 | fzf -0 -1 | awk -F: '{print $1 " +" $2}')"
+    if [[ -n $file ]]
+    then
+      vim $file
+    fi
+  }
+fi
+
