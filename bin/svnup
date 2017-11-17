@@ -1,5 +1,8 @@
 #!/bin/bash
 
+gen_tags=0
+[ "$1" == '-t' ] && gen_tags=1
+
 svn_version="$(svn --version --quiet | sed -e 's/\.//' -e 's/\..*//')"
 if ((svn_version < 17))
 then
@@ -39,5 +42,7 @@ svnup_core() {
   fi
 }
 
-svnup_core 0
+# svnup_core 0
+[ "$gen_tags" = 1 ] && { echo "generate ctags"; gen_sv_tags; }
+
 exit $(( !(svn_found && svn_clean) ))
