@@ -22,6 +22,7 @@ Plug 'tpope/vim-commentary'                                                    "
 Plug 'tpope/vim-sensible'                                                      " vim defaults that (hopefully) everyone can agree on
 Plug 'tpope/vim-repeat'                                                        " remaps '.' in a way that plygubs can tap into it
 Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}                             " i3/config highlighting
+Plug 'kshenoy/TWiki-Syntax'                                                    " Twiki highlighting
 if (v:version >= 704 && has('patch1578')) || has('nvim')
   Plug 'valloric/YouCompleteMe', {'on': []}                                    " fast, as-you-type, code completion engine for Vim
 endif
