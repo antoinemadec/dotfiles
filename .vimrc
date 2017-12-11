@@ -126,8 +126,6 @@ set background=dark
 colorscheme gruvbox
 
 source ~/.vim/my_lightline.vim
-
-let NERDTreeShowHidden=1 " show hidden files in NERDTree by default
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
