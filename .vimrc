@@ -23,6 +23,7 @@ Plug 'tpope/vim-sensible'                                                      "
 Plug 'tpope/vim-repeat'                                                        " remaps '.' in a way that plygubs can tap into it
 Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}                             " i3/config highlighting
 Plug 'kshenoy/TWiki-Syntax'                                                    " Twiki highlighting
+Plug 'skywind3000/asyncrun.vim'
 if (v:version >= 704 && has('patch1578')) || has('nvim')
   Plug 'valloric/YouCompleteMe', {'on': []}                                    " fast, as-you-type, code completion engine for Vim
 endif
@@ -134,10 +135,10 @@ source ~/.vim/my_lightline.vim
 " toggle display of (tabs etc, trailing spaces)
 function ToggleListTrailingSpacesDisplay()
   if &list
-    set nolist
+    windo set nolist
     highlight CustomHighlight_TrailingSpace NONE
   else
-    set list
+    windo set list
     highlight CustomHighlight_TrailingSpace term=standout cterm=bold ctermfg=235 ctermbg=167 gui=bold guifg=#282828 guibg=#fb4934
   endif
   call lightline#update()
@@ -241,10 +242,17 @@ endfunction
 
 function! DisplayDoc()
   if &filetype == "python"
-    if !exists( "g:loaded_youcompleteme" )
-      call ToggleYCM()
+    let l:pydoc = g:ycm_python_binary_path == 'python3' ? 'pydoc3 ' : 'pydoc'
+    let l:pydoc_stdout = system(l:pydoc . " " . expand('<cword>'))
+    if l:pydoc_stdout[1:32] != "o Python documentation found for"
+      Scratch | 0 put =l:pydoc_stdout | normal gg
+      set ft=man
+    else
+      if !exists( "g:loaded_youcompleteme" )
+        call ToggleYCM()
+      endif
+      YcmCompleter GetDoc
     endif
-    YcmCompleter GetDoc
   else
     execute "Man " . expand('<cword>')
   endif
@@ -289,6 +297,12 @@ function! RediCmdToClipboard(cmd)
   let a = 'redi @* | ' . a:cmd . ' | redi END'
   execute a
 endfunction
+
+" open scratch buffer
+command! -bar -nargs=0 Scratch new | setlocal buftype=nofile bufhidden=hide noswapfile
+
+" display bash command output in scratch buffer
+command! -nargs=* -complete=shellcmd SysCmdInScratch Scratch | % !<args>
 
 " set ft=sh for *.bashrc files
 au BufNewFile,BufRead *.bashrc* call SetFileTypeSH("bash")
