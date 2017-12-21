@@ -113,10 +113,12 @@ inoremap <silent> <F9> <C-o>:set spell!<CR>
 set pastetoggle=<F12>
 nnoremap <script> <silent> <unique> <Leader>be :Buffers<CR>
 " open files directory
-nmap <leader>ew :e    %:h <cr>
-nmap <leader>es :sp   %:h <cr>
-nmap <leader>ev :vsp  %:h <cr>
-nmap <leader>et :tabe %:h <cr>
+nnoremap <leader>ew :e    %:h <cr>
+nnoremap <leader>es :sp   %:h <cr>
+nnoremap <leader>ev :vsp  %:h <cr>
+nnoremap <leader>et :tabe %:h <cr>
+" run current buffer
+nnoremap <leader>r :RunCurrentBuffer <cr>
 "--------------------------------------------------------------
 
 "--------------------------------------------------------------
@@ -125,6 +127,8 @@ nmap <leader>et :tabe %:h <cr>
 set t_Co=256 " vim uses 256 colors
 set background=dark
 colorscheme gruvbox
+highlight Todo      term=standout cterm=bold ctermfg=235 ctermbg=167 gui=bold guifg=#282828 guibg=#fb4934
+highlight SpellBad  term=reverse cterm=underline gui=undercurl guisp=#83a598
 
 source ~/.vim/my_lightline.vim
 "--------------------------------------------------------------
@@ -153,9 +157,6 @@ autocmd BufWinEnter * match CustomHighlight_TrailingSpace /\s\+$/
 autocmd InsertEnter * match CustomHighlight_TrailingSpace /\s\+\%#\@<!$/
 autocmd InsertLeave * match CustomHighlight_TrailingSpace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
-
-" redefine Todo highlight group for more readability
-highlight Todo term=standout cterm=bold ctermfg=235 ctermbg=167 gui=bold guifg=#282828 guibg=#fb4934
 
 " always highlight TODO and FIXME no matter the filetype
 highlight link CustomHighlight_Warning Todo
@@ -303,6 +304,11 @@ command! -bar -nargs=0 Scratch new | setlocal buftype=nofile bufhidden=hide nosw
 
 " display bash command output in scratch buffer
 command! -nargs=* -complete=shellcmd SysCmdInScratch Scratch | % !<args>
+
+" run bash cmd asynchronously
+command! -nargs=* -complete=shellcmd Run copen | AsyncRun <args>
+" TODO: get rid of sleep 1 once AsyncRun will be fixed
+command! -nargs=0 RunCurrentBuffer execute("Run " . expand('%p') . "; sleep 1")
 
 " set ft=sh for *.bashrc files
 au BufNewFile,BufRead *.bashrc* call SetFileTypeSH("bash")
