@@ -7,7 +7,7 @@ let g:lightline = {
   \ 'colorscheme': 'gruvbox',
   \ 'active': {
   \   'left': [ [ 'foldinfo', 'mode', 'paste' ],
-  \             [ 'readonly', 'myrelativepath', 'modified' ],
+  \             [ 'readonly', 'myrelativepath', 'mymodified' ],
   \             [ 'fugitive' ] ],
   \   'right': [ [ 'lineinfo' ],
   \              [ 'percentwin' ],
@@ -15,10 +15,11 @@ let g:lightline = {
   \              [ 'detecttrailingspace' ] ]
   \ },
   \ 'inactive' : {
-  \   'left': [ [ 'filename', 'modified' ] ],
+  \   'left': [ [ 'filename', 'mymodified' ] ],
   \   'right': [ [ 'lineinfo' ] ]
   \ },
   \ 'component_function': {
+  \   'mymodified': 'MyModified',
   \   'fugitive': 'LightlineFugitive'
   \ },
   \ 'component_expand': {
@@ -33,7 +34,18 @@ let g:lightline = {
   \ }
 
 function! MyRelativePath()
-  return '%<%f'
+  if &buftype == 'quickfix'
+    return '%t [%{g:asyncrun_status}] %{w:quickfix_title}'
+  else
+    return '%<%f'
+  endif
+endfunction
+
+function! MyModified()
+  if &buftype == 'quickfix' || &buftype == 'terminal'
+    return ''
+  else
+    return &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
 autocmd BufEnter,BufWinEnter,BufWritePost * call UpdateGitStatus()

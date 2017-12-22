@@ -69,7 +69,7 @@ runtime! macros/matchit.vim    " allow usage of % to match 'begin end' and other
 "--------------------------------------------------------------
 " mappings
 "--------------------------------------------------------------
-if has('nvim')
+if has('terminal') || has('nvim')
   tnoremap <Esc> <C-\><C-n>
   tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
   tnoremap <A-Left> <C-\><C-N><C-w>h
@@ -109,6 +109,7 @@ nnoremap <silent> <C-S-F6> :HighlightGroupsClearGroup 6 1<CR>
 nnoremap <silent> <F8> :call ToggleListTrailingSpacesDisplay()<CR>
 nnoremap <silent> <F9> :set spell!<CR>
 inoremap <silent> <F9> <C-o>:set spell!<CR>
+noremap <F10> :call asyncrun#quickfix_toggle(8)<cr>
 " paste avoiding auto indentation
 set pastetoggle=<F12>
 nnoremap <script> <silent> <unique> <Leader>be :Buffers<CR>
@@ -289,6 +290,7 @@ autocmd FileType c,cpp setlocal shiftwidth=4
 command -nargs=* Make make <args> | cwindow 3
 "--------------------------------------------------------------
 
+
 "--------------------------------------------------------------
 " misc
 "--------------------------------------------------------------
@@ -302,13 +304,8 @@ endfunction
 " open scratch buffer
 command! -bar -nargs=0 Scratch new | setlocal buftype=nofile bufhidden=hide noswapfile
 
-" display bash command output in scratch buffer
-command! -nargs=* -complete=shellcmd SysCmdInScratch Scratch | % !<args>
-
-" run bash cmd asynchronously
-command! -nargs=* -complete=shellcmd Run copen | AsyncRun <args>
-" TODO: get rid of sleep 1 once AsyncRun will be fixed
-command! -nargs=0 RunCurrentBuffer execute("Run " . expand('%p') . "; sleep 1")
+" run ./<current_buffer> asynchronously, output in QuickFix
+command! -nargs=0 RunCurrentBuffer :w | execute("AsyncRun " . expand('%:p') . "; sleep .1")
 
 " set ft=sh for *.bashrc files
 au BufNewFile,BufRead *.bashrc* call SetFileTypeSH("bash")
@@ -330,9 +327,13 @@ if has('nvim')
   command! -nargs=* T split | terminal <args>
   command! -nargs=* VT vsplit | terminal <args>
 endif
+if has('terminal')
+  command! -nargs=* T terminal <args>
+  command! -nargs=* VT terminal <args>
+endif
 
-" open window with results for grep
-autocmd QuickFixCmdPost *grep* copen
+" automate opening quickfix window when text adds to it
+autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
 
 " add filetype for custom file
 au BufNewFile,BufRead *.tabasco set filetype=conf2
