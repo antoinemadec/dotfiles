@@ -8,7 +8,7 @@ let g:lightline = {
   \ 'active': {
   \   'left': [ [ 'foldinfo', 'mode', 'paste' ],
   \             [ 'readonly', 'myrelativepath', 'mymodified' ],
-  \             [ 'fugitive' ] ],
+  \             [ 'version_control' ] ],
   \   'right': [ [ 'lineinfo' ],
   \              [ 'percentwin' ],
   \              [ 'spell', 'filetype' ],
@@ -20,7 +20,7 @@ let g:lightline = {
   \ },
   \ 'component_function': {
   \   'mymodified': 'MyModified',
-  \   'fugitive': 'LightlineFugitive'
+  \   'version_control': 'LightlineVersionControl'
   \ },
   \ 'component_expand': {
   \   'myrelativepath': 'MyRelativePath',
@@ -48,57 +48,33 @@ function! MyModified()
     return &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
-autocmd BufWinEnter,BufWritePost * call UpdateGitStatus()
-function! UpdateGitStatus()
-  if exists('*fugitive#head')
-    let b:GitBranch = fugitive#head()
-    if b:GitBranch != ''
-      let l:filename  = expand('%:t')
-      let l:dirname   = expand('%:h')
-      let l:gitcmd    = 'cd ' . l:dirname . '; git status --porcelain ' . l:filename
-      if has('job')
-        let b:GitStatus = ''
-        let job = job_start('bash -c "' . l:gitcmd . '"', {"out_cb": "UpdateGitStatusOutCb", "exit_cb": "UpdateGitStatusExitCb"})
-      else
-        let b:GitStatus = system(l:gitcmd)
-        let b:lightline_fugitive = v:shell_error ? '' : b:GitBranch . ' ' . GetFileGitIndicator(b:GitStatus[0], b:GitStatus[1])
-        call lightline#update()
-      endif
+autocmd BufWinEnter,BufWritePost * call UpdateRevStatus()
+function! UpdateRevStatus()
+  let l:vc_cmd = expand('~/.vim/script/version_control_status ' . expand('%:p'))
+  if has('job')
+    let job = job_start(l:vc_cmd, {"out_cb": "UpdateRevStatusOutCb", "exit_cb": "UpdateRevStatusExitCb"})
+  else
+    let b:lightline_version_control = system(l:vc_cmd)[:-2]
+    if v:shell_error
+      let b:lightline_version_control = 'error'
     endif
+    call lightline#update()
   endif
 endfunction
 
-function! UpdateGitStatusOutCb(ch, stdout)
-  let b:GitStatus = a:stdout
+function! UpdateRevStatusOutCb(ch, stdout)
+  let b:lightline_version_control = a:stdout
 endfunction
 
-function! UpdateGitStatusExitCb(ch, err)
-  let b:lightline_fugitive = a:err ? '' : b:GitBranch . ' ' . GetFileGitIndicator(b:GitStatus[0], b:GitStatus[1])
+function! UpdateRevStatusExitCb(ch, err)
+  if a:err
+    let b:lightline_version_control = 'error'
+  endif
   call lightline#update()
 endfunction
 
-function! GetFileGitIndicator(us, them)
-    if a:us ==# '?' && a:them ==# '?'
-        return '✭' " untracked
-    elseif a:us ==# ' ' && a:them ==# 'M'
-        return '✹' " modified
-    elseif a:us =~# '[MAC]'
-        return '✚' " staged
-    elseif a:us ==# 'R'
-        return '➜' " renamed
-    elseif a:us ==# 'U' || a:them ==# 'U' || a:us ==# 'A' && a:them ==# 'A' || a:us ==# 'D' && a:them ==# 'D'
-        return '═' " unmerged
-    elseif a:them ==# 'D'
-        return '✖' " deleted
-    elseif a:us ==# '!'
-        return '☒' " ignored
-    else
-        return '✔︎' " clean
-    endif
-endfunction
-
-function! LightlineFugitive()
-  return exists("b:lightline_fugitive") ? b:lightline_fugitive : ''
+function! LightlineVersionControl()
+  return exists("b:lightline_version_control") ? b:lightline_version_control : ''
 endfunction
 
 function! FoldInfo()

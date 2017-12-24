@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# Common to SVN and Git:
+#   clean     '✔︎'
+#   modified  '✹'
+#   renamed   '➜'
+#   deleted   '✖'
+#   untracked '✭'
+#   other     '?'
+
+# Git specific
+#   staged    '✚'
+#   ignored   '☒'
+
+
+set -e
+
+abs_path="$1"
+
+dir="$(dirname "$abs_path")"
+filename="$(basename "$abs_path")"
+
+# init
+vc_output=""
+git_fail=0
+
+if [ "$filename" != "" ]
+then
+  cd "$dir"
+  git_branch="$(git branch | cut -d ' ' -f 2)" || git_fail=1
+  if ((git_fail == 0))
+  then
+    git_status="$(git status --porcelain "$filename")" || git_fail=1
+    if ((git_fail == 0))
+    then
+      us="${git_status:0:1}"
+      them="${git_status:1:1}"
+      if [ "$us" = '?' ] && [ "$them" = '?' ]
+      then
+        vc_output="$git_branch ✭"
+      elif [ "$us" = ' ' ] && [ "$them" = 'M' ]
+      then
+        vc_output="$git_branch ✹"
+      elif [[ "$us" =~ [MAC] ]]
+      then
+        vc_output="$git_branch ✚"
+      elif [ "$us" = 'R' ]
+      then
+        vc_output="$git_branch ➜"
+      elif [ "$them" = 'D' ]
+      then
+        vc_output="$git_branch ✖"
+      elif [ "$us" = '!' ]
+      then
+        vc_output="$git_branch ☒"
+      elif [ "$us" = '' ] && [ "$them" = '' ]
+      then
+        vc_output="$git_branch ✔︎"
+      else
+        vc_output="$git_branch ?"
+      fi
+    fi
+  fi
+fi
+
+echo "$vc_output"
