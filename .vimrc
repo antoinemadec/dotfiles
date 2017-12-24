@@ -32,7 +32,6 @@ call plug#end()
 if empty(glob("~/.vim/plugins_by_vimplug"))
   PlugInstall
 endif
-"--------------------------------------------------------------
 
 "--------------------------------------------------------------
 " vim options
@@ -64,7 +63,6 @@ set showcmd                    " in Visual mode the size of the selected area is
 set ignorecase smartcase       " pattern with at least one uppercase character: search becomes case sensitive
 runtime! ftplugin/man.vim      " allow man to be displayed in vim
 runtime! macros/matchit.vim    " allow usage of % to match 'begin end' and other '{ }' kind of pairs
-"-------------------------------------------------------------
 
 "--------------------------------------------------------------
 " mappings
@@ -120,7 +118,6 @@ nnoremap <leader>ev :vsp  %:h <cr>
 nnoremap <leader>et :tabe %:h <cr>
 " run current buffer
 nnoremap <leader>r :RunCurrentBuffer <cr>
-"--------------------------------------------------------------
 
 "--------------------------------------------------------------
 " appearance
@@ -132,7 +129,6 @@ highlight Todo      term=standout cterm=bold ctermfg=235 ctermbg=167 gui=bold gu
 highlight SpellBad  term=reverse cterm=underline gui=undercurl guisp=#83a598
 
 source ~/.vim/my_lightline.vim
-"--------------------------------------------------------------
 
 "--------------------------------------------------------------
 " highlighting
@@ -162,7 +158,6 @@ autocmd BufWinLeave * call clearmatches()
 " always highlight TODO and FIXME no matter the filetype
 highlight link CustomHighlight_Warning Todo
 autocmd WinEnter,VimEnter * :silent! call matchadd('CustomHighlight_Warning', 'TODO\|FIXME', -1)
-"--------------------------------------------------------------
 
 "--------------------------------------------------------------
 " folding
@@ -213,7 +208,6 @@ function! ToggleFoldEnable()
   endif
   call lightline#update()
 endfunction
-"--------------------------------------------------------------
 
 "--------------------------------------------------------------
 " completion
@@ -259,7 +253,6 @@ function! DisplayDoc()
     execute "Man " . expand('<cword>')
   endif
 endfunction
-"--------------------------------------------------------------
 
 "--------------------------------------------------------------
 " verilog
@@ -278,18 +271,12 @@ nnoremap <leader>I :VerilogFollowPort<CR>
 autocmd FileType verilog_systemverilog setlocal commentstring=//%s
 
 let g:verilog_instance_skip_last_coma = 1
-"--------------------------------------------------------------
 
 "--------------------------------------------------------------
 " cpp
 "--------------------------------------------------------------
 " override default indent based on plugin
 autocmd FileType c,cpp setlocal shiftwidth=4
-
-" Make opens a 3 line error window if any errors
-command -nargs=* Make make <args> | cwindow 3
-"--------------------------------------------------------------
-
 
 "--------------------------------------------------------------
 " misc
@@ -304,8 +291,11 @@ endfunction
 " open scratch buffer
 command! -bar -nargs=0 Scratch new | setlocal buftype=nofile bufhidden=hide noswapfile
 
-" run ./<current_buffer> asynchronously, output in QuickFix
+" AsyncRun
+command! -nargs=* -complete=shellcmd Run AsyncRun <args>
 command! -nargs=0 RunCurrentBuffer :w | execute("AsyncRun " . expand('%:p') . "; sleep .1")
+command! -bang -nargs=* -complete=file Grep AsyncRun -program=grep @ <args>
+command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 
 " set ft=sh for *.bashrc files
 au BufNewFile,BufRead *.bashrc* call SetFileTypeSH("bash")
@@ -337,4 +327,3 @@ autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
 
 " add filetype for custom file
 au BufNewFile,BufRead *.tabasco set filetype=conf2
-"--------------------------------------------------------------
