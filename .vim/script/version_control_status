@@ -18,7 +18,8 @@
 set -e
 
 abs_path="$1"
-win_nb="$2"
+buf_nb="$2"
+[ "$buf_nb" = "" ] && exit 0
 
 dir="$(dirname "$abs_path")"
 filename="$(basename "$abs_path")"
@@ -96,8 +97,9 @@ get_git_status() {
 if [ "$filename" != "" ]
 then
   cd "$dir"
+  [ -f "$filename" ] || exit 0
   get_svn_status
   ((svn_fail == 0)) || get_git_status
 fi
 
-echo "$win_nb $vc_output"
+echo "$buf_nb $vc_output"

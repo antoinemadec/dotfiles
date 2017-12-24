@@ -51,7 +51,7 @@ endfunction
 
 autocmd BufWinEnter,BufWritePost * call UpdateRevStatus()
 function! UpdateRevStatus()
-  let l:vc_cmd = expand('~/.vim/script/version_control_status ' . expand('%:p')) . ' ' . winnr()
+  let l:vc_cmd = expand('~/.vim/script/version_control_status ' . expand('%:p')) . ' ' . bufnr("%")
   if has('job')
     let job = job_start(l:vc_cmd, {"out_cb": "UpdateRevStatusOutCb", "exit_cb": "UpdateRevStatusExitCb"})
   elseif has('nvim')
@@ -67,14 +67,10 @@ endfunction
 
 function! UpdateRevStatusOutCb(ch, stdout, ...)
   let l:str = type(a:stdout) == 3 ? join(a:stdout):a:stdout
-  let l:curwin = winnr()
-  let l:cmdwin = l:str[0]
-  if l:cmdwin != l:curwin
-    exe l:cmdwin . "wincmd w"
-    let b:lightline_version_control = l:str[2:]
-    exe l:curwin . "wincmd w"
-  else
-    let b:lightline_version_control = l:str[2:]
+  let l:bufnr = l:str[0]
+  let l:status = l:str[2:]
+  if l:bufnr != ""
+    call setbufvar(l:bufnr + 0, 'lightline_version_control', l:status)
   endif
 endfunction
 
