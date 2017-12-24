@@ -48,61 +48,57 @@ function! MyModified()
     return &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
-autocmd BufEnter,BufWinEnter,BufWritePost * call UpdateGitStatus()
+autocmd BufWinEnter,BufWritePost * call UpdateGitStatus()
 function! UpdateGitStatus()
   if exists('*fugitive#head')
     let b:GitBranch = fugitive#head()
     if b:GitBranch != ''
       let l:filename  = expand('%:t')
       let l:dirname   = expand('%:h')
-      let l:gitcmd    = 'git -C ' . l:dirname . ' status --porcelain ' . l:filename
-      let b:GitStatus = system(l:gitcmd)
+      let l:gitcmd    = 'cd ' . l:dirname . '; git status --porcelain ' . l:filename
+      if has('job')
+        let b:GitStatus = ''
+        let job = job_start('bash -c "' . l:gitcmd . '"', {"out_cb": "UpdateGitStatusOutCb", "exit_cb": "UpdateGitStatusExitCb"})
+      else
+        let b:GitStatus = system(l:gitcmd)
+        let b:lightline_fugitive = v:shell_error ? '' : b:GitBranch . ' ' . GetFileGitIndicator(b:GitStatus[0], b:GitStatus[1])
+        call lightline#update()
+      endif
     endif
   endif
 endfunction
 
-" copied from NERDTree
-let g:NERDTreeIndicatorMap = {
-      \ 'Modified'  : '✹',
-      \ 'Staged'    : '✚',
-      \ 'Untracked' : '✭',
-      \ 'Renamed'   : '➜',
-      \ 'Unmerged'  : '═',
-      \ 'Deleted'   : '✖',
-      \ 'Dirty'     : '✗',
-      \ 'Clean'     : '✔︎',
-      \ 'Ignored'   : '☒',
-      \ 'Unknown'   : '?'
-      \ }
-function! LightlineFugitive()
-  let b:lightline_fugitive = ''
-  if exists("b:GitStatus") && (match(b:GitStatus, "fatal:") == -1)
-    if b:GitBranch != ''
-      let l:statusKey = GetFileGitStatusKey(b:GitStatus[0], b:GitStatus[1])
-      let l:indicator = get(g:NERDTreeIndicatorMap, l:statusKey, '')
-      let b:lightline_fugitive = b:GitBranch . ' ' . l:indicator
-    endif
-  endif
-  return b:lightline_fugitive
+function! UpdateGitStatusOutCb(ch, stdout)
+  let b:GitStatus = a:stdout
 endfunction
-function! GetFileGitStatusKey(us, them)
+
+function! UpdateGitStatusExitCb(ch, err)
+  let b:lightline_fugitive = a:err ? '' : b:GitBranch . ' ' . GetFileGitIndicator(b:GitStatus[0], b:GitStatus[1])
+  call lightline#update()
+endfunction
+
+function! GetFileGitIndicator(us, them)
     if a:us ==# '?' && a:them ==# '?'
-        return 'Untracked'
+        return '✭' " untracked
     elseif a:us ==# ' ' && a:them ==# 'M'
-        return 'Modified'
+        return '✹' " modified
     elseif a:us =~# '[MAC]'
-        return 'Staged'
+        return '✚' " staged
     elseif a:us ==# 'R'
-        return 'Renamed'
+        return '➜' " renamed
     elseif a:us ==# 'U' || a:them ==# 'U' || a:us ==# 'A' && a:them ==# 'A' || a:us ==# 'D' && a:them ==# 'D'
-        return 'Unmerged'
+        return '═' " unmerged
     elseif a:them ==# 'D'
-        return 'Deleted'
+        return '✖' " deleted
     elseif a:us ==# '!'
-        return 'Ignored'
+        return '☒' " ignored
     else
-        return 'Clean'
+        return '✔︎' " clean
     endif
+endfunction
+
+function! LightlineFugitive()
+  return exists("b:lightline_fugitive") ? b:lightline_fugitive : ''
 endfunction
 
 function! FoldInfo()
