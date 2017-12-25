@@ -38,11 +38,12 @@ get_svn_status() {
   then
     first_col="${svn_status:0:1}"
     other_col="${svn_status:1:6}"
-    if [ "$other_col" != "      " ]
+    if [ "$other_col" != "" ] && [ "$other_col" != "      " ]
     then
       vc_output="svn ?"
     else
       case "$first_col" in
+        '')  vc_output="svn ✔︎";;
         '?') vc_output="svn ✭";;
         'A') vc_output="svn ✚";;
         'D') vc_output="svn ✖";;
