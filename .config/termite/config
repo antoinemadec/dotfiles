@@ -8,7 +8,8 @@ background = #282828
 background = rgba(0x28, 0x28, 0x28, 0.96)
 # soft contrast: background = #32302f
 foreground = #ebdbb2
-foreground_bold = #ebdbb2
+# foreground_bold = #ebdbb2
+foreground_bold = #ffffff
 
 # dark0 + gray
 color0 = #282828
