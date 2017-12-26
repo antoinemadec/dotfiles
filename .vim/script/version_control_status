@@ -22,6 +22,7 @@ buf_nb="$2"
 [ -f "$abs_path" ] || exit 0
 [ "$buf_nb" = "" ] && exit 0
 
+abs_path="$(readlink -e "$abs_path")"
 dir="$(dirname "$abs_path")"
 filename="$(basename "$abs_path")"
 
