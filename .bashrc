@@ -71,10 +71,9 @@ fi
 #--------------------------------------------------------------
 # xterm title
 #--------------------------------------------------------------
-XTERM_TITLE='${USER}@${HOSTNAME/.*}:${PWD/$HOME/\~}'
 case "$TERM" in
   xterm*|rxvt*)
-    PROMPT_COMMAND='eval "echo -ne \"\033]0;${XTERM_TITLE}\007\""'
+  . /etc/profile.d/vte-2.91.sh
     ;;
   *)
     ;;

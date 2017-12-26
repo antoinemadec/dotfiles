@@ -298,7 +298,7 @@ command! -bang -nargs=* -complete=file Grep AsyncRun -program=grep @ <args>
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 
 " set ft=sh for *.bashrc files
-au BufNewFile,BufRead *.bashrc* call SetFileTypeSH("bash")
+au BufNewFile,BufRead *.bashrc* set ft=sh
 
 " simple gvim
 set guioptions-=m "remove menu bar
