@@ -327,3 +327,6 @@ autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
 
 " add filetype for custom file
 au BufNewFile,BufRead *.tabasco set filetype=conf2
+
+" TODO: remove when terminator will display bracketed-paste properly
+set t_BE=
