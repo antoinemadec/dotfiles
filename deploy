@@ -33,6 +33,8 @@ deploy_core .screenrc
 deploy_core .config/i3
 deploy_core .config/terminator
 deploy_core .config/htop
+deploy_core .config/termite
+deploy_core .config/compton.conf
 deploy_core .ctags
 deploy_core .screenlayout
 deploy_core bin

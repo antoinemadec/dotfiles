@@ -164,7 +164,8 @@ set $wallpaper ~/.config/i3/wallpaper/rocks.jpg
 #------------------------------
 exec /home/antoine/.screenlayout/dualmonitor.sh
 exec --no-startup-id dual-screen
-exec "sleep 1; feh --bg-scale $wallpaper"
+exec --no-startup-id compton
+exec "feh --bg-scale $wallpaper"
 workspace 1 output DP1
 workspace 2 output DP2
 workspace 3 output DP1
@@ -199,8 +200,8 @@ bindsym $mod+minus scratchpad show
 # locker
 bindsym $mod+Shift+l exec "PATH=~/.config/i3/bin/i3lock/i3lock-color:$PATH ~/.config/i3/bin/i3lock/i3lock-fancy/lock -f Lato-Hairline"
 # terminals
-bindsym $mod+Return exec terminator -p amb-vnc
-bindsym $mod+Shift+Return exec terminator
+bindsym $mod+Return exec termite -e 'ssh -X amb-vnc14'
+bindsym $mod+Shift+Return exec termite
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5% #decrease sound volume
@@ -241,8 +242,6 @@ assign [class="Sky"] 1:email
 exec --no-startup-id i3-msg 'workspace 1:email; layout stacked; exec evolution --force-online; exec sky'
 exec --no-startup-id i3-msg 'workspace 10:internet; exec firefox'
 exec --no-startup-id ~/bin/ghost-text-vim/ghost-text-server.tcl &
-# composition, allows transparency
-exec --no-startup-id compton
 # network widget
 exec_always nm-applet
 # scratchpad
