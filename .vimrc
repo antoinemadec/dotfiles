@@ -40,7 +40,6 @@ if has('nvim')
   " TODO wait for NVIM support of clipboard=autoselect
   " in order to make mouse=a copy/paste work
   set clipboard+=unnamed
-  set guicursor=               " fancy guiscursor feature are not working with Terminator
 end
 set nocompatible               " get rid of vi compatibility
 set nobackup                   " don't keep a backup file
@@ -61,9 +60,10 @@ set ttimeoutlen=50             " ms waited for a key code/sequence to complete. 
 set complete=.,w,b,u           " specifies how keyword completion works when CTRL-P or CTRL-N are used
 set showcmd                    " in Visual mode the size of the selected area is shown
 set ignorecase smartcase       " pattern with at least one uppercase character: search becomes case sensitive
+let &t_SI = "\e[6 q"           " allow thin cursor in insert mode
+let &t_EI = "\e[2 q"           " allow thin cursor in insert mode
 runtime! ftplugin/man.vim      " allow man to be displayed in vim
 runtime! macros/matchit.vim    " allow usage of % to match 'begin end' and other '{ }' kind of pairs
-
 "--------------------------------------------------------------
 " mappings
 "--------------------------------------------------------------
@@ -96,14 +96,14 @@ nmap <F2> :NERDTreeToggle<CR>
 " get rid of trailing spaces
 nnoremap <silent> <F3> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 nnoremap <silent> <F4> :ToggleYCM<CR>
-nnoremap <silent> <F5> :HighlightGroupsAddWord 4 0<CR>
-nnoremap <silent> <F6> :HighlightGroupsAddWord 6 0<CR>
-nnoremap <silent> <S-F5> :HighlightGroupsClearGroup 4 0<CR>
-nnoremap <silent> <S-F6> :HighlightGroupsClearGroup 6 0<CR>
-nnoremap <silent> <C-F5> :HighlightGroupsAddWord 4 1<CR>
-nnoremap <silent> <C-F6> :HighlightGroupsAddWord 6 1<CR>
-nnoremap <silent> <C-S-F5> :HighlightGroupsClearGroup 4 1<CR>
-nnoremap <silent> <C-S-F6> :HighlightGroupsClearGroup 6 1<CR>
+nnoremap <silent> <F5> :exe "HighlightGroupsAddWord " . hg0 . " 0"<CR>
+nnoremap <silent> <F6> :exe "HighlightGroupsAddWord " . hg1 . " 0"<CR>
+nnoremap <silent> <S-F5> :exe "HighlightGroupsClearGroup " . hg0 . " 0"<CR>
+nnoremap <silent> <S-F6> :exe "HighlightGroupsClearGroup " . hg1 . " 0"<CR>
+nnoremap <silent> <C-F5> :exe "HighlightGroupsAddWord " . hg0 . " 1"<CR>
+nnoremap <silent> <C-F6> :exe "HighlightGroupsAddWord " . hg1 . " 1"<CR>
+nnoremap <silent> <C-S-F5> :exe "HighlightGroupsClearGroup " . hg0 . " 1"<CR>
+nnoremap <silent> <C-S-F6> :exe "HighlightGroupsClearGroup " . hg1 . " 1"<CR>
 nnoremap <silent> <F8> :call ToggleListTrailingSpacesDisplay()<CR>
 nnoremap <silent> <F9> :set spell!<CR>
 inoremap <silent> <F9> <C-o>:set spell!<CR>
@@ -124,8 +124,12 @@ nnoremap <leader>r :RunCurrentBuffer <cr>
 "--------------------------------------------------------------
 if has('termguicolors')
   set termguicolors
+  let hg0 = 13
+  let hg1 = 17
 else
   set t_Co=256 " vim uses 256 colors
+  let hg0 = 4
+  let hg1 = 6
 endif
 set background=dark
 colorscheme gruvbox
