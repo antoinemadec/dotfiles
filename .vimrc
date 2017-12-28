@@ -122,11 +122,14 @@ nnoremap <leader>r :RunCurrentBuffer <cr>
 "--------------------------------------------------------------
 " appearance
 "--------------------------------------------------------------
-set t_Co=256 " vim uses 256 colors
+if has('termguicolors')
+  set termguicolors
+else
+  set t_Co=256 " vim uses 256 colors
+endif
 set background=dark
 colorscheme gruvbox
 highlight Todo      term=standout cterm=bold ctermfg=235 ctermbg=167 gui=bold guifg=#282828 guibg=#fb4934
-highlight SpellBad  term=reverse cterm=underline gui=undercurl guisp=#83a598
 
 source ~/.vim/my_lightline.vim
 
