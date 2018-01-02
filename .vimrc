@@ -62,6 +62,7 @@ set showcmd                    " in Visual mode the size of the selected area is
 set ignorecase smartcase       " pattern with at least one uppercase character: search becomes case sensitive
 let &t_SI = "\e[6 q"           " allow thin cursor in insert mode
 let &t_EI = "\e[2 q"           " allow thin cursor in insert mode
+set t_ut=                      " do not use term color for clearing
 runtime! ftplugin/man.vim      " allow man to be displayed in vim
 runtime! macros/matchit.vim    " allow usage of % to match 'begin end' and other '{ }' kind of pairs
 "--------------------------------------------------------------
