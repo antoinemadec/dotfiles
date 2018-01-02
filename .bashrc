@@ -73,7 +73,13 @@ fi
 #--------------------------------------------------------------
 case "$TERM" in
   xterm*|rxvt*)
-  . /etc/profile.d/vte-2.91.sh
+    if [ -f /etc/profile.d/vte-2.91.sh ]
+    then
+      . /etc/profile.d/vte-2.91.sh
+    else
+      XTERM_TITLE='${USER}@${HOSTNAME/.*}:${PWD/$HOME/\~}'
+      PROMPT_COMMAND='eval "echo -ne \"\033]0;${XTERM_TITLE}\007\""'
+    fi
     ;;
   *)
     ;;
@@ -83,6 +89,13 @@ esac
 #--------------------------------------------------------------
 # prompt
 #--------------------------------------------------------------
+# termite is sometimes not recognized as a TERM type
+if [ $TERM == xterm-termite ] && ! (tput colors &> /dev/null)
+then
+  wget https://raw.githubusercontent.com/thestinger/termite/master/termite.terminfo
+  tic -x termite.terminfo
+fi
+
 if tput colors &> /dev/null
 then
   # see man 4 console_codes
