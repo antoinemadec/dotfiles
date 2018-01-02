@@ -165,7 +165,12 @@ else
 fi
 
 # execute xterm_autotitle for each prompt
-PROMPT_COMMAND="fancy_prompt ; $PROMPT_COMMAND"
+if [ "$PROMPT_COMMAND" = "" ]
+then
+  PROMPT_COMMAND="fancy_prompt"
+else
+  PROMPT_COMMAND="fancy_prompt ; $PROMPT_COMMAND"
+fi
 #--------------------------------------------------------------
 
 #--------------------------------------------------------------
