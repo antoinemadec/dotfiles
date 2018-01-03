@@ -336,10 +336,8 @@ endfunction
 if has('nvim')
   command! -nargs=* T split | terminal <args>
   command! -nargs=* VT vsplit | terminal <args>
-endif
-if has('terminal')
-  command! -nargs=* T terminal <args>
-  command! -nargs=* VT terminal <args>
+elseif has('terminal')
+  command! -nargs=* T terminal ++close <args>
 endif
 
 " automate opening quickfix window when text adds to it
