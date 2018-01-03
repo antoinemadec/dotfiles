@@ -68,21 +68,29 @@ runtime! macros/matchit.vim    " allow usage of % to match 'begin end' and other
 " mappings
 "--------------------------------------------------------------
 if has('terminal') || has('nvim')
-  tnoremap <Esc> <C-\><C-n>
-  tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
-  tnoremap <A-Left> <C-\><C-N><C-w>h
-  tnoremap <A-Down> <C-\><C-N><C-w>j
-  tnoremap <A-Up> <C-\><C-N><C-w>k
+  tnoremap <Esc>     <C-\><C-n>
+  tnoremap <expr>    <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
+  tnoremap <A-Left>  <C-\><C-N><C-w>h
+  tnoremap <A-Down>  <C-\><C-N><C-w>j
+  tnoremap <A-Up>    <C-\><C-N><C-w>k
   tnoremap <A-Right> <C-\><C-N><C-w>l
 endif
-inoremap <A-Left>  <C-\><C-N><C-w>h
-inoremap <A-Down>  <C-\><C-N><C-w>j
-inoremap <A-Up>    <C-\><C-N><C-w>k
-inoremap <A-Right> <C-\><C-N><C-w>l
-nnoremap <A-Left>  <C-w>h
-nnoremap <A-Down>  <C-w>j
-nnoremap <A-Up>    <C-w>k
-nnoremap <A-Right> <C-w>l
+inoremap <A-Left>    <C-\><C-N><C-w>h
+inoremap <A-Down>    <C-\><C-N><C-w>j
+inoremap <A-Up>      <C-\><C-N><C-w>k
+inoremap <A-Right>   <C-\><C-N><C-w>l
+inoremap <A-S-Left>  <C-\><C-N><C-w>H
+inoremap <A-S-Down>  <C-\><C-N><C-w>J
+inoremap <A-S-Up>    <C-\><C-N><C-w>K
+inoremap <A-S-Right> <C-\><C-N><C-w>L
+nnoremap <A-Left>    <C-w>h
+nnoremap <A-Down>    <C-w>j
+nnoremap <A-Up>      <C-w>k
+nnoremap <A-Right>   <C-w>l
+nnoremap <A-S-Left>  <C-w>H
+nnoremap <A-S-Down>  <C-w>J
+nnoremap <A-S-Up>    <C-w>K
+nnoremap <A-S-Right> <C-w>L
 " add '.' support in visual mode
 vnoremap . :<C-w>let cidx = col(".")<CR> :'<,'>call DotAtColumnIndex(cidx)<CR>
 " save file as sudo
@@ -94,20 +102,20 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 nmap <F2> :NERDTreeToggle<CR>
 " get rid of trailing spaces
-nnoremap <silent> <F3> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
-nnoremap <silent> <F4> :ToggleYCM<CR>
-nnoremap <silent> <F5> :exe "HighlightGroupsAddWord " . hg0 . " 0"<CR>
-nnoremap <silent> <F6> :exe "HighlightGroupsAddWord " . hg1 . " 0"<CR>
-nnoremap <silent> <S-F5> :exe "HighlightGroupsClearGroup " . hg0 . " 0"<CR>
-nnoremap <silent> <S-F6> :exe "HighlightGroupsClearGroup " . hg1 . " 0"<CR>
-nnoremap <silent> <C-F5> :exe "HighlightGroupsAddWord " . hg0 . " 1"<CR>
-nnoremap <silent> <C-F6> :exe "HighlightGroupsAddWord " . hg1 . " 1"<CR>
+nnoremap <silent> <F3>     :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+nnoremap <silent> <F4>     :ToggleYCM<CR>
+nnoremap <silent> <F5>     :exe "HighlightGroupsAddWord " . hg0 . " 0"<CR>
+nnoremap <silent> <F6>     :exe "HighlightGroupsAddWord " . hg1 . " 0"<CR>
+nnoremap <silent> <S-F5>   :exe "HighlightGroupsClearGroup " . hg0 . " 0"<CR>
+nnoremap <silent> <S-F6>   :exe "HighlightGroupsClearGroup " . hg1 . " 0"<CR>
+nnoremap <silent> <C-F5>   :exe "HighlightGroupsAddWord " . hg0 . " 1"<CR>
+nnoremap <silent> <C-F6>   :exe "HighlightGroupsAddWord " . hg1 . " 1"<CR>
 nnoremap <silent> <C-S-F5> :exe "HighlightGroupsClearGroup " . hg0 . " 1"<CR>
 nnoremap <silent> <C-S-F6> :exe "HighlightGroupsClearGroup " . hg1 . " 1"<CR>
-nnoremap <silent> <F8> :call ToggleListTrailingSpacesDisplay()<CR>
-nnoremap <silent> <F9> :set spell!<CR>
-inoremap <silent> <F9> <C-o>:set spell!<CR>
-noremap <F10> :call asyncrun#quickfix_toggle(8)<cr>
+nnoremap <silent> <F8>     :call ToggleListTrailingSpacesDisplay()<CR>
+nnoremap <silent> <F9>     :set spell!<CR>
+inoremap <silent> <F9>     <C-o>:set spell!<CR>
+noremap <F10>              :call asyncrun#quickfix_toggle(8)<cr>
 " paste avoiding auto indentation
 set pastetoggle=<F12>
 nnoremap <script> <silent> <unique> <Leader>be :Buffers<CR>
