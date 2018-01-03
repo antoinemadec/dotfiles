@@ -119,13 +119,14 @@ noremap <F10>              :call asyncrun#quickfix_toggle(8)<cr>
 " paste avoiding auto indentation
 set pastetoggle=<F12>
 nnoremap <script> <silent> <unique> <Leader>be :Buffers<CR>
-" open files directory
-nnoremap <leader>ew :e    %:h <cr>
-nnoremap <leader>es :sp   %:h <cr>
-nnoremap <leader>ev :vsp  %:h <cr>
-nnoremap <leader>et :tabe %:h <cr>
+" open files directory (inspired by Janus mappings)
+nnoremap <leader>ew :e %:h <CR>
+nnoremap <leader>es :sp %:h <CR>
+nnoremap <leader>ev :vsp %:h <CR>
+nnoremap <leader>et :tabe %:h <CR>
+nnoremap <leader>cd :cd %:h <CR>
 " run current buffer
-nnoremap <leader>r :RunCurrentBuffer <cr>
+nnoremap <leader>r :RunCurrentBuffer <CR>
 
 "--------------------------------------------------------------
 " appearance
