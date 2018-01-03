@@ -24,9 +24,7 @@ Plug 'tpope/vim-repeat'                                                        "
 Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}                             " i3/config highlighting
 Plug 'kshenoy/TWiki-Syntax'                                                    " Twiki highlighting
 Plug 'skywind3000/asyncrun.vim'
-if (v:version >= 704 && has('patch1578')) || has('nvim')
-  Plug 'valloric/YouCompleteMe', {'on': []}                                    " fast, as-you-type, code completion engine for Vim
-endif
+Plug 'valloric/YouCompleteMe', {'on': []}                                    " fast, as-you-type, code completion engine for Vim
 call plug#end()
 
 if empty(glob("~/.vim/plugins_by_vimplug"))
@@ -65,6 +63,7 @@ let &t_EI = "\e[2 q"           " allow thin cursor in insert mode
 set t_ut=                      " do not use term color for clearing
 runtime! ftplugin/man.vim      " allow man to be displayed in vim
 runtime! macros/matchit.vim    " allow usage of % to match 'begin end' and other '{ }' kind of pairs
+
 "--------------------------------------------------------------
 " mappings
 "--------------------------------------------------------------
@@ -257,6 +256,10 @@ function! DisplayDoc()
         call ToggleYCM()
       endif
       YcmCompleter GetDoc
+      wincmd k
+      if line('$') == 1 && getline(1) == ''
+        q
+      endif
     endif
   else
     execute "Man " . expand('<cword>')
