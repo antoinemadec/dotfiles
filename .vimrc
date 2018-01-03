@@ -20,11 +20,11 @@ Plug 'tpope/vim-fugitive'                                                      "
 Plug 'tpope/vim-surround'                                                      " easily delete, change and add such surroundings in pairs
 Plug 'tpope/vim-commentary'                                                    " comment stuff out
 Plug 'tpope/vim-sensible'                                                      " vim defaults that (hopefully) everyone can agree on
-Plug 'tpope/vim-repeat'                                                        " remaps '.' in a way that plygubs can tap into it
+Plug 'tpope/vim-repeat'                                                        " remaps '.' in a way that plugins can tap into it
 Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}                             " i3/config highlighting
 Plug 'kshenoy/TWiki-Syntax'                                                    " Twiki highlighting
-Plug 'skywind3000/asyncrun.vim'
-Plug 'valloric/YouCompleteMe', {'on': []}                                    " fast, as-you-type, code completion engine for Vim
+Plug 'skywind3000/asyncrun.vim'                                                " run asynchronous bash commands
+Plug 'valloric/YouCompleteMe', {'on': []}                                      " fast, as-you-type, code completion engine for Vim
 call plug#end()
 
 if empty(glob("~/.vim/plugins_by_vimplug"))
