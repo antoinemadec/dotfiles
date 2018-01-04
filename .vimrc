@@ -125,6 +125,7 @@ nnoremap <leader>es :sp %:h <CR>
 nnoremap <leader>ev :vsp %:h <CR>
 nnoremap <leader>et :tabe %:h <CR>
 nnoremap <leader>cd :cd %:h <CR>
+nnoremap <leader>cdd :exe "cd " . fnamemodify(resolve(expand('%:p')), ':h')<CR>
 " run current buffer
 nnoremap <leader>r :RunCurrentBuffer <CR>
 
@@ -152,6 +153,7 @@ source ~/.vim/my_lightline.vim
 "--------------------------------------------------------------
 " toggle display of (tabs etc, trailing spaces)
 function ToggleListTrailingSpacesDisplay()
+  let l:nr = winnr()
   if &list
     windo set nolist
     highlight CustomHighlight_TrailingSpace NONE
@@ -159,6 +161,7 @@ function ToggleListTrailingSpacesDisplay()
     windo set list
     highlight CustomHighlight_TrailingSpace term=standout cterm=bold ctermfg=235 ctermbg=167 gui=bold guifg=#282828 guibg=#fb4934
   endif
+  exe l:nr . "wincmd w"
   call lightline#update()
 endfunction
 call ToggleListTrailingSpacesDisplay()
