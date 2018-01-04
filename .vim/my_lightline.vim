@@ -49,7 +49,11 @@ function! MyModified()
     return &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
-autocmd BufWinEnter,BufWritePost * call UpdateRevStatus()
+if has('job') || has('nvim')
+  autocmd BufEnter,BufWinEnter,BufWritePost * call UpdateRevStatus()
+else
+  autocmd BufWinEnter,BufWritePost * call UpdateRevStatus()
+endif
 function! UpdateRevStatus()
   let l:vc_cmd = expand('~/.vim/script/version_control_status ' . expand('%:p')) . ' ' . bufnr("%")
   if has('job')
