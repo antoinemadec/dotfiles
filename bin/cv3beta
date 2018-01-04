@@ -4,20 +4,21 @@
 
 source ~/bin/source/pathfuncs
 
-export PROJECT="cv2"
-export TV2_CONFIG="cv2"
+export PROJECT="cv3beta"
 export USE64BIT=1
 if (( `uname -p` != "x86_64" ))
 then
   echo "ERROR: cv2 environment is only supported on 64-bit machines!"
   exit 1
 fi
-export TV2_CONFIG="/cv2/tools2/tv2/cv2/tv2config"
-export WORKDIR="/cv2/work/amadec/default"
+export TV2_CONFIG="/cv3beta/tools2/tv2/cv3beta/tv2config"
+export WORKDIR="/cv3beta/work/amadec/default"
 
 # PATH
 pre_path /${PROJECT}/tools2/local/bin
 pre_path /${PROJECT}/tools2/tv2/exe
+pre_path /cv2/tools2/local/bin
+pre_path /cv2/tools2/tv2/exe
 pre_path /cv1/tools2/local/bin
 pre_path /cv1/tools2/tv2/exe
 pre_path /a9a/tools2/local/bin
@@ -37,6 +38,8 @@ export PATH
 MANPATH=$(manpath)
 pre_path /${PROJECT}/man MANPATH
 pre_path /${PROJECT}/tools2/local/man MANPATH
+pre_path /cv2/man
+pre_path /cv2/tools2/local/man
 pre_path /cv1/man MANPATH
 pre_path /cv1/tools2/local/man MANPATH
 pre_path /a9a/man MANPATH
@@ -50,6 +53,7 @@ export MANPATH
 # INFOPATH
 pre_path . INFOPATH
 pre_path /${PROJECT}/tools2/tv2/info INFOPATH
+pre_path /cv2/tools2/tv2/info INFOPATH
 pre_path /cv1/tools2/tv2/info INFOPATH
 pre_path /a9a/tools2/tv2/info INFOPATH
 pre_path /a9s/tools2/tv2/info INFOPATH
