@@ -67,6 +67,7 @@ runtime! macros/matchit.vim    " allow usage of % to match 'begin end' and other
 "--------------------------------------------------------------
 " mappings
 "--------------------------------------------------------------
+" window movement
 if has('terminal') || has('nvim')
   tnoremap <Esc>     <C-\><C-n>
   tnoremap <expr>    <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
@@ -91,18 +92,9 @@ nnoremap <A-S-Left>  <C-w>H
 nnoremap <A-S-Down>  <C-w>J
 nnoremap <A-S-Up>    <C-w>K
 nnoremap <A-S-Right> <C-w>L
-" add '.' support in visual mode
-vnoremap . :<C-w>let cidx = col(".")<CR> :'<,'>call DotAtColumnIndex(cidx)<CR>
-" save file as sudo
-cmap w!! w !sudo tee > /dev/null %
-nnoremap K :call DisplayDoc() <CR>
-" use tjump instead of tag, query the user when multiple files match a tag
-nnoremap <C-]> g<C-]>
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
-nmap <F2> :NERDTreeToggle<CR>
-" get rid of trailing spaces
-nnoremap <silent> <F3>     :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+" function keys
+nmap <F2>                  :NERDTreeToggle<CR>
+nnoremap <silent> <F3>     :call ToggleListTrailingSpacesDisplay()<CR>
 nnoremap <silent> <F4>     :ToggleYCM<CR>
 nnoremap <silent> <F5>     :exe "HighlightGroupsAddWord " . hg0 . " 0"<CR>
 nnoremap <silent> <F6>     :exe "HighlightGroupsAddWord " . hg1 . " 0"<CR>
@@ -112,22 +104,30 @@ nnoremap <silent> <C-F5>   :exe "HighlightGroupsAddWord " . hg0 . " 1"<CR>
 nnoremap <silent> <C-F6>   :exe "HighlightGroupsAddWord " . hg1 . " 1"<CR>
 nnoremap <silent> <C-S-F5> :exe "HighlightGroupsClearGroup " . hg0 . " 1"<CR>
 nnoremap <silent> <C-S-F6> :exe "HighlightGroupsClearGroup " . hg1 . " 1"<CR>
-nnoremap <silent> <F8>     :call ToggleListTrailingSpacesDisplay()<CR>
+nnoremap <silent> <F8>     :RemoveTrailingSpace<CR>
 nnoremap <silent> <F9>     :set spell!<CR>
 inoremap <silent> <F9>     <C-o>:set spell!<CR>
-noremap <F10>              :call asyncrun#quickfix_toggle(8)<cr>
-" paste avoiding auto indentation
+noremap <F10>              :call asyncrun#quickfix_toggle(8)<CR>
 set pastetoggle=<F12>
+" leader (inspired by Janus)
 nnoremap <script> <silent> <unique> <Leader>be :Buffers<CR>
-" open files directory (inspired by Janus mappings)
-nnoremap <leader>ew :e %:h <CR>
-nnoremap <leader>es :sp %:h <CR>
-nnoremap <leader>ev :vsp %:h <CR>
-nnoremap <leader>et :tabe %:h <CR>
-nnoremap <leader>cd :cd %:h <CR>
-nnoremap <leader>cdd :exe "cd " . fnamemodify(resolve(expand('%:p')), ':h')<CR>
-" run current buffer
-nnoremap <leader>r :RunCurrentBuffer <CR>
+nnoremap <leader>ew                            :e %:h<CR>
+nnoremap <leader>es                            :sp %:h<CR>
+nnoremap <leader>ev                            :vsp %:h<CR>
+nnoremap <leader>et                            :tabe %:h<CR>
+nnoremap <leader>cd                            :cd %:h<CR>
+nnoremap <leader>cdd                           :exe "cd " . fnamemodify(resolve(expand('%:p')), ':h')<CR>
+nnoremap <leader>r                             :RunCurrentBuffer<CR>
+nnoremap <leader>/                             :Lines<CR>
+" misc
+"   -- add '.' support in visual mode
+vnoremap . :<C-w>let cidx = col(".")<CR> :'<,'>call DotAtColumnIndex(cidx)<CR>
+cmap w!! w !sudo tee > /dev/null %
+nnoremap K :call DisplayDoc()<CR>
+"   -- use tjump instead of tag, for multiple tag match
+nnoremap <C-]> g<C-]>
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 "--------------------------------------------------------------
 " appearance
@@ -151,7 +151,6 @@ source ~/.vim/my_lightline.vim
 "--------------------------------------------------------------
 " highlighting
 "--------------------------------------------------------------
-" toggle display of (tabs etc, trailing spaces)
 function ToggleListTrailingSpacesDisplay()
   let l:nr = winnr()
   if &list
@@ -166,18 +165,17 @@ function ToggleListTrailingSpacesDisplay()
 endfunction
 call ToggleListTrailingSpacesDisplay()
 
-" highlight non breakable space
-set listchars=nbsp:?
-
-" highlight trailing spaces
 autocmd BufWinEnter * match CustomHighlight_TrailingSpace /\s\+$/
 autocmd InsertEnter * match CustomHighlight_TrailingSpace /\s\+\%#\@<!$/
 autocmd InsertLeave * match CustomHighlight_TrailingSpace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
-" always highlight TODO and FIXME no matter the filetype
+" highlight non breakable space
+set listchars=nbsp:?
+
+" always highlight TBD TODO and FIXME no matter the filetype
 highlight link CustomHighlight_Warning Todo
-autocmd WinEnter,VimEnter * :silent! call matchadd('CustomHighlight_Warning', 'TODO\|FIXME', -1)
+autocmd WinEnter,VimEnter * :silent! call matchadd('CustomHighlight_Warning', 'TBD\|TODO\|FIXME', -1)
 
 "--------------------------------------------------------------
 " folding
@@ -281,25 +279,21 @@ endfunction
 "--------------------------------------------------------------
 " verilog
 "--------------------------------------------------------------
-" add UVM tags
 set tags+=~/.vim/tags/UVM_CDNS-1.1d
 
-" map '-' to 'begin end' surrounding
+" set commentstring, map '-' to 'begin end' surrounding
 autocmd FileType verilog_systemverilog let b:surround_45 = "begin \r end"
+autocmd FileType verilog_systemverilog setlocal commentstring=//%s
 
 " verilog_systemverilog mappings
 nnoremap <leader>i :VerilogFollowInstance<CR>
 nnoremap <leader>I :VerilogFollowPort<CR>
-
-" commentary
-autocmd FileType verilog_systemverilog setlocal commentstring=//%s
 
 let g:verilog_instance_skip_last_coma = 1
 
 "--------------------------------------------------------------
 " cpp
 "--------------------------------------------------------------
-" override default indent based on plugin
 autocmd FileType c,cpp setlocal shiftwidth=4
 
 "--------------------------------------------------------------
@@ -311,6 +305,8 @@ function! RediCmdToClipboard(cmd)
   let a = 'redi @* | ' . a:cmd . ' | redi END'
   execute a
 endfunction
+
+command! -nargs=0 RemoveTrailingSpace :let _s=@/ | :%s/\s\+$//e | :let @/=_s | :unlet _s
 
 " open scratch buffer
 command! -bar -nargs=0 Scratch new | setlocal buftype=nofile bufhidden=hide noswapfile
@@ -336,7 +332,7 @@ function! DotAtColumnIndex(cidx)
   execute "normal " . a . "l."
 endfunction
 
-" add command to open terminals
+" terminal
 if has('nvim')
   command! -nargs=* T split | terminal <args>
   command! -nargs=* VT vsplit | terminal <args>
