@@ -69,29 +69,35 @@ runtime! macros/matchit.vim    " allow usage of % to match 'begin end' and other
 "--------------------------------------------------------------
 " window movement
 if has('terminal') || has('nvim')
-  tnoremap <Esc>     <C-\><C-n>
-  tnoremap <expr>    <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
-  tnoremap <A-Left>  <C-\><C-N><C-w>h
-  tnoremap <A-Down>  <C-\><C-N><C-w>j
-  tnoremap <A-Up>    <C-\><C-N><C-w>k
-  tnoremap <A-Right> <C-\><C-N><C-w>l
+  tnoremap <Esc><Esc> <C-\><C-n>
+  if has('nvim')
+    tnoremap <A-Left>  <C-\><C-N><C-w>h
+    tnoremap <A-Down>  <C-\><C-N><C-w>j
+    tnoremap <A-Up>    <C-\><C-N><C-w>k
+    tnoremap <A-Right> <C-\><C-N><C-w>l
+  else
+    tnoremap <A-Left>  <C-w>h
+    tnoremap <A-Down>  <C-w>j
+    tnoremap <A-Up>    <C-w>k
+    tnoremap <A-Right> <C-w>l
+  endif
 endif
-inoremap <A-Left>    <C-\><C-N><C-w>h
-inoremap <A-Down>    <C-\><C-N><C-w>j
-inoremap <A-Up>      <C-\><C-N><C-w>k
-inoremap <A-Right>   <C-\><C-N><C-w>l
-inoremap <A-S-Left>  <C-\><C-N><C-w>H
-inoremap <A-S-Down>  <C-\><C-N><C-w>J
-inoremap <A-S-Up>    <C-\><C-N><C-w>K
-inoremap <A-S-Right> <C-\><C-N><C-w>L
-nnoremap <A-Left>    <C-w>h
-nnoremap <A-Down>    <C-w>j
-nnoremap <A-Up>      <C-w>k
-nnoremap <A-Right>   <C-w>l
-nnoremap <A-S-Left>  <C-w>H
-nnoremap <A-S-Down>  <C-w>J
-nnoremap <A-S-Up>    <C-w>K
-nnoremap <A-S-Right> <C-w>L
+inoremap <A-Left>      <C-\><C-N><C-w>h
+inoremap <A-Down>      <C-\><C-N><C-w>j
+inoremap <A-Up>        <C-\><C-N><C-w>k
+inoremap <A-Right>     <C-\><C-N><C-w>l
+inoremap <A-S-Left>    <C-\><C-N><C-w>H
+inoremap <A-S-Down>    <C-\><C-N><C-w>J
+inoremap <A-S-Up>      <C-\><C-N><C-w>K
+inoremap <A-S-Right>   <C-\><C-N><C-w>L
+nnoremap <A-Left>      <C-w>h
+nnoremap <A-Down>      <C-w>j
+nnoremap <A-Up>        <C-w>k
+nnoremap <A-Right>     <C-w>l
+nnoremap <A-S-Left>    <C-w>H
+nnoremap <A-S-Down>    <C-w>J
+nnoremap <A-S-Up>      <C-w>K
+nnoremap <A-S-Right>   <C-w>L
 " function keys
 nmap <F2>                  :NERDTreeToggle<CR>
 nnoremap <silent> <F3>     :call ToggleListTrailingSpacesDisplay()<CR>
