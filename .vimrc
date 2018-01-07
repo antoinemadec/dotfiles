@@ -25,6 +25,9 @@ Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}                             "
 Plug 'kshenoy/TWiki-Syntax'                                                    " Twiki highlighting
 Plug 'skywind3000/asyncrun.vim'                                                " run asynchronous bash commands
 Plug 'valloric/YouCompleteMe', {'on': []}                                      " fast, as-you-type, code completion engine for Vim
+Plug 'kana/vim-textobj-user'                                                   " needed to add text object
+Plug 'kana/vim-textobj-line'                                                   " add line text object for motion like 'dil'
+Plug 'kana/vim-textobj-indent'                                                 " add indent text object for motion like 'dii'
 call plug#end()
 
 if empty(glob("~/.vim/plugins_by_vimplug"))
