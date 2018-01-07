@@ -125,6 +125,9 @@ nnoremap <leader>es                            :sp %:h<CR>
 nnoremap <leader>ev                            :vsp %:h<CR>
 nnoremap <leader>et                            :tabe %:h<CR>
 nnoremap <leader>cd                            :cd %:h<CR>
+if has('terminal')
+  tnoremap <leader>cd                          cdvim<CR>
+endif
 nnoremap <leader>cdd                           :exe "cd " . fnamemodify(resolve(expand('%:p')), ':h')<CR>
 nnoremap <leader>r                             :RunCurrentBuffer<CR>
 nnoremap <leader>/                             :Lines<CR>
@@ -308,6 +311,11 @@ autocmd FileType c,cpp setlocal shiftwidth=4
 "--------------------------------------------------------------
 " misc
 "--------------------------------------------------------------
+" start vim server
+if has('clientserver')
+  call remote_startserver('vim_server_' . getpid())
+endif
+
 " redirection of vim commands in clipboard
 command! -nargs=1 RediCmdToClipboard call RediCmdToClipboard(<f-args>)
 function! RediCmdToClipboard(cmd)
