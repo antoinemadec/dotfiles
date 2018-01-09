@@ -297,9 +297,10 @@ set tags+=~/.vim/tags/UVM_CDNS-1.1d
 autocmd FileType verilog_systemverilog let b:surround_45 = "begin \r end"
 autocmd FileType verilog_systemverilog setlocal commentstring=//%s
 
-" verilog_systemverilog mappings
+" verilog_systemverilog
 nnoremap <leader>i :VerilogFollowInstance<CR>
 nnoremap <leader>I :VerilogFollowPort<CR>
+let g:verilog_disable_indent_lst = "eos"
 
 let g:verilog_instance_skip_last_coma = 1
 
@@ -312,7 +313,7 @@ autocmd FileType c,cpp setlocal shiftwidth=4
 " misc
 "--------------------------------------------------------------
 " start vim server
-if has('clientserver')
+if exists('*remote_startserver')
   call remote_startserver('vim_server_' . getpid())
 endif
 
