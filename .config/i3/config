@@ -139,6 +139,9 @@ bar {
   colors {
     background #333333
     separator  #777777
+    #                  border  bg      text
+    focused_workspace  #4c7899 #285577 #ffffff
+    active_workspace   #333333 #5f676a #ffffff
   }
   separator_symbol " │ "
   # Using custom i3status.conf
