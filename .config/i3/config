@@ -155,26 +155,20 @@ bar {
 #==============================================================
 # custom
 #==============================================================
+# needed for Rofi 1.2 to jump in window
+focus_follows_mouse no
+
 #------------------------------
 # i3-gaps
 #------------------------------
+set $inner_gaps 8
+set $outer_gaps 0
 for_window [class="^.*"] border pixel 3
-gaps inner 8
-gaps outer 0
+gaps inner $inner_gaps
+gaps outer $outer_gaps
 smart_borders on
 smart_gaps on
-workspace 1 gaps inner 0
-workspace 1 gaps outer 0
-workspace 10 gaps inner 0
-workspace 10 gaps outer 0
-set $mode_gaps Toggle gaps: (1) on (2) off
-bindsym $mod+g mode "$mode_gaps"
-mode "$mode_gaps" {
-    bindsym 1 mode "default", gaps inner all set 8, gaps outer all set 8
-    bindsym 2 mode "default", gaps inner all set 0, gaps outer all set 0
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
+bindsym $mod+g exec ~/.config/i3/bin/toggle_gaps "toggle" $inner_gaps $outer_gaps
 
 set $wallpaper ~/.config/i3/wallpaper/nightsky.png
 
@@ -261,6 +255,7 @@ assign [class="Sky"] 1:email
 exec --no-startup-id i3-msg 'workspace 1:email; layout stacked; exec evolution --force-online; exec sky'
 exec --no-startup-id i3-msg 'workspace 10:internet; exec firefox'
 exec --no-startup-id ~/bin/ghost-text-vim/ghost-text-server.tcl &
+exec start-pulseaudio-x11
 # network widget
 exec_always nm-applet
 # scratchpad
