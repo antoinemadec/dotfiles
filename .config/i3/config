@@ -136,6 +136,7 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+  position top
   colors {
     background #333333
     separator  #777777
@@ -151,10 +152,28 @@ bar {
 #==============================================================
 # custom
 #==============================================================
-# get rid of all borders (needed for i3-gaps)
-#for_window [class="^.*"] border pixel 0
+#------------------------------
+# i3-gaps
+#------------------------------
+for_window [class="^.*"] border pixel 3
+gaps inner 8
+gaps outer 0
+smart_borders on
+smart_gaps on
+workspace 1 gaps inner 0
+workspace 1 gaps outer 0
+workspace 10 gaps inner 0
+workspace 10 gaps outer 0
+set $mode_gaps Toggle gaps: (1) on (2) off
+bindsym $mod+g mode "$mode_gaps"
+mode "$mode_gaps" {
+    bindsym 1 mode "default", gaps inner all set 8, gaps outer all set 8
+    bindsym 2 mode "default", gaps inner all set 0, gaps outer all set 0
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
 
-set $wallpaper ~/.config/i3/wallpaper/rocks.jpg
+set $wallpaper ~/.config/i3/wallpaper/nightsky.png
 
 #------------------------------
 # screen
@@ -207,7 +226,7 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle # mute s
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 # Screen output
-bindsym XF86Search exec ~/.config/i3/bin/change_layout
+# bindsym XF86Search exec ~/.config/i3/bin/change_layout
 # print screen - scrot & pinta - root
 bindsym --release Print exec scrot -e 'mv $f /tmp/ && pinta /tmp/$f'
 # print screen - scrot & pinta - select window or rectangle
