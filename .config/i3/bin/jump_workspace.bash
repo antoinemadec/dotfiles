@@ -48,17 +48,26 @@ workspace_already_exist()
 
 find_first_available_ws()
 {
+  ws_nb=$1
+  cnt=0
+  ws_in_use="$(get_workspace_indexes)"
   for ((i=1; i<=10; i++))
   do
     available=1
-    for n in $(get_workspace_indexes)
+    for n in $ws_in_use
     do
       [ "$n" = "$i" ] && available=0
     done
     if ((available))
     then
-      echo $i
-      return 0
+      ((cnt++))
+      if ((cnt == ws_nb))
+      then
+        echo $((i+1-ws_nb))
+        return 0
+      fi
+    else
+      cnt=0
     fi
   done
 }
@@ -103,11 +112,15 @@ then
   ws_name="$(echo "$ws" | cut -d ' ' -f 1)"
   ws_nb=1
   (echo "$ws" | grep -q ' ') && ws_nb="$(echo "$ws" | cut -d ' ' -f 2)"
-  for ((i=0; i<ws_nb; i++))
-  do
-    ws_idx="$(find_first_available_ws)"
-    [ "$ws_idx" != "" ] && i3-msg "workspace \"$ws_idx:$ws_name\""
-  done
+  ws_base_idx="$(find_first_available_ws $ws_nb)"
+  if [ "$ws_base_idx" != "" ]
+  then
+    for ((i=0; i<ws_nb; i++))
+    do
+      ws_idx=$((ws_base_idx + i))
+      i3-msg "workspace \"$ws_idx:$ws_name\""
+    done
+  fi
 else
   echo "ERROR in $0"
   exit 1
