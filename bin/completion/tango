@@ -1,4 +1,4 @@
-_tango() 
+_tango()
 {
     local cur prev opts
     COMPREPLY=()
