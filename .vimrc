@@ -127,8 +127,11 @@ nnoremap <leader>et                            :tabe %:h<CR>
 nnoremap <leader>cd                            :cd %:h<CR>
 if has('terminal')
   tnoremap <leader>cd                          cdvim<CR>
+  tnoremap <leader>ew                         vim --servername $VIM_SERVERNAME --remote .<CR>
+  tnoremap <leader>es                         vim --servername $VIM_SERVERNAME --remote .<CR>
+  tnoremap <leader>ev                         vim --servername $VIM_SERVERNAME --remote .<CR>
+  tnoremap <leader>et                         vim --servername $VIM_SERVERNAME --remote .<CR>
 endif
-nnoremap <leader>cdd                           :exe "cd " . fnamemodify(resolve(expand('%:p')), ':h')<CR>
 nnoremap <leader>r                             :RunCurrentBuffer<CR>
 nnoremap <leader>/                             :Lines<CR>
 " misc
