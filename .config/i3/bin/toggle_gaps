@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 
-# toggle_gaps [on|off|toggle]
+# toggle_gaps [on|off|toggle|toggle_title]
 
 mode=$1
 INNER=$2
 OUTER=$3
+BORDER=$4
 
-if [[ -z "$mode" || "$mode" == "toggle" ]]; then
+mode_org="$mode"
+
+if [[ "$mode" == "toggle_title" || "$mode" == "toggle" ]]; then
 
     # Get current workspace.
     workspace=$(i3-msg -t get_workspaces \
@@ -23,7 +26,11 @@ if [[ -z "$mode" || "$mode" == "toggle" ]]; then
 fi
 
 if [[ "$mode" == "on" ]]; then
-    i3-msg "gaps inner current set $INNER; gaps outer current set $OUTER"
+  i3-msg "gaps inner current set $INNER; gaps outer current set $OUTER"
+  i3-msg "[workspace=__focused__] border pixel $BORDER"
 else
-    i3-msg "gaps inner current set 0; gaps outer current set 0"
+  i3-msg "gaps inner current set 0; gaps outer current set 0"
+  if [[ "$mode_org" == "toggle_title" ]]; then
+    i3-msg "[workspace=__focused__] border normal"
+  fi
 fi

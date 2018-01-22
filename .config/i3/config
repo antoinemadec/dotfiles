@@ -163,12 +163,14 @@ focus_follows_mouse no
 #------------------------------
 set $inner_gaps 8
 set $outer_gaps 0
-for_window [class="^.*"] border pixel 3
+set $border 3
+for_window [class="^.*"] border pixel $border
 gaps inner $inner_gaps
 gaps outer $outer_gaps
 smart_borders on
 smart_gaps on
 bindsym $mod+g exec ~/.config/i3/bin/toggle_gaps "toggle" $inner_gaps $outer_gaps
+bindsym $mod+t exec ~/.config/i3/bin/toggle_gaps "toggle_title" $inner_gaps $outer_gaps $border
 
 set $wallpaper ~/.config/i3/wallpaper/nightsky.png
 
