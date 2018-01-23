@@ -196,6 +196,8 @@ workspace 10 output DP2
 # shortcuts
 #------------------------------
 bindsym $mod+backslash workspace back_and_forth
+bindsym $mod+m exec (nautilus --no-desktop)&
+bindsym $mod+c exec gnome-calculator
 # use rofi instead of dmenu,
 # add equivalent of "alt+Tab functionality"
 bindsym $mod+d       exec "rofi -show run"
@@ -261,7 +263,4 @@ exec --no-startup-id ~/bin/ghost-text-vim/ghost-text-server.tcl &
 exec start-pulseaudio-x11
 # network widget
 exec_always nm-applet
-# scratchpad
-for_window[class="Nautilus"] move window to scratchpad
-exec (nautilus --no-desktop)&
 #==============================================================
