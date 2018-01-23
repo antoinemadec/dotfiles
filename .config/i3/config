@@ -177,7 +177,6 @@ set $wallpaper ~/.config/i3/wallpaper/rocks.jpg
 #------------------------------
 # screen
 #------------------------------
-exec /home/antoine/.screenlayout/dualmonitor.sh
 exec --no-startup-id dual-screen
 exec --no-startup-id compton
 exec "feh --bg-scale $wallpaper"
@@ -198,6 +197,7 @@ workspace 10 output DP2
 bindsym $mod+backslash workspace back_and_forth
 bindsym $mod+m exec (nautilus --no-desktop)&
 bindsym $mod+c exec gnome-calculator
+bindsym $mod+o exec pavucontrol& arandr&
 # use rofi instead of dmenu,
 # add equivalent of "alt+Tab functionality"
 bindsym $mod+d       exec "rofi -show run"

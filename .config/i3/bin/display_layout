@@ -1,3 +1,0 @@
-#!/bin/bash
-
-/home/amadec/.config/i3/bin/change_layout --get_current_layout
