@@ -2,4 +2,42 @@
 
 set -e
 
-/usr/bin/ctags --languages=systemverilog -R .
+usage() {
+  cat <<EOF
+usage: $(basename $0) (-h) (-e STR) (DIRS)
+
+generate systemverilog tags under current dir
+
+with:
+  -h      : get this help
+  -e STR  : exclude dirs or files, STR is white space separated
+  DIRS    : only generate tags for those DIRS instead of current dir
+EOF
+}
+
+STR=""
+while [ "$#" != 0 ]
+do
+  case "$1" in
+    "-e")
+      shift 1
+      STR="$1"
+      shift 1 ;;
+    "-h")
+      usage
+      exit 0 ;;
+    *)
+      break ;;
+  esac
+done
+
+DIRS="$@"
+[ "$DIRS" = "" ] && dirs="."
+
+excludes=""
+for p in $STR
+do
+  excludes+="--exclude=${p%/} "
+done
+
+/usr/bin/ctags --languages=systemverilog --exclude=.git --exclude=.svn $excludes -R $DIRS

@@ -1,7 +1,41 @@
 #!/bin/bash
 
+usage() {
+  cat <<EOF
+usage: $(basename $0) (args)
+
+svnup in all SVN repos under the current directory
+can also generate ctags
+
+with (args) in:
+  -h:       print this help
+  -t:       generate ctags
+  -te STR:  generate ctags excludings dirs or files in STR (white space separated)
+EOF
+}
+
 gen_tags=0
-[ "$1" == '-t' ] && gen_tags=1
+tag_exclude=""
+while [ "$#" != 0 ]
+do
+  case "$1" in
+    "-t")
+      gen_tags=1
+      shift 1 ;;
+    "-te")
+      gen_tags=1
+      shift 1
+      tag_exclude="$1"
+      shift 1
+      ;;
+    "-h")
+      usage
+      exit 0 ;;
+    *)
+      usage
+      exit 1 ;;
+  esac
+done
 
 svn_version="$(svn --version --quiet | sed -e 's/\.//' -e 's/\..*//')"
 if ((svn_version < 17))
@@ -43,6 +77,6 @@ svnup_core() {
 }
 
 svnup_core 0
-[ "$gen_tags" = 1 ] && { echo "generate ctags"; gen_sv_tags; }
+[ "$gen_tags" = 1 ] && { echo "generate ctags"; gen_sv_tags -e "$tag_exclude"; }
 
 exit $(( !(svn_found && svn_clean) ))
