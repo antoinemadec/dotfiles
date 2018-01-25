@@ -120,20 +120,17 @@ then
   export COLOR_NEUTRAL="\[\033[0m\]"
 fi
 
-# test speed of __git_ps1 in background in relation to different options
+# test speed of __git_ps1 with different options in background
 # 200ms is the threshold; don't run it if current directory has not change
 test_git_ps1_speed() {
   file="$1"
-  if [ "$PREVPWD" != "$PWD" ]
-  then
-    (
-    t=$( (time (GIT_PS1_SHOWDIRTYSTATE=true __git_ps1)) 2>&1 | grep real | sed -e 's/.*m//' -e 's/s//' -e 's/\.//' )
-    value="true"
-    [ "$t" -gt 200 ] && value=""
-    echo "$value" > $file
-    )& disown %-
-  fi
-  PREVPWD="$PWD"
+  (
+  t=$( (time (GIT_PS1_SHOWDIRTYSTATE=true __git_ps1)) 2>&1 | grep real | sed -e 's/.*m//' -e 's/s//' -e 's/\.//' )
+  value="true"
+  sleep 10
+  [ "$t" -gt 200 ] && value=""
+  echo "$value" > $file
+  )& disown %-
 }
 
 fancy_prompt () {
@@ -184,12 +181,18 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
+mkcd() {
+  mkdir -p $1
+  cd $1
+}
+
 ## use nvim
 #if type nvim &> /dev/null
 #then
 #  alias vim='nvim'
 #fi
 #--------------------------------------------------------------
+
 # use vim in Git and other programs
 export VISUAL=vim
 export EDITOR="$VISUAL"
