@@ -61,6 +61,8 @@ set ttimeoutlen=50             " ms waited for a key code/sequence to complete. 
 set complete=.,w,b,u           " specifies how keyword completion works when CTRL-P or CTRL-N are used
 set showcmd                    " in Visual mode the size of the selected area is shown
 set ignorecase smartcase       " pattern with at least one uppercase character: search becomes case sensitive
+set cscopetag                  " cstag performs the equivalent of tjump when searching through tags file
+set cscopetagorder=1           " tag files searched before cscopte database
 let &t_SI = "\e[6 q"           " allow thin cursor in insert mode
 let &t_EI = "\e[2 q"           " allow thin cursor in insert mode
 set t_ut=                      " do not use term color for clearing
@@ -139,8 +141,6 @@ nnoremap <leader>/                             :Lines<CR>
 vnoremap . :<C-w>let cidx = col(".")<CR> :'<,'>call DotAtColumnIndex(cidx)<CR>
 cmap w!! w !sudo tee > /dev/null %
 nnoremap K :call DisplayDoc()<CR>
-"   -- use tjump instead of tag, for multiple tag match
-nnoremap <C-]> g<C-]>
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
