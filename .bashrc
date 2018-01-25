@@ -127,7 +127,6 @@ test_git_ps1_speed() {
   (
   t=$( (time (GIT_PS1_SHOWDIRTYSTATE=true __git_ps1)) 2>&1 | grep real | sed -e 's/.*m//' -e 's/s//' -e 's/\.//' )
   value="true"
-  sleep 10
   [ "$t" -gt 200 ] && value=""
   echo "$value" > $file
   )& disown %-
