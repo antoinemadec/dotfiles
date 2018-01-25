@@ -8,10 +8,10 @@ let us try not to reinvent the wheel on each machine
 * xrandr     (coming with Ubuntu)
 * arandr
 * pavucontrol
-* xbacklight
 * rofi
 * scrot
 * pinta
+* x11vnc
 * py3status
 * feh
 * jq
