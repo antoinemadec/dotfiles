@@ -269,6 +269,17 @@ function ToggleYCM()
   endif
 endfunction
 
+function! DisplayDoc_Ycm()
+  if !exists( "g:loaded_youcompleteme" )
+    call ToggleYCM()
+  endif
+  YcmCompleter GetDoc
+  wincmd k
+  if line('$') == 1 && getline(1) == ''
+    q
+  endif
+endfunction
+
 function! DisplayDoc()
   if &filetype == "python"
     let l:pydoc = g:ycm_python_binary_path == 'python3' ? 'pydoc3 ' : 'pydoc'
@@ -277,15 +288,10 @@ function! DisplayDoc()
       Scratch | 0 put =l:pydoc_stdout | normal gg
       set ft=man
     else
-      if !exists( "g:loaded_youcompleteme" )
-        call ToggleYCM()
-      endif
-      YcmCompleter GetDoc
-      wincmd k
-      if line('$') == 1 && getline(1) == ''
-        q
-      endif
+      call DisplayDoc_Ycm()
     endif
+  elseif &filetype == "c"
+    execute "Man 3 " . expand('<cword>')
   else
     execute "Man " . expand('<cword>')
   endif
