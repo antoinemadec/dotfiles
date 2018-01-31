@@ -115,6 +115,7 @@ nnoremap <silent> <C-F5>   :exe "HighlightGroupsAddWord " . hg0 . " 1"<CR>
 nnoremap <silent> <C-F6>   :exe "HighlightGroupsAddWord " . hg1 . " 1"<CR>
 nnoremap <silent> <C-S-F5> :exe "HighlightGroupsClearGroup " . hg0 . " 1"<CR>
 nnoremap <silent> <C-S-F6> :exe "HighlightGroupsClearGroup " . hg1 . " 1"<CR>
+nnoremap <silent> <F7>     :call ToggleIndent()<CR>
 nnoremap <silent> <F8>     :RemoveTrailingSpace<CR>
 nnoremap <silent> <F9>     :set spell!<CR>
 inoremap <silent> <F9>     <C-o>:set spell!<CR>
@@ -316,7 +317,7 @@ let g:verilog_instance_skip_last_coma = 1
 "--------------------------------------------------------------
 " cpp
 "--------------------------------------------------------------
-autocmd FileType c,cpp setlocal shiftwidth=4
+autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
 
 "--------------------------------------------------------------
 " misc
@@ -344,8 +345,15 @@ command! -nargs=0 RunCurrentBuffer :w | execute("AsyncRun " . expand('%:p') . ";
 command! -bang -nargs=* -complete=file Grep AsyncRun -program=grep @ <args>
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 
-" set ft=sh for *.bashrc files
-au BufNewFile,BufRead *.bashrc* set ft=sh
+function! ToggleIndent()
+  if &shiftwidth == 2
+    setlocal shiftwidth=4 tabstop=4
+    echo "Indent = 4"
+  else
+    setlocal shiftwidth=2 tabstop=2
+    echo "Indent = 2"
+  endif
+endfunction
 
 " simple gvim
 set guioptions-=m "remove menu bar
