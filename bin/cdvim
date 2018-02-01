@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# used with vim's :terminal
-# allow to :cd in :terminal's current directory
-
-vim --servername $VIM_SERVERNAME --remote-send "<C-\><C-N>:cd $PWD<CR>i"

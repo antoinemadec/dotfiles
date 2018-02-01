@@ -96,7 +96,7 @@ function! FoldInfo()
 endfunction
 
 function! DetectTrailingSpace()
-  if mode() == 'n'
+  if &buftype != 'terminal' && mode() == 'n'
     let save_cursor = getpos('.')
     call cursor(1,1)
     let search_result = search("  *$", "c")

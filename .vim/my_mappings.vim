@@ -30,6 +30,12 @@ nnoremap <silent> <A-S-Down>    <C-w>J
 nnoremap <silent> <A-S-Up>      <C-w>K
 nnoremap <silent> <A-S-Right>   <C-w>L
 " tab movement
+if has('terminal')
+  tnoremap <C-A-Left>           <C-\><C-n>gT
+  tnoremap <C-A-Right>          <C-\><C-n>gt
+  tnoremap <C-A-S-Left>         <C-\><C-n>:call MoveToPrevTab()<cr>
+  tnoremap <C-A-S-Right>        <C-\><C-n>:call MoveToNextTab()<cr>
+endif
 nnoremap <silent> <C-A-Left>    gT
 nnoremap <silent> <C-A-Right>   gt
 nnoremap <silent> <C-A-S-Left>  :call MoveToPrevTab()<cr>
@@ -53,19 +59,20 @@ inoremap <silent> <F9>          <C-o>:set spell!<CR>
 noremap <silent> <F10>          :call asyncrun#quickfix_toggle(8)<CR>
 set pastetoggle=<F12>
 " leader (inspired by Janus)
+if has('terminal')
+  tnoremap <script> <leader>be  vim_server_cmd 'Buffers'<CR>
+  tnoremap <leader>ew           vim_server_open .<CR>
+  tnoremap <leader>es           vim_server_open . -o<CR>
+  tnoremap <leader>ev           vim_server_open . -O<CR>
+  tnoremap <leader>et           vim_server_open . -p<CR>
+  tnoremap <leader>cd           vim_server_cmd "cd $PWD" -i<CR>
+endif
 nnoremap <script> <leader>be    :Buffers<CR>
 nnoremap <silent> <leader>ew    :e %:h<CR>
 nnoremap <silent> <leader>es    :sp %:h<CR>
 nnoremap <silent> <leader>ev    :vsp %:h<CR>
 nnoremap <silent> <leader>et    :tabe %:h<CR>
 nnoremap <silent> <leader>cd    :cd %:h<CR>
-if has('terminal')
-  tnoremap <leader>cd           cdvim<CR>
-  tnoremap <leader>ew           vim --servername $VIM_SERVERNAME --remote .<CR>
-  tnoremap <leader>es           vim --servername $VIM_SERVERNAME --remote .<CR>
-  tnoremap <leader>ev           vim --servername $VIM_SERVERNAME --remote .<CR>
-  tnoremap <leader>et           vim --servername $VIM_SERVERNAME --remote .<CR>
-endif
 nnoremap <silent> <leader>r     :RunCurrentBuffer<CR>
 nnoremap <silent> <leader>/     :Lines<CR>
 " misc

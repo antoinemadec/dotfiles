@@ -1,0 +1,30 @@
+#!/bin/bash
+
+usage(){
+cat <<EOF
+usage: $(basename $0) VIM_CMD (arg)
+
+run VIM_CMD in VIM_SERVERNAME's focused window's
+  -h    : get this help
+  -i    : put focused window back in insert mode
+EOF
+}
+
+VIM_CMD=""
+back_in_insert=""
+while [ "$#" -gt 0 ]
+do
+  case "$1" in
+    -h) usage
+        exit 0
+        ;;
+    -i) back_in_insert="i"
+        shift 1
+      ;;
+    *)  VIM_CMD="$1 "
+        shift 1
+      ;;
+  esac
+done
+
+vim --servername $VIM_SERVERNAME --remote-send "<C-\><C-N>:$VIM_CMD<CR>$back_in_insert"
