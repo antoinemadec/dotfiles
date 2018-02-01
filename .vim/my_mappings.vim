@@ -1,17 +1,10 @@
 " window movement
-if has('terminal') || has('nvim')
+if has('terminal')
   tnoremap <Esc><Esc> <C-\><C-n>
-  if has('nvim')
-    tnoremap <A-Left>  <C-\><C-N><C-w>h
-    tnoremap <A-Down>  <C-\><C-N><C-w>j
-    tnoremap <A-Up>    <C-\><C-N><C-w>k
-    tnoremap <A-Right> <C-\><C-N><C-w>l
-  else
-    tnoremap <A-Left>  <C-w>h
-    tnoremap <A-Down>  <C-w>j
-    tnoremap <A-Up>    <C-w>k
-    tnoremap <A-Right> <C-w>l
-  endif
+  tnoremap <A-Left>  <C-w>h
+  tnoremap <A-Down>  <C-w>j
+  tnoremap <A-Up>    <C-w>k
+  tnoremap <A-Right> <C-w>l
 endif
 inoremap <A-Left>      <C-\><C-N><C-w>h
 inoremap <A-Down>      <C-\><C-N><C-w>j

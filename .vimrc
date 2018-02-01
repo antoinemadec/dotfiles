@@ -37,11 +37,6 @@ endif
 "--------------------------------------------------------------
 " vim options
 "--------------------------------------------------------------
-if has('nvim')
-  " TODO wait for NVIM support of clipboard=autoselect
-  " in order to make mouse=a copy/paste work
-  set clipboard+=unnamed
-end
 set nocompatible               " get rid of vi compatibility
 set nobackup                   " don't keep a backup file
 set textwidth=0                " don't wrap words by default
@@ -297,10 +292,7 @@ function! DotAtColumnIndex(cidx)
 endfunction
 
 " terminal
-if has('nvim')
-  command! -nargs=* T split | terminal <args>
-  command! -nargs=* VT vsplit | terminal <args>
-elseif has('terminal')
+if has('terminal')
   command! -nargs=* T terminal ++close <args>
 endif
 
