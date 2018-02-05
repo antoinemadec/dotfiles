@@ -203,8 +203,11 @@ do
   [ -f $file ] && source $file
 done
 
-# vim's gruvbox: enable italic comments
-export TERM_ITALICS=true
+# term capabilities
+tput sitm && export TERM_ITALICS=true
+export TERM_COLORS="$(tput colors)"
+export TERM_FANCY_CURSOR=true     # can be modified in .bashrc.local
+export TERM_BRACKETED_PASTE=true  # can be modified in .bashrc.local
 
 [ -f ~/.bashrc.local ] && source ~/.bashrc.local
 

@@ -1,3 +1,9 @@
+" environement variables used:
+"   TERM_ITALICS          : enable italic capabilites if 'true'
+"   TERM_COLORS           : enable termguicolors if >= 256
+"   TERM_FANCY_CURSOR     : enable thin insert cursor if 'true'
+"   TERM_BRACKETED_PASTE  : disable bracketed paste if not 'true'
+
 "--------------------------------------------------------------
 " plugins
 "--------------------------------------------------------------
@@ -58,9 +64,18 @@ set showcmd                    " in Visual mode the size of the selected area is
 set ignorecase smartcase       " pattern with at least one uppercase character: search becomes case sensitive
 set cscopetag                  " cstag performs the equivalent of tjump when searching through tags file
 set cscopetagorder=1           " tag files searched before cscopte database
-let &t_SI = "\e[6 q"           " allow thin cursor in insert mode
-let &t_EI = "\e[2 q"           " allow thin cursor in insert mode
 set t_ut=                      " do not use term color for clearing
+if $TERM_FANCY_CURSOR == 'true'
+  let &t_SI = "\e[6 q"         " allow thin cursor in insert mode
+  let &t_EI = "\e[2 q"         " allow thin cursor in insert mode
+else
+  let &t_SI = ""
+  let &t_EI = ""
+  let &t_SH = ""
+endif
+if $TERM_BRACKETED_PASTE != 'true'
+  let &t_BE = ''
+endif
 runtime! ftplugin/man.vim      " allow man to be displayed in vim
 runtime! macros/matchit.vim    " allow usage of % to match 'begin end' and other '{ }' kind of pairs
 
@@ -72,7 +87,7 @@ source ~/.vim/my_mappings.vim
 "--------------------------------------------------------------
 " appearance
 "--------------------------------------------------------------
-if has('termguicolors')
+if has('termguicolors') && $TERM_COLORS >= 256
   set termguicolors
   let hg0 = 13
   let hg1 = 17
@@ -300,7 +315,3 @@ autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
 
 " add filetype for custom file
 au BufNewFile,BufRead *.tabasco set filetype=conf2
-
-if $VIMRC_APPEND != ""
-  execute $VIMRC_APPEND
-endif
