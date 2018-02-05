@@ -184,12 +184,6 @@ mkcd() {
   mkdir -p $1
   cd $1
 }
-
-## use nvim
-#if type nvim &> /dev/null
-#then
-#  alias vim='nvim'
-#fi
 #--------------------------------------------------------------
 
 # use vim in Git and other programs
@@ -208,6 +202,9 @@ for file in ~/bin/completion/*
 do
   [ -f $file ] && source $file
 done
+
+# vim's gruvbox: enable italic comments
+export TERM_ITALICS=true
 
 [ -f ~/.bashrc.local ] && source ~/.bashrc.local
 
@@ -228,4 +225,3 @@ then
     fi
   }
 fi
-

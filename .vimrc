@@ -82,7 +82,6 @@ else
   let hg1 = 6
 endif
 set background=dark
-let g:gruvbox_italic=1
 colorscheme gruvbox
 highlight Todo      term=standout cterm=bold ctermfg=235 ctermbg=167 gui=bold guifg=#282828 guibg=#fb4934
 
@@ -301,3 +300,7 @@ autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
 
 " add filetype for custom file
 au BufNewFile,BufRead *.tabasco set filetype=conf2
+
+if $VIMRC_APPEND != ""
+  execute $VIMRC_APPEND
+endif
