@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# based on "/amb/tools/env/amb.cshrc"
+
+source ~/bin/source/pathfuncs
+
+export PROJECT="cv3"
+export USE64BIT=1
+if (( `uname -p` != "x86_64" ))
+then
+  echo "ERROR: cv2 environment is only supported on 64-bit machines!"
+  exit 1
+fi
+export TV2_CONFIG="/cv3/tools2/tv2/cv3/tv2config"
+export WORKDIR="/cv3/work/amadec/default"
+
+# PATH
+pre_path /${PROJECT}/tools2/local/bin
+pre_path /${PROJECT}/tools2/tv2/exe
+# force cetrain local binaries instead of RHEL's when using local machine
+[ "$HOSTNAME" = "ubu-amadec" ] && pre_path /home/amadec/force_local_bin
+export PATH
+
+# MANPATH
+MANPATH=$(manpath)
+pre_path /${PROJECT}/man MANPATH
+pre_path /${PROJECT}/tools2/local/man MANPATH
+export MANPATH
+
+# INFOPATH
+pre_path . INFOPATH
+pre_path /${PROJECT}/tools2/tv2/info INFOPATH
+export INFOPATH
+
+cd $WORKDIR
+bash -i
