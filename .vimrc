@@ -8,32 +8,37 @@
 " plugins
 "--------------------------------------------------------------
 call plug#begin('~/.vim/plugins_by_vimplug')
-Plug 'morhetz/gruvbox'                                                         " colorscheme
+Plug 'morhetz/gruvbox'                                            " colorscheme
 if v:version >= 704
-  Plug 'scrooloose/nerdtree',         {'on': 'NERDTreeToggle'}                 " file navigator
+  Plug 'scrooloose/nerdtree',         {'on': 'NERDTreeToggle'}    " file navigator
   Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
 endif
-Plug 'itchyny/lightline.vim'                                                   " status line
-Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all --no-completion'} " fuzzy search in a dir
-Plug 'junegunn/fzf.vim'                                                        " fuzzy search in a dir/buffers/files etc
-Plug 'junegunn/vim-easy-align'                                                 " easy alignment of line fields
-Plug 'vhda/verilog_systemverilog.vim', {'for': 'verilog_systemverilog'}        " Vim Syntax Plugin for Verilog and SystemVerilog
-Plug 'antoinemadec/vim-verilog-instance', {'for': 'verilog_systemverilog'}     " Verilog port instantiation from port declaration
-Plug 'antoinemadec/vim-highlight-groups'                                       " add words in highlight groups on the fly
-Plug 'antoinemadec/vim-conf2_filetype'                                         " copy of conf filetype with // comments instead of #
-Plug 'vim-scripts/vcscommand.vim'                                              " diff local CVS SVN and GIT files with server version
-Plug 'tpope/vim-fugitive'                                                      " Git wrapper
-Plug 'tpope/vim-surround'                                                      " easily delete, change and add such surroundings in pairs
-Plug 'tpope/vim-commentary'                                                    " comment stuff out
-Plug 'tpope/vim-sensible'                                                      " vim defaults that (hopefully) everyone can agree on
-Plug 'tpope/vim-repeat'                                                        " remaps '.' in a way that plugins can tap into it
-Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}                             " i3/config highlighting
-Plug 'kshenoy/TWiki-Syntax'                                                    " Twiki highlighting
-Plug 'skywind3000/asyncrun.vim'                                                " run asynchronous bash commands
-Plug 'valloric/YouCompleteMe', {'on': []}                                      " fast, as-you-type, code completion engine for Vim
-Plug 'kana/vim-textobj-user'                                                   " needed to add text object
-Plug 'kana/vim-textobj-line'                                                   " add line text object for motion like 'dil'
-Plug 'kana/vim-textobj-indent'                                                 " add indent text object for motion like 'dii'
+Plug 'itchyny/lightline.vim'                                      " status line
+Plug 'junegunn/fzf',
+      \ {'dir': '~/.fzf','do': './install --all --no-completion'} " fuzzy search in a dir
+Plug 'junegunn/fzf.vim'                                           " fuzzy search in a dir
+Plug 'junegunn/vim-easy-align'                                    " easy alignment of line fields
+Plug 'antoinemadec/vim-highlight-groups'                          " add words in highlight groups on the fly
+Plug 'vim-scripts/vcscommand.vim'                                 " diff CVS SVN and GIT files with remote version
+Plug 'tpope/vim-fugitive'                                         " Git wrapper
+Plug 'tpope/vim-surround'                                         " delete, change and add surroundings in pairs
+Plug 'tpope/vim-commentary'                                       " comment stuff out
+Plug 'tpope/vim-sensible'                                         " vim defaults that everyone can agree on
+Plug 'tpope/vim-repeat'                                           " remaps '.' in a way that plugins can tap into it
+Plug 'skywind3000/asyncrun.vim'                                   " run asynchronous bash commands
+Plug 'valloric/YouCompleteMe', {'on': []}                         " as-you-type code completion engine for Vim
+Plug 'kana/vim-textobj-user'                                      " needed to add text object
+Plug 'kana/vim-textobj-line'                                      " add line text object for motion like 'dil'
+Plug 'kana/vim-textobj-indent'                                    " add indent text object for motion like 'dii'
+Plug 'terryma/vim-multiple-cursors'                               " Sublime Text's multiple selection feature
+" filetype specific
+Plug 'vhda/verilog_systemverilog.vim',
+      \ {'for': 'verilog_systemverilog'}                          " Vim Syntax Plugin for Verilog and SystemVerilog
+Plug 'antoinemadec/vim-verilog-instance',
+      \ {'for': 'verilog_systemverilog'}                          " Verilog port instantiation from port declaration
+Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}                " i3/config highlighting
+Plug 'kshenoy/TWiki-Syntax'                                       " Twiki highlighting
+Plug 'antoinemadec/vim-conf2_filetype'                            " conf filetype with // comments instead of #
 call plug#end()
 
 if empty(glob("~/.vim/plugins_by_vimplug"))
