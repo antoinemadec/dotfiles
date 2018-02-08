@@ -65,6 +65,7 @@ if has('terminal')
   tnoremap <leader>es           vim_server_open . -o<CR>
   tnoremap <leader>ev           vim_server_open . -O<CR>
   tnoremap <leader>et           vim_server_open . -p<CR>
+  tnoremap <leader>vim          vim_server_open
   tnoremap <leader>cd           vim_server_cmd "cd $PWD" -i<CR>
 endif
 nnoremap <script> <leader>be    :Buffers<CR>
