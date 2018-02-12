@@ -270,6 +270,10 @@ if exists('*remote_startserver')
   call remote_startserver('vim_server_' . getpid())
 endif
 
+" multi_cursor don't disappear on 1st Esc
+let g:multi_cursor_exit_from_insert_mode = 0
+let g:multi_cursor_exit_from_visual_mode = 0
+
 " redirection of vim commands in clipboard
 command! -nargs=1 RediCmdToClipboard call RediCmdToClipboard(<f-args>)
 function! RediCmdToClipboard(cmd)
