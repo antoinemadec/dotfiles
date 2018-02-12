@@ -2,3 +2,6 @@
   ui = auto
 ; [push]
 ;   default = simple
+[user]
+	name = antoinemadec
+	email = ajamadec@gmail.com
