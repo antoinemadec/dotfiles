@@ -316,7 +316,8 @@ endfunction
 
 " terminal
 if has('terminal')
-  command! -nargs=* T terminal ++close <args>
+  command! T call term_start(&shell, {"term_finish": "close"})
+  command! VT call term_start(&shell, {"term_finish": "close", "vertical": 1})
 endif
 
 " automate opening quickfix window when text adds to it
