@@ -1,0 +1,27 @@
+PROMPT_COMMAND="$PROMPT_COMMAND ; prompt_add_project"
+
+prompt_add_project()
+{
+  if [ "$PROJECT" != "" ]
+  then
+    export PS1="${COLOR_LIGHT_CYAN}($PROJECT) ${COLOR_NEUTRAL}$PS1"
+  fi
+}
+
+# tweak vim depending on the linux distribution
+rel="$(cat /etc/*release)"
+if echo $rel | grep -q "Red Hat Enterprise Linux Server release 6.9"
+then
+  vim() {
+    /home/amadec/source/rhel_6.9/vim/bin/vim "$@"
+  }
+  export -f vim
+elif echo $rel | grep -q "Red Hat Enterprise Linux Server release 6.3"
+then
+  vim() {
+    /home/amadec/source/rhel_6.3/vim/bin/vim "$@"
+  }
+  export -f vim
+  export TERM_BRACKETED_PASTE=false
+  export TERM_FANCY_CURSOR=false
+fi
