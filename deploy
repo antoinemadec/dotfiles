@@ -37,4 +37,5 @@ deploy_core .config/termite
 deploy_core .config/compton.conf
 deploy_core .ctags
 deploy_core .screenlayout
+deploy_core .vnc/passwd
 deploy_core bin
