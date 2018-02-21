@@ -59,20 +59,24 @@ function! UpdateRevStatus()
   if has('job')
     let job = job_start(l:vc_cmd, {"out_cb": "UpdateRevStatusOutCb", "exit_cb": "UpdateRevStatusExitCb"})
   else
-    let b:lightline_version_control = system(l:vc_cmd)[2:-2]
-    if v:shell_error
+    let stdout_list = split(system(l:vc_cmd))
+    if v:shell_error || len(stdout_list) != 3
       let b:lightline_version_control = 'error'
+    else
+      let b:lightline_version_control = join(stdout_list[1:2])
     endif
     call lightline#update()
   endif
 endfunction
 
 function! UpdateRevStatusOutCb(ch, stdout, ...)
-  let l:str = type(a:stdout) == 3 ? join(a:stdout):a:stdout
-  let l:bufnr = l:str[0]
-  let l:status = l:str[2:]
-  if l:bufnr != ""
-    call setbufvar(l:bufnr + 0, 'lightline_version_control', l:status)
+  let stdout_list = type(a:stdout) == 3 ? a:stdout:split(a:stdout)
+  if len(stdout_list) != 3
+    let b:lightline_version_control = 'error'
+  else
+    let bufnr  = stdout_list[0]
+    let status = join(stdout_list[1:2])
+    call setbufvar(bufnr + 0, 'lightline_version_control', status)
   endif
 endfunction
 
