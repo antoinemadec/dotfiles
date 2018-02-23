@@ -10,18 +10,8 @@ prompt_add_project()
 
 # tweak vim depending on the linux distribution
 rel="$(cat /etc/*release)"
-if echo $rel | grep -q "Red Hat Enterprise Linux Server release 6.9"
+if echo $rel | grep -q "Red Hat Enterprise Linux Server release 6.3"
 then
-  vim() {
-    /home/amadec/source/rhel_6.9/vim/bin/vim "$@"
-  }
-  export -f vim
-elif echo $rel | grep -q "Red Hat Enterprise Linux Server release 6.3"
-then
-  vim() {
-    /home/amadec/source/rhel_6.3/vim/bin/vim "$@"
-  }
-  export -f vim
   export TERM_BRACKETED_PASTE=false
   export TERM_FANCY_CURSOR=false
 fi
