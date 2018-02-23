@@ -76,6 +76,7 @@ nnoremap <silent> <leader>et    :tabe %:h<CR>
 nnoremap <silent> <leader>cd    :cd %:h<CR>
 nnoremap <silent> <leader>r     :RunCurrentBuffer<CR>
 nnoremap <silent> <leader>/     :Lines<CR>
+nnoremap <silent> <leader>f     :Files<CR>
 " misc
 "   -- add '.' support in visual mode
 vnoremap <silent> . :<C-w>let cidx = col(".")<CR> :'<,'>call DotAtColumnIndex(cidx)<CR>
