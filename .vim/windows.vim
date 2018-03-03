@@ -1,0 +1,21 @@
+" appearance
+set guioptions+=T "toolbar for file open
+set guifont=Consolas:h10:cANSI
+
+" diff
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = ''
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  silent execute '!"'.$VIMRUNTIME.'\diff" -a ' . opt . v:fname_in . ' ' . v:fname_new . ' > ' . v:fname_out
+endfunction
+
+" terminal
+if has('terminal')
+  command! T call term_start(&shell, {"term_finish": "close"})
+  command! VT call term_start(&shell, {"term_finish": "close", "vertical": 1})
+endif
+
+"misc
+set belloff=all

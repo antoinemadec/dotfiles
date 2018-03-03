@@ -26,7 +26,7 @@ Plug 'tpope/vim-commentary'                                       " comment stuf
 Plug 'tpope/vim-sensible'                                         " vim defaults that everyone can agree on
 Plug 'tpope/vim-repeat'                                           " remaps '.' in a way that plugins can tap into it
 Plug 'skywind3000/asyncrun.vim'                                   " run asynchronous bash commands
-Plug 'valloric/YouCompleteMe', {'on': []}                         " as-you-type code completion engine for Vim
+" Plug 'valloric/YouCompleteMe', {'on': []}                         " as-you-type code completion engine for Vim
 Plug 'kana/vim-textobj-user'                                      " needed to add text object
 Plug 'kana/vim-textobj-line'                                      " add line text object for motion like 'dil'
 Plug 'kana/vim-textobj-indent'                                    " add indent text object for motion like 'dii'
@@ -266,7 +266,7 @@ autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
 " misc
 "--------------------------------------------------------------
 " start vim server
-if exists('*remote_startserver')
+if exists('*remote_startserver') && has('clientserver') && v:servername == ''
   call remote_startserver('vim_server_' . getpid())
 endif
 
@@ -325,3 +325,8 @@ autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
 
 " add filetype for custom file
 au BufNewFile,BufRead *.tabasco set filetype=conf2
+
+" windows options
+if has('win32') && filereadable($HOME.'\.vim\windows.vim')
+  source ~/.vim/windows.vim
+endif
