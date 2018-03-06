@@ -24,6 +24,7 @@ Plug 'tpope/vim-fugitive'                                         " Git wrapper
 Plug 'tpope/vim-surround'                                         " delete, change and add surroundings in pairs
 Plug 'tpope/vim-commentary'                                       " comment stuff out
 Plug 'tpope/vim-sensible'                                         " vim defaults that everyone can agree on
+Plug 'tpope/vim-speeddating'                                      " use CTRL-A/CTRL-X to increment dates, times, and more
 Plug 'tpope/vim-repeat'                                           " remaps '.' in a way that plugins can tap into it
 Plug 'skywind3000/asyncrun.vim'                                   " run asynchronous bash commands
 " Plug 'valloric/YouCompleteMe', {'on': []}                         " as-you-type code completion engine for Vim
@@ -38,7 +39,9 @@ Plug 'antoinemadec/vim-verilog-instance',
       \ {'for': 'verilog_systemverilog'}                          " Verilog port instantiation from port declaration
 Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}                " i3/config highlighting
 Plug 'kshenoy/TWiki-Syntax'                                       " Twiki highlighting
-Plug 'antoinemadec/vim-conf2_filetype'                            " conf filetype with // comments instead of #
+Plug 'antoinemadec/vim-indentcolor-filetype'                      " make notes more readable
+Plug 'jceb/vim-orgmode'                                           " based on Emacs' org-mode
+Plug 'mattn/calendar-vim'                                         " used by org-mode to prompt calendar
 call plug#end()
 
 if empty(glob("~/.vim/plugins_by_vimplug"))
@@ -325,6 +328,10 @@ autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
 
 " add filetype for custom file
 au BufNewFile,BufRead *.tabasco set filetype=conf2
+
+" vim-orgmode
+autocmd FileType org setlocal foldenable
+let g:org_agenda_files = ['~/org/*.org']
 
 " windows options
 if has('win32') && filereadable($HOME.'\.vim\windows.vim')
