@@ -34,4 +34,8 @@ do
   esac
 done
 
+# windows bash: uses path like /c/Program Files/...
+# windows gvim: uses path like /Program Files/...
+# since windows bash Vim calls windows Gvim:
+[ "$WINDOWS_OS" = 1 ] && file="${file:2}"
 vim --servername $VIM_SERVERNAME --remote-send "<C-\><C-N>:$cmd $file<CR>"

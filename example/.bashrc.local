@@ -15,3 +15,10 @@ then
   export TERM_BRACKETED_PASTE=false
   export TERM_FANCY_CURSOR=false
 fi
+
+# for windows
+export WINDOWS_OS=1
+vim() {
+   /c/Program\ Files\ \(x86\)/Vim/vim80/gvim "$@"
+}
+export -f vim
