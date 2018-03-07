@@ -123,17 +123,17 @@ fi
 # test speed of __git_ps1 with different options in background
 # 200ms is the threshold; don't run it if current directory has not change
 test_git_ps1_speed() {
-  file="$1"
+  local file="$1"
   (
-  t=$( (time (GIT_PS1_SHOWDIRTYSTATE=true __git_ps1)) 2>&1 | grep real | sed -e 's/.*m//' -e 's/s//' -e 's/\.//' )
-  value="true"
+  local t=$( (time (GIT_PS1_SHOWDIRTYSTATE=true __git_ps1)) 2>&1 | grep real | sed -e 's/.*m//' -e 's/s//' -e 's/\.//' )
+  local value="true"
   [ "$t" -gt 200 ] && value=""
   echo "$value" > $file
   )& disown %-
 }
 
 fancy_prompt () {
-  return_code="$?"
+  local return_code="$?"
   if [ "$return_code" = 0 ]
   then
       local arrow="${COLOR_LIGHT_GREEN}"
@@ -141,7 +141,7 @@ fancy_prompt () {
       local arrow="${COLOR_RED}"
   fi
   local arrow+=">"
-  git_ds_file="/tmp/git_ps1_speed$(tty | sed 's#/#_#g')"
+  local git_ds_file="/tmp/git_ps1_speed$(tty | sed 's#/#_#g')"
   test_git_ps1_speed "$git_ds_file"
   GIT_PS1_SHOWDIRTYSTATE="$(cat $git_ds_file 2>/dev/null)"
   GIT_PS1_SHOWSTASHSTATE=true
