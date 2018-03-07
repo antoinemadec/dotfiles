@@ -3,9 +3,9 @@ let us try not to reinvent the wheel on each machine
 
 # dependencies
 * i3-gaps
-* pactl      (coming with Ubuntu)
-* nautilus   (coming with Ubuntu)
-* xrandr     (coming with Ubuntu)
+* pactl       (coming with Ubuntu)
+* nautilus    (coming with Ubuntu)
+* xrandr      (coming with Ubuntu)
 * arandr
 * pavucontrol
 * rofi
@@ -16,4 +16,4 @@ let us try not to reinvent the wheel on each machine
 * feh
 * jq
 * compton
-* termite    (https://github.com/Corwind/termite-install)
+* termite     (https://github.com/Corwind/termite-install)
