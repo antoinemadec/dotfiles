@@ -17,5 +17,5 @@ if has('terminal')
   command! VT call term_start('C:\Program Files\Git\bin\bash.exe', {"term_finish": "close", "vertical": 1})
 endif
 
-"misc
+" misc
 set belloff=all
