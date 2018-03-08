@@ -326,8 +326,8 @@ endif
 " automate opening quickfix window when text adds to it
 autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
 
-" add filetype for custom file
-au BufNewFile,BufRead *.tabasco set filetype=conf2
+" make *.bashrc bash files
+au BufNewFile,BufRead *.bashrc* set ft=sh
 
 " vim-orgmode
 autocmd FileType org setlocal foldenable
