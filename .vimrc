@@ -266,6 +266,15 @@ let g:verilog_instance_skip_last_coma = 1
 autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
 
 "--------------------------------------------------------------
+" terminal
+"--------------------------------------------------------------
+if has('terminal')
+  command! T  call term_start(&shell, {"term_finish": "close"})
+  command! VT call term_start(&shell, {"term_finish": "close", "vertical": 1})
+  command! TT tab call term_start(&shell, {"term_finish": "close"})
+endif
+
+"--------------------------------------------------------------
 " misc
 "--------------------------------------------------------------
 " start vim server
@@ -316,12 +325,6 @@ function! DotAtColumnIndex(cidx)
   let a = a:cidx - 1
   execute "normal " . a . "l."
 endfunction
-
-" terminal
-if has('terminal')
-  command! T call term_start(&shell, {"term_finish": "close"})
-  command! VT call term_start(&shell, {"term_finish": "close", "vertical": 1})
-endif
 
 " automate opening quickfix window when text adds to it
 autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
