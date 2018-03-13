@@ -14,7 +14,7 @@ endfunction
 " terminal
 if has('terminal')
   command! T  call term_start('C:\Program Files\Git\bin\bash.exe', {"term_finish": "close"})
-  command! VT call term_start('C:\Program Files\Git\bin\bash.exe', {"term_finish": "close", "vertical": 1})
+  command! TV call term_start('C:\Program Files\Git\bin\bash.exe', {"term_finish": "close", "vertical": 1})
   command! TT tab call term_start('C:\Program Files\Git\bin\bash.exe', {"term_finish": "close"})
 endif
 

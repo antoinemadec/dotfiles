@@ -77,6 +77,12 @@ nnoremap <silent> <leader>cd    :cd %:h<CR>
 nnoremap <silent> <leader>r     :RunCurrentBuffer<CR>
 nnoremap <silent> <leader>/     :Lines<CR>
 nnoremap <silent> <leader>f     :Files<CR>
+" terminal
+if has('terminal')
+  nnoremap <leader>th :T<CR>
+  nnoremap <leader>tt :TT<CR>
+  nnoremap <leader>tv :TV<CR>
+endif
 " misc
 "   -- add '.' support in visual mode
 vnoremap <silent> . :<C-w>let cidx = col(".")<CR> :'<,'>call DotAtColumnIndex(cidx)<CR>
