@@ -218,7 +218,8 @@ bindsym $mod+minus scratchpad show
 # locker
 bindsym $mod+Shift+l exec "PATH=~/.config/i3/bin/i3lock/i3lock-color:$PATH ~/.config/i3/bin/i3lock/i3lock-fancy/lock -f Lato-Hairline"
 # terminals
-bindsym $mod+Return exec termite -e 'ssh -X amb-vnc14'
+bindsym $mod+Return exec [ -f ~/remote_machine.txt ] && termite -e "ssh -X $(cat ~/remote_machine.txt)" \
+  || i3-nagbar -t warning -m 'Please populate ~/remote_machine.txt'
 bindsym $mod+Shift+Return exec termite
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5% #increase sound volume
