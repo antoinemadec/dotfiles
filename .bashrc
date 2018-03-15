@@ -92,7 +92,7 @@ esac
 # termite is sometimes not recognized as a TERM type
 if [ $TERM == xterm-termite ] && ! (tput colors &> /dev/null)
 then
-  wget https://raw.githubusercontent.com/thestinger/termite/master/termite.terminfo
+  wget https://raw.githubusercontent.com/thestinger/termite/master/termite.terminfo --no-check-certificate
   tic -x termite.terminfo
 fi
 
