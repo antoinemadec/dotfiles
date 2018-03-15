@@ -155,7 +155,7 @@ bar {
 #==============================================================
 # custom
 #==============================================================
-# needed for Rofi 1.2 to jump in window
+# TODO: needed for Rofi 1.2 to jump in window
 focus_follows_mouse no
 
 #------------------------------
@@ -177,7 +177,7 @@ set $wallpaper ~/.config/i3/wallpaper/rocks.jpg
 #------------------------------
 # screen
 #------------------------------
-exec --no-startup-id dual-screen
+exec --no-startup-id ~/.xrandr_default.sh
 exec --no-startup-id compton
 exec "feh --bg-scale $wallpaper"
 workspace 1 output DP1
