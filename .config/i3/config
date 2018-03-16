@@ -179,7 +179,7 @@ set $wallpaper ~/.config/i3/wallpaper/rocks.jpg
 #------------------------------
 exec ~/.xrandr_default.sh
 exec compton
-exec "sleep .1; feh --bg-scale $wallpaper"
+exec "sleep .2; feh --bg-scale $wallpaper"
 workspace 1 output DP1
 workspace 2 output DP2
 workspace 3 output DP1
@@ -253,8 +253,7 @@ assign [class="Sky"] 1:email
 #------------------------------
 # exec always at startup
 #------------------------------
-exec --no-startup-id i3-msg 'workspace 1:email; layout stacked; exec evolution --force-online; exec sky'
-exec --no-startup-id i3-msg 'workspace 10:internet; exec firefox'
+exec --no-startup-id i3-msg 'workspace 1:email; layout stacked; exec evolution --force-online; workspace 10:internet; exec firefox'
 exec --no-startup-id ~/bin/ghost-text-vim/ghost-text-server.tcl &
 exec start-pulseaudio-x11
 exec x11vnc -forever -rfbauth .vnc/passwd
