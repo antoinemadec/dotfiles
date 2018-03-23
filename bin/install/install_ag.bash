@@ -6,7 +6,7 @@ SRC_DIR="$1"
 cd $SRC_DIR
 
 (
-git clone https://github.com/ggreer/the_silver_searcher || :
+git clone git://github.com/ggreer/the_silver_searcher || :
 cd the_silver_searcher
 ./build.sh
 ) &> install.log
