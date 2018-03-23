@@ -10,7 +10,7 @@ EOF
 }
 
 (
-git clone https://github.com/vim/vim || :
+git clone git://github.com/vim/vim || :
 cd vim
 ./configure                                                                 \
 --prefix=$PWD                                                               \
