@@ -269,7 +269,8 @@ autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
 " terminal
 "--------------------------------------------------------------
 if has('terminal')
-  command! T  call term_start(&shell, {"term_finish": "close"})
+  command! T  call term_start(&shell, {"term_finish": "close", "curwin": 1})
+  command! TS call term_start(&shell, {"term_finish": "close"})
   command! TV call term_start(&shell, {"term_finish": "close", "vertical": 1})
   command! TT tab call term_start(&shell, {"term_finish": "close"})
 endif

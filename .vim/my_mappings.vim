@@ -79,9 +79,10 @@ nnoremap <silent> <leader>/     :Lines<CR>
 nnoremap <silent> <leader>f     :Files<CR>
 " terminal
 if has('terminal')
-  nnoremap <leader>th :T<CR>
-  nnoremap <leader>tt :TT<CR>
+  nnoremap <leader>tw :T<CR>
+  nnoremap <leader>ts :TS<CR>
   nnoremap <leader>tv :TV<CR>
+  nnoremap <leader>tt :TT<CR>
 endif
 " misc
 "   -- add '.' support in visual mode

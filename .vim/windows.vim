@@ -13,7 +13,8 @@ endfunction
 
 " terminal
 if has('terminal')
-  command! T  call term_start('C:\Program Files\Git\bin\bash.exe', {"term_finish": "close"})
+  command! T  call term_start('C:\Program Files\Git\bin\bash.exe', {"term_finish": "close", "curwin": 1})
+  command! TS call term_start('C:\Program Files\Git\bin\bash.exe', {"term_finish": "close"})
   command! TV call term_start('C:\Program Files\Git\bin\bash.exe', {"term_finish": "close", "vertical": 1})
   command! TT tab call term_start('C:\Program Files\Git\bin\bash.exe', {"term_finish": "close"})
 endif
