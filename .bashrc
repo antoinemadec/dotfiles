@@ -202,7 +202,7 @@ for file in ~/bin/completion/*
 do
   [ -f $file ] && source $file
 done
-[ -d ~/src/$(get_release_string)/bin ] && add_path ~/src/$(get_release_string)/bin
+[ -d ~/src/$(get_release_string)/bin ] && pre_path ~/src/$(get_release_string)/bin
 
 # term capabilities
 tput ritm && export TERM_ITALICS=true
