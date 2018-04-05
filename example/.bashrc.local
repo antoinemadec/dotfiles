@@ -8,13 +8,9 @@ prompt_add_project()
   fi
 }
 
-# tweak vim depending on the linux distribution
-rel="$(cat /etc/*release)"
-if echo $rel | grep -q "Red Hat Enterprise Linux Server release 6.3"
-then
-  export TERM_BRACKETED_PASTE=false
-  export TERM_FANCY_CURSOR=false
-fi
+# tweak vim depending on the terminal capabilities
+export TERM_BRACKETED_PASTE=false
+export TERM_FANCY_CURSOR=false
 
 # for windows
 export WINDOWS_OS=1

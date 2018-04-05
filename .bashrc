@@ -202,6 +202,7 @@ for file in ~/bin/completion/*
 do
   [ -f $file ] && source $file
 done
+[ -d ~/src/$(get_release_string)/bin ] && add_path ~/src/$(get_release_string)/bin
 
 # term capabilities
 tput ritm && export TERM_ITALICS=true
@@ -209,8 +210,6 @@ export TERM_COLORS="$(tput colors)"
 export TERM_FANCY_CURSOR=true     # can be modified in .bashrc.local
 export TERM_BRACKETED_PASTE=true  # can be modified in .bashrc.local
 
-# programs built from source
-[ -f ~/.install.bash ] && source ~/.install.bash
 # local aliases, modifications etc
 [ -f ~/.bashrc.local ] && source ~/.bashrc.local
 
