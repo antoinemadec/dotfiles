@@ -40,8 +40,6 @@ Plug 'antoinemadec/vim-verilog-instance',
 Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}                " i3/config highlighting
 Plug 'kshenoy/TWiki-Syntax'                                       " Twiki highlighting
 Plug 'antoinemadec/vim-indentcolor-filetype'                      " make notes more readable
-Plug 'jceb/vim-orgmode'                                           " based on Emacs' org-mode
-Plug 'mattn/calendar-vim'                                         " used by org-mode to prompt calendar
 call plug#end()
 
 if empty(glob("~/.vim/plugins_by_vimplug"))
