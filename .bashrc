@@ -180,6 +180,10 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
+# use setW to set directory
+# use W to jump to that dir
+alias W='cd "$(cat ~/work_dir.txt)"'
+
 mkcd() {
   mkdir -p $1
   cd $1
