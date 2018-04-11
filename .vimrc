@@ -339,3 +339,8 @@ let g:org_agenda_files = ['~/org/*.org']
 if has('win32') && filereadable($HOME.'\.vim\windows.vim')
   source ~/.vim/windows.vim
 endif
+
+" fix alt+n mapping in Vim CLI
+if !has('gui_running')
+  exec "map \en <A-n>"
+endif
