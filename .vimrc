@@ -40,6 +40,7 @@ Plug 'antoinemadec/vim-verilog-instance',
 Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}                " i3/config highlighting
 Plug 'kshenoy/TWiki-Syntax'                                       " Twiki highlighting
 Plug 'antoinemadec/vim-indentcolor-filetype'                      " make notes more readable
+Plug 'chrisbra/csv.vim'                                           " a filetype plugin for csv files
 call plug#end()
 
 if empty(glob("~/.vim/plugins_by_vimplug"))
@@ -331,9 +332,12 @@ autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
 " make *.bashrc bash files
 au BufNewFile,BufRead *.bashrc* set ft=sh
 
-" vim-orgmode
-autocmd FileType org setlocal foldenable
-let g:org_agenda_files = ['~/org/*.org']
+" csv filetype
+aug CSV_Editing
+  au!
+  au BufRead,BufWritePost *.csv :%ArrangeColumn
+  au BufWritePre *.csv :%UnArrangeColumn
+aug end
 
 " windows options
 if has('win32') && filereadable($HOME.'\.vim\windows.vim')
