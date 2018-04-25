@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set -e
+
+[ "$#" = 0 ] && { echo "ERROR: missing arguments"; exit 1; }
+
+name=""
+date=""
+while [ "$#" -gt 0 ]
+do
+  case "$1" in
+    -d) date="$(date +%Y%m%e)"
+        shift 1
+      ;;
+    *)  name="$1"
+        shift 1
+      ;;
+  esac
+done
+
+if [ "$name" = "" ]
+then
+  name="$date"
+elif [ "$date" != "" ]
+then
+  [ "${name: -1}" != '_' ] && name+='_'
+  name+="$date"
+fi
+name+='.txt'
+
+touch $name
+echo '# vim: ft=indentcolor' > "$name"
+echo '' >> "$name"
+vim "$name"
