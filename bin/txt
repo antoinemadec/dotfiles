@@ -9,7 +9,7 @@ date=""
 while [ "$#" -gt 0 ]
 do
   case "$1" in
-    -d) date="$(date +%Y%m%e)"
+    -d) date="$(date +%Y%m%d)"
         shift 1
       ;;
     *)  name="$1"
