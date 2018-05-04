@@ -75,6 +75,7 @@ nnoremap <silent> <leader>ev    :vsp %:h<CR>
 nnoremap <silent> <leader>et    :tabe %:h<CR>
 nnoremap <silent> <leader>cd    :cd %:h<CR>
 nnoremap <silent> <leader>r     :RunCurrentBuffer<CR>
+nnoremap <silent> <leader>t     :RunAndTimeCurrentBuffer<CR>
 nnoremap <silent> <leader>/     :Lines<CR>
 nnoremap <silent> <leader>f     :Files<CR>
 " terminal

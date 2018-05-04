@@ -301,6 +301,7 @@ command! -bar -nargs=0 Scratch new | setlocal buftype=nofile bufhidden=hide nosw
 " AsyncRun
 command! -nargs=* -complete=shellcmd Run AsyncRun <args>
 command! -nargs=0 RunCurrentBuffer :w | execute("AsyncRun " . expand('%:p'))
+command! -nargs=0 RunAndTimeCurrentBuffer :w | execute("AsyncRun time(" . expand('%:p') . ")")
 command! -bang -nargs=* -complete=file Grep AsyncRun -program=grep @ <args>
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 
