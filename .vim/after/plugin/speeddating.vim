@@ -1,1 +1,1 @@
-SpeedDatingFormat %Y %b %d, %a
+SpeedDatingFormat %a, %Y %b %d
