@@ -1,6 +1,7 @@
 [options]
-font = Monospace 10
+# font = Monospace 10
 # font = Ubuntu Mono Regular 11
+font = DejaVu Sans Mono 12
 
 [colors]
 # hard contrast: background = #1d2021
