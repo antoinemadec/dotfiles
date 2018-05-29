@@ -27,7 +27,9 @@ Plug 'tpope/vim-sensible'                                         " vim defaults
 Plug 'tpope/vim-speeddating'                                      " use CTRL-A/CTRL-X to increment dates, times, and more
 Plug 'tpope/vim-repeat'                                           " remaps '.' in a way that plugins can tap into it
 Plug 'skywind3000/asyncrun.vim'                                   " run asynchronous bash commands
-" Plug 'valloric/YouCompleteMe', {'on': []}                         " as-you-type code completion engine for Vim
+if $VIM_YOUCOMPLETEME == 'true'
+  Plug 'valloric/YouCompleteMe', {'on': []}                       " as-you-type code completion engine for Vim
+endif
 Plug 'kana/vim-textobj-user'                                      " needed to add text object
 Plug 'kana/vim-textobj-line'                                      " add line text object for motion like 'dil'
 Plug 'kana/vim-textobj-indent'                                    " add indent text object for motion like 'dii'
