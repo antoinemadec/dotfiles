@@ -1,16 +1,9 @@
-PROMPT_COMMAND="$PROMPT_COMMAND ; prompt_add_project"
-
-prompt_add_project()
-{
-  if [ "$PROJECT" != "" ]
-  then
-    export PS1="${COLOR_LIGHT_CYAN}($PROJECT) ${COLOR_NEUTRAL}$PS1"
-  fi
-}
-
 # tweak vim depending on the terminal capabilities
 export TERM_BRACKETED_PASTE=false
 export TERM_FANCY_CURSOR=false
+
+# disable vim plugins
+export VIM_YOUCOMPLETEME=false
 
 # for windows
 export WINDOWS_OS=1
