@@ -274,6 +274,11 @@ if has('terminal')
   command! TS call term_start(&shell, {"term_kill": "term", "term_finish": "close"})
   command! TV call term_start(&shell, {"term_kill": "term", "term_finish": "close", "vertical": 1})
   command! TT tab call term_start(&shell, {"term_kill": "term", "term_finish": "close"})
+elseif has('nvim')
+  command! T terminal
+  command! TS split | terminal
+  command! TV vsplit | terminal
+  command! TT tabe | terminal
 endif
 
 "--------------------------------------------------------------

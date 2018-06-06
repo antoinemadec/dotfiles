@@ -2,16 +2,27 @@
 " mappings
 "--------------------------------------------------------------
 " window movement
-if has('terminal')
-  tnoremap <Esc><Esc>           <C-\><C-n>
-  tnoremap <A-Left>             <C-w>h
-  tnoremap <A-Down>             <C-w>j
-  tnoremap <A-Up>               <C-w>k
-  tnoremap <A-Right>            <C-w>l
-  tnoremap <A-S-Left>           <C-w>H
-  tnoremap <A-S-Down>           <C-w>J
-  tnoremap <A-S-Up>             <C-w>K
-  tnoremap <A-S-Right>          <C-w>L
+if has('terminal') || has('nvim')
+  tnoremap <Esc><Esc> <C-\><C-n>
+  if has('nvim')
+    tnoremap <A-Left>     <C-\><C-N><C-w>h
+    tnoremap <A-Down>     <C-\><C-N><C-w>j
+    tnoremap <A-Up>       <C-\><C-N><C-w>k
+    tnoremap <A-Right>    <C-\><C-N><C-w>l
+    tnoremap <A-S-Left>   <C-\><C-N><C-w>H
+    tnoremap <A-S-Down>   <C-\><C-N><C-w>J
+    tnoremap <A-S-Up>     <C-\><C-N><C-w>K
+    tnoremap <A-S-Right>  <C-\><C-N><C-w>L
+  else
+    tnoremap <A-Left>     <C-w>h
+    tnoremap <A-Down>     <C-w>j
+    tnoremap <A-Up>       <C-w>k
+    tnoremap <A-Right>    <C-w>l
+    tnoremap <A-S-Left>   <C-w>H
+    tnoremap <A-S-Down>   <C-w>J
+    tnoremap <A-S-Up>     <C-w>K
+    tnoremap <A-S-Right>  <C-w>L
+  endif
 endif
 inoremap <silent> <A-Left>      <C-\><C-N><C-w>h
 inoremap <silent> <A-Down>      <C-\><C-N><C-w>j
@@ -30,7 +41,7 @@ nnoremap <silent> <A-S-Down>    <C-w>J
 nnoremap <silent> <A-S-Up>      <C-w>K
 nnoremap <silent> <A-S-Right>   <C-w>L
 " tab movement
-if has('terminal')
+if has('terminal') || has('nvim')
   tnoremap <C-A-Left>           <C-\><C-n>gT
   tnoremap <C-A-Right>          <C-\><C-n>gt
   tnoremap <C-A-S-Left>         <C-\><C-n>:call MoveToPrevTab()<cr>
@@ -79,7 +90,7 @@ nnoremap <silent> <leader>t     :RunAndTimeCurrentBuffer<CR>
 nnoremap <silent> <leader>/     :Lines<CR>
 nnoremap <silent> <leader>f     :Files<CR>
 " terminal
-if has('terminal')
+if has('terminal') || has('nvim')
   nnoremap <leader>tw :T<CR>
   nnoremap <leader>ts :TS<CR>
   nnoremap <leader>tv :TV<CR>
