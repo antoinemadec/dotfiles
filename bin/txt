@@ -6,10 +6,14 @@ set -e
 
 name=""
 date=""
+novim=0
 while [ "$#" -gt 0 ]
 do
   case "$1" in
     -d) date="$(date +%Y%m%d)"
+        shift 1
+      ;;
+    -n) novim=1
         shift 1
       ;;
     *)  name="$1"
@@ -31,4 +35,4 @@ name+='.txt'
 touch $name
 echo '# vim: ft=indentcolor' > "$name"
 echo '' >> "$name"
-vim "$name"
+[ "$novim" = 1 ] || vim "$name"
