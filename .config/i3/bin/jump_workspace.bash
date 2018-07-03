@@ -81,7 +81,7 @@ find_first_available_ws()
   done
 }
 
-ws="$(get_workspaces  | rofi -dmenu -p "workspace:")"
+ws="$(get_workspaces  | rofi -dmenu -p "workspace")"
 if (echo "$ws" | grep -q '^ra\? ')
 then
   focused_ws="$(get_focused_workspace)"
