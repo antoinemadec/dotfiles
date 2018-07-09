@@ -186,6 +186,9 @@ mkcd() {
 }
 #--------------------------------------------------------------
 
+# TODO: fix octave bug
+export LIBGL_ALWAYS_SOFTWARE=1
+
 # use vim in Git and other programs
 export VISUAL=vim
 export EDITOR="$VISUAL"

@@ -240,6 +240,7 @@ for_window [class="XTerm"] floating enable
 for_window [class="Evince"] floating enable
 for_window [class="Xpdf"] floating enable
 for_window [class="Gvim"] floating enable
+for_window [title="Figure*"] floating enable
 # waveform viewers
 for_window [class="Novas"] floating enable
 for_window [title="SimVision"] floating enable
