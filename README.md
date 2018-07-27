@@ -17,3 +17,4 @@ let us try not to reinvent the wheel on each machine
 * jq
 * compton
 * termite     (https://github.com/Corwind/termite-install)
+* numlockx

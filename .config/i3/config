@@ -169,8 +169,8 @@ gaps inner $inner_gaps
 gaps outer $outer_gaps
 smart_borders on
 smart_gaps on
-bindsym $mod+g exec ~/.config/i3/bin/toggle_gaps "toggle" $inner_gaps $outer_gaps
-bindsym $mod+t exec ~/.config/i3/bin/toggle_gaps "toggle_title" $inner_gaps $outer_gaps $border
+bindsym $mod+Shift+g exec ~/.config/i3/bin/toggle_gaps "toggle" $inner_gaps $outer_gaps
+bindsym $mod+Shift+t exec ~/.config/i3/bin/toggle_gaps "toggle_title" $inner_gaps $outer_gaps $border
 
 set $wallpaper ~/.config/i3/wallpaper/rocks.jpg
 
@@ -190,6 +190,28 @@ workspace 7 output DP1
 workspace 8 output DP2
 workspace 9 output DP1
 workspace 10 output DP2
+
+#------------------------------
+# enable/disable floating windows
+#------------------------------
+for_window [class="rdesktop"] floating disable
+for_window [class="Vncviewer"] floating enable
+for_window [title="Terminator Preferences"] floating enable
+for_window [class="XTerm"] floating enable
+for_window [class="Evince"] floating enable
+for_window [class="Xpdf"] floating enable
+for_window [class="Gvim"] floating enable
+for_window [title="Figure*"] floating enable
+# waveform viewers
+for_window [class="Novas"] floating enable
+for_window [title="SimVision"] floating enable
+# scratchpad
+for_window [title="vim_todo"] floating enable
+for_window [title="vim_todo"] move scratchpad
+for_window [class="Gnome-calculator"] floating enable
+# workspace name finishing by ^
+for_window [workspace="\^$"] floating enable
+
 
 #------------------------------
 # shortcuts
@@ -215,6 +237,8 @@ bindsym $mod+Shift+Next move workspace to output left
 # scratchpad
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
+exec termite -t vim_todo -e 'vim /home/amadec/org/todo.txt'
+bindsym $mod+t [title="vim_todo"] scratchpad show
 # locker
 bindsym $mod+Shift+l exec "PATH=~/.config/i3/bin/i3lock/i3lock-color:$PATH ~/.config/i3/bin/i3lock/i3lock-fancy/lock -f Lato-Hairline"
 # terminals
@@ -229,22 +253,6 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle # mute s
 bindsym --release Print exec scrot -e 'mv $f /tmp/ && pinta /tmp/$f'
 # print screen - scrot & pinta - select window or rectangle
 bindsym --release Shift+Print exec scrot -s -e 'mv $f /tmp/ && pinta /tmp/$f'
-
-#------------------------------
-# enable/disable floating windows
-#------------------------------
-for_window [class="rdesktop"] floating disable
-for_window [class="Vncviewer"] floating enable
-for_window [title="Terminator Preferences"] floating enable
-for_window [class="XTerm"] floating enable
-for_window [class="Evince"] floating enable
-for_window [class="Xpdf"] floating enable
-for_window [class="Gvim"] floating enable
-for_window [title="Figure*"] floating enable
-for_window [class="Gnome-calculator"] floating enable
-# waveform viewers
-for_window [class="Novas"] floating enable
-for_window [title="SimVision"] floating enable
 
 #------------------------------
 # assign program to workspace
