@@ -32,7 +32,13 @@ then
 fi
 name+='.txt'
 
-touch $name
-echo '# vim: ft=indentcolor' > "$name"
-echo '' >> "$name"
-[ "$novim" = 1 ] || vim "$name"
+if [ ! -e "$name" ]
+then
+  touch $name
+  echo '# vim: ft=indentcolor spell' > "$name"
+  echo '' >> "$name"
+  [ "$novim" = 1 ] || vim "$name"
+else
+  echo "ERROR: $name already exists"
+  exit 1
+fi
