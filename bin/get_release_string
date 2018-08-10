@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 lsb_release -a 2>/dev/null | grep "Description:" | \
-  sed -e 's/Description:\s*//' -e 's/\s/_/g' -e 's/[()]//g'
+  sed -e 's/Description:\s*//' -e 's/\s/_/g' -e 's/[()/]//g'
