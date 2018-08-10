@@ -210,7 +210,7 @@ for_window [title="SimVision"] floating enable
 for_window [title="vim_todo"] floating enable
 for_window [title="vim_todo"] move scratchpad
 for_window [class="Nautilus"] floating enable
-for_window [class="Nautilus"] move scratchpad
+for_window [class="Nautilus" window_type=normal] move scratchpad
 # workspace name finishing by ^
 for_window [workspace="\^$"] floating enable
 
