@@ -202,13 +202,15 @@ for_window [class="Evince"] floating enable
 for_window [class="Xpdf"] floating enable
 for_window [class="Gvim"] floating enable
 for_window [title="Figure*"] floating enable
+for_window [class="Gnome-calculator"] floating enable
 # waveform viewers
 for_window [class="Novas"] floating enable
 for_window [title="SimVision"] floating enable
 # scratchpad
 for_window [title="vim_todo"] floating enable
 for_window [title="vim_todo"] move scratchpad
-for_window [class="Gnome-calculator"] floating enable
+for_window [class="Nautilus"] floating enable
+for_window [class="Nautilus"] move scratchpad
 # workspace name finishing by ^
 for_window [workspace="\^$"] floating enable
 
@@ -217,7 +219,6 @@ for_window [workspace="\^$"] floating enable
 # shortcuts
 #------------------------------
 bindsym $mod+backslash workspace back_and_forth
-bindsym $mod+m exec (nautilus --no-desktop)&
 bindsym $mod+c exec gnome-calculator
 bindsym $mod+o exec pavucontrol& arandr&
 # use rofi instead of dmenu,
@@ -239,6 +240,8 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 exec termite -t vim_todo -e 'vim /home/amadec/org/todo.txt'
 bindsym $mod+t [title="vim_todo"] scratchpad show
+exec (nautilus --geometry=1280×720 --no-desktop)&
+bindsym $mod+m [class="Nautilus"] scratchpad show; [class="Nautilus"] move position center
 # locker
 bindsym $mod+Shift+l exec "PATH=~/.config/i3/bin/i3lock/i3lock-color:$PATH ~/.config/i3/bin/i3lock/i3lock-fancy/lock -f Lato-Hairline"
 # terminals
