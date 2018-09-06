@@ -9,10 +9,6 @@
 "--------------------------------------------------------------
 call plug#begin('~/.vim/plugins_by_vimplug')
 Plug 'morhetz/gruvbox'                                            " colorscheme
-if v:version >= 704
-  Plug 'scrooloose/nerdtree',         {'on': 'NERDTreeToggle'}    " file navigator
-  Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
-endif
 Plug 'itchyny/lightline.vim'                                      " status line
 Plug 'junegunn/fzf',
       \ {'dir': '~/.fzf','do': './install --all --no-completion'} " fuzzy search in a dir

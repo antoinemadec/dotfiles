@@ -52,7 +52,8 @@ nnoremap <silent> <C-A-Right>   gt
 nnoremap <silent> <C-A-S-Left>  :call MoveToPrevTab()<cr>
 nnoremap <silent> <C-A-S-Right> :call MoveToNextTab()<cr>
 " function keys
-nnoremap <silent> <F2>          :NERDTreeToggle<CR>
+nnoremap <silent> <F1>          :call Help()<CR>
+inoremap <silent> <F1>          <C-o>:call Help()<CR>
 nnoremap <silent> <F3>          :call ToggleListTrailingSpacesDisplay()<CR>
 nnoremap <silent> <F4>          :ToggleYCM<CR>
 nnoremap <silent> <F5>          :exe "HighlightGroupsAddWord " . hg0 . " 0"<CR>
@@ -118,6 +119,17 @@ nmap ga <Plug>(EasyAlign)
 "--------------------------------------------------------------
 " functions
 "--------------------------------------------------------------
+function Help()
+  if !exists("b:help_scratch_open")
+    let l:help_stdout = system("~/.vim/script/custom_mapping_help")
+    Scratch | 0 put =l:help_stdout | normal gg
+    set ft=docbk
+    let b:help_scratch_open = 1
+  else
+    q
+  endif
+endfunction
+
 function MoveToPrevTab()
   "there is only one window
   if tabpagenr('$') == 1 && winnr('$') == 1

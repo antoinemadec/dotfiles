@@ -1,0 +1,10 @@
+#!/bin/bash
+
+map_file=~/.vim/my_mappings.vim
+remove_chars=':\|!\|call \|exe \|set \|<C[^>]*>'
+
+cat << EOF
+<------ Function key mappings ------>
+
+EOF
+grep '<F' $map_file | sed -e 's/^.*map.*<F/<F/' -e "s/$remove_chars//g" -e 's/ /_/g' | uniq
