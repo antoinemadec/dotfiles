@@ -1,0 +1,44 @@
+#!/bin/bash
+
+usage() {
+  cat <<EOF
+usage: $(basename $0) (args)
+
+Record your screen (:0.0) with audio from default mic.
+
+with (args) in:
+  -h:         print this help
+  -n:         no audio
+  -o <name>:  output file name, without extension; default is "out"
+EOF
+}
+
+name="out"
+no_audio=0
+
+while [ "$#" != 0 ]
+do
+  case "$1" in
+    "-h")
+      usage
+      exit 0;;
+    "-n")
+      no_audio=1
+      shift 1;;
+    "-o")
+      name=$2
+      shift 2;;
+    *)
+      usage
+      exit 1;;
+  esac
+done
+
+name+=".mkv"
+dimensions="$(xdpyinfo | awk '/dimensions/{print $2}')"
+
+ffmpeg_args="-f x11grab -s $dimensions -i :0.0"
+((no_audio)) || ffmpeg_args+=" -f alsa -i default"
+ffmpeg_args+=" $name"
+
+ffmpeg -f x11grab -s $dimensions -i :0.0 -f alsa -i default $name
