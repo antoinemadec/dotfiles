@@ -54,7 +54,9 @@ nnoremap <silent> <C-A-S-Right> :call MoveToNextTab()<cr>
 " function keys
 nnoremap <silent> <F1>          :call Help()<CR>
 inoremap <silent> <F1>          <C-o>:call Help()<CR>
-nnoremap <silent> <F3>          :call ToggleListTrailingSpacesDisplay()<CR>
+nnoremap <silent> <F2>          :set spell!<CR>
+inoremap <silent> <F2>          <C-o>:set spell!<CR>
+nnoremap <silent> <F3>          :call ToggleTrailingSpace()<CR>
 nnoremap <silent> <F4>          :ToggleYCM<CR>
 nnoremap <silent> <F5>          :exe "HighlightGroupsAddWord " . hg0 . " 0"<CR>
 nnoremap <silent> <F6>          :exe "HighlightGroupsAddWord " . hg1 . " 0"<CR>
@@ -66,8 +68,6 @@ nnoremap <silent> <C-S-F5>      :exe "HighlightGroupsClearGroup " . hg0 . " 1"<C
 nnoremap <silent> <C-S-F6>      :exe "HighlightGroupsClearGroup " . hg1 . " 1"<CR>
 nnoremap <silent> <F7>          :call ToggleIndent()<CR>
 nnoremap <silent> <F8>          :RemoveTrailingSpace<CR>
-nnoremap <silent> <F9>          :set spell!<CR>
-inoremap <silent> <F9>          <C-o>:set spell!<CR>
 noremap <silent> <F10>          :call asyncrun#quickfix_toggle(8)<CR>
 set pastetoggle=<F12>
 " leader (inspired by Janus)

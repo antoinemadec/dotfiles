@@ -110,7 +110,7 @@ source ~/.vim/my_lightline.vim
 "--------------------------------------------------------------
 " highlighting
 "--------------------------------------------------------------
-function ToggleListTrailingSpacesDisplay()
+function ToggleTrailingSpace()
   let l:nr = winnr()
   if &list
     windo set nolist
@@ -122,7 +122,7 @@ function ToggleListTrailingSpacesDisplay()
   exe l:nr . "wincmd w"
   call lightline#update()
 endfunction
-call ToggleListTrailingSpacesDisplay()
+call ToggleTrailingSpace()
 
 autocmd BufWinEnter * match CustomHighlight_TrailingSpace /\s\+$/
 autocmd InsertEnter * match CustomHighlight_TrailingSpace /\s\+\%#\@<!$/
