@@ -1,0 +1,9 @@
+#!/bin/bash
+
+sudo apt update
+apt list --upgradable
+
+echo "Do you want to updgrade?  [Y/n]"
+read resp
+
+[ "$resp" = "n" ] || sudo apt upgrade
