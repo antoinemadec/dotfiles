@@ -122,7 +122,8 @@ nmap ga <Plug>(EasyAlign)
 function Help()
   if !exists("b:help_scratch_open")
     let l:help_stdout = system("~/.vim/script/custom_mapping_help")
-    Scratch | 0 put =l:help_stdout | normal gg
+    let l:stdout_line_count = len(split(l:help_stdout,'\n')) + 1
+    exe "Scratch" . l:stdout_line_count . "| 0 put =l:help_stdout | normal gg"
     set ft=docbk
     let b:help_scratch_open = 1
   else

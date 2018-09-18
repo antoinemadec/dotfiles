@@ -298,7 +298,7 @@ endfunction
 command! -nargs=0 RemoveTrailingSpace :let _s=@/ | :%s/\s\+$//e | :let @/=_s | :unlet _s
 
 " open scratch buffer
-command! -bar -nargs=0 Scratch new | setlocal buftype=nofile bufhidden=hide noswapfile
+command! -bar -nargs=? Scratch <args>new | setlocal buftype=nofile bufhidden=hide noswapfile
 
 " AsyncRun
 command! -nargs=* -complete=shellcmd Run AsyncRun <args>
