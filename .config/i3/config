@@ -240,7 +240,7 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 exec termite -t vim_todo -e 'bash -ic \"vim /home/amadec/org/todo.txt\"'
 bindsym $mod+t [title="vim_todo"] scratchpad show
-exec (nautilus --geometry=1280×720 --no-desktop)&
+exec nautilus&
 bindsym $mod+m [class="Nautilus"] scratchpad show; [class="Nautilus"] move position center
 # locker
 bindsym $mod+Shift+l exec "PATH=~/.config/i3/bin/i3lock/i3lock-color:$PATH ~/.config/i3/bin/i3lock/i3lock-fancy/lock -f Lato-Hairline"
