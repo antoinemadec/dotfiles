@@ -9,7 +9,7 @@ let us try not to reinvent the wheel on each machine
 * arandr
 * pavucontrol
 * rofi
-* scrot
+* scrot       (https://github.com/PintaProject/Pinta)
 * pinta
 * x11vnc
 * py3status
