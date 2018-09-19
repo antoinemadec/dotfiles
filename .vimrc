@@ -31,6 +31,8 @@ Plug 'kana/vim-textobj-line'                                      " add line tex
 Plug 'kana/vim-textobj-indent'                                    " add indent text object for motion like 'dii'
 Plug 'terryma/vim-multiple-cursors'                               " Sublime Text's multiple selection feature
 " filetype specific
+Plug 'nvie/vim-flake8', {'for': 'python'}                         " static syntax and style checker for Python source code
+Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}           " PEP8 compatible multi line indentation
 Plug 'vhda/verilog_systemverilog.vim',
       \ {'for': 'verilog_systemverilog'}                          " Vim Syntax Plugin for Verilog and SystemVerilog
 Plug 'antoinemadec/vim-verilog-instance',
