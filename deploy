@@ -35,6 +35,7 @@ deploy_core .config/terminator
 deploy_core .config/htop
 deploy_core .config/termite
 deploy_core .config/compton.conf
+deploy_core .config/flake8
 deploy_core .ctags
 deploy_core .vnc/passwd
 deploy_core .Xresources
