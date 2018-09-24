@@ -72,7 +72,8 @@ xset b off
 #--------------------------------------------------------------
 case "$TERM" in
   xterm*|rxvt*)
-    if [ -f /etc/profile.d/vte-2.91.sh ]
+    # TODO: remove VIM test when vim is fixed
+    if [ -f /etc/profile.d/vte-2.91.sh ] && [ "$VIM" = "" ]
     then
       . /etc/profile.d/vte-2.91.sh
     else
