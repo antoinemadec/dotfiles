@@ -1,9 +1,22 @@
 #!/bin/bash
 
+print_banner() {
+  cat << EOF
+
+#--------------------------------------------------------------
+# $1
+#--------------------------------------------------------------
+EOF
+}
+
+print_banner "apt update"
 sudo apt update
 apt list --upgradable
 
+print_banner "apt upgrade"
 echo "Do you want to updgrade?  [Y/n]"
 read resp
-
 [ "$resp" = "n" ] || sudo apt upgrade
+
+print_banner "apt autoremove"
+sudo apt autoremove
