@@ -194,11 +194,12 @@ mkcd() {
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
-# cd -- ; pathfuncs ...
+# source files
 for file in ~/bin/source/*
 do
   [ -f $file ] && source $file
 done
+type __git_ps1 &>/dev/null || source ~/bin/source_conditional/git_ps1
 
 # put custom binaries in ~/bin
 add_path ~/bin
