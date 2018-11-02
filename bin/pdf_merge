@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -e
+
+usage() {
+  cat << EOF
+usage: $(basename $0) OUTPUT_NAME INPUT_0 [OTHER_INPUTS]
+EOF
+}
+
+[ "$#" -ge 2 ] || { usage; exit 1; }
+
+output_name="$1"
+shift
+inputs="$@"
+
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/default -dNOPAUSE -dQUIET -dBATCH -dDetectDuplicateImages -dCompressFonts=true -r150 -sOutputFile=$output_name $inputs
