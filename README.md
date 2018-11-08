@@ -9,8 +9,8 @@ let us try not to reinvent the wheel on each machine
 * arandr
 * pavucontrol
 * rofi
-* scrot       (https://github.com/PintaProject/Pinta)
-* pinta
+* scrot
+* pinta       (https://github.com/PintaProject/Pinta)
 * x11vnc
 * py3status
 * feh
