@@ -172,14 +172,12 @@ smart_gaps on
 bindsym $mod+Shift+g exec ~/.config/i3/bin/toggle_gaps "toggle" $inner_gaps $outer_gaps
 bindsym $mod+Shift+t exec ~/.config/i3/bin/toggle_gaps "toggle_title" $inner_gaps $outer_gaps $border
 
-set $wallpaper ~/.config/i3/wallpaper/rocks.jpg
-
 #------------------------------
 # screen
 #------------------------------
 exec ~/.xrandr_default.sh
 exec compton
-exec "sleep 1; feh --bg-scale $wallpaper"
+exec "sleep 1; feh --bg-scale ~/.config/i3/wallpaper/default"
 workspace 1 output DP1
 workspace 2 output DP2
 workspace 3 output DP1

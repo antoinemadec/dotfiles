@@ -1,0 +1,7 @@
+#!/bin/bash
+
+ls -1 | while read name
+do
+  new_name="$(echo $name | sed 's/ /_/g' | tr '[:upper:]' '[:lower:]')"
+  [ "$new_name" != "$name" ] && mv "$name" "$new_name"
+done
