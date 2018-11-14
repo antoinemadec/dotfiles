@@ -209,9 +209,7 @@ for_window [title="vim_todo"] floating enable
 for_window [title="vim_todo"] move scratchpad
 for_window [class="Nautilus"] floating enable
 for_window [class="Nautilus" window_type=normal] move scratchpad
-for_window [class="Gnome-calendar"] floating enable
-for_window [class="Gnome-calendar" window_type=normal] move scratchpad
-# for_window [class="Gnome-calendar"] move position center
+for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move down 20 px
 # workspace name finishing by ^
 for_window [workspace="\^$"] floating enable
 
@@ -243,7 +241,6 @@ exec termite -t vim_todo -e 'bash -ic \"vim /home/amadec/org/todo_*.txt -p\"'
 bindsym $mod+t [title="vim_todo"] scratchpad show
 exec nautilus&
 bindsym $mod+m [class="Nautilus"] scratchpad show; [class="Nautilus"] move position center
-exec gnome-calendar&
 # locker
 bindsym $mod+Shift+l exec "PATH=~/.config/i3/bin/i3lock/i3lock-color:$PATH ~/.config/i3/bin/i3lock/i3lock-fancy/lock -f Lato-Hairline"
 # terminals

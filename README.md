@@ -18,3 +18,4 @@ let us try not to reinvent the wheel on each machine
 * compton
 * termite     (https://github.com/Corwind/termite-install)
 * numlockx
+* gsimplecal
