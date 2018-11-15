@@ -182,7 +182,21 @@ alias mv='mv -i'
 
 # use setW to set directory
 # use W to jump to that dir
-alias W='cd "$(cat ~/work_dir.txt)"'
+W(){
+  local dir_file=~/work_dir.txt
+  [ -f $dir_file ] || return
+  local dir_nb="$(wc -l $dir_file | cut -d ' ' -f 1)"
+  if [ "$dir_nb" -eq 1 ]
+  then
+    cd "$(cat $dir_file)"
+  elif [ "$dir_nb" -ge 2 ]
+  then
+    cat -n $dir_file
+    echo "Enter nb:"
+    read nb
+    cd "$(head -n$nb $dir_file | tail -n1)"
+  fi
+}
 
 mkcd() {
   mkdir -p $1

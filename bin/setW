@@ -1,8 +1,66 @@
 #!/bin/bash
 
-dir="$1"
+set -e
+
+dir_file=~/work_dir.txt
+dir_nb="$(wc -l $dir_file | cut -d ' ' -f 1)"
+
+usage() {
+  cat <<EOF
+usage: $(basename $0) (-l|-a|-r|-h) (DIR)
+
+saves directory in $dir_file
+
+with:
+  -h      : get this help
+  -a      : append DIR to the list
+  -r      : remove one of the dir in the list
+  -l      : prints the dir list
+  DIR     : dir to be added (default is PWD)
+EOF
+}
+
+append=0
+remove=0
+list=0
+while [ "$#" != 0 ]
+do
+  case "$1" in
+    "-a")
+      append=1
+      shift 1 ;;
+    "-r")
+      remove=1
+      shift 1 ;;
+    "-l")
+      list=1
+      shift 1 ;;
+    "-h")
+      usage
+      exit 0 ;;
+    *)
+      dir="$1"
+      shift 1
+  esac
+done
+
 [ "$dir" = "" ] && dir="$PWD"
+[ -d "$dir" ] || { usage; exit 1; }
 
 dir="$(readlink -e $dir)"
 
-echo $dir > ~/work_dir.txt
+if ((list))
+then
+  cat -n $dir_file
+elif ((remove))
+then
+  cat -n $dir_file
+  echo "Remove nb:"
+  read nb
+  sed ${nb}d $dir_file -i
+elif ((append))
+then
+  echo $dir >> $dir_file
+else
+  echo $dir > $dir_file
+fi
