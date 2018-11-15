@@ -13,22 +13,17 @@ saves directory in $dir_file
 
 with:
   -h      : get this help
-  -a      : append DIR to the list
   -r      : remove one of the dir in the list
   -l      : prints the dir list
   DIR     : dir to be added (default is PWD)
 EOF
 }
 
-append=0
 remove=0
 list=0
 while [ "$#" != 0 ]
 do
   case "$1" in
-    "-a")
-      append=1
-      shift 1 ;;
     "-r")
       remove=1
       shift 1 ;;
@@ -58,9 +53,18 @@ then
   echo "Remove nb:"
   read nb
   sed ${nb}d $dir_file -i
-elif ((append))
-then
-  echo $dir >> $dir_file
 else
-  echo $dir > $dir_file
+  cat -n $dir_file
+  echo -e "\nAction (a)ppend, (r<n>)eplace. Default is overwrite:"
+  read action
+  if [ "$action" = a ]
+  then
+    echo $dir >> $dir_file
+  elif [ "${action::1}" = r ]
+  then
+    line_nb="${action:1:2}"
+    sed "${line_nb}s#.*#$dir#" $dir_file -i
+  else
+    echo $dir > $dir_file
+  fi
 fi
