@@ -319,12 +319,6 @@ function! ToggleIndent()
   endif
 endfunction
 
-" simple gvim
-set guioptions-=m "remove menu bar
-set guioptions-=T "remove toolbar
-set guioptions-=r "remove right-hand scroll bar
-set guioptions-=L "remove left-hand scroll bar
-
 " repeat last change at a column index
 function! DotAtColumnIndex(cidx)
   let a = a:cidx - 1
@@ -344,12 +338,20 @@ aug CSV_Editing
   au BufWritePre *.csv :%UnArrangeColumn
 aug end
 
+" gui/not gui specific options
+if has('gui_running')
+  set guifont=DejaVu\ Sans\ Mono\ 12
+  " simple gvim
+  set guioptions-=m "remove menu bar
+  set guioptions-=T "remove toolbar
+  set guioptions-=r "remove right-hand scroll bar
+  set guioptions-=L "remove left-hand scroll bar
+else
+  " fix alt+n mapping in Vim CLI
+  exec "map \en <A-n>"
+endif
+
 " windows options
 if has('win32') && filereadable($HOME.'\.vim\windows.vim')
   source ~/.vim/windows.vim
-endif
-
-" fix alt+n mapping in Vim CLI
-if !has('gui_running')
-  exec "map \en <A-n>"
 endif
