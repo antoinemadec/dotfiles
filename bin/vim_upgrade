@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -e
+
+mkdir -p ~/src
+cd ~/src
+
+if !(git clone https://github.com/vim/vim)
+then
+  cd vim
+  git pull
+else
+  cd vim
+fi
+
+./configure \
+--enable-multibyte \
+--enable-perlinterp=dynamic \
+--enable-python3interp \
+--enable-luainterp \
+--with-luajit \
+--enable-cscope \
+--enable-gui=gtk2 \
+--with-features=huge \
+--with-x \
+--enable-fontset \
+--enable-largefile \
+--disable-netbeans \
+--with-compiledby="antoinemadec" \
+--enable-fail-if-missing
+
+make
+sudo make install
