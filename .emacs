@@ -12,7 +12,8 @@
 (require 'telephone-line-config)
 (telephone-line-evil-config)
 
-(global-relative-line-numbers-mode)
+; TODO: does not work anymore
+; (global-relative-line-numbers-mode)
 
 (load-theme 'gruvbox t)
 
