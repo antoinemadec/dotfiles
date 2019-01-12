@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for vs in $(vim --serverlist)
+do
+  vim --servername $vs --remote-send "<C-\><C-N>:wqa!<CR>"
+done
