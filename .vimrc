@@ -3,6 +3,7 @@
 "   TERM_COLORS           : enable termguicolors if >= 256
 "   TERM_FANCY_CURSOR     : enable thin insert cursor if 'true'
 "   TERM_BRACKETED_PASTE  : disable bracketed paste if not 'true'
+"   VIM_YOUCOMPLETEME     : use YCM if 'true'
 
 "--------------------------------------------------------------
 " plugins
