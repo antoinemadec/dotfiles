@@ -239,9 +239,6 @@ export TERM_COLORS="$(tput colors)"
 export TERM_FANCY_CURSOR=true     # can be modified in .bashrc.local
 export TERM_BRACKETED_PASTE=true  # can be modified in .bashrc.local
 
-# vim plugins
-export VIM_YOUCOMPLETEME=true     # can be modified in .bashrc.local
-
 # local aliases, modifications etc
 [ -f ~/.bashrc.local ] && source ~/.bashrc.local
 

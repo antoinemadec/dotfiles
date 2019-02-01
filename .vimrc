@@ -3,7 +3,6 @@
 "   TERM_COLORS           : enable termguicolors if >= 256
 "   TERM_FANCY_CURSOR     : enable thin insert cursor if 'true'
 "   TERM_BRACKETED_PASTE  : disable bracketed paste if not 'true'
-"   VIM_YOUCOMPLETEME     : use YCM if 'true'
 
 "--------------------------------------------------------------
 " plugins
@@ -24,14 +23,16 @@ Plug 'tpope/vim-sensible'                                         " vim defaults
 Plug 'tpope/vim-speeddating'                                      " use CTRL-A/CTRL-X to increment dates, times, and more
 Plug 'tpope/vim-repeat'                                           " remaps '.' in a way that plugins can tap into it
 Plug 'skywind3000/asyncrun.vim'                                   " run asynchronous bash commands
-if $VIM_YOUCOMPLETEME == 'true'
-  Plug 'valloric/YouCompleteMe', {'on': []}                       " as-you-type code completion engine for Vim
-endif
 Plug 'kana/vim-textobj-user'                                      " needed to add text object
 Plug 'kana/vim-textobj-line'                                      " add line text object for motion like 'dil'
 Plug 'kana/vim-textobj-indent'                                    " add indent text object for motion like 'dii'
 Plug 'terryma/vim-multiple-cursors'                               " Sublime Text's multiple selection feature
+Plug 'Shougo/deoplete.nvim'                                       " extensible and asynchronous completion for neovim/Vim8
+Plug 'roxma/nvim-yarp'                                            " needed by deoplete
+Plug 'roxma/vim-hug-neovim-rpc'                                   " needed by deoplete
 " filetype specific
+Plug 'davidhalter/jedi-vim', {'for': 'python'}                    " jedi completion (python)
+Plug 'zchee/deoplete-jedi', {'for': 'python'}                     " deoplete: add python support
 Plug 'nvie/vim-flake8', {'for': 'python'}                         " static syntax and style checker for Python source code
 Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}           " PEP8 compatible multi line indentation
 Plug 'vhda/verilog_systemverilog.vim',
@@ -192,49 +193,32 @@ endfunction
 "--------------------------------------------------------------
 " completion
 "--------------------------------------------------------------
-let g:ycm_global_ycm_extra_conf = '~/.vim/ycm/.ycm_extra_conf.py'
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_python_binary_path = 'python3'
+let g:deoplete#sources#jedi#python_path = 'python3'
+let g:deoplete#sources#jedi#show_docstring = 1
+" close preview window
+au CompleteDone * pclose
 
-command! ToggleYCM call ToggleYCM()
-function ToggleYCM()
-  if !exists( "g:loaded_youcompleteme" )
-    call plug#load('YouCompleteMe')
-    nnoremap <leader>g :YcmCompleter GoTo<CR>
-    nnoremap <leader>pd :YcmCompleter GoToDefinition<CR>
-    nnoremap <leader>pc :YcmCompleter GoToDeclaration<CR>
-    echom "YouCompleteMe loaded (" . g:ycm_python_binary_path . ")."
+let g:jedi#auto_initialization = 0
+let g:jedi#auto_vim_configuration = 0
+
+command! ToggleCompletion call ToggleCompletion()
+function ToggleCompletion()
+  if deoplete#is_enabled()
+    call deoplete#disable()
+    echom "Deoplete disabled"
   else
-    if g:ycm_python_binary_path == "python3"
-      let g:ycm_python_binary_path = "python"
-    else
-      let g:ycm_python_binary_path = "python3"
-    endif
-    execute "YcmCompleter RestartServer " . g:ycm_python_binary_path
-    echom "YouCompleteMe restarted (" . g:ycm_python_binary_path . ")."
-  endif
-endfunction
-
-function! DisplayDoc_Ycm()
-  if !exists( "g:loaded_youcompleteme" )
-    call ToggleYCM()
-  endif
-  YcmCompleter GetDoc
-  wincmd k
-  if line('$') == 1 && getline(1) == ''
-    q
+    nnoremap <leader>g :call jedi#goto()<CR>
+    call deoplete#enable()
+    echom "Deoplete enabled"
   endif
 endfunction
 
 function! DisplayDoc()
   if &filetype == "python"
-    let l:pydoc = g:ycm_python_binary_path == 'python3' ? 'pydoc3 ' : 'pydoc'
-    let l:pydoc_stdout = system(l:pydoc . " " . expand('<cword>'))
+    let l:pydoc_stdout = system("pydoc3 " . expand('<cword>'))
     if l:pydoc_stdout[1:32] != "o Python documentation found for"
       Scratch | 0 put =l:pydoc_stdout | normal gg
       set ft=man
-    else
-      call DisplayDoc_Ycm()
     endif
   elseif &filetype == "c"
     execute "Man 3 " . expand('<cword>')
