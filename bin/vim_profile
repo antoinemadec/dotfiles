@@ -1,0 +1,10 @@
+#!/bin/bash
+
+rm -rf vim_profile
+mkdir -p vim_profile
+cd vim_profile
+
+vim ~/.vimrc --startuptime profile.txt
+grep sourcing profile.txt | grep -v '/vim/' | sed 's/^\S* *//' | sort -nr > sourcing.txt
+
+vim profile.txt sourcing.txt -o
