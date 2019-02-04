@@ -1,10 +1,15 @@
 #!/bin/bash
 
-rm -rf vim_profile
-mkdir -p vim_profile
-cd vim_profile
+set -e
 
-vim ~/.vimrc --startuptime profile.txt
-grep sourcing profile.txt | grep -v '/vim/' | sed 's/^\S* *//' | sort -nr > sourcing.txt
+cmd="$1"
+[ "$cmd" = "" ] && cmd="vim"
 
-vim profile.txt sourcing.txt -o
+rm -rf ${cmd}_profile
+mkdir -p ${cmd}_profile
+cd ${cmd}_profile
+
+$cmd ~/.vimrc --startuptime profile.txt
+grep sourcing profile.txt | grep -v "/$cmd/" | sed 's/^\S* *//' | sort -nr > sourcing.txt
+
+$cmd profile.txt sourcing.txt -o
