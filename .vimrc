@@ -106,6 +106,7 @@ else
   let hg1 = 6
 endif
 set background=dark
+let g:gruvbox_contrast_dark = 'soft'
 colorscheme gruvbox
 highlight Todo      term=standout cterm=bold ctermfg=235 ctermbg=167 gui=bold guifg=#282828 guibg=#fb4934
 
