@@ -67,8 +67,8 @@ nnoremap <silent> <C-F6>        :exe "HighlightGroupsAddWord " . hg1 . " 1"<CR>
 nnoremap <silent> <C-S-F5>      :exe "HighlightGroupsClearGroup " . hg0 . " 1"<CR>
 nnoremap <silent> <C-S-F6>      :exe "HighlightGroupsClearGroup " . hg1 . " 1"<CR>
 nnoremap <silent> <F7>          :call ToggleIndent()<CR>
-nnoremap <silent> <F8>          :RemoveTrailingSpace<CR>
-nnoremap <silent> <F9>          :call ToggleTrailingSpace()<CR>
+nnoremap <silent> <F8>          :call ToggleTrailingSpace()<CR>
+nnoremap <silent> <F9>          :RemoveTrailingSpace<CR>
 noremap  <silent> <F10>         :call asyncrun#quickfix_toggle(8)<CR>
 set pastetoggle=<F12>
 " leader (inspired by Janus)
