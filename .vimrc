@@ -31,6 +31,9 @@ Plug 'Shougo/deoplete.nvim'                                       " extensible a
 Plug 'roxma/nvim-yarp'                                            " needed by deoplete
 Plug 'roxma/vim-hug-neovim-rpc'                                   " needed by deoplete
 " filetype specific
+Plug 'xolox/vim-misc', { 'for' : 'lua' }                          " needed by bim-lua-ftplugin
+Plug 'xolox/vim-lua-ftplugin', { 'for' : 'lua' }                  " deople: add omnifunc used by deoplete
+Plug 'vim-scripts/luarefvim', { 'for' : 'lua' }                   " lua reference doc: use K to open
 Plug 'davidhalter/jedi-vim', {'for': 'python'}                    " jedi completion (python)
 Plug 'zchee/deoplete-jedi', {'for': 'python'}                     " deoplete: add python support
 Plug 'nvie/vim-flake8', {'for': 'python'}                         " static syntax and style checker for Python source code
@@ -194,13 +197,26 @@ endfunction
 "--------------------------------------------------------------
 " completion
 "--------------------------------------------------------------
-let g:deoplete#sources#jedi#python_path = 'python3'
-let g:deoplete#sources#jedi#show_docstring = 1
 " close preview window
 au CompleteDone * pclose
 
+" python
+let g:deoplete#sources#jedi#python_path = 'python3'
+let g:deoplete#sources#jedi#show_docstring = 1
 let g:jedi#auto_initialization = 0
 let g:jedi#auto_vim_configuration = 0
+
+" lua
+let g:lua_check_syntax = 0
+let g:lua_complete_omni = 1
+let g:lua_complete_dynamic = 0
+let g:lua_define_completion_mappings = 0
+call deoplete#custom#var('omni', 'functions', {
+      \ 'lua': 'xolox#lua#omnifunc',
+      \ })
+call deoplete#custom#var('omni', 'input_patterns', {
+      \ 'lua': '\w+|\w+[.:]\w*',
+      \ })
 
 command! ToggleCompletion call ToggleCompletion()
 function ToggleCompletion()
@@ -231,11 +247,10 @@ endfunction
 "--------------------------------------------------------------
 " verilog
 "--------------------------------------------------------------
-set tags+=~/.vim/tags/UVM_CDNS-1.1d
-
 " set commentstring, map '-' to 'begin end' surrounding
 autocmd FileType verilog_systemverilog let b:surround_45 = "begin \r end"
 autocmd FileType verilog_systemverilog setlocal commentstring=//%s
+autocmd FileType verilog_systemverilog setlocal tags+=~/.vim/tags/UVM_CDNS-1.1d
 
 " verilog_systemverilog
 nnoremap <leader>i :VerilogFollowInstance<CR>
