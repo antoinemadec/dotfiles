@@ -56,7 +56,7 @@ nnoremap <silent> <F1>          :call Help()<CR>
 inoremap <silent> <F1>          <C-o>:call Help()<CR>
 nnoremap <silent> <F2>          :set spell!<CR>
 inoremap <silent> <F2>          <C-o>:set spell!<CR>
-map      <buffer> <F3>          :call Flake8()<CR>
+nnoremap <silent> <F3>          :call Flake8()<CR>
 nnoremap <silent> <F4>          :ToggleCompletion<CR>
 inoremap <silent> <F4>          <C-o>:ToggleCompletion<CR>
 nnoremap <silent> <F5>          :exe "HighlightGroupsAddWord " . hg0 . " 0"<CR>
