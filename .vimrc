@@ -31,8 +31,9 @@ Plug 'Shougo/deoplete.nvim'                                       " extensible a
 Plug 'roxma/nvim-yarp'                                            " needed by deoplete
 Plug 'roxma/vim-hug-neovim-rpc'                                   " needed by deoplete
 " filetype specific
+Plug 'artur-shaik/vim-javacomplete2', { 'for' : 'java' }          " add omnifunc used by deoplete; requires 'apt install default-jdk'
 Plug 'xolox/vim-misc', { 'for' : 'lua' }                          " needed by bim-lua-ftplugin
-Plug 'xolox/vim-lua-ftplugin', { 'for' : 'lua' }                  " deople: add omnifunc used by deoplete
+Plug 'xolox/vim-lua-ftplugin', { 'for' : 'lua' }                  " add omnifunc used by deoplete
 Plug 'vim-scripts/luarefvim', { 'for' : 'lua' }                   " lua reference doc: use K to open
 Plug 'davidhalter/jedi-vim', {'for': 'python'}                    " jedi completion (python)
 Plug 'zchee/deoplete-jedi', {'for': 'python'}                     " deoplete: add python support
@@ -280,6 +281,12 @@ let g:verilog_instance_skip_last_coma = 1
 autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
 
 "--------------------------------------------------------------
+" java
+"--------------------------------------------------------------
+autocmd FileType java setlocal shiftwidth=4 tabstop=4
+autocmd FileType java nnoremap <buffer> <leader>r :RunJavaCurrentBuffer<CR>
+
+"--------------------------------------------------------------
 " terminal
 "--------------------------------------------------------------
 if has('terminal')
@@ -322,6 +329,8 @@ command! -bar -nargs=? Scratch <args>new | setlocal buftype=nofile bufhidden=hid
 command! -nargs=* -complete=shellcmd Run AsyncRun <args>
 command! -nargs=0 RunCurrentBuffer :w | execute("AsyncRun " . expand('%:p'))
 command! -nargs=0 RunAndTimeCurrentBuffer :w | execute("AsyncRun time(" . expand('%:p') . ")")
+command! -nargs=0 RunJavaCurrentBuffer :w | execute("AsyncRun javac " . expand('%:t') .
+      \ " && java " . expand('%:r') )
 command! -bang -nargs=* -complete=file Grep AsyncRun -program=grep @ <args>
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 
