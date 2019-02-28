@@ -2,14 +2,35 @@
 
 set -e
 
-cmd="$1"
-[ "$cmd" = "" ] && cmd="vim"
+usage(){
+cat <<EOF
+usage: $(basename $0) (nvim) (-f FILE)
+EOF
+}
+
+cmd="vim"
+file="~/.vimrc"
+while [ "$#" -gt 0 ]
+do
+  case "$1" in
+    -h) usage
+        exit 0
+        ;;
+    -f) shift 1
+        file=$(readlink -e $1)
+        shift 1
+        ;;
+    *)  cmd="$1"
+        shift 1
+        ;;
+  esac
+done
 
 rm -rf ${cmd}_profile
 mkdir -p ${cmd}_profile
 cd ${cmd}_profile
 
-$cmd ~/.vimrc --startuptime profile.txt
+eval $cmd $file --startuptime profile.txt
 grep sourcing profile.txt | grep -v "/$cmd/" | sed 's/^\S* *//' | sort -nr > sourcing.txt
 
-$cmd profile.txt sourcing.txt -o
+eval $cmd profile.txt sourcing.txt -o
