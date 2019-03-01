@@ -32,14 +32,30 @@
 #   move <focused_ws> in <idx>:<focused_ws_name>
 
 
-get_workspaces()
+get_opened_ws_names()
 {
   i3-msg -t get_workspaces | tr ',' '\n' | grep '"name":' | sed 's/"name":"\(.*\)"/\1/g' | sort -n
 }
 
-get_workspace_indexes()
+get_in_use_ws_indexes()
 {
-  i3-msg -t get_workspaces | tr ',' '\n' | grep '"num":' | sed 's/.*"num"://' | sort -n
+  list="$(i3-msg -t get_workspaces | tr ',' '\n' | grep '"num":' | sed 's/.*"num"://' | sort -n)"
+  # remove empty ws for the list
+  for line in $(i3-msg -t get_tree | tr ',' '\n' | grep '"num"\|"nodes"' | sed -e 's/^"[^"]*"://' -e '/^\[\]$/d')
+  do
+    if [[ $line =~ '[{"' ]]
+    then
+      node=1
+    else
+      if ((node == 0))
+      then
+        list="$(echo "$list" | grep -v "^$n$")"
+      fi
+      n=$line
+      node=0
+    fi
+  done
+  echo "$list"
 }
 
 get_focused_workspace()
@@ -51,7 +67,7 @@ get_focused_workspace()
 
 workspace_already_exist()
 {
-  (get_workspaces | grep "$1") && return 0
+  (get_opened_ws_names | grep "$1") && return 0
   return 1
 }
 
@@ -59,7 +75,7 @@ find_first_available_ws()
 {
   ws_nb=$1
   cnt=0
-  ws_in_use="$(get_workspace_indexes)"
+  ws_in_use="$(get_in_use_ws_indexes)"
   for ((i=1; i<=10; i++))
   do
     available=1
@@ -81,7 +97,7 @@ find_first_available_ws()
   done
 }
 
-ws="$(get_workspaces  | rofi -dmenu -p "workspace")"
+ws="$(get_opened_ws_names  | rofi -dmenu -p "workspace")"
 if (echo "$ws" | grep -q '^ra\? ')
 then
   focused_ws="$(get_focused_workspace)"
@@ -89,7 +105,7 @@ then
   ws_new_name="$(echo "$ws" | cut -d ' ' -f 2)"
   if (echo "$ws" | grep -q '^ra ')
   then
-    match_list="$(get_workspaces | grep ":$focused_ws_name$" | sort -nr)"
+    match_list="$(get_opened_ws_names | grep ":$focused_ws_name$" | sort -nr)"
   else
     match_list="$focused_ws"
   fi
@@ -114,7 +130,7 @@ elif (echo "$ws" | grep -q ':')
 then
   ws_idx="$(echo "$ws"  | cut -d ':' -f 1)"
   ws_name="$(echo "$ws" | cut -d ':' -f 2)"
-  match_list="$(get_workspaces | grep ":$ws_name$" | sort -nr)"
+  match_list="$(get_opened_ws_names | grep ":$ws_name$" | sort -nr)"
   echo "$match_list"
   if [ "$match_list" != "" ] && workspace_already_exist $ws
   then

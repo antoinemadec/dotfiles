@@ -225,7 +225,7 @@ bindsym $mod+o exec pavucontrol& arandr&
 bindsym $mod+d       exec bash -ic "rofi -show run"
 bindsym $mod+Tab     exec "rofi -show window"
 bindsym $mod+Shift+s exec "rofi -show ssh"
-bindsym $mod+Shift+w exec ~/.config/i3/bin/jump_workspace.bash
+bindsym $mod+Shift+w exec ~/.config/i3/bin/rofi_workspace.bash
 # changing workspaces 2by2
 bindsym $mod+Control+Left exec ~/.config/i3/bin/change_workspace.bash 0
 bindsym $mod+Control+Right exec ~/.config/i3/bin/change_workspace.bash 1
