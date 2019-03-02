@@ -3,6 +3,7 @@
 set -e
 
 dir_file=~/work_dir.txt
+touch $dir_file
 dir_nb="$(wc -l $dir_file | cut -d ' ' -f 1)"
 
 usage() {
@@ -55,16 +56,16 @@ then
   sed ${nb}d $dir_file -i
 else
   cat -n $dir_file
-  echo -e "\nAction (a)ppend, (r<n>)eplace. Default is overwrite:"
+  echo -e "\nAction (o)verwrite, (r<n>)eplace. Default is append:"
   read action
-  if [ "$action" = a ]
+  if [ "$action" = o ]
   then
-    echo $dir >> $dir_file
+    echo $dir > $dir_file
   elif [ "${action::1}" = r ]
   then
     line_nb="${action:1:2}"
     sed "${line_nb}s#.*#$dir#" $dir_file -i
   else
-    echo $dir > $dir_file
+    echo $dir >> $dir_file
   fi
 fi
