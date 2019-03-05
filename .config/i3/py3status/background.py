@@ -29,6 +29,7 @@ class Py3status:
             delta = 1
         else:
             target = os.path.join(self.wallpaper_dir, self.wallpaper_list[self.img_idx])
+            self.full_text = 'bg'
             self.py3.command_run("ln -sf %s %s" % (target, self.default_wallpaper))
             return
         self.img_idx = (self.img_idx + delta) % len(self.wallpaper_list)
