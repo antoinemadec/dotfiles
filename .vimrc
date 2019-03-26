@@ -32,7 +32,7 @@ Plug 'roxma/nvim-yarp'                                            " needed by de
 Plug 'roxma/vim-hug-neovim-rpc'                                   " needed by deoplete
 " filetype specific
 Plug 'artur-shaik/vim-javacomplete2', { 'for' : 'java' }          " add omnifunc used by deoplete; requires 'apt install default-jdk'
-Plug 'xolox/vim-misc', { 'for' : 'lua' }                          " needed by bim-lua-ftplugin
+Plug 'xolox/vim-misc', { 'for' : 'lua' }                          " needed by vim-lua-ftplugin
 Plug 'xolox/vim-lua-ftplugin', { 'for' : 'lua' }                  " add omnifunc used by deoplete
 Plug 'vim-scripts/luarefvim', { 'for' : 'lua' }                   " lua reference doc: use K to open
 Plug 'davidhalter/jedi-vim', {'for': 'python'}                    " jedi completion (python)
@@ -380,6 +380,9 @@ if has('gui_running')
   set guioptions-=T "remove toolbar
   set guioptions-=r "remove right-hand scroll bar
   set guioptions-=L "remove left-hand scroll bar
+  " shift insert
+  imap <silent> <S-Insert> <C-R>*
+  nmap <silent> <S-Insert> "*p
 else
   " fix alt+n mapping in Vim CLI
   exec "map \en <A-n>"
