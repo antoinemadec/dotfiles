@@ -169,8 +169,8 @@ gaps inner $inner_gaps
 gaps outer $outer_gaps
 smart_borders on
 smart_gaps on
-bindsym $mod+Shift+g exec ~/.config/i3/bin/toggle_gaps "toggle" $inner_gaps $outer_gaps
-bindsym $mod+Shift+t exec ~/.config/i3/bin/toggle_gaps "toggle_title" $inner_gaps $outer_gaps $border
+bindsym $mod+Shift+g exec exec ~/.config/i3/bin/toggle_gaps "toggle" $inner_gaps $outer_gaps
+bindsym $mod+Shift+t exec exec ~/.config/i3/bin/toggle_gaps "toggle_title" $inner_gaps $outer_gaps $border
 
 #------------------------------
 # screen
@@ -218,17 +218,17 @@ for_window [workspace="\^$"] floating enable
 # shortcuts
 #------------------------------
 bindsym $mod+backslash workspace back_and_forth
-bindsym $mod+c exec gnome-calculator
-bindsym $mod+o exec pavucontrol& arandr&
+bindsym $mod+c exec exec gnome-calculator
+bindsym $mod+o exec exec pavucontrol& arandr&
 # use rofi instead of dmenu,
 # add equivalent of "alt+Tab functionality"
-bindsym $mod+d       exec bash -ic "rofi -show run"
-bindsym $mod+Tab     exec "rofi -show window"
-bindsym $mod+Shift+s exec "rofi -show ssh"
-bindsym $mod+Shift+w exec ~/.config/i3/bin/rofi_workspace.bash
+bindsym $mod+d       exec "PATH=~/bin:~/bin_local:$PATH rofi -show run"
+bindsym $mod+Tab     exec "exec rofi -show window"
+bindsym $mod+Shift+s exec "exec rofi -show ssh"
+bindsym $mod+Shift+w exec exec ~/.config/i3/bin/rofi_workspace.bash
 # changing workspaces 2by2
-bindsym $mod+Control+Left exec ~/.config/i3/bin/change_workspace.bash 0
-bindsym $mod+Control+Right exec ~/.config/i3/bin/change_workspace.bash 1
+bindsym $mod+Control+Left exec exec ~/.config/i3/bin/change_workspace.bash 0
+bindsym $mod+Control+Right exec exec ~/.config/i3/bin/change_workspace.bash 1
 # output
 bindsym $mod+Prior focus output right
 bindsym $mod+Next focus output left
@@ -237,24 +237,24 @@ bindsym $mod+Shift+Next move workspace to output left
 # scratchpad
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
-exec termite -t vim_todo -e 'bash -ic \"vim /home/amadec/org/todo_*.txt -p\"'
+exec exec termite -t vim_todo -e 'bash -ic \"vim /home/amadec/org/todo_*.txt -p\"'
 bindsym $mod+t [title="vim_todo"] scratchpad show
-exec nautilus&
+exec exec nautilus&
 bindsym $mod+m [class="Nautilus"] scratchpad show; [class="Nautilus"] move position center
 # locker
 bindsym $mod+Shift+l exec "PATH=~/.config/i3/bin/i3lock/i3lock-color:$PATH ~/.config/i3/bin/i3lock/i3lock-fancy/lock -f Lato-Hairline"
 # terminals
-bindsym $mod+Return exec [ -f ~/remote_machine.txt ] && termite -e "ssh -X $(cat ~/remote_machine.txt)" \
+bindsym $mod+Return exec [ -f ~/remote_machine.txt ] && exec termite -e "ssh -X $(cat ~/remote_machine.txt)" \
   || i3-nagbar -t warning -m 'Please populate ~/remote_machine.txt'
-bindsym $mod+Shift+Return exec termite
+bindsym $mod+Shift+Return exec exec termite
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle # mute sound
 # print screen
-bindsym --release Print exec scrot -e 'mv $f /tmp/ && pinta /tmp/$f'
+bindsym --release Print exec exec scrot -e 'mv $f /tmp/ && pinta /tmp/$f'
 # print screen - select window or rectangle
-bindsym --release Shift+Print exec scrot -s -e 'mv $f /tmp/ && pinta /tmp/$f'
+bindsym --release Shift+Print exec exec scrot -s -e 'mv $f /tmp/ && pinta /tmp/$f'
 
 #------------------------------
 # assign program to workspace
