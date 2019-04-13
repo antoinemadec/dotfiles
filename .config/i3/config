@@ -175,9 +175,9 @@ bindsym $mod+Shift+t exec exec ~/.config/i3/bin/toggle_gaps "toggle_title" $inne
 #------------------------------
 # screen
 #------------------------------
-exec ~/.xrandr_default.sh
-exec compton
-exec "sleep 1; feh --bg-scale ~/.config/i3/wallpaper/default"
+exec exec ~/.xrandr_default.sh
+exec exec compton
+exec "sleep 1.5; feh --bg-scale ~/.config/i3/wallpaper/default"
 workspace 1 output DP1
 workspace 2 output DP2
 workspace 3 output DP1
@@ -267,8 +267,8 @@ assign [class="Sky"] 1:email
 #------------------------------
 exec --no-startup-id i3-msg 'workspace 1:email; layout stacked; exec evolution --force-online; workspace 10:internet; exec firefox'
 exec --no-startup-id ~/bin/ghost-text-vim/ghost-text-server.tcl &
-exec start-pulseaudio-x11
-exec x11vnc -forever -rfbauth .vnc/passwd
+exec exec start-pulseaudio-x11
+exec exec x11vnc -forever -rfbauth .vnc/passwd
 # network widget
 exec_always --no-startup-id nm-applet
 exec_always --no-startup-id numlockx on
