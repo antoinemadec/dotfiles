@@ -100,9 +100,9 @@ if has('terminal') || has('nvim')
   nnoremap <leader>tt :TT<CR>
 endif
 " misc
-"   -- add '.' support in visual mode
+" -- add '.' support in visual mode
 vnoremap <silent> . :<C-w>let cidx = col(".")<CR> :'<,'>call DotAtColumnIndex(cidx)<CR>
-"   -- search for visually selected text
+" -- search for visually selected text
 vnoremap <silent> * :<C-U>
       \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
       \gvy/<C-R><C-R>=substitute(
@@ -117,6 +117,8 @@ cmap w!! w !sudo tee > /dev/null %
 nnoremap <silent> K :call DisplayDoc()<CR>
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
+nmap DO :%diffget<CR>:diffupdate<CR>
+nmap DP :%diffput<CR>:diffupdate<CR>
 
 "--------------------------------------------------------------
 " functions
