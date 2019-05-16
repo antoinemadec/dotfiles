@@ -8,5 +8,6 @@ chosen=$(grep -v "#" ~/.config/emoji | rofi -dmenu -p "unicode")
 c=$(echo "$chosen" | sed "s/ .*//")
 s=$(echo "$chosen" | sed "s/.*; //" | awk '{print $1}')
 
-echo "$c" | tr -d '\n' | xclip
-echo "$s" | tr -d '\n' | xclip -selection clipboard
+# copy icon in both primary and clipboard
+echo "$c" | tr -d '\n' | xclip -selection primary
+echo "$c" | tr -d '\n' | xclip -selection clipboard
