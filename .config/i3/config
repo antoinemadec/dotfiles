@@ -225,10 +225,11 @@ bindsym $mod+o exec exec pavucontrol& arandr&
 bindsym $mod+d       exec "PATH=~/bin:~/bin_local:$PATH rofi -show run"
 bindsym $mod+Tab     exec "exec rofi -show window"
 bindsym $mod+Shift+s exec "exec rofi -show ssh"
-bindsym $mod+Shift+w exec exec ~/.config/i3/bin/rofi_workspace.bash
+bindsym $mod+Shift+w exec exec ~/.config/i3/bin/rofi_workspace
+bindsym $mod+Shift+u exec exec ~/.config/i3/bin/rofi_unicode
 # changing workspaces 2by2
-bindsym $mod+Control+Left exec exec ~/.config/i3/bin/change_workspace.bash 0
-bindsym $mod+Control+Right exec exec ~/.config/i3/bin/change_workspace.bash 1
+bindsym $mod+Control+Left exec exec ~/.config/i3/bin/change_workspace 0
+bindsym $mod+Control+Right exec exec ~/.config/i3/bin/change_workspace 1
 # output
 bindsym $mod+Prior focus output right
 bindsym $mod+Next focus output left

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Give dmenu list of all unicode characters to copy.
+
+chosen=$(grep -v "#" ~/.config/emoji | rofi -dmenu -p "unicode")
+
+[ "$chosen" != "" ] || exit
+c=$(echo "$chosen" | sed "s/ .*//")
+s=$(echo "$chosen" | sed "s/.*; //" | awk '{print $1}')
+
+echo "$c" | tr -d '\n' | xclip
+echo "$s" | tr -d '\n' | xclip -selection clipboard
