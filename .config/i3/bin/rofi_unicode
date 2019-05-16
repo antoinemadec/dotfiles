@@ -2,7 +2,7 @@
 
 # Give dmenu list of all unicode characters to copy.
 
-chosen=$(grep -v "#" ~/.config/emoji | rofi -dmenu -p "unicode")
+chosen=$(grep -v "#" ~/.config/emoji | rofi -i -dmenu -p "unicode")
 
 [ "$chosen" != "" ] || exit
 c=$(echo "$chosen" | sed "s/ .*//")
