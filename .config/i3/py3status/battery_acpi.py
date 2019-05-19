@@ -13,14 +13,12 @@ class Py3status:
 
     def battery_acpi(self):
         arr = self.py3.command_output('acpi').split(',')
-        if arr[0].find("Charging") != -1:
-            icon = "⚡"
-        else:
+        if arr[0].find("Discharging") != -1:
             icon = "🔋"
-        pct = arr[1]
-        hms_arr = arr[2].strip().split()[0].split(':')
-        time = hms_arr[0] + ':' + hms_arr[1]
+        else:
+            icon = "⚡"
+        pct = arr[1].strip()
         return {
-                'full_text': icon + pct,
+                'full_text': icon + " " + pct,
                 'cached_until': self.py3.time_in(self.cache_timeout)
                 }
