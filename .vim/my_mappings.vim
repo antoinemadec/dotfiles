@@ -117,8 +117,8 @@ cmap w!! w !sudo tee > /dev/null %
 nnoremap <silent> K :call DisplayDoc()<CR>
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
-nmap DO :%diffget<CR>:diffupdate<CR>
-nmap DP :%diffput<CR>:diffupdate<CR>
+nmap dO :%diffget<CR>:diffupdate<CR>
+nmap dP :%diffput<CR>:diffupdate<CR>
 
 "--------------------------------------------------------------
 " functions
