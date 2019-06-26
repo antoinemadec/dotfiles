@@ -22,12 +22,14 @@ EOF
 # not compiled from source
 #--------------------------------------------------------------
 print_banner "misc"
-sudo apt -y install git htop
+sudo apt -y install git htop neovim
+sudo apt -y install libreoffice evince
 sudo apt -y install software-properties-common
 sudo apt -y install arandr pavucontrol rofi scrot x11vnc feh jq compton numlockx gsimplecal
 sudo apt -y install py3status acpi xclip imagemagick xbacklight
 
 print_banner "fonts"
+sudo apt -y fonts-inconsolata
 sudo apt -y install ttf-ancient-fonts
 sudo apt -y install fonts-noto-color-emoji libfreetype6 fontconfig libcairo-gobject2 libcairo2
 #--------------------------------------------------------------
@@ -80,3 +82,11 @@ EOF
 print_banner "vim"
 vim_upgrade
 #--------------------------------------------------------------
+
+print_banner "gtk theme"
+sudo apt-get install lxappearance gtk-chtheme qt4-qtconfig
+cat << EOF
+lxappearance  : choose a theme
+gtk-chtheme   : choose same theme
+qtconfig      : dropdown menu setting to make qt take the GTK+ settings
+EOF
