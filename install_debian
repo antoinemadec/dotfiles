@@ -23,7 +23,7 @@ EOF
 #--------------------------------------------------------------
 print_banner "misc"
 sudo apt -y install git htop neovim
-sudo apt -y install libreoffice evince
+sudo apt -y install libreoffice evince gnome-calculator
 sudo apt -y install software-properties-common
 sudo apt -y install arandr pavucontrol rofi scrot x11vnc feh jq compton numlockx gsimplecal
 sudo apt -y install py3status acpi xclip imagemagick xbacklight
