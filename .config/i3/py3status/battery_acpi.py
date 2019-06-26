@@ -7,7 +7,8 @@ import os
 
 class Py3status:
     cache_timeout = 10
-    full_text = 'bg'
+    output = ''
+    format = '{output}'
     button_next = 5
     button_prev = 4
 
@@ -18,7 +19,8 @@ class Py3status:
         else:
             icon = "⚡"
         pct = arr[1].strip()
+        self.output = icon + " " + pct
         return {
-                'full_text': icon + " " + pct,
-                'cached_until': self.py3.time_in(self.cache_timeout)
-                }
+            'full_text': self.py3.safe_format(self.format, {'output': self.output}),
+            'cached_until': self.py3.time_in(self.cache_timeout)
+        }
