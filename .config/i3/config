@@ -198,7 +198,6 @@ for_window [title="Terminator Preferences"] floating enable
 for_window [class="XTerm"] floating enable
 for_window [class="Evince"] floating enable
 for_window [class="Xpdf"] floating enable
-for_window [class="Gvim"] floating enable
 for_window [title="Figure*"] floating enable
 for_window [class="Gnome-calculator"] floating enable
 # waveform viewers

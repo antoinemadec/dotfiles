@@ -25,7 +25,7 @@ print_banner "misc"
 sudo apt install git htop
 sudo apt install software-properties-common
 sudo apt install arandr pavucontrol rofi scrot x11vnc feh jq compton numlockx gsimplecal
-sudo apt install py3status acpi
+sudo apt install py3status acpi xclip imagemagick
 
 print_banner "fonts"
 sudo apt install ttf-ancient-fonts
@@ -57,6 +57,9 @@ sudo make install
 print_banner "i3-gaps"
 sudo apt install gcc make dh-autoreconf libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev xcb libxcb1-dev libxcb-icccm4-dev libyajl-dev libev-dev libxcb-xkb-dev libxcb-cursor-dev libxkbcommon-dev libxcb-xinerama0-dev libxkbcommon-x11-dev libstartup-notification0-dev libxcb-randr0-dev libxcb-xrm0 libxcb-xrm-dev libxcb-shape0-dev
 i3_upgrade
+cd ~/.config/i3/bin/i3lock
+git submodule update --init --recursive
+git pull --recurse-submodule
 
 print_banner "vim"
 sudo apt install libgtk-3-dev liblua5.1-dev luajit libluajit-5.1 python3-dev python-dev ruby-dev libperl-dev libncurses5-dev libatk1.0-dev libx11-dev libxpm-dev libxt-dev gnome-devel
