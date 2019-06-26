@@ -22,19 +22,31 @@ EOF
 # not compiled from source
 #--------------------------------------------------------------
 print_banner "misc"
-sudo apt install git htop
-sudo apt install software-properties-common
-sudo apt install arandr pavucontrol rofi scrot x11vnc feh jq compton numlockx gsimplecal
-sudo apt install py3status acpi xclip imagemagick xbacklight
+sudo apt -y install git htop
+sudo apt -y install software-properties-common
+sudo apt -y install arandr pavucontrol rofi scrot x11vnc feh jq compton numlockx gsimplecal
+sudo apt -y install py3status acpi xclip imagemagick xbacklight
 
 print_banner "fonts"
-sudo apt install ttf-ancient-fonts
-sudo apt install fonts-noto-color-emoji libfreetype6 fontconfig libcairo-gobject2 libcairo2
+sudo apt -y install ttf-ancient-fonts
+sudo apt -y install fonts-noto-color-emoji libfreetype6 fontconfig libcairo-gobject2 libcairo2
 #--------------------------------------------------------------
 
 #--------------------------------------------------------------
 # compiled from source
 #--------------------------------------------------------------
+# dependencies:
+#-- termite
+sudo apt -y install vte-2.91
+#-- pinta
+sudo apt -y install mono-xbuild automake autoconf gtk-sharp2 yelp-tools intltool
+sudo apt -y install liblua5.1-dev luajit libluajit-5.1 python-dev ruby-dev libperl-dev libncurses5-dev libatk1.0-dev libx11-dev libxpm-dev libxt-dev gnome-devel
+#-- i3-gaps
+sudo apt -y install gcc make dh-autoreconf libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev xcb libxcb1-dev libxcb-icccm4-dev libyajl-dev libev-dev libxcb-xkb-dev libxcb-cursor-dev libxkbcommon-dev libxcb-xinerama0-dev libxkbcommon-x11-dev libstartup-notification0-dev libxcb-randr0-dev libxcb-xrm0 libxcb-xrm-dev libxcb-shape0-dev
+sudo apt -y install i3lock
+#-- vim
+sudo apt -y install libgtk-3-dev liblua5.1-dev luajit libluajit-5.1 python3-dev python-dev ruby-dev libperl-dev libncurses5-dev libatk1.0-dev libx11-dev libxpm-dev libxt-dev gnome-devel
+
 mkdir -p ~/src
 
 print_banner "termite"
@@ -45,8 +57,6 @@ cd termite-install
 ./termite-install.sh
 
 print_banner "pinta"
-sudo apt install mono-xbuild automake autoconf gtk-sharp2 yelp-tools intltool
-sudo apt-get install liblua5.1-dev luajit libluajit-5.1 python-dev ruby-dev libperl-dev libncurses5-dev libatk1.0-dev libx11-dev libxpm-dev libxt-dev gnome-devel
 cd ~/src
 git clone https://github.com/PintaProject/Pinta
 cd Pinta
@@ -55,13 +65,11 @@ make
 sudo make install
 
 print_banner "i3-gaps"
-sudo apt install gcc make dh-autoreconf libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev xcb libxcb1-dev libxcb-icccm4-dev libyajl-dev libev-dev libxcb-xkb-dev libxcb-cursor-dev libxkbcommon-dev libxcb-xinerama0-dev libxkbcommon-x11-dev libstartup-notification0-dev libxcb-randr0-dev libxcb-xrm0 libxcb-xrm-dev libxcb-shape0-dev
-sudo apt install i3lock
 i3_upgrade
 cd ~/.config/i3/bin/i3lock
 git submodule update --init --recursive
 git pull --recurse-submodule
-sudo cat << EOF > /etc/X11/xorg.conf
+cat << EOF | sudo tee /etc/X11/xorg.conf
 Section "Device"
         Identifier  "Intel Graphics"
         Driver      "intel"
@@ -70,6 +78,5 @@ EndSection
 EOF
 
 print_banner "vim"
-sudo apt install libgtk-3-dev liblua5.1-dev luajit libluajit-5.1 python3-dev python-dev ruby-dev libperl-dev libncurses5-dev libatk1.0-dev libx11-dev libxpm-dev libxt-dev gnome-devel
 vim_upgrade
 #--------------------------------------------------------------
