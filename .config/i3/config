@@ -176,9 +176,9 @@ bindsym $mod+Shift+t exec exec ~/.config/i3/bin/toggle_gaps "toggle_title" $inne
 #------------------------------
 # screen
 #------------------------------
-exec exec ~/.xrandr_default.sh
-exec exec compton
-exec "sleep 1.5; feh --bg-scale ~/.config/i3/wallpaper/default"
+exec --no-startup-id exec ~/.xrandr_default.sh
+exec --no-startup-id exec compton
+exec --no-startup-id exec feh --bg-scale ~/.config/i3/wallpaper/default
 workspace 1 output DP1
 workspace 2 output DP2
 workspace 3 output DP1
@@ -213,7 +213,6 @@ for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move d
 # workspace name finishing by ^
 for_window [workspace="\^$"] floating enable
 
-
 #------------------------------
 # shortcuts
 #------------------------------
@@ -238,9 +237,9 @@ bindsym $mod+Shift+Next move workspace to output left
 # scratchpad
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
-exec exec termite -t vim_todo -e 'bash -ic \"vim /home/amadec/org/todo_*.txt -p\"'
+exec --no-startup-id exec termite -t vim_todo -e 'bash -ic \"vim /home/amadec/org/todo_*.txt -p\"'
 bindsym $mod+t [title="vim_todo"] scratchpad show
-exec exec --no-startup-id Thunar&
+exec --no-startup-id exec Thunar&
 bindsym $mod+m [class="Thunar"] scratchpad show; [class="Thunar"] move position center
 # locker
 bindsym $mod+Shift+l exec "PATH=~/.config/i3/bin/i3lock/i3lock-color:$PATH ~/.config/i3/bin/i3lock/i3lock-fancy/lock -f Lato-Hairline"
@@ -273,7 +272,7 @@ assign [class="Sky"] 1:email
 # exec --no-startup-id ~/bin/ghost-text-vim/ghost-text-server.tcl &
 # exec exec x11vnc -forever -rfbauth .vnc/passwd
 exec --no-startup-id i3-msg 'workspace 10:internet; exec firefox'
-exec exec start-pulseaudio-x11
+exec --no-startup-id exec start-pulseaudio-x11
 # network widget
 exec_always --no-startup-id nm-applet
 exec_always --no-startup-id numlockx on
