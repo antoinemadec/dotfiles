@@ -141,8 +141,9 @@ bar {
     background #333333
     separator  #777777
     #                  border  bg      text
-    focused_workspace  #4c7899 #285577 #ffffff
+    focused_workspace  #333333 #285577 #ffffff
     active_workspace   #333333 #5f676a #ffffff
+    inactive_workspace #333333 #5e5e5e #ffffff
   }
   separator_symbol " │ "
   # Using custom i3status.conf
@@ -206,8 +207,8 @@ for_window [title="SimVision"] floating enable
 # scratchpad
 for_window [title="vim_todo"] floating enable
 for_window [title="vim_todo"] move scratchpad
-for_window [class="Nautilus"] floating enable
-for_window [class="Nautilus" window_type=normal] move scratchpad
+for_window [class="Thunar"] floating enable
+for_window [class="Thunar" window_type=normal] move scratchpad
 for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move down 20 px
 # workspace name finishing by ^
 for_window [workspace="\^$"] floating enable
@@ -239,8 +240,8 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 exec exec termite -t vim_todo -e 'bash -ic \"vim /home/amadec/org/todo_*.txt -p\"'
 bindsym $mod+t [title="vim_todo"] scratchpad show
-exec exec nautilus&
-bindsym $mod+m [class="Nautilus"] scratchpad show; [class="Nautilus"] move position center
+exec exec --no-startup-id Thunar&
+bindsym $mod+m [class="Thunar"] scratchpad show; [class="Thunar"] move position center
 # locker
 bindsym $mod+Shift+l exec "PATH=~/.config/i3/bin/i3lock/i3lock-color:$PATH ~/.config/i3/bin/i3lock/i3lock-fancy/lock -f Lato-Hairline"
 # terminals
@@ -268,10 +269,11 @@ assign [class="Sky"] 1:email
 #------------------------------
 # exec always at startup
 #------------------------------
-exec --no-startup-id i3-msg 'workspace 1:email; layout stacked; exec evolution --force-online; workspace 10:internet; exec firefox'
-exec --no-startup-id ~/bin/ghost-text-vim/ghost-text-server.tcl &
+# exec --no-startup-id i3-msg 'workspace 1:email; layout stacked; exec evolution --force-online; workspace 10:internet; exec firefox'
+# exec --no-startup-id ~/bin/ghost-text-vim/ghost-text-server.tcl &
+# exec exec x11vnc -forever -rfbauth .vnc/passwd
+exec --no-startup-id i3-msg 'workspace 10:internet; exec firefox'
 exec exec start-pulseaudio-x11
-exec exec x11vnc -forever -rfbauth .vnc/passwd
 # network widget
 exec_always --no-startup-id nm-applet
 exec_always --no-startup-id numlockx on
