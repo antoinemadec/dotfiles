@@ -14,20 +14,20 @@ else
 fi
 
 ./configure \
---enable-multibyte \
---enable-perlinterp=dynamic \
---enable-python3interp \
---enable-luainterp \
---with-luajit \
---enable-cscope \
---enable-gui=gtk3 \
---with-features=huge \
---with-x \
---enable-fontset \
---enable-largefile \
---disable-netbeans \
---with-compiledby="antoinemadec" \
---enable-fail-if-missing
+  --enable-multibyte \
+  --enable-perlinterp=dynamic \
+  --enable-python3interp \
+  --enable-luainterp \
+  --with-luajit \
+  --enable-cscope \
+  --enable-gui=gtk3 \
+  --with-features=huge \
+  --with-x \
+  --enable-fontset \
+  --enable-largefile \
+  --disable-netbeans \
+  --with-compiledby="antoinemadec" \
+  --enable-fail-if-missing
 
 make
 sudo make install
