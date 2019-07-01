@@ -29,5 +29,5 @@ fi
   --with-compiledby="antoinemadec" \
   --enable-fail-if-missing
 
-make
+make -j8
 sudo make install
