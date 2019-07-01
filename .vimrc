@@ -27,7 +27,9 @@ Plug 'kana/vim-textobj-user'                                      " needed to ad
 Plug 'kana/vim-textobj-line'                                      " add line text object for motion like 'dil'
 Plug 'kana/vim-textobj-indent'                                    " add indent text object for motion like 'dii'
 Plug 'terryma/vim-multiple-cursors'                               " Sublime Text's multiple selection feature
-Plug 'Shougo/deoplete.nvim'                                       " extensible and asynchronous completion for neovim/Vim8
+if v:version >= 800
+  Plug 'Shougo/deoplete.nvim'                                       " extensible and asynchronous completion for neovim/Vim8
+endif
 Plug 'roxma/nvim-yarp'                                            " needed by deoplete
 Plug 'roxma/vim-hug-neovim-rpc'                                   " needed by deoplete
 " filetype specific
@@ -227,12 +229,14 @@ let g:lua_check_syntax = 0
 let g:lua_complete_omni = 1
 let g:lua_complete_dynamic = 0
 let g:lua_define_completion_mappings = 0
-call deoplete#custom#var('omni', 'functions', {
-      \ 'lua': 'xolox#lua#omnifunc',
-      \ })
-call deoplete#custom#var('omni', 'input_patterns', {
-      \ 'lua': '\w+|\w+[.:]\w*',
-      \ })
+if v:version >= 800
+  call deoplete#custom#var('omni', 'functions', {
+        \ 'lua': 'xolox#lua#omnifunc',
+        \ })
+  call deoplete#custom#var('omni', 'input_patterns', {
+        \ 'lua': '\w+|\w+[.:]\w*',
+        \ })
+endif
 
 command! ToggleCompletion call ToggleCompletion()
 function ToggleCompletion()
