@@ -2,6 +2,8 @@
 set -e
 
 screen_nb="$(xrandr | grep ' connected ' | wc -l)"
+# TODO: dinoplus ai setup
+screen_nb=1
 
 input="$1"
 focused_ws=$(i3-msg -t get_workspaces                   \
