@@ -234,7 +234,7 @@ bindsym $mod+Shift+Next move workspace to output left
 # scratchpad
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
-exec --no-startup-id exec termite -t vim_todo -e 'bash -ic \"vim /home/amadec/org/todo_*.txt -p\"'
+exec --no-startup-id exec termite -t vim_todo -e 'bash -ic \"vim ~/org/todo_*.txt -p\"'
 bindsym $mod+t [title="vim_todo"] scratchpad show
 exec --no-startup-id exec Thunar&
 bindsym $mod+m [class="Thunar"] scratchpad show; [class="Thunar"] move position center
