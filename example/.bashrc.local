@@ -2,9 +2,6 @@
 export TERM_BRACKETED_PASTE=false
 export TERM_FANCY_CURSOR=false
 
-# disable vim plugins
-export VIM_YOUCOMPLETEME=false
-
 # for windows
 export WINDOWS_OS=1
 vim() {
