@@ -152,6 +152,10 @@ fancy_prompt () {
   fi
   local arrow+=">"
   local git_ds_file="/tmp/git_ps1_speed$(tty | sed 's#/#_#g')"
+  for d in $(cat ~/.git_ps1_no_ds_dirs)
+  do
+    [[ "$PWD" =~ "$d" ]] && echo '' > $git_ds_file
+  done
   test_git_ps1_speed "$git_ds_file"
   GIT_PS1_SHOWDIRTYSTATE="$(cat $git_ds_file 2>/dev/null)"
   GIT_PS1_SHOWSTASHSTATE=true
