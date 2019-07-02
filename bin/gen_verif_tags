@@ -6,7 +6,7 @@ usage() {
   cat <<EOF
 usage: $(basename $0) (-h) (-e STR) (DIRS)
 
-generate systemverilog tags under current dir
+generate C, C++ and systemverilog tags under current dir
 
 with:
   -h      : get this help
@@ -40,4 +40,4 @@ do
   excludes+="--exclude=${p%/} "
 done
 
-/usr/bin/ctags --languages=systemverilog --exclude=.git --exclude=.svn $excludes -R $DIRS
+/usr/bin/ctags --languages=systemverilog,c++,c --exclude=.git --exclude=.svn $excludes -R $DIRS
