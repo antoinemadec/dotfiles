@@ -152,7 +152,7 @@ fancy_prompt () {
   fi
   local arrow+=">"
   local git_ds_file="/tmp/git_ps1_speed$(tty | sed 's#/#_#g')"
-  for d in $(cat ~/.git_ps1_no_ds_dirs)
+  [ -f ~/.git_ps1_no_ds_dirs ] && for d in $(cat ~/.git_ps1_no_ds_dirs)
   do
     [[ "$PWD" =~ "$d" ]] && echo '' > $git_ds_file
   done
