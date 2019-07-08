@@ -211,6 +211,8 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute s
 # brightness
 bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 20 # increase screen brightness
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 20 # decrease screen brightness
+# change layout
+bindsym $mod+l exec --no-startup-id exec ~/.config/i3/bin/change_layout
 # print screen
 bindsym --release Print exec exec scrot -e 'mv $f /tmp/ && pinta /tmp/$f'
 # print screen - select window or rectangle
@@ -220,7 +222,6 @@ bindsym --release Shift+Print exec exec scrot -s -e 'mv $f /tmp/ && pinta /tmp/$
 # enable/disable floating windows
 #------------------------------
 for_window [class="rdesktop"] floating disable
-for_window [class="Vncviewer"] floating enable
 for_window [title="Terminator Preferences"] floating enable
 for_window [class="XTerm"] floating enable
 for_window [class="Evince"] floating enable
