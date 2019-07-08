@@ -46,5 +46,5 @@ del_path () {
 # if [^:]*$1[^:]* in path, remove it
 del_matching_path () {
   eval ${2:-PATH}=`eval echo :'$'${2:-PATH}: |
-    sed -e "s;:[^:]*$1[^:]*:;:;g" -e "s;^:;;" -e "s;:\$;;"`
+    sed -e "s;\(:[^:]*$1[^:]*\)\{1,\}:;:;g" -e "s;^:;;" -e "s;:\$;;"`
 }
