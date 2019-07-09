@@ -281,7 +281,7 @@ endfunction
 " set commentstring, map '-' to 'begin end' surrounding
 autocmd FileType verilog_systemverilog let b:surround_45 = "begin \r end"
 autocmd FileType verilog_systemverilog setlocal commentstring=//%s
-autocmd FileType verilog_systemverilog setlocal tags+=~/.vim/tags/UVM_CDNS-1.1d
+autocmd FileType verilog_systemverilog setlocal tags+=~/.vim/tags/UVM_CDNS-1.2
 
 " verilog_systemverilog
 nnoremap <leader>i :VerilogFollowInstance<CR>
