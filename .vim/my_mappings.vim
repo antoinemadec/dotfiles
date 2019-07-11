@@ -87,7 +87,7 @@ nnoremap <silent> <leader>r     :RunCurrentBuffer<CR>
 nnoremap <silent> <leader>t     :RunAndTimeCurrentBuffer<CR>
 nnoremap <silent> <leader>/     :Lines<CR>
 nnoremap <silent> <leader>f     :Files<CR>
-" terminal
+nnoremap <silent> <leader>gs    :Gstatus<CR>
 if has('terminal') || has('nvim')
   nnoremap <leader>tw :T<CR>
   nnoremap <leader>ts :TS<CR>
