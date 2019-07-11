@@ -1,0 +1,4 @@
+#!/bin/sh
+
+toplevel=$(git rev-parse --show-toplevel)
+vim -p $(git status --porcelain | grep -v '??' | awk -v top=$toplevel '{print top "/" $2}')
