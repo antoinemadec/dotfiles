@@ -183,9 +183,11 @@ bindsym $mod+Tab     exec "exec rofi -show window"
 bindsym $mod+Shift+s exec "exec rofi -show ssh"
 bindsym $mod+Shift+w exec exec ~/.config/i3/bin/rofi_workspace
 bindsym $mod+Shift+u exec exec ~/.config/i3/bin/rofi_unicode
-# changing workspaces 2by2
+# changing workspaces
 bindsym $mod+Control+Left exec exec ~/.config/i3/bin/change_workspace 0
 bindsym $mod+Control+Right exec exec ~/.config/i3/bin/change_workspace 1
+bindsym $mod+Control+Shift+Left exec exec ~/.config/i3/bin/change_workspace 0 1
+bindsym $mod+Control+Shift+Right exec exec ~/.config/i3/bin/change_workspace 1 1
 # output
 bindsym $mod+Prior focus output right
 bindsym $mod+Next focus output left
