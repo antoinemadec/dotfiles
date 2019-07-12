@@ -175,7 +175,6 @@ bindsym $mod+Shift+t exec exec ~/.config/i3/bin/toggle_gaps "toggle_title" $inne
 #------------------------------
 bindsym $mod+backslash workspace back_and_forth
 bindsym $mod+c exec exec gnome-calculator
-bindsym $mod+o exec exec pavucontrol& arandr&
 # use rofi instead of dmenu,
 # add equivalent of "alt+Tab functionality"
 bindsym $mod+d       exec "PATH=~/bin:~/bin_local:$PATH rofi -show run"
@@ -239,6 +238,7 @@ for_window [title="vim_todo"] move scratchpad
 for_window [class="Thunar"] floating enable
 for_window [class="Thunar" window_type=normal] move scratchpad
 for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move down 20 px
+for_window [class="Pavucontrol"] floating enable
 # workspace name finishing by ^
 for_window [workspace="\^$"] floating enable
 
@@ -265,7 +265,8 @@ workspace 8 output HDMI1
 workspace 9 output HDMI1
 workspace 10 output HDMI1
 exec --no-startup-id exec ~/.i3_startup.sh
-exec_always --no-startup-id nm-applet
+exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
 exec_always --no-startup-id numlockx on
 exec --no-startup-id exec start-pulseaudio-x11
 #==============================================================
