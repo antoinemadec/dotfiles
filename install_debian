@@ -27,6 +27,7 @@ sudo apt -y install grub-customizer
 sudo apt -y install libreoffice evince gnome-calculator
 sudo apt -y install software-properties-common
 sudo apt -y install arandr pavucontrol rofi scrot x11vnc feh jq compton numlockx gsimplecal
+sudo apt -y install pulseaudio-module-bluetooth
 sudo apt -y install py3status acpi xclip imagemagick xbacklight
 
 print_banner "fonts"
