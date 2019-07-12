@@ -9,6 +9,6 @@ cmd="$(ls $cl_dir/*sh -1 | head -n$((current_layout + 1)) | tail -n1)"
 name="$(basename $cmd | sed 's/\..*//')"
 
 $cmd
-notify-send 'layout' $(echo $name)
+notify-send --icon=/usr/share/icons/gnome/256x256/devices/video-display.png 'layout' $(echo $name)
 
 echo $current_layout > $cl_file
