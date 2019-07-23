@@ -385,9 +385,6 @@ if has('gui_running')
   " shift insert
   imap <silent> <S-Insert> <C-R>*
   nmap <silent> <S-Insert> "*p
-else
-  " fix alt+n mapping in Vim CLI
-  exec "map \en <A-n>"
 endif
 
 " windows options
