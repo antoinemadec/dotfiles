@@ -41,20 +41,18 @@ get_in_use_ws_indexes()
 {
   list="$(i3-msg -t get_workspaces | tr ',' '\n' | grep '"num":' | sed 's/.*"num"://' | sort -n)"
   # remove empty ws for the list
-  for line in $(i3-msg -t get_tree | tr ',' '\n' | grep '"num"\|"nodes"' | sed -e 's/^"[^"]*"://' -e '/^\[\]$/d')
+  n=""
+  for line in $(i3-msg -t get_tree | tr ',' '\n' | grep '"num"\|"window_properties"' | grep -v '"i3bar"')
   do
-    if [[ $line =~ '[{"' ]]
+    if [[ $line =~ '"num"' ]]
     then
-      node=1
+      [ "$n" = "" ] || list="$(echo "$list" | grep -v "^$n$")"
+      n="$(echo $line | sed 's/.*://')"
     else
-      if ((node == 0))
-      then
-        list="$(echo "$list" | grep -v "^$n$")"
-      fi
-      n=$line
-      node=0
+      n=""
     fi
   done
+  [ "$n" = "" ] || list="$(echo "$list" | grep -v "^$n$")"
   echo "$list"
 }
 
