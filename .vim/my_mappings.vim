@@ -59,14 +59,19 @@ inoremap <silent> <F2>          <C-o>:set spell!<CR>
 nnoremap <silent> <F3>          :call Flake8()<CR>
 nnoremap <silent> <F4>          :ToggleCompletion<CR>
 inoremap <silent> <F4>          <C-o>:ToggleCompletion<CR>
-nnoremap <silent> <F5>          :exe "HighlightGroupsAddWord " . hg0 . " 1"<CR>
-nnoremap <silent> <F6>          :exe "HighlightGroupsAddWord " . hg1 . " 1"<CR>
+nnoremap <silent> <F5>          :exe "HighlightGroupsAddWord " . hg0 . " 0"<CR>
+nnoremap <silent> <F6>          :exe "HighlightGroupsAddWord " . hg1 . " 0"<CR>
+nnoremap <silent> <S-F5>        :exe "HighlightGroupsClearGroup " . hg0 . " 0"<CR>
+nnoremap <silent> <S-F6>        :exe "HighlightGroupsClearGroup " . hg1 . " 0"<CR>
+nnoremap <silent> <C-F5>        :exe "HighlightGroupsAddWord " . hg0 . " 1"<CR>
+nnoremap <silent> <C-F6>        :exe "HighlightGroupsAddWord " . hg1 . " 1"<CR>
+nnoremap <silent> <C-S-F5>      :exe "HighlightGroupsClearGroup " . hg0 . " 1"<CR>
+nnoremap <silent> <C-S-F6>      :exe "HighlightGroupsClearGroup " . hg1 . " 1"<CR>
 nnoremap <silent> <F7>          :call ToggleIndent()<CR>
 nnoremap <silent> <F8>          :call ToggleTrailingSpace()<CR>
 nnoremap <silent> <F9>          :RemoveTrailingSpace<CR>
 noremap  <silent> <F10>         :call asyncrun#quickfix_toggle(8)<CR>
-nnoremap <silent> <F12>         :exe "HighlightGroupsClearGroup " . hg0 . " 1"<CR>
-      \ :exe "HighlightGroupsClearGroup " . hg1 . " 1"<CR>
+set pastetoggle=<F12>
 " leader (inspired by Janus)
 if has('terminal')
   tnoremap <script> <leader>be  vim_server_cmd 'Buffers'<CR>
