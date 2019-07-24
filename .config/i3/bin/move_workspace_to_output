@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -e
+
+# TODO: fix bug in I3 instead of using this script.
+# issue: move "workspace to output" works well with ws="1",
+# but not with ws="1:foo"
+
+get_focused_workspace()
+{
+  i3-msg -t get_workspaces                    \
+    | jq '.[] | select(.focused==true).name'  \
+    | cut -d"\"" -f2
+}
+
+input="$1"
+
+ws=$(get_focused_workspace)
+ws_nb=$(echo $ws | cut -d ':' -f 1)
+ws_name=$(echo $ws | cut -d ':' -f 2)
+direction="left"
+[ "$input" = 1 ] && direction="right"
+i3-msg "move workspace to output $direction"
+i3-msg "workspace $ws_nb"
+i3-msg "workspace $((10 + ws_nb))"
+i3-msg "workspace number $ws_nb"

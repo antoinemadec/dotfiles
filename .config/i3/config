@@ -188,10 +188,10 @@ bindsym $mod+Control+Right exec exec ~/.config/i3/bin/change_workspace 1
 bindsym $mod+Control+Shift+Left exec exec ~/.config/i3/bin/change_workspace 0 1
 bindsym $mod+Control+Shift+Right exec exec ~/.config/i3/bin/change_workspace 1 1
 # output
-bindsym $mod+Prior focus output right
 bindsym $mod+Next focus output left
-bindsym $mod+Shift+Prior move workspace to output right
-bindsym $mod+Shift+Next move workspace to output left
+bindsym $mod+Prior focus output right
+bindsym $mod+Shift+Next exec exec ~/.config/i3/bin/move_workspace_to_output 0
+bindsym $mod+Shift+Prior exec exec ~/.config/i3/bin/move_workspace_to_output 1
 # scratchpad
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show

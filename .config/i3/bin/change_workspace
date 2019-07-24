@@ -27,7 +27,6 @@ then
   fi
   [ "$move" = 1 ] && msg+="move container to workspace number $ws0;"
   msg+="workspace number $ws0"
-  i3-msg "$msg"
 else
   ws0=$(((focused_ws-1)/2*2 + 1))
   ws1=$((ws0+1))
@@ -43,3 +42,5 @@ else
   [ "$move" = 1 ] && msg+="move container to workspace number $ws0;"
   msg+="workspace number $ws1; workspace number $ws0"
 fi
+
+i3-msg "$msg"
