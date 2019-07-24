@@ -30,6 +30,9 @@ sudo apt -y install arandr rofi scrot x11vnc feh jq compton numlockx gsimplecal
 sudo apt -y install pulseaudio pulseaudio-module-bluetooth pavucontrol bluez-firmware blueman
 sudo apt -y install flatpak xdg-desktop-portal-gtk xdg-desktop-portal gnome-software gnome-software-plugin-flatpak
 sudo apt -y install py3status acpi xclip imagemagick xbacklight
+sudo apt -y install python3-pip
+sudo pip3 -y install setuptools
+sudo pip3 -y install pynvim
 
 print_banner "fonts"
 sudo apt -y install fonts-inconsolata
