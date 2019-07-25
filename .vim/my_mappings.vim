@@ -137,11 +137,11 @@ function MoveToPrevTab()
     return
   endif
   "preparing new window
-  let l:tab_nr = tabpagenr('$')
+  let l:tab_old_idx = tabpagenr()
   let l:cur_buf = bufnr('%')
   if tabpagenr() != 1
     close!
-    if l:tab_nr == tabpagenr('$')
+    if tabpagenr() == l:tab_old_idx
       tabprev
     endif
     sp
