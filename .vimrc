@@ -69,7 +69,8 @@ set expandtab                  " tab expand to space
 set tabstop=2                  " number of spaces that a <Tab> in the file counts for
 set shiftwidth=2               " number of spaces to use for each step of (auto)indent
 set lazyredraw                 " no screen redrawing while executing macros, registers etc
-set isfname-=,                 " don't try to match ',' in filename
+set isfname-=,                 " don't try to match certain characters in filename
+set isfname-==                 " don't try to match certain characters in filename
 if exists("&relativenumber")
   set relativenumber           " show the line number relative to the line with the cursor
   set numberwidth=2            " number of columns to use for the line number
