@@ -28,11 +28,11 @@ Plug 'kana/vim-textobj-line'                                      " add line tex
 Plug 'kana/vim-textobj-indent'                                    " add indent text object for motion like 'dii'
 Plug 'terryma/vim-multiple-cursors'                               " Sublime Text's multiple selection feature
 if v:version >= 800
-  Plug 'Shougo/deoplete.nvim'                                       " extensible and asynchronous completion for neovim/Vim8
+  Plug 'Shougo/deoplete.nvim'                                     " extensible and asynchronous completion for neovim/Vim8
 endif
 if !has('nvim')
-  Plug 'roxma/nvim-yarp'                                            " needed by deoplete
-  Plug 'roxma/vim-hug-neovim-rpc'                                   " needed by deoplete
+  Plug 'roxma/nvim-yarp'                                          " needed by deoplete
+  Plug 'roxma/vim-hug-neovim-rpc'                                 " needed by deoplete
 endif
 " filetype specific
 Plug 'artur-shaik/vim-javacomplete2', { 'for' : 'java' }          " add omnifunc used by deoplete; requires 'apt install default-jdk'
