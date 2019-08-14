@@ -8,15 +8,14 @@ dir_nb="$(wc -l $dir_file | cut -d ' ' -f 1)"
 
 usage() {
   cat <<EOF
-usage: $(basename $0) (-l|-a|-r|-h) (DIR)
+usage: $(basename $0) (-l|-a|-r|-h)
 
-saves directory in $dir_file
+saves PWD in $dir_file
 
 with:
   -h      : get this help
   -r      : remove one of the dir in the list
   -l      : prints the dir list
-  DIR     : dir to be added (default is PWD)
 EOF
 }
 
@@ -40,10 +39,7 @@ do
   esac
 done
 
-[ "$dir" = "" ] && dir="$PWD"
-[ -d "$dir" ] || { usage; exit 1; }
-
-dir="$(readlink -e $dir)"
+dir="$PWD"
 
 if ((list))
 then
