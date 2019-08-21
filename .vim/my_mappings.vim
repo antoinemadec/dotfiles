@@ -90,10 +90,10 @@ nnoremap <silent> <leader>/     :Lines<CR>
 nnoremap <silent> <leader>f     :Files<CR>
 nnoremap <silent> <leader>gs    :Gstatus<CR>
 if has('terminal') || has('nvim')
-  nnoremap <leader>tw :T<CR>
-  nnoremap <leader>ts :TS<CR>
-  nnoremap <leader>tv :TV<CR>
-  nnoremap <leader>tt :TT<CR>
+  nnoremap <leader>tw :cd %:h<CR>:T<CR>
+  nnoremap <leader>ts :cd %:h<CR>:TS<CR>
+  nnoremap <leader>tv :cd %:h<CR>:TV<CR>
+  nnoremap <leader>tt :cd %:h<CR>:TT<CR>
 endif
 " misc
 " -- add '.' support in visual mode
