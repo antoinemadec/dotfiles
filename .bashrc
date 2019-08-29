@@ -134,11 +134,12 @@ fi
 # 200ms is the threshold; don't run it if current directory has not change
 test_git_ps1_speed() {
   local file="$1"
+  local repo="$2"
   (
+  local status="true"
   local t=$( (time (GIT_PS1_SHOWDIRTYSTATE=true __git_ps1)) 2>&1 | grep real | sed -e 's/.*m//' -e 's/s//' -e 's/\.//' )
-  local value="true"
-  [ "$t" -gt 200 ] && value=""
-  echo "$value" > $file
+  [ "$t" -gt 200 ] && status="false"
+  echo "$repo $status" > $file
   )& disown %-
 }
 
@@ -152,12 +153,13 @@ fancy_prompt () {
   fi
   local arrow+=">"
   local git_ds_file="/tmp/git_ps1_speed$(tty | sed 's#/#_#g')"
-  [ -f ~/.git_ps1_no_ds_dirs ] && for d in $(cat ~/.git_ps1_no_ds_dirs)
-  do
-    [[ "$PWD" =~ "$d" ]] && echo '' > $git_ds_file
-  done
-  test_git_ps1_speed "$git_ds_file"
-  GIT_PS1_SHOWDIRTYSTATE="$(cat $git_ds_file 2>/dev/null)"
+  local repo="$(git rev-parse --show-toplevel 2>/dev/null)"
+  test_git_ps1_speed "$git_ds_file" "$repo"
+  local ds_status=""
+  local speed_repo="$(cat $git_ds_file   2>/dev/null | cut -d ' ' -f1)"
+  local speed_status="$(cat $git_ds_file 2>/dev/null | cut -d ' ' -f2)"
+  [ "$speed_repo" = "$repo" ] && [ "$speed_status" = "true" ] && ds_status="true"
+  GIT_PS1_SHOWDIRTYSTATE="$ds_status"
   GIT_PS1_SHOWSTASHSTATE=true
   GIT_PS1_SHOWUPSTREAM="auto"
   GIT_PS1_DESCRIBE_STYLE="branch"
