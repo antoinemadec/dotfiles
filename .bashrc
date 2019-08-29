@@ -152,7 +152,7 @@ fancy_prompt () {
       local arrow="${COLOR_RED}"
   fi
   local arrow+=">"
-  local git_ds_file="/tmp/git_ps1_speed$(tty | sed 's#/#_#g')"
+  local git_ds_file="/tmp/git_ps1_speed_$(whoami)_$(tty | sed 's#/#_#g')"
   local repo="$(git rev-parse --show-toplevel 2>/dev/null)"
   test_git_ps1_speed "$git_ds_file" "$repo"
   local ds_status=""
