@@ -12,7 +12,7 @@ open FILE in VIM_SERVERNAME's, with (arg) in:
 EOF
 }
 
-cmd="e"
+cmd="vsp"
 while [ "$#" -gt 0 ]
 do
   case "$1" in
@@ -28,7 +28,7 @@ do
     -p) cmd=tabe
         shift 1
       ;;
-    *)  file="$(readlink -f $1)"
+    *)  files+="$(readlink -f $1) "
         shift 1
       ;;
   esac
@@ -38,4 +38,9 @@ done
 # windows gvim: uses path like /Program Files/...
 # since windows bash Vim calls windows Gvim:
 [ "$WINDOWS_OS" = 1 ] && file="${file:2}"
-vim --servername $VIM_SERVERNAME --remote-send "<C-\><C-N>:$cmd $file<CR>"
+for file in $files
+do
+  echo "($file)"
+  vim --servername $VIM_SERVERNAME --remote-send "<C-\><C-N>:$cmd $file <CR>"
+done
+vim --servername $VIM_SERVERNAME --remote-send "<CR>"
