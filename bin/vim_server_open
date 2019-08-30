@@ -40,7 +40,6 @@ done
 [ "$WINDOWS_OS" = 1 ] && file="${file:2}"
 for file in $files
 do
-  echo "($file)"
   vim --servername $VIM_SERVERNAME --remote-send "<C-\><C-N>:$cmd $file <CR>"
 done
 vim --servername $VIM_SERVERNAME --remote-send "<CR>"
