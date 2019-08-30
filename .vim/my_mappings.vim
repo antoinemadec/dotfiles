@@ -79,21 +79,21 @@ if has('terminal')
   tnoremap <leader>cd           vim_server_cmd "cd $PWD" -i<CR>
 endif
 nnoremap <script> <leader>be    :Buffers<CR>
-nnoremap <silent> <leader>ew    :e %:h<CR>
-nnoremap <silent> <leader>es    :sp %:h<CR>
-nnoremap <silent> <leader>ev    :vsp %:h<CR>
-nnoremap <silent> <leader>et    :tabe %:h<CR>
-nnoremap <silent> <leader>cd    :cd %:h<CR>
+nnoremap <silent> <leader>ew    :e `=GetCurrentBufferDir()`<CR>
+nnoremap <silent> <leader>es    :sp `=GetCurrentBufferDir()`<CR>
+nnoremap <silent> <leader>ev    :vsp `=GetCurrentBufferDir()`<CR>
+nnoremap <silent> <leader>et    :tabe `=GetCurrentBufferDir()`<CR>
+nnoremap <silent> <leader>cd    :cd `=GetCurrentBufferDir()`<CR>
 nnoremap <silent> <leader>r     :RunCurrentBuffer<CR>
 nnoremap <silent> <leader>t     :RunAndTimeCurrentBuffer<CR>
 nnoremap <silent> <leader>/     :Lines<CR>
 nnoremap <silent> <leader>f     :Files<CR>
 nnoremap <silent> <leader>gs    :Gstatus<CR>
 if has('terminal') || has('nvim')
-  nnoremap <leader>tw :cd %:h<CR>:T<CR>
-  nnoremap <leader>ts :cd %:h<CR>:TS<CR>
-  nnoremap <leader>tv :cd %:h<CR>:TV<CR>
-  nnoremap <leader>tt :cd %:h<CR>:TT<CR>
+  nnoremap <leader>tw :cd `=GetCurrentBufferDir()`<CR>:T<CR>
+  nnoremap <leader>ts :cd `=GetCurrentBufferDir()`<CR>:TS<CR>
+  nnoremap <leader>tv :cd `=GetCurrentBufferDir()`<CR>:TV<CR>
+  nnoremap <leader>tt :cd `=GetCurrentBufferDir()`<CR>:TT<CR>
 endif
 " misc
 " -- add '.' support in visual mode

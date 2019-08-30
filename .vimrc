@@ -326,6 +326,17 @@ if exists('*remote_startserver') && has('clientserver') && v:servername == ''
   call remote_startserver('vim_server_' . getpid())
 endif
 
+function! GetCurrentBufferDir()
+  let cur_buf_name = expand('%')
+  if isdirectory(cur_buf_name)
+    return cur_buf_name
+  elseif cur_buf_name == "" || &buftype ==# 'terminal'
+    return "."
+  else
+    return expand('%:h')
+  endif
+endfunction
+
 " redirection of vim commands in clipboard
 command! -nargs=1 RediCmdToClipboard call RediCmdToClipboard(<f-args>)
 function! RediCmdToClipboard(cmd)
