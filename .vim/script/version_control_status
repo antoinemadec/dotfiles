@@ -63,7 +63,7 @@ get_git_status() {
   git_branch="$(echo "$git_branch" | cut -d ' ' -f 2)"
   if ((git_fail == 0))
   then
-    git_status="$(git status --porcelain "$filename" 2> /dev/null)" || git_fail=1
+    git_status="$(git status --ignored --porcelain "$filename" 2> /dev/null)" || git_fail=1
     if ((git_fail == 0))
     then
       us="${git_status:0:1}"
