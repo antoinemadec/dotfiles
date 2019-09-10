@@ -29,6 +29,7 @@ Plug 'kana/vim-textobj-indent'                                    " add indent t
 Plug 'terryma/vim-multiple-cursors'                               " Sublime Text's multiple selection feature
 if v:version >= 800
   Plug 'Shougo/deoplete.nvim'                                     " extensible and asynchronous completion for neovim/Vim8
+  Plug 'Shougo/neoinclude.vim'                                    " completion: includes, headers etc
 endif
 if !has('nvim')
   Plug 'roxma/nvim-yarp'                                          " needed by deoplete
@@ -41,6 +42,7 @@ Plug 'xolox/vim-lua-ftplugin', { 'for' : 'lua' }                  " add omnifunc
 Plug 'vim-scripts/luarefvim', { 'for' : 'lua' }                   " lua reference doc: use K to open
 Plug 'davidhalter/jedi-vim', {'for': 'python'}                    " jedi completion (python)
 Plug 'zchee/deoplete-jedi', {'for': 'python'}                     " deoplete: add python support
+Plug 'zchee/deoplete-clang', {'for': 'cpp'}                       " deoplete: add c++ support
 Plug 'nvie/vim-flake8', {'for': 'python'}                         " static syntax and style checker for Python source code
 Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}           " PEP8 compatible multi line indentation
 Plug 'vhda/verilog_systemverilog.vim',
@@ -241,6 +243,10 @@ if v:version >= 800
         \ 'lua': '\w+|\w+[.:]\w*',
         \ })
 endif
+
+" c++
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-7/lib/libclang.so.1'
+let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-7/lib/clang'
 
 command! ToggleCompletion call ToggleCompletion()
 function ToggleCompletion()
