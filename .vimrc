@@ -308,6 +308,7 @@ let g:verilog_instance_skip_last_coma = 1
 " cpp
 "--------------------------------------------------------------
 autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
+autocmd FileType c,cpp setlocal completeopt-=preview " no preview for deoplete
 
 "--------------------------------------------------------------
 " java
