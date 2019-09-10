@@ -279,11 +279,11 @@ function! DisplayDoc()
     endif
   elseif &filetype == "c" || &filetype == "cpp"
     if execute("Man 3 " . l:cword) =~ 'Cannot find a '
-      if execute("Man 3 std::" . l:cword) =~ 'Cannot find a '
-        echom "https://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search="
-              \ . l:cword
-      endif
+      let l:man_output = execute("Man 3 std::" . l:cword)
     endif
+    redraw
+    echom "https://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search="
+          \ . l:cword
   else
     execute "Man " . l:cword
   endif
