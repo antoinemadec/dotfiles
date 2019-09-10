@@ -270,16 +270,22 @@ function ToggleCompletion()
 endfunction
 
 function! DisplayDoc()
+  let l:cword = expand('<cword>')
   if &filetype == "python"
-    let l:pydoc_stdout = system("pydoc3 " . expand('<cword>'))
+    let l:pydoc_stdout = system("pydoc3 " . l:cword)
     if l:pydoc_stdout[1:32] != "o Python documentation found for"
       Scratch | 0 put =l:pydoc_stdout | normal gg
       set ft=man
     endif
-  elseif &filetype == "c"
-    execute "Man 3 " . expand('<cword>')
+  elseif &filetype == "c" || &filetype == "cpp"
+    if execute("Man 3 " . l:cword) =~ 'Cannot find a '
+      if execute("Man 3 std::" . l:cword) =~ 'Cannot find a '
+        echom "https://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search="
+              \ . l:cword
+      endif
+    endif
   else
-    execute "Man " . expand('<cword>')
+    execute "Man " . l:cword
   endif
 endfunction
 
