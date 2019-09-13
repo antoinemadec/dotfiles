@@ -27,6 +27,7 @@ Plug 'kana/vim-textobj-user'                                      " needed to ad
 Plug 'kana/vim-textobj-line'                                      " add line text object for motion like 'dil'
 Plug 'kana/vim-textobj-indent'                                    " add indent text object for motion like 'dii'
 Plug 'terryma/vim-multiple-cursors'                               " Sublime Text's multiple selection feature
+Plug 'chamindra/marvim'                                           " store/load macros easily
 if v:version >= 800
   Plug 'Shougo/deoplete.nvim'                                     " extensible and asynchronous completion for neovim/Vim8
   Plug 'Shougo/neoinclude.vim'                                    " completion: includes, headers etc
@@ -417,3 +418,11 @@ endif
 if has('win32') && filereadable($HOME.'\.vim\windows.vim')
   source ~/.vim/windows.vim
 endif
+
+" macros
+let g:marvim_store = $HOME."/.vim/marvim"
+let g:marvim_find_key = ''
+let g:marvim_store_key = ''
+let g:macro_debug_cnt = 0
+command! MacroStore call marvim#macro_store()
+command! MacroLoad call marvim#search()
