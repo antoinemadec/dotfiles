@@ -8,7 +8,7 @@
 " plugins
 "--------------------------------------------------------------
 call plug#begin('~/.vim/plugins_by_vimplug')
-Plug 'morhetz/gruvbox'                                            " colorscheme
+Plug 'gruvbox-community/gruvbox'                                  " colorscheme
 Plug 'itchyny/lightline.vim'                                      " status line
 Plug 'junegunn/fzf',
       \ {'dir': '~/.fzf','do': './install --all --no-completion'} " fuzzy search in a dir
