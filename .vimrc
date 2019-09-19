@@ -87,6 +87,7 @@ set showcmd                    " in Visual mode the size of the selected area is
 set ignorecase smartcase       " pattern with at least one uppercase character: search becomes case sensitive
 set cscopetag                  " cstag performs the equivalent of tjump when searching through tags file
 set cscopetagorder=1           " tag files searched before cscopte database
+set cscoperelative             " basename of cscope.out is be used as the prefix
 set t_ut=                      " do not use term color for clearing
 if $TERM_FANCY_CURSOR == 'true'
   let &t_SI = "\e[6 q"         " allow thin cursor in insert mode
