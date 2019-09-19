@@ -174,6 +174,8 @@ if has('terminal') || has('nvim')
   nnoremap <leader>tt :cd `=GetCurrentBufferDir()`<CR>:TT<CR>
 endif
 " misc
+" -- cscope: find functions calling this function
+map <C-\> :cs find 3 <C-R>=expand("<cword>")<CR><CR>
 " -- add '.' support in visual mode
 vnoremap <silent> . :<C-w>let cidx = col(".")<CR> :'<,'>call DotAtColumnIndex(cidx)<CR>
 " -- search for visually selected text

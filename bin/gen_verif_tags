@@ -41,3 +41,10 @@ do
 done
 
 /usr/bin/ctags --languages=systemverilog,c++,c --exclude=.git --exclude=.svn $excludes -R $DIRS
+find . -name '*.py'  \
+  -o -iname '*.[CH]' \
+  -o -name '*.cpp'   \
+  -o -name '*.cc'    \
+  -o -name '*.hpp'   \
+  > cscope.files
+cscope -b -q

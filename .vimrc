@@ -3,6 +3,7 @@
 "   TERM_COLORS           : enable termguicolors if >= 256
 "   TERM_FANCY_CURSOR     : enable thin insert cursor if 'true'
 "   TERM_BRACKETED_PASTE  : disable bracketed paste if not 'true'
+"   CSCOPE_DB             : cscope database
 
 "--------------------------------------------------------------
 " plugins
@@ -310,6 +311,11 @@ let g:verilog_instance_skip_last_coma = 1
 "--------------------------------------------------------------
 autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
 autocmd FileType c,cpp setlocal completeopt-=preview " no preview for deoplete
+if filereadable("cscope.out")
+  cs add cscope.out
+elseif $CSCOPE_DB != ""
+  cs add $CSCOPE_DB
+endif
 
 "--------------------------------------------------------------
 " java
