@@ -1,4 +1,97 @@
 "--------------------------------------------------------------
+" functions
+"--------------------------------------------------------------
+function Mapping(idx, ...)
+  let l:open_help = get(a:, 1, 1)
+  if (a:idx == 1)
+    nnoremap <silent> <F1>    :call Mapping(1)<CR>
+    inoremap <silent> <F1>    <C-o>:call Mapping(1)<CR>
+    nnoremap <silent> <F2>    :call Mapping(2)<CR>
+    inoremap <silent> <F2>    <C-o>:call Mapping(2)<CR>
+    nnoremap <silent> <F3>    :set spell!<CR>
+    inoremap <silent> <F3>    <C-o>:set spell!<CR>
+    nnoremap <silent> <F4>    :ToggleCompletion<CR>
+    inoremap <silent> <F4>    <C-o>:ToggleCompletion<CR>
+    nnoremap <silent> <F5>    :exe "HighlightGroupsAddWord " . hg0 . " 1"<CR>
+    nnoremap <silent> <F6>    :exe "HighlightGroupsAddWord " . hg1 . " 1"<CR>
+    nnoremap <silent> <C-F5>  :exe "HighlightGroupsClearGroup " . hg0 . " 1"<CR>
+    nnoremap <silent> <C-F6>  :exe "HighlightGroupsClearGroup " . hg1 . " 1"<CR>
+    nnoremap <silent> <F7>    :call ToggleTrailingSpace()<CR>
+    nnoremap <silent> <F8>    :RemoveTrailingSpace<CR>
+    nnoremap <silent> <F9>    :call Flake8()<CR>
+    noremap  <silent> <F10>   :call asyncrun#quickfix_toggle(8)<CR>
+    set pastetoggle=<F12>
+  elseif (a:idx == 2)
+    nnoremap <silent> <F1>    :call Mapping(2)<CR>
+    inoremap <silent> <F1>    <C-o>:call Mapping(2)<CR>
+    nnoremap <silent> <F2>    :call Mapping(1)<CR>
+    inoremap <silent> <F2>    <C-o>:call Mapping(1)<CR>
+    nnoremap <silent> <F3>    :call ToggleIndent()<CR>
+    nnoremap <silent> <F5>    :MacroLoad<CR>
+    nnoremap <silent> <F6>    :MacroStore<CR>
+  endif
+  if (l:open_help)
+    if !exists("b:help_scratch_open") || (b:help_scratch_open != a:idx)
+      let l:help_stdout = system("~/.vim/script/custom_mapping_help " . a:idx)
+      let l:stdout_line_count = len(split(l:help_stdout,'\n')) + 1
+      if exists("b:help_scratch_open") && (b:help_scratch_open != a:idx)
+        q
+      endif
+      exe "Scratch" . l:stdout_line_count . "| 0 put =l:help_stdout | normal gg"
+      set ft=docbk
+      let b:help_scratch_open = a:idx
+    else
+      q
+    endif
+  endif
+endfunction
+
+function MoveToPrevTab()
+  "there is only one window
+  if tabpagenr('$') == 1 && winnr('$') == 1
+    return
+  endif
+  "preparing new window
+  let l:tab_old_idx = tabpagenr()
+  let l:cur_buf = bufnr('%')
+  if tabpagenr() != 1
+    close!
+    if tabpagenr() == l:tab_old_idx
+      tabprev
+    endif
+    sp
+  else
+    close!
+    exe "0tabnew"
+  endif
+  "opening current buffer in new window
+  exe "b".l:cur_buf
+endfunc
+
+function MoveToNextTab()
+  "there is only one window
+  if tabpagenr('$') == 1 && winnr('$') == 1
+    return
+  endif
+  "preparing new window
+  let l:tab_nr = tabpagenr('$')
+  let l:cur_buf = bufnr('%')
+  if tabpagenr() < tab_nr
+    close!
+    if l:tab_nr == tabpagenr('$')
+      tabnext
+    endif
+    sp
+  else
+    close!
+    tabnew
+  endif
+  "opening current buffer in new window
+  exe "b".l:cur_buf
+endfunc
+
+
+"--------------------------------------------------------------
 " mappings
 "--------------------------------------------------------------
 " window movement
@@ -52,22 +145,7 @@ nnoremap <silent> <C-A-Right>   gt
 nnoremap <silent> <C-A-S-Left>  :call MoveToPrevTab()<cr>
 nnoremap <silent> <C-A-S-Right> :call MoveToNextTab()<cr>
 " function keys
-nnoremap <silent> <F1>          :call Help()<CR>
-inoremap <silent> <F1>          <C-o>:call Help()<CR>
-nnoremap <silent> <F2>          :set spell!<CR>
-inoremap <silent> <F2>          <C-o>:set spell!<CR>
-nnoremap <silent> <F3>          :call Flake8()<CR>
-nnoremap <silent> <F4>          :ToggleCompletion<CR>
-inoremap <silent> <F4>          <C-o>:ToggleCompletion<CR>
-nnoremap <silent> <F5>          :exe "HighlightGroupsAddWord " . hg0 . " 1"<CR>
-nnoremap <silent> <F6>          :exe "HighlightGroupsAddWord " . hg1 . " 1"<CR>
-nnoremap <silent> <C-F5>        :exe "HighlightGroupsClearGroup " . hg0 . " 1"<CR>
-nnoremap <silent> <C-F6>        :exe "HighlightGroupsClearGroup " . hg1 . " 1"<CR>
-nnoremap <silent> <F7>          :call ToggleIndent()<CR>
-nnoremap <silent> <F8>          :call ToggleTrailingSpace()<CR>
-nnoremap <silent> <F9>          :RemoveTrailingSpace<CR>
-noremap  <silent> <F10>         :call asyncrun#quickfix_toggle(8)<CR>
-set pastetoggle=<F12>
+call Mapping(1, 0)
 " leader (inspired by Janus)
 if has('terminal')
   tnoremap <script> <leader>be  vim_server_cmd 'Buffers'<CR>
@@ -115,62 +193,3 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 nmap dO :%diffget<CR>:diffupdate<CR>
 nmap dP :%diffput<CR>:diffupdate<CR>
-
-"--------------------------------------------------------------
-" functions
-"--------------------------------------------------------------
-function Help()
-  if !exists("b:help_scratch_open")
-    let l:help_stdout = system("~/.vim/script/custom_mapping_help")
-    let l:stdout_line_count = len(split(l:help_stdout,'\n')) + 1
-    exe "Scratch" . l:stdout_line_count . "| 0 put =l:help_stdout | normal gg"
-    set ft=docbk
-    let b:help_scratch_open = 1
-  else
-    q
-  endif
-endfunction
-
-function MoveToPrevTab()
-  "there is only one window
-  if tabpagenr('$') == 1 && winnr('$') == 1
-    return
-  endif
-  "preparing new window
-  let l:tab_old_idx = tabpagenr()
-  let l:cur_buf = bufnr('%')
-  if tabpagenr() != 1
-    close!
-    if tabpagenr() == l:tab_old_idx
-      tabprev
-    endif
-    sp
-  else
-    close!
-    exe "0tabnew"
-  endif
-  "opening current buffer in new window
-  exe "b".l:cur_buf
-endfunc
-
-function MoveToNextTab()
-  "there is only one window
-  if tabpagenr('$') == 1 && winnr('$') == 1
-    return
-  endif
-  "preparing new window
-  let l:tab_nr = tabpagenr('$')
-  let l:cur_buf = bufnr('%')
-  if tabpagenr() < tab_nr
-    close!
-    if l:tab_nr == tabpagenr('$')
-      tabnext
-    endif
-    sp
-  else
-    close!
-    tabnew
-  endif
-  "opening current buffer in new window
-  exe "b".l:cur_buf
-endfunc

@@ -3,8 +3,19 @@
 map_file=~/.vim/my_mappings.vim
 remove_chars=':\|!\|call \|exe \|set \|<C[^>]*>\| " .*\|["()]'
 
+map_idx="$1"
+
 cat << EOF
-<------ Function key mappings ------>
+<------ Function key mappings $map_idx ------>
 
 EOF
-grep '<F' $map_file | sed -e 's/^.*map.*<F/<F/' -e "s/$remove_chars//g" -e 's/ /_/g' | uniq
+
+F_mappings="$(grep '<F' $map_file |
+  sed -e 's/^.*map.*<F/<F/' -e "s/$remove_chars//g" -e 's/ /_/g' | uniq)"
+
+F1_line_nb="$(echo -e "$F_mappings\n<F1>dummy" | grep -n '<F1>' | cut -d':' -f 1)"
+start_end=$(echo "$F1_line_nb" | sed "$map_idx,$((map_idx+1))!d")
+s=$(echo $start_end | cut -d' ' -f1)
+e=$(echo $start_end | cut -d' ' -f2)
+
+echo "$F_mappings" | sed "$s,$((e-1))!d"
