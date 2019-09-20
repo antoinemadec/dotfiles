@@ -6,62 +6,23 @@ dir_file=~/work_dir.txt
 touch $dir_file
 dir_nb="$(wc -l $dir_file | cut -d ' ' -f 1)"
 
-usage() {
-  cat <<EOF
-usage: $(basename $0) (-l|-a|-r|-h)
-
-saves PWD in $dir_file
-
-with:
-  -h      : get this help
-  -r      : remove one of the dir in the list
-  -l      : prints the dir list
-EOF
-}
-
-remove=0
-list=0
-while [ "$#" != 0 ]
-do
-  case "$1" in
-    "-r")
-      remove=1
-      shift 1 ;;
-    "-l")
-      list=1
-      shift 1 ;;
-    "-h")
-      usage
-      exit 0 ;;
-    *)
-      dir="$1"
-      shift 1
-  esac
-done
-
 dir="$PWD"
 
-if ((list))
+cat -n $dir_file
+echo -e "\n(r<n>)eplace, (d<n>)elete, (o)verwrite. Default is append:"
+read action
+if [ "${action::1}" = r ]
 then
-  cat -n $dir_file
-elif ((remove))
+  line_nb="${action:1:2}"
+  sed "${line_nb}s#.*#$dir#" $dir_file -i
+elif [ "${action::1}" = d ]
 then
-  cat -n $dir_file
-  echo "Remove nb:"
-  read nb
-  sed ${nb}d $dir_file -i
+  line_nb="${action:1:2}"
+  sed "${line_nb}d" $dir_file -i
+  $0
+elif [ "$action" = o ]
+then
+  echo $dir > $dir_file
 else
-  cat -n $dir_file
-  echo -e "\nAction (o)verwrite, (r<n>)eplace. Default is append:"
-  read action
-  if [ "$action" = o ]
-  then
-    echo $dir > $dir_file
-  elif [ "${action::1}" = r ]
-  then
-    line_nb="${action:1:2}"
-    sed "${line_nb}s#.*#$dir#" $dir_file -i
-  else
-    echo $dir >> $dir_file
-  fi
+  echo $dir >> $dir_file
 fi
