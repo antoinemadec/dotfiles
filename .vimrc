@@ -100,6 +100,7 @@ endif
 if $TERM_BRACKETED_PASTE != 'true'
   let &t_BE = ''
 endif
+let g:ft_man_no_sect_fallback = 1
 runtime! ftplugin/man.vim      " allow man to be displayed in vim
 runtime! macros/matchit.vim    " allow usage of % to match 'begin end' and other '{ }' kind of pairs
 
