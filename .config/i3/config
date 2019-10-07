@@ -251,7 +251,7 @@ assign [class="Sky"] 1:email
 exec --no-startup-id exec ~/.xrandr_default.sh
 exec --no-startup-id exec compton
 exec --no-startup-id exec feh --bg-scale ~/.config/i3/wallpaper/default
-workspace 1 output eDP1
+workspace 1 output HDMI1
 workspace 2 output HDMI1
 workspace 3 output HDMI1
 workspace 4 output HDMI1
