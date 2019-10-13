@@ -29,6 +29,7 @@ Plug 'kana/vim-textobj-line'                                      " add line tex
 Plug 'kana/vim-textobj-indent'                                    " add indent text object for motion like 'dii'
 Plug 'terryma/vim-multiple-cursors'                               " Sublime Text's multiple selection feature
 Plug 'chamindra/marvim'                                           " store/load macros easily
+Plug 'majutsushi/tagbar'
 if v:version >= 800
   Plug 'Shougo/deoplete.nvim'                                     " extensible and asynchronous completion for neovim/Vim8
   Plug 'Shougo/neoinclude.vim'                                    " completion: includes, headers etc
@@ -310,6 +311,22 @@ let g:verilog_disable_indent_lst = "eos"
 
 let g:verilog_instance_skip_last_coma = 1
 
+" tagbar
+let g:tagbar_type_verilog_systemverilog= {
+    \ 'ctagstype' : 'systemverilog',
+    \ 'kinds'     : [
+        \'c:classes',
+        \'t:tasks',
+        \'f:functions',
+        \'m:modules',
+        \'i:interfaces',
+        \'v:variables',
+        \'d:defines',
+        \'e:typedefs',
+        \'a:parameters'
+  \]
+\}
+
 "--------------------------------------------------------------
 " cpp
 "--------------------------------------------------------------
@@ -436,3 +453,7 @@ let g:marvim_store_key = ''
 let g:macro_debug_cnt = 0
 command! MacroStore call marvim#macro_store()
 command! MacroLoad call marvim#search()
+
+" tagbar
+let g:tagbar_left = 1
+let g:tagbar_width = 30
