@@ -125,6 +125,8 @@ set background=dark
 let g:gruvbox_contrast_dark = 'soft'
 colorscheme gruvbox
 highlight Todo      term=standout cterm=bold ctermfg=235 ctermbg=167 gui=bold guifg=#282828 guibg=#fb4934
+highlight VertSplit guibg=#32302f guifg=#181A1F
+set fillchars=vert:│,fold:+
 
 source ~/.vim/my_lightline.vim
 
