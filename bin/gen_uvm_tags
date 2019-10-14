@@ -13,4 +13,4 @@ fi
 mkdir -p ~/.vim/tags
 filename="$(echo $uvm_dir | sed 's#^.*/\(.*\)/\(.*\)$#\1_\2#')"
 
-find -L "$uvm_dir" -regex '.*\.\(sv\|svh\|svi\|v\)' -type f | grep -v '/docs/' | grep -v examples | ctags --languages=systemverilog -L - -f ~/.vim/tags/$filename
+find -L "$uvm_dir" -regex '.*\.\(sv\|svh\|svi\|v\)' -type f | grep -v '/docs/' | grep -v examples | uctags --languages=systemverilog -L - -f ~/.vim/tags/$filename
