@@ -3,7 +3,7 @@
 "   TERM_COLORS           : enable termguicolors if >= 256
 "   TERM_FANCY_CURSOR     : enable thin insert cursor if 'true'
 "   TERM_BRACKETED_PASTE  : disable bracketed paste if not 'true'
-"   CSCOPE_DB             : cscope database
+"   CSCOPE_DB             : cscope database, compile_commands.json
 
 "--------------------------------------------------------------
 " plugins
@@ -262,6 +262,9 @@ endif
 " c++
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-7/lib/libclang.so.1'
 let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-7/lib/clang'
+if filereadable( $CSCOPE_DB . "/compile_commands.json")
+  let g:deoplete#sources#clang#clang_complete_database = $CSCOPE_DB
+endif
 
 command! ToggleCompletion call ToggleCompletion()
 function ToggleCompletion()
