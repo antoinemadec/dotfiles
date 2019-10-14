@@ -29,7 +29,11 @@ Plug 'kana/vim-textobj-line'                                      " add line tex
 Plug 'kana/vim-textobj-indent'                                    " add indent text object for motion like 'dii'
 Plug 'terryma/vim-multiple-cursors'                               " Sublime Text's multiple selection feature
 Plug 'chamindra/marvim'                                           " store/load macros easily
-Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}                  " display buffer's classes/functions/vars based on ctags
+Plug 'mhinz/vim-startify'                                         " start screen for Vim
+Plug 'Yggdroot/indentLine'                                        " display thin vertical lines at each indentation level
+Plug 'andymass/vim-matchup'                                       " replacement for the vim plugin matchit.vim
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}              " file explorer
 if v:version >= 800
   Plug 'Shougo/deoplete.nvim'                                     " extensible and asynchronous completion for neovim/Vim8
   Plug 'Shougo/neoinclude.vim'                                    " completion: includes, headers etc
@@ -76,9 +80,9 @@ set shiftwidth=2               " number of spaces to use for each step of (auto)
 set lazyredraw                 " no screen redrawing while executing macros, registers etc
 set isfname-=,                 " don't try to match certain characters in filename
 set isfname-==                 " don't try to match certain characters in filename
+set cursorline                 " highlight current line
 if exists("&relativenumber")
-  set relativenumber           " show the line number relative to the line with the cursor
-  set numberwidth=2            " number of columns to use for the line number
+  set number relativenumber    " show the line number relative to the line with the cursor
 endif
 set mouse=a                    " allow to resize and copy/paste without selecting text outside of the window
 set title                      " change terminal title
@@ -103,7 +107,6 @@ if $TERM_BRACKETED_PASTE != 'true'
 endif
 let g:ft_man_no_sect_fallback = 1
 runtime! ftplugin/man.vim      " allow man to be displayed in vim
-runtime! macros/matchit.vim    " allow usage of % to match 'begin end' and other '{ }' kind of pairs
 
 "--------------------------------------------------------------
 " mappings
@@ -311,22 +314,6 @@ let g:verilog_disable_indent_lst = "eos"
 
 let g:verilog_instance_skip_last_coma = 1
 
-" tagbar
-let g:tagbar_type_verilog_systemverilog= {
-    \ 'ctagstype' : 'systemverilog',
-    \ 'kinds'     : [
-        \'c:classes',
-        \'t:tasks',
-        \'f:functions',
-        \'m:modules',
-        \'i:interfaces',
-        \'v:variables',
-        \'d:defines',
-        \'e:typedefs',
-        \'a:parameters'
-  \]
-\}
-
 "--------------------------------------------------------------
 " cpp
 "--------------------------------------------------------------
@@ -457,3 +444,33 @@ command! MacroLoad call marvim#search()
 " tagbar
 let g:tagbar_left = 1
 let g:tagbar_width = 30
+let g:tagbar_ctags_bin = 'uctags'
+
+"startify
+let g:startify_custom_header = [
+      \ ' __      ___',
+      \ ' \ \    / (_)',
+      \ '  \ \  / / _ _ __ ___',
+      \ '   \ \/ / | |  _ ` _ \',
+      \ '    \  /  | | | | | | |',
+      \ '     \/   |_|_| |_| |_|',
+      \]
+let g:startify_commands = [':Scratch']
+let g:startify_lists = [
+      \ { 'type': 'commands',  'indices': ['s'] },
+      \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+      \ { 'type': 'files',     'header': ['   MRU']            },
+      \ { 'type': 'sessions',  'header': ['   Sessions']       },
+      \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+      \ ]
+
+let g:matchup_matchparen_status_offscreen = 0
+
+" indent line
+let g:indentLine_fileTypeExclude = ['text', 'startify', 'defx']
+let g:indentLine_bufTypeExclude = ['help', 'terminal', 'popup', 'quickfix']
+
+" nerdtree
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeWinPos = "right"
+let g:NERDTreeHijackNetrw = 0

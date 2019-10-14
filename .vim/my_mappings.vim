@@ -17,9 +17,9 @@ function Mapping(idx, ...)
     nnoremap <silent> <C-F5>  :exe "HighlightGroupsClearGroup " . hg0 . " 1"<CR>
     nnoremap <silent> <C-F6>  :exe "HighlightGroupsClearGroup " . hg1 . " 1"<CR>
     nnoremap <silent> <F7>    :call ToggleTrailingSpace()<CR>
-    nnoremap <silent> <F8>    :RemoveTrailingSpace<CR>
-    nnoremap <silent> <F9>    :call Flake8()<CR>
-    noremap  <silent> <F10>   :call asyncrun#quickfix_toggle(8)<CR>
+    noremap  <silent> <F8>    :call asyncrun#quickfix_toggle(8)<CR>
+    nnoremap <silent> <F9>    :TagbarToggle<CR>
+    nnoremap <silent> <F10>   :NERDTreeToggle<CR>
     set pastetoggle=<F12>
   elseif (a:idx == 2)
     nnoremap <silent> <F1>    :call Mapping(2)<CR>
@@ -29,6 +29,8 @@ function Mapping(idx, ...)
     nnoremap <silent> <F3>    :call ToggleIndent()<CR>
     nnoremap <silent> <F5>    :MacroLoad<CR>
     nnoremap <silent> <F6>    :MacroStore<CR>
+    nnoremap <silent> <F7>    :call Flake8()<CR>
+    nnoremap <silent> <F8>    :RemoveTrailingSpace<CR>
   endif
   if (l:open_help)
     if !exists("b:help_scratch_open") || (b:help_scratch_open != a:idx)

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+mkdir -p ~/src
+cd ~/src
+
+if !(git clone https://github.com/universal-ctags/ctags)
+then
+  cd ctags
+  git pull
+else
+  cd ctags
+fi
+
+./autogen.sh
+./configure --program-prefix=u # call uctags instead of ctags to avoid conflicts
+make -j8
+sudo make install
