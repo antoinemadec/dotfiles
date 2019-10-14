@@ -80,7 +80,12 @@ set shiftwidth=2               " number of spaces to use for each step of (auto)
 set lazyredraw                 " no screen redrawing while executing macros, registers etc
 set isfname-=,                 " don't try to match certain characters in filename
 set isfname-==                 " don't try to match certain characters in filename
-set cursorline                 " highlight current line
+" highlight current line
+augroup CursorLine
+    au!
+    au VimEnter,WinEnter,BufEnter * setlocal cursorline
+    au WinLeave * setlocal nocursorline
+augroup END
 if exists("&relativenumber")
   set number relativenumber    " show the line number relative to the line with the cursor
 endif
