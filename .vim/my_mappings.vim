@@ -27,6 +27,7 @@ function Mapping(idx, ...)
     nnoremap <silent> <F2>    :call Mapping(1)<CR>
     inoremap <silent> <F2>    <C-o>:call Mapping(1)<CR>
     nnoremap <silent> <F3>    :call ToggleIndent()<CR>
+    nnoremap <silent> <F4>    :ToggleUVMTags<CR>
     nnoremap <silent> <F5>    :MacroLoad<CR>
     nnoremap <silent> <F6>    :MacroStore<CR>
     nnoremap <silent> <F7>    :call Flake8()<CR>

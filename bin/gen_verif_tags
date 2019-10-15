@@ -40,7 +40,15 @@ do
   excludes+="--exclude=${p%/} "
 done
 
-uctags --languages=systemverilog,c++,c --exclude=.git --exclude=.svn $excludes -R $DIRS
+uctags \
+  --languages=systemverilog,c++,c \
+  --extras=+q \
+  --fields=+i \
+  --exclude=.git \
+  --exclude=.svn \
+  $excludes \
+  -R $DIRS
+
 find . -name '*.py'  \
   -o -iname '*.[CH]' \
   -o -name '*.cpp'   \

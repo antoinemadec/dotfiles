@@ -310,10 +310,22 @@ endfunction
 "--------------------------------------------------------------
 " verilog
 "--------------------------------------------------------------
+let g:uvm_tags_is_on = 0
+let g:uvm_tags_path = "~/.vim/tags/UVM_CDNS-1.2"
+command! ToggleUVMTags call ToggleUVMTags()
+function ToggleUVMTags()
+  if g:uvm_tags_is_on
+    exe 'set tags-=' . g:uvm_tags_path
+  else
+    exe 'set tags+=' . g:uvm_tags_path
+  endif
+  let g:uvm_tags_is_on = !g:uvm_tags_is_on
+  echo "UVM tags = " . g:uvm_tags_is_on
+endfunction
+
 " set commentstring, map '-' to 'begin end' surrounding
 autocmd FileType verilog_systemverilog let b:surround_45 = "begin \r end"
 autocmd FileType verilog_systemverilog setlocal commentstring=//%s
-autocmd FileType verilog_systemverilog setlocal tags+=~/.vim/tags/UVM_CDNS-1.2
 
 " verilog_systemverilog
 nnoremap <leader>i :VerilogFollowInstance<CR>
