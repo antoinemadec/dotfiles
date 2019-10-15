@@ -241,6 +241,16 @@ endfunc
 " close preview window
 au CompleteDone * pclose
 
+" systemverilog
+if v:version >= 800
+  call deoplete#custom#var('omni', 'functions', {
+        \ 'verilog_systemverilog': 'verilog_systemverilog#Complete',
+        \ })
+  call deoplete#custom#var('omni', 'input_patterns', {
+        \ 'verilog_systemverilog': '\w+[.:]+\w*',
+        \ })
+endif
+
 " python
 let g:deoplete#sources#jedi#python_path = 'python3'
 let g:deoplete#sources#jedi#show_docstring = 1
