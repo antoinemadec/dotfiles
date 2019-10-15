@@ -22,10 +22,10 @@ function Mapping(idx, ...)
     nnoremap <silent> <F10>   :NERDTreeToggle<CR>
     set pastetoggle=<F12>
   elseif (a:idx == 2)
-    nnoremap <silent> <F1>    :call Mapping(2)<CR>
-    inoremap <silent> <F1>    <C-o>:call Mapping(2)<CR>
-    nnoremap <silent> <F2>    :call Mapping(1)<CR>
-    inoremap <silent> <F2>    <C-o>:call Mapping(1)<CR>
+    nnoremap <silent> <F1>    :call Mapping(1)<CR>
+    inoremap <silent> <F1>    <C-o>:call Mapping(1)<CR>
+    nnoremap <silent> <F2>    :call Mapping(2)<CR>
+    inoremap <silent> <F2>    <C-o>:call Mapping(2)<CR>
     nnoremap <silent> <F3>    :call ToggleIndent()<CR>
     nnoremap <silent> <F4>    :ToggleUVMTags<CR>
     nnoremap <silent> <F5>    :MacroLoad<CR>
