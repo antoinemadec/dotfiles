@@ -36,7 +36,8 @@ Plug 'mhinz/vim-startify'                                         " start screen
 Plug 'Yggdroot/indentLine'                                        " display thin vertical lines at each indentation level
 Plug 'andymass/vim-matchup'                                       " replacement for the vim plugin matchit.vim
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}              " file explorer
-Plug 'neomake/neomake', {'on': 'NeomakeToggle'}                   " asyncronous Syntastic
+Plug 'neomake/neomake'                                            " asyncronous Syntastic
+Plug 'sinetoami/lightline-neomake'                                " neomake info for lightline
 if v:version >= 800
   Plug 'Shougo/deoplete.nvim'                                     " extensible and asynchronous completion for neovim/Vim8
   Plug 'Shougo/neoinclude.vim'                                    " completion: includes, headers etc
@@ -515,11 +516,4 @@ let g:NERDTreeWinPos = "right"
 let g:NERDTreeHijackNetrw = 0
 
 " neomake
-command! ToggleNeomake call ToggleNeomake()
-function ToggleNeomake()
-  if !exists('g:neomake')
-    silent NeomakeToggle
-    call neomake#configure#automake('n')
-  endif
-  NeomakeToggle
-endfunction
+call neomake#configure#automake('nr')

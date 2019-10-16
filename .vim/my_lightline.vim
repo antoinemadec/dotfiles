@@ -9,7 +9,8 @@ let g:lightline = {
   \ 'active': {
   \   'left': [ [ 'foldinfo', 'mode', 'paste' ],
   \             [ 'readonly', 'myrelativepath', 'mymodified' ],
-  \             [ 'version_control' ] ],
+  \             [ 'version_control' ],
+  \             ['neomake_warnings', 'neomake_errors'] ],
   \   'right': [ [ 'lineinfo' ],
   \              [ 'percentwin' ],
   \              [ 'spell', 'filetype' ],
@@ -26,10 +27,14 @@ let g:lightline = {
   \ 'component_expand': {
   \   'myrelativepath': 'MyRelativePath',
   \   'foldinfo': 'FoldInfo',
+  \   'neomake_warnings': 'lightline#neomake#warnings',
+  \   'neomake_errors': 'lightline#neomake#errors',
   \   'detecttrailingspace': 'DetectTrailingSpace'
   \ },
   \ 'component_type': {
   \   'foldinfo': 'middle',
+  \   'neomake_warnings': 'warning',
+  \   'neomake_errors': 'error',
   \   'detecttrailingspace': 'error'
   \ },
   \ }

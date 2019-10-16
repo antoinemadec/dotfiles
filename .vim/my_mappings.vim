@@ -31,7 +31,7 @@ function Mapping(idx, ...)
     nnoremap <silent> <F5>    :MacroLoad<CR>
     nnoremap <silent> <F6>    :MacroStore<CR>
     nnoremap <silent> <F7>    :RemoveTrailingSpace<CR>
-    nnoremap <silent> <F8>    :ToggleNeomake<CR>
+    nnoremap <silent> <F8>    :NeomakeToggle<CR>
   endif
   if (l:open_help)
     if !exists("b:help_scratch_open") || (b:help_scratch_open != a:idx)
