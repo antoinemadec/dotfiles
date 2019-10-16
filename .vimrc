@@ -25,6 +25,7 @@ Plug 'tpope/vim-commentary'                                       " comment stuf
 Plug 'tpope/vim-sensible'                                         " vim defaults that everyone can agree on
 Plug 'tpope/vim-speeddating'                                      " use CTRL-A/CTRL-X to increment dates, times, and more
 Plug 'tpope/vim-repeat'                                           " remaps '.' in a way that plugins can tap into it
+Plug 'tpope/vim-unimpaired'                                       " complementary pairs of mapping
 Plug 'skywind3000/asyncrun.vim'                                   " run asynchronous bash commands
 Plug 'kana/vim-textobj-user'                                      " needed to add text object
 Plug 'kana/vim-textobj-line'                                      " add line text object for motion like 'dil'
