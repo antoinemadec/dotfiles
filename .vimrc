@@ -36,6 +36,7 @@ Plug 'mhinz/vim-startify'                                         " start screen
 Plug 'Yggdroot/indentLine'                                        " display thin vertical lines at each indentation level
 Plug 'andymass/vim-matchup'                                       " replacement for the vim plugin matchit.vim
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}              " file explorer
+Plug 'neomake/neomake', {'on': 'NeomakeToggle'}                   " asyncronous Syntastic
 if v:version >= 800
   Plug 'Shougo/deoplete.nvim'                                     " extensible and asynchronous completion for neovim/Vim8
   Plug 'Shougo/neoinclude.vim'                                    " completion: includes, headers etc
@@ -52,7 +53,6 @@ Plug 'vim-scripts/luarefvim', { 'for' : 'lua' }                   " lua referenc
 Plug 'davidhalter/jedi-vim', {'for': 'python'}                    " jedi completion (python)
 Plug 'zchee/deoplete-jedi', {'for': 'python'}                     " deoplete: add python support
 Plug 'zchee/deoplete-clang', {'for': 'cpp'}                       " deoplete: add c++ support
-Plug 'nvie/vim-flake8', {'for': 'python'}                         " static syntax and style checker for Python source code
 Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}           " PEP8 compatible multi line indentation
 Plug 'vhda/verilog_systemverilog.vim',
       \ {'for': 'verilog_systemverilog'}                          " Vim Syntax Plugin for Verilog and SystemVerilog
@@ -417,9 +417,9 @@ command! -bar -nargs=? Scratch <args>new | setlocal buftype=nofile bufhidden=hid
 
 " AsyncRun
 command! -nargs=* -complete=shellcmd Run AsyncRun <args>
-command! -nargs=0 RunCurrentBuffer :w | execute("AsyncRun " . expand('%:p'))
-command! -nargs=0 RunAndTimeCurrentBuffer :w | execute("AsyncRun time(" . expand('%:p') . ")")
-command! -nargs=0 RunJavaCurrentBuffer :w | execute("AsyncRun javac " . expand('%:t') .
+command! -nargs=0 RunCurrentBuffer :w | execute("Run " . expand('%:p'))
+command! -nargs=0 RunAndTimeCurrentBuffer :w | execute("Run time(" . expand('%:p') . ")")
+command! -nargs=0 RunJavaCurrentBuffer :w | execute("Run javac " . expand('%:t') .
       \ " && java " . expand('%:r') )
 command! -bang -nargs=* -complete=file Grep AsyncRun -program=grep @ <args>
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
@@ -513,3 +513,13 @@ let g:indentLine_bufTypeExclude = ['help', 'terminal', 'popup', 'quickfix']
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeWinPos = "right"
 let g:NERDTreeHijackNetrw = 0
+
+" neomake
+command! ToggleNeomake call ToggleNeomake()
+function ToggleNeomake()
+  if !exists('g:neomake')
+    silent NeomakeToggle
+    call neomake#configure#automake('n')
+  endif
+  NeomakeToggle
+endfunction
