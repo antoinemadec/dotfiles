@@ -501,6 +501,7 @@ let g:startify_lists = [
       \ { 'type': 'sessions',  'header': ['   Sessions']       },
       \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
       \ ]
+let g:startify_change_to_dir = 0
 
 let g:matchup_matchparen_status_offscreen = 0
 
