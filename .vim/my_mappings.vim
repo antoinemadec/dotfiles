@@ -171,10 +171,10 @@ nnoremap <silent> <leader>/     :Lines<CR>
 nnoremap <silent> <leader>f     :Files<CR>
 nnoremap <silent> <leader>gs    :Gstatus<CR>
 if has('terminal') || has('nvim')
-  nnoremap <leader>tw :cd `=GetCurrentBufferDir()`<CR>:T<CR>
-  nnoremap <leader>ts :cd `=GetCurrentBufferDir()`<CR>:TS<CR>
-  nnoremap <leader>tv :cd `=GetCurrentBufferDir()`<CR>:TV<CR>
-  nnoremap <leader>tt :cd `=GetCurrentBufferDir()`<CR>:TT<CR>
+  nnoremap <leader>tw :cd `=GetCurrentBufferDir()`<CR>:T<CR><C-\><C-n>:cd -<CR>i
+  nnoremap <leader>ts :cd `=GetCurrentBufferDir()`<CR>:TS<CR><C-\><C-n>:cd -<CR>i
+  nnoremap <leader>tv :cd `=GetCurrentBufferDir()`<CR>:TV<CR><C-\><C-n>:cd -<CR>i
+  nnoremap <leader>tt :cd `=GetCurrentBufferDir()`<CR>:TT<CR><C-\><C-n>:cd -<CR>i
 endif
 " misc
 " -- cscope: find functions calling this function

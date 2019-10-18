@@ -495,9 +495,9 @@ let g:startify_custom_header = [
       \ '    \  /  | | | | | | |',
       \ '     \/   |_|_| |_| |_|',
       \]
-let g:startify_commands = [':Scratch']
+let g:startify_commands = [':Scratch', ':PlugClean' , ':PlugInstall', ':PlugUpdate']
 let g:startify_lists = [
-      \ { 'type': 'commands',  'indices': ['s'] },
+      \ { 'type': 'commands',  'indices': ['s', 'c', 'i', 'u'] },
       \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
       \ { 'type': 'files',     'header': ['   MRU']            },
       \ { 'type': 'sessions',  'header': ['   Sessions']       },
