@@ -1,0 +1,7 @@
+# https://www.linuxdeveloper.space/install-unity-linux/
+
+You can find the Unity Hub setup file in here:
+https://public-cdn.cloud.unity3d.com/hub/prod/UnityHub.AppImage
+
+cd /path/to/download/dir
+sudo chmod +x UnityHub.AppImage
