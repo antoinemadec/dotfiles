@@ -2,8 +2,6 @@
 Choose what backgound image to display
 """
 
-import os
-
 
 class Py3status:
     cache_timeout = 10
