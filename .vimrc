@@ -55,6 +55,7 @@ Plug 'vim-scripts/luarefvim', { 'for' : 'lua' }                   " lua referenc
 Plug 'davidhalter/jedi-vim', {'for': 'python'}                    " jedi completion (python)
 Plug 'zchee/deoplete-jedi', {'for': 'python'}                     " deoplete: add python support
 Plug 'zchee/deoplete-clang', {'for': 'cpp'}                       " deoplete: add c++ support
+Plug 'OmniSharp/omnisharp-vim', {'for': 'cs'}                     " deoplete: add c# support
 Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}           " PEP8 compatible multi line indentation
 Plug 'vhda/verilog_systemverilog.vim',
       \ {'for': 'verilog_systemverilog'}                          " Vim Syntax Plugin for Verilog and SystemVerilog
@@ -274,6 +275,7 @@ if v:version >= 800
 endif
 
 " c++
+autocmd FileType c,cpp setlocal completeopt-=preview " no preview for deoplete
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-7/lib/libclang.so.1'
 let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-7/lib/clang'
 if $LIBCLANG_PATH != ""
@@ -285,6 +287,10 @@ endif
 if filereadable( $CSCOPE_DB . "/compile_commands.json")
   let g:deoplete#sources#clang#clang_complete_database = $CSCOPE_DB
 endif
+
+" c#
+autocmd FileType cs setlocal completeopt-=preview " no preview for deoplete
+let g:OmniSharp_start_without_solution = 1 " start server in current dir if no solution file
 
 command! ToggleCompletion call ToggleCompletion()
 function ToggleCompletion()
@@ -358,7 +364,6 @@ let g:verilog_instance_skip_last_coma = 1
 " cpp
 "--------------------------------------------------------------
 autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
-autocmd FileType c,cpp setlocal completeopt-=preview " no preview for deoplete
 if filereadable("cscope.out")
   cs add cscope.out
 elseif $CSCOPE_DB != ""
