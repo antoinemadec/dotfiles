@@ -136,6 +136,7 @@ nnoremap <silent> <A-S-Left>    <C-w>H
 nnoremap <silent> <A-S-Down>    <C-w>J
 nnoremap <silent> <A-S-Up>      <C-w>K
 nnoremap <silent> <A-S-Right>   <C-w>L
+
 " tab movement
 if has('terminal') || has('nvim')
   tnoremap <C-A-Left>           <C-\><C-n>gT
@@ -147,8 +148,10 @@ nnoremap <silent> <C-A-Left>    gT
 nnoremap <silent> <C-A-Right>   gt
 nnoremap <silent> <C-A-S-Left>  :call MoveToPrevTab()<cr>
 nnoremap <silent> <C-A-S-Right> :call MoveToNextTab()<cr>
+
 " function keys
 call Mapping(1, 0)
+
 " leader (inspired by Janus)
 if has('terminal')
   tnoremap <script> <leader>be  vim_server_cmd 'Buffers'<CR>
@@ -165,17 +168,27 @@ nnoremap <silent> <leader>es    :sp `=GetCurrentBufferDir()`<CR>
 nnoremap <silent> <leader>ev    :vsp `=GetCurrentBufferDir()`<CR>
 nnoremap <silent> <leader>et    :tabe `=GetCurrentBufferDir()`<CR>
 nnoremap <silent> <leader>cd    :cd `=GetCurrentBufferDir()`<CR>
-nnoremap <silent> <leader>r     :RunCurrentBuffer<CR>
-nnoremap <silent> <leader>t     :RunAndTimeCurrentBuffer<CR>
 nnoremap <silent> <leader>/     :Lines<CR>
 nnoremap <silent> <leader>f     :Files<CR>
-nnoremap <silent> <leader>gs    :Gstatus<CR>
+nnoremap <silent> <leader>s     :Gstatus<CR>
 if has('terminal') || has('nvim')
   nnoremap <leader>tw :cd `=GetCurrentBufferDir()`<CR>:T<CR><C-\><C-n>:cd -<CR>i
   nnoremap <leader>ts :cd `=GetCurrentBufferDir()`<CR>:TS<CR><C-\><C-n>:cd -<CR>i
   nnoremap <leader>tv :cd `=GetCurrentBufferDir()`<CR>:TV<CR><C-\><C-n>:cd -<CR>i
   nnoremap <leader>tt :cd `=GetCurrentBufferDir()`<CR>:TT<CR><C-\><C-n>:cd -<CR>i
 endif
+
+" filetype specific
+" -- go to definition
+autocmd FileType python nnoremap <buffer> <silent> <leader>g :call jedi#goto()<CR>
+autocmd FileType cs nnoremap <buffer> <silent> <leader>g :OmniSharpGotoDefinition<CR>
+autocmd FileType verilog_systemverilog nnoremap <buffer> <silent> <leader>i :VerilogFollowInstance<CR>
+autocmd FileType verilog_systemverilog nnoremap <buffer> <silent> <leader>I :VerilogFollowPort<CR>
+" -- run/make
+nnoremap <silent> <leader>r                       :RunCurrentBuffer<CR>
+nnoremap <silent> <leader>t                       :RunAndTimeCurrentBuffer<CR>
+autocmd FileType java nnoremap <buffer> <leader>r :RunJavaCurrentBuffer<CR>
+
 " misc
 " -- cscope: find functions calling this function
 map <C-\> :cs find 3 <C-R>=expand("<cword>")<CR><CR>

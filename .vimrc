@@ -298,7 +298,6 @@ function ToggleCompletion()
     call deoplete#disable()
     echom "Deoplete disabled"
   else
-    nnoremap <leader>g :call jedi#goto()<CR>
     " use TAB to complete
     inoremap <silent><expr> <TAB>
           \ pumvisible() ? "\<C-n>" :
@@ -354,8 +353,6 @@ autocmd FileType verilog_systemverilog let b:surround_45 = "begin \r end"
 autocmd FileType verilog_systemverilog setlocal commentstring=//%s
 
 " verilog_systemverilog
-nnoremap <leader>i :VerilogFollowInstance<CR>
-nnoremap <leader>I :VerilogFollowPort<CR>
 let g:verilog_disable_indent_lst = "eos"
 
 let g:verilog_instance_skip_last_coma = 1
@@ -374,7 +371,6 @@ endif
 " java
 "--------------------------------------------------------------
 autocmd FileType java setlocal shiftwidth=4 tabstop=4
-autocmd FileType java nnoremap <buffer> <leader>r :RunJavaCurrentBuffer<CR>
 
 "--------------------------------------------------------------
 " terminal
