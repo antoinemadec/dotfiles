@@ -178,13 +178,13 @@ if has('terminal') || has('nvim')
   nnoremap <leader>tt :cd `=GetCurrentBufferDir()`<CR>:TT<CR><C-\><C-n>:cd -<CR>i
 endif
 
-" filetype specific
-" -- go to definition
-autocmd FileType python nnoremap <buffer> <silent> <leader>g :call jedi#goto()<CR>
-autocmd FileType cs nnoremap <buffer> <silent> <leader>g :OmniSharpGotoDefinition<CR>
+" doc
+nnoremap <silent> K :call DisplayDoc()<CR>
+" go to definition
+nnoremap <silent> <leader>g :call GoToDefinition()<CR>
 autocmd FileType verilog_systemverilog nnoremap <buffer> <silent> <leader>i :VerilogFollowInstance<CR>
 autocmd FileType verilog_systemverilog nnoremap <buffer> <silent> <leader>I :VerilogFollowPort<CR>
-" -- run/make
+" run/make
 nnoremap <silent> <leader>r                       :RunCurrentBuffer<CR>
 nnoremap <silent> <leader>t                       :RunAndTimeCurrentBuffer<CR>
 autocmd FileType java nnoremap <buffer> <leader>r :RunJavaCurrentBuffer<CR>
@@ -206,7 +206,6 @@ vnoremap <silent> # :<C-U>
       \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
       \gV:call setreg('"', old_reg, old_regtype)<CR>
 cmap w!! w !sudo tee > /dev/null %
-nnoremap <silent> K :call DisplayDoc()<CR>
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 nmap dO :%diffget<CR>:diffupdate<CR>

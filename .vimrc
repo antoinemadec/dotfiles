@@ -224,7 +224,7 @@ function! ToggleFoldEnable()
 endfunction
 
 "--------------------------------------------------------------
-" completion
+" completion, doc, definition, syntax check
 "--------------------------------------------------------------
 " multiple cursors compatibility
 func! Multiple_cursors_before()
@@ -241,56 +241,11 @@ func! Multiple_cursors_after()
   endif
 endfunc
 
-" close preview window
+" close preview window when completion is done
 au CompleteDone * pclose
 
-" systemverilog
-if v:version >= 800
-  call deoplete#custom#var('omni', 'functions', {
-        \ 'verilog_systemverilog': 'verilog_systemverilog#Complete',
-        \ })
-  call deoplete#custom#var('omni', 'input_patterns', {
-        \ 'verilog_systemverilog': '\w+[.:]+\w*',
-        \ })
-endif
-
-" python
-let g:deoplete#sources#jedi#python_path = 'python3'
-let g:deoplete#sources#jedi#show_docstring = 1
-let g:jedi#auto_initialization = 0
-let g:jedi#auto_vim_configuration = 0
-
-" lua
-let g:lua_check_syntax = 0
-let g:lua_complete_omni = 1
-let g:lua_complete_dynamic = 0
-let g:lua_define_completion_mappings = 0
-if v:version >= 800
-  call deoplete#custom#var('omni', 'functions', {
-        \ 'lua': 'xolox#lua#omnifunc',
-        \ })
-  call deoplete#custom#var('omni', 'input_patterns', {
-        \ 'lua': '\w+|\w+[.:]\w*',
-        \ })
-endif
-
-" c++
-autocmd FileType c,cpp setlocal completeopt-=preview " no preview for deoplete
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-7/lib/libclang.so.1'
-let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-7/lib/clang'
-if $LIBCLANG_PATH != ""
-  let g:deoplete#sources#clang#libclang_path = $LIBCLANG_PATH
-endif
-if $CLANG_HEADER != ""
-  let g:deoplete#sources#clang#clang_header = $CLANG_HEADER
-endif
-if filereadable( $CSCOPE_DB . "/compile_commands.json")
-  let g:deoplete#sources#clang#clang_complete_database = $CSCOPE_DB
-endif
-
-" c#
-autocmd FileType cs setlocal completeopt-=preview " no preview for deoplete
-let g:OmniSharp_start_without_solution = 1 " start server in current dir if no solution file
+" syntax check
+call neomake#configure#automake('nr')
 
 command! ToggleCompletion call ToggleCompletion()
 function ToggleCompletion()
@@ -327,14 +282,43 @@ function! DisplayDoc()
     redraw
     echom "https://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search="
           \ . l:cword
+  elseif &filetype == "cs"
+    OmniSharpDocumentation
   else
     execute "Man " . l:cword
   endif
 endfunction
 
+function! GoToDefinition()
+  let l:cword = expand('<cword>')
+  if &filetype == "python"
+    call jedi#goto()
+  elseif &filetype == "cs"
+    OmniSharpGotoDefinition
+  else
+    exe "tjump " . l:cword
+  endif
+endfunction
+
 "--------------------------------------------------------------
-" verilog
+" systemverilog
 "--------------------------------------------------------------
+if v:version >= 800
+  call deoplete#custom#var('omni', 'functions', {
+        \ 'verilog_systemverilog': 'verilog_systemverilog#Complete',
+        \ })
+  call deoplete#custom#var('omni', 'input_patterns', {
+        \ 'verilog_systemverilog': '\w+[.:]+\w*',
+        \ })
+endif
+
+" map '-' to 'begin end' surrounding
+autocmd FileType verilog_systemverilog let b:surround_45 = "begin \r end"
+autocmd FileType verilog_systemverilog setlocal commentstring=//%s
+
+let g:verilog_disable_indent_lst = "eos"
+let g:verilog_instance_skip_last_coma = 1
+
 let g:uvm_tags_is_on = 0
 let g:uvm_tags_path = "~/.vim/tags/UVM_CDNS-1.2"
 command! ToggleUVMTags call ToggleUVMTags()
@@ -348,23 +332,62 @@ function ToggleUVMTags()
   echo "UVM tags = " . g:uvm_tags_is_on
 endfunction
 
-" set commentstring, map '-' to 'begin end' surrounding
-autocmd FileType verilog_systemverilog let b:surround_45 = "begin \r end"
-autocmd FileType verilog_systemverilog setlocal commentstring=//%s
-
-" verilog_systemverilog
-let g:verilog_disable_indent_lst = "eos"
-
-let g:verilog_instance_skip_last_coma = 1
-
 "--------------------------------------------------------------
-" cpp
+" c cpp c++
 "--------------------------------------------------------------
 autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
+autocmd FileType c,cpp setlocal completeopt-=preview " no preview for deoplete
+
 if filereadable("cscope.out")
   cs add cscope.out
 elseif $CSCOPE_DB != ""
   cs add $CSCOPE_DB
+endif
+if filereadable( $CSCOPE_DB . "/compile_commands.json")
+  let g:deoplete#sources#clang#clang_complete_database = $CSCOPE_DB
+endif
+
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-7/lib/libclang.so.1'
+let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-7/lib/clang'
+if $LIBCLANG_PATH != ""
+  let g:deoplete#sources#clang#libclang_path = $LIBCLANG_PATH
+endif
+if $CLANG_HEADER != ""
+  let g:deoplete#sources#clang#clang_header = $CLANG_HEADER
+endif
+
+"--------------------------------------------------------------
+" c#
+"--------------------------------------------------------------
+autocmd FileType cs setlocal shiftwidth=4 tabstop=4
+autocmd FileType cs setlocal completeopt-=preview " no preview for deoplete
+
+let g:OmniSharp_highlight_types = 2
+let g:OmniSharp_start_without_solution = 1 " start server in current dir if no solution file
+
+"--------------------------------------------------------------
+" python
+"--------------------------------------------------------------
+let g:deoplete#sources#jedi#python_path = 'python3'
+let g:deoplete#sources#jedi#show_docstring = 1
+let g:jedi#auto_initialization = 0
+let g:jedi#auto_vim_configuration = 0
+
+"--------------------------------------------------------------
+" lua
+"--------------------------------------------------------------
+let g:lua_check_syntax = 0
+let g:lua_complete_omni = 1
+let g:lua_complete_dynamic = 0
+let g:lua_define_completion_mappings = 0
+
+if v:version >= 800
+  call deoplete#custom#var('omni', 'functions', {
+        \ 'lua': 'xolox#lua#omnifunc',
+        \ })
+  call deoplete#custom#var('omni', 'input_patterns', {
+        \ 'lua': '\w+|\w+[.:]\w*',
+        \ })
 endif
 
 "--------------------------------------------------------------
@@ -516,6 +539,3 @@ let g:indentLine_bufTypeExclude = ['help', 'terminal', 'popup', 'quickfix']
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeWinPos = "right"
 let g:NERDTreeHijackNetrw = 0
-
-" neomake
-call neomake#configure#automake('nr')
