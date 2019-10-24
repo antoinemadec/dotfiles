@@ -103,6 +103,9 @@ set ignorecase smartcase       " pattern with at least one uppercase character: 
 set cscopetag                  " cstag performs the equivalent of tjump when searching through tags file
 set cscopetagorder=1           " tag files searched before cscopte database
 set cscoperelative             " basename of cscope.out is be used as the prefix
+" complete preview popup
+set completeopt+=popup,menuone,longest
+set completepopup+=border:off,highlight:PmenuThumb
 set t_ut=                      " do not use term color for clearing
 if $TERM_FANCY_CURSOR == 'true'
   let &t_SI = "\e[6 q"         " allow thin cursor in insert mode
@@ -336,7 +339,6 @@ endfunction
 " c cpp c++
 "--------------------------------------------------------------
 autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
-autocmd FileType c,cpp setlocal completeopt-=preview " no preview for deoplete
 
 if filereadable("cscope.out")
   cs add cscope.out
@@ -360,7 +362,6 @@ endif
 " c#
 "--------------------------------------------------------------
 autocmd FileType cs setlocal shiftwidth=4 tabstop=4
-autocmd FileType cs setlocal completeopt-=preview " no preview for deoplete
 
 let g:OmniSharp_highlight_types = 2
 let g:OmniSharp_start_without_solution = 1 " start server in current dir if no solution file
