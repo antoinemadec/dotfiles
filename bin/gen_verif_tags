@@ -41,7 +41,7 @@ do
 done
 
 uctags \
-  --languages=systemverilog,c++,c \
+  --languages=verilog,systemverilog,c++,c \
   --extras=+q \
   --fields=+i \
   --exclude=.git \
