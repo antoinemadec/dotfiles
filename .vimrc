@@ -535,6 +535,7 @@ let g:matchup_matchparen_status_offscreen = 0
 " indent line
 let g:indentLine_fileTypeExclude = ['text', 'startify', 'defx']
 let g:indentLine_bufTypeExclude = ['help', 'terminal', 'popup', 'quickfix']
+let g:indentLine_char = '│'
 
 " nerdtree
 let g:NERDTreeShowHidden = 1
