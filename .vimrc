@@ -102,9 +102,12 @@ set ignorecase smartcase       " pattern with at least one uppercase character: 
 set cscopetag                  " cstag performs the equivalent of tjump when searching through tags file
 set cscopetagorder=1           " tag files searched before cscopte database
 set cscoperelative             " basename of cscope.out is be used as the prefix
+set completeopt+=menuone,longest
 " complete preview popup
-set completeopt+=popup,menuone,longest
-set completepopup+=border:off,highlight:PmenuThumb
+if !has('nvim')
+  set completeopt+=popup
+  set completepopup+=border:off,highlight:PmenuThumb
+endif
 set t_ut=                      " do not use term color for clearing
 if $TERM_FANCY_CURSOR == 'true'
   let &t_SI = "\e[6 q"         " allow thin cursor in insert mode

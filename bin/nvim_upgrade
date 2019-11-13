@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -e
+
+mkdir -p ~/src
+cd ~/src
+
+if !(git clone https://github.com/neovim/neovim)
+then
+  cd neovim
+  git pull
+else
+  cd neovim
+fi
+
+make CMAKE_BUILD_TYPE=RelWithDebInfo
+sudo make install
