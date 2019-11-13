@@ -2,5 +2,6 @@
 
 for vs in $(vim --serverlist)
 do
-  vim --servername $vs --remote-send "<C-\><C-N>:wqa!<CR>"
+  vim --servername $vs --remote-send "<C-\><C-N>:wa!<CR>"
+  vim --servername $vs --remote-send "<C-\><C-N>:qa!<CR>"
 done
