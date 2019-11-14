@@ -37,25 +37,8 @@ Plug 'mhinz/vim-startify'                                         " start screen
 Plug 'Yggdroot/indentLine'                                        " display thin vertical lines at each indentation level
 Plug 'andymass/vim-matchup'                                       " replacement for the vim plugin matchit.vim
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}              " file explorer
-Plug 'neomake/neomake'                                            " asyncronous Syntastic
-Plug 'sinetoami/lightline-neomake'                                " neomake info for lightline
-if v:version >= 800
-  Plug 'Shougo/deoplete.nvim'                                     " extensible and asynchronous completion for neovim/Vim8
-  Plug 'Shougo/neoinclude.vim'                                    " completion: includes, headers etc
-endif
-if !has('nvim')
-  Plug 'roxma/nvim-yarp'                                          " needed by deoplete
-  Plug 'roxma/vim-hug-neovim-rpc'                                 " needed by deoplete
-endif
 " filetype specific
-Plug 'artur-shaik/vim-javacomplete2', { 'for' : 'java' }          " add omnifunc used by deoplete; requires 'apt install default-jdk'
-Plug 'xolox/vim-misc', { 'for' : 'lua' }                          " needed by vim-lua-ftplugin
-Plug 'xolox/vim-lua-ftplugin', { 'for' : 'lua' }                  " add omnifunc used by deoplete
-Plug 'vim-scripts/luarefvim', { 'for' : 'lua' }                   " lua reference doc: use K to open
-Plug 'davidhalter/jedi-vim', {'for': 'python'}                    " jedi completion (python)
-Plug 'zchee/deoplete-jedi', {'for': 'python'}                     " deoplete: add python support
-Plug 'zchee/deoplete-clang', {'for': 'cpp'}                       " deoplete: add c++ support
-Plug 'OmniSharp/omnisharp-vim', {'for': 'cs'}                     " deoplete: add c# support
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}           " PEP8 compatible multi line indentation
 Plug 'vhda/verilog_systemverilog.vim',
       \ {'for': 'verilog_systemverilog'}                          " Vim Syntax Plugin for Verilog and SystemVerilog
@@ -231,92 +214,13 @@ endfunction
 "--------------------------------------------------------------
 " completion, doc, definition, syntax check
 "--------------------------------------------------------------
-" multiple cursors compatibility
-func! Multiple_cursors_before()
-  if deoplete#is_enabled()
-    call deoplete#disable()
-    let g:deoplete_is_enable_before_multi_cursors = 1
-  else
-    let g:deoplete_is_enable_before_multi_cursors = 0
-  endif
-endfunc
-func! Multiple_cursors_after()
-  if g:deoplete_is_enable_before_multi_cursors
-    call deoplete#enable()
-  endif
-endfunc
-
 " close preview window when completion is done
 au CompleteDone * pclose
-
-" syntax check
-call neomake#configure#automake('nr')
-
-command! ToggleCompletion call ToggleCompletion()
-function ToggleCompletion()
-  if deoplete#is_enabled()
-    call deoplete#disable()
-    echom "Deoplete disabled"
-  else
-    " use TAB to complete
-    inoremap <silent><expr> <TAB>
-          \ pumvisible() ? "\<C-n>" :
-          \ <SID>check_back_space() ? "\<TAB>" :
-          \ deoplete#manual_complete()
-    function! s:check_back_space() abort "{{{
-      let col = col('.') - 1
-      return !col || getline('.')[col - 1]  =~ '\s'
-    endfunction"}}}
-    call deoplete#enable()
-    echom "Deoplete enabled"
-  endif
-endfunction
-
-function! DisplayDoc()
-  let l:cword = expand('<cword>')
-  if &filetype == "python"
-    let l:pydoc_stdout = system("pydoc3 " . l:cword)
-    if l:pydoc_stdout[1:32] != "o Python documentation found for"
-      Scratch | 0 put =l:pydoc_stdout | normal gg
-      set ft=man
-    endif
-  elseif &filetype == "c" || &filetype == "cpp"
-    if execute("Man 3 " . l:cword) =~ 'Cannot find a '
-      let l:man_output = execute("Man 3 std::" . l:cword)
-    endif
-    redraw
-    echom "https://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search="
-          \ . l:cword
-  elseif &filetype == "cs"
-    OmniSharpDocumentation
-  else
-    execute "Man " . l:cword
-  endif
-endfunction
-
-function! GoToDefinition()
-  let l:cword = expand('<cword>')
-  if &filetype == "python"
-    call jedi#goto()
-  elseif &filetype == "cs"
-    OmniSharpGotoDefinition
-  else
-    exe "tjump " . l:cword
-  endif
-endfunction
+source ~/.vim/my_coc.vim
 
 "--------------------------------------------------------------
 " systemverilog
 "--------------------------------------------------------------
-if v:version >= 800
-  call deoplete#custom#var('omni', 'functions', {
-        \ 'verilog_systemverilog': 'verilog_systemverilog#Complete',
-        \ })
-  call deoplete#custom#var('omni', 'input_patterns', {
-        \ 'verilog_systemverilog': '\w+[.:]+\w*',
-        \ })
-endif
-
 " map '-' to 'begin end' surrounding
 autocmd FileType verilog_systemverilog let b:surround_45 = "begin \r end"
 autocmd FileType verilog_systemverilog setlocal commentstring=//%s
@@ -347,51 +251,19 @@ if filereadable("cscope.out")
 elseif $CSCOPE_DB != ""
   cs add $CSCOPE_DB
 endif
-if filereadable( $CSCOPE_DB . "/compile_commands.json")
-  let g:deoplete#sources#clang#clang_complete_database = $CSCOPE_DB
-endif
-
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-7/lib/libclang.so.1'
-let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-7/lib/clang'
-if $LIBCLANG_PATH != ""
-  let g:deoplete#sources#clang#libclang_path = $LIBCLANG_PATH
-endif
-if $CLANG_HEADER != ""
-  let g:deoplete#sources#clang#clang_header = $CLANG_HEADER
-endif
 
 "--------------------------------------------------------------
 " c#
 "--------------------------------------------------------------
 autocmd FileType cs setlocal shiftwidth=4 tabstop=4
 
-let g:OmniSharp_highlight_types = 2
-let g:OmniSharp_start_without_solution = 1 " start server in current dir if no solution file
-
 "--------------------------------------------------------------
 " python
 "--------------------------------------------------------------
-let g:deoplete#sources#jedi#python_path = 'python3'
-let g:deoplete#sources#jedi#show_docstring = 1
-let g:jedi#auto_initialization = 0
-let g:jedi#auto_vim_configuration = 0
 
 "--------------------------------------------------------------
 " lua
 "--------------------------------------------------------------
-let g:lua_check_syntax = 0
-let g:lua_complete_omni = 1
-let g:lua_complete_dynamic = 0
-let g:lua_define_completion_mappings = 0
-
-if v:version >= 800
-  call deoplete#custom#var('omni', 'functions', {
-        \ 'lua': 'xolox#lua#omnifunc',
-        \ })
-  call deoplete#custom#var('omni', 'input_patterns', {
-        \ 'lua': '\w+|\w+[.:]\w*',
-        \ })
-endif
 
 "--------------------------------------------------------------
 " java
