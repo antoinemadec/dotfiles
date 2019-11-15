@@ -18,7 +18,6 @@ Plug 'junegunn/fzf',
 Plug 'junegunn/fzf.vim'                                           " fuzzy search in a dir
 Plug 'junegunn/vim-easy-align'                                    " easy alignment of line fields
 Plug 'antoinemadec/vim-highlight-groups'                          " add words in highlight groups on the fly
-Plug 'vim-scripts/vcscommand.vim'                                 " diff CVS SVN and GIT files with remote version
 Plug 'tpope/vim-fugitive'                                         " Git wrapper
 Plug 'tpope/vim-surround'                                         " delete, change and add surroundings in pairs
 Plug 'tpope/vim-commentary'                                       " comment stuff out
@@ -214,20 +213,28 @@ endfunction
 "--------------------------------------------------------------
 " completion, doc, definition, syntax check
 "--------------------------------------------------------------
-" close preview window when completion is done
-au CompleteDone * pclose
 source ~/.vim/my_coc.vim
 
+command! ToggleCompletion call ToggleCompletion()
+function ToggleCompletion()
+  if g:coc_enabled
+    CocDisable
+    echom "Coc disabled"
+  else
+    CocEnable
+    echom "Coc enabled"
+  endif
+endfunction
+
 "--------------------------------------------------------------
-" systemverilog
+" language specific
 "--------------------------------------------------------------
-" map '-' to 'begin end' surrounding
+" SystemVerilog
+" -- map '-' to 'begin end' surrounding
 autocmd FileType verilog_systemverilog let b:surround_45 = "begin \r end"
 autocmd FileType verilog_systemverilog setlocal commentstring=//%s
-
 let g:verilog_disable_indent_lst = "eos"
 let g:verilog_instance_skip_last_coma = 1
-
 let g:uvm_tags_is_on = 0
 let g:uvm_tags_path = "~/.vim/tags/UVM_CDNS-1.2"
 command! ToggleUVMTags call ToggleUVMTags()
@@ -241,33 +248,18 @@ function ToggleUVMTags()
   echo "UVM tags = " . g:uvm_tags_is_on
 endfunction
 
-"--------------------------------------------------------------
 " c cpp c++
-"--------------------------------------------------------------
 autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
-
 if filereadable("cscope.out")
   cs add cscope.out
 elseif $CSCOPE_DB != ""
   cs add $CSCOPE_DB
 endif
 
-"--------------------------------------------------------------
 " c#
-"--------------------------------------------------------------
 autocmd FileType cs setlocal shiftwidth=4 tabstop=4
 
-"--------------------------------------------------------------
-" python
-"--------------------------------------------------------------
-
-"--------------------------------------------------------------
-" lua
-"--------------------------------------------------------------
-
-"--------------------------------------------------------------
 " java
-"--------------------------------------------------------------
 autocmd FileType java setlocal shiftwidth=4 tabstop=4
 
 "--------------------------------------------------------------

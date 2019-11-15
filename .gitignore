@@ -6,3 +6,7 @@
 .vimperator/info
 .vim/tags
 __pycache__
+.config/coc/*
+!.config/coc/extensions
+.config/coc/extensions/*
+!.config/coc/extensions/package.json

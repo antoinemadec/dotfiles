@@ -10,7 +10,7 @@ let g:lightline = {
   \   'left': [ [ 'foldinfo', 'mode', 'paste' ],
   \             [ 'readonly', 'myrelativepath', 'mymodified' ],
   \             [ 'version_control' ],
-  \             ['neomake_warnings', 'neomake_errors'] ],
+  \             ['mycocstatus'] ],
   \   'right': [ [ 'lineinfo' ],
   \              [ 'percentwin' ],
   \              [ 'spell', 'filetype' ],
@@ -27,17 +27,20 @@ let g:lightline = {
   \ 'component_expand': {
   \   'myrelativepath': 'MyRelativePath',
   \   'foldinfo': 'FoldInfo',
-  \   'neomake_warnings': 'lightline#neomake#warnings',
-  \   'neomake_errors': 'lightline#neomake#errors',
+  \   'mycocstatus': 'MyCocStatus',
   \   'detecttrailingspace': 'DetectTrailingSpace'
   \ },
   \ 'component_type': {
   \   'foldinfo': 'middle',
-  \   'neomake_warnings': 'warning',
-  \   'neomake_errors': 'error',
+  \   'mycocstatus': 'warning',
   \   'detecttrailingspace': 'error'
   \ },
   \ }
+
+function! MyCocStatus()
+  let l:status_arr = split(coc#status())
+  return l:status_arr[0]
+endfunction
 
 function! MyRelativePath()
   if &buftype == 'quickfix'

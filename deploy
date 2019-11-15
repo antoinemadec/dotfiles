@@ -20,25 +20,26 @@ deploy_core(){
   ln -sv $target $link_name
 }
 
-deploy_core .vim
-deploy_core .vimrc
-deploy_core .vim   .config/nvim
-deploy_core .vimrc .config/nvim/init.vim
-deploy_core .gitconfig
-deploy_core .emacs
-deploy_core .bashrc
 deploy_core .bash_profile
-deploy_core .tmux.conf
-deploy_core .toprc
-deploy_core .screenrc
+deploy_core .bashrc
+deploy_core bin
+deploy_core .config/compton.conf
+deploy_core .config/coc
+deploy_core .config/emoji
+deploy_core .config/flake8
+deploy_core .config/htop
 deploy_core .config/i3
 deploy_core .config/terminator
-deploy_core .config/htop
 deploy_core .config/termite
-deploy_core .config/compton.conf
-deploy_core .config/flake8
-deploy_core .config/emoji
 deploy_core .ctags
+deploy_core .emacs
+deploy_core .gitconfig
+deploy_core .screenrc
+deploy_core .tmux.conf
+deploy_core .toprc
+deploy_core .vim
+deploy_core .vim   .config/nvim
+deploy_core .vimrc
+deploy_core .vimrc .config/nvim/init.vim
 deploy_core .vnc/passwd
 deploy_core .Xresources
-deploy_core bin

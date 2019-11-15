@@ -171,6 +171,8 @@ nnoremap <silent> <leader>cd    :cd `=GetCurrentBufferDir()`<CR>
 nnoremap <silent> <leader>/     :Lines<CR>
 nnoremap <silent> <leader>f     :Files<CR>
 nnoremap <silent> <leader>s     :Gstatus<CR>
+nnoremap <silent> <leader>cv    :Gdiffsplit<CR>
+nnoremap <silent> <leader>cn    :Gblame<CR>
 if has('terminal') || has('nvim')
   nnoremap <leader>tw :cd `=GetCurrentBufferDir()`<CR>:T<CR><C-\><C-n>:cd -<CR>i
   nnoremap <leader>ts :cd `=GetCurrentBufferDir()`<CR>:TS<CR><C-\><C-n>:cd -<CR>i
@@ -178,12 +180,6 @@ if has('terminal') || has('nvim')
   nnoremap <leader>tt :cd `=GetCurrentBufferDir()`<CR>:TT<CR><C-\><C-n>:cd -<CR>i
 endif
 
-" doc
-nnoremap <silent> K :call DisplayDoc()<CR>
-" go to definition
-nnoremap <silent> <leader>g :call GoToDefinition()<CR>
-autocmd FileType verilog_systemverilog nnoremap <buffer> <silent> <leader>i :VerilogFollowInstance<CR>
-autocmd FileType verilog_systemverilog nnoremap <buffer> <silent> <leader>I :VerilogFollowPort<CR>
 " run/make
 nnoremap <silent> <leader>r                       :RunCurrentBuffer<CR>
 nnoremap <silent> <leader>t                       :RunAndTimeCurrentBuffer<CR>
