@@ -3,7 +3,8 @@
 Nvim
     F5 F6 mappings
     Copy/Paste
-    remove line number in terminal
 
 Coc
     Look into formatting
+    Remove left bar when no error
+    Add formatting error in left bar

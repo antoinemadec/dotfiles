@@ -72,8 +72,9 @@ augroup CursorLine
     au VimEnter,WinEnter,BufEnter * setlocal cursorline
     au WinLeave * setlocal nocursorline
 augroup END
-if exists("&relativenumber")
-  set number relativenumber    " show the line number relative to the line with the cursor
+set number relativenumber    " show the line number relative to the line with the cursor
+if has('nvim')
+  au TermOpen * setlocal nonumber norelativenumber
 endif
 set mouse=a                    " allow to resize and copy/paste without selecting text outside of the window
 set title                      " change terminal title
