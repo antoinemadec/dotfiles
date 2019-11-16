@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+sudo -nv || { echo "Use sudo in this terminal before running the script"; exit 1; }
+
+# nodejs
+curl -sL https://rpm.nodesource.com/setup_12.x | sudo -E bash -
+sudo yum install nodejs
+
+# snap
+# sudo rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+# sudo subscription-manager repos --enable "rhel-*-optional-rpms" --enable "rhel-*-extras-rpms"
+# sudo yum update
+sudo yum install snapd
+sudo systemctl enable --now snapd.socket
+sudo ln -s /var/lib/snapd/snap /snap
+
+# language server
+sudo npm i -g bash-language-server
+sudo snap install ccls --classic

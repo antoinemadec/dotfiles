@@ -4,8 +4,6 @@
 "   TERM_FANCY_CURSOR     : enable thin insert cursor if 'true'
 "   TERM_BRACKETED_PASTE  : disable bracketed paste if not 'true'
 "   CSCOPE_DB             : cscope database, compile_commands.json
-"   LIBCLANG_PATH         : overrides g:deoplete#sources#clang#libclang_path
-"   CLANG_HEADER          : overrides g:deoplete#sources#clang#clang_header
 
 "--------------------------------------------------------------
 " plugins
