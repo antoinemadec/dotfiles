@@ -1,0 +1,9 @@
+# vim: ft=indentcolor spell
+
+Nvim
+    F5 F6 mappings
+    Copy/Paste
+    remove line number in terminal
+
+Coc
+    Look into formatting

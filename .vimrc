@@ -56,7 +56,9 @@ endif
 set nocompatible               " get rid of vi compatibility
 set nobackup                   " don't keep a backup file
 set textwidth=0                " don't wrap words by default
-set wildmode=longest,list,full " wildchar completion mode
+if !has('nvim')
+  set wildmode=longest,list,full " wildchar completion mode
+endif
 set hlsearch                   " highlight search
 set expandtab                  " tab expand to space
 set tabstop=2                  " number of spaces that a <Tab> in the file counts for
@@ -384,7 +386,10 @@ let g:startify_custom_header = [
       \ '    \  /  | | | | | | |',
       \ '     \/   |_|_| |_| |_|',
       \]
-let g:startify_commands = [':Scratch', ':PlugClean' , ':PlugInstall', ':PlugUpdate']
+let g:startify_commands = [':Scratch',
+      \ ':PlugClean' ,
+      \ ':PlugInstall | CocInstall',
+      \ ':PlugUpdate  | CocUpdate']
 let g:startify_lists = [
       \ { 'type': 'commands',  'indices': ['s', 'c', 'i', 'u'] },
       \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
