@@ -1,7 +1,6 @@
 # vim: ft=indentcolor spell
 
 Nvim
-    F5 F6 mappings
     Copy/Paste
 
 Coc

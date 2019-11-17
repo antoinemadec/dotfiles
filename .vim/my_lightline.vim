@@ -39,7 +39,11 @@ let g:lightline = {
 
 function! MyCocStatus()
   let l:status_arr = split(coc#status())
-  return l:status_arr[0]
+  if l:status_arr[0][0] == "W" || l:status_arr[0][0] == "E"
+    return l:status_arr[0]
+  else
+    return ""
+  endif
 endfunction
 
 function! MyRelativePath()
@@ -55,6 +59,7 @@ function! MyModified()
     return ''
   else
     return &modified ? '+' : &modifiable ? '' : '-'
+  endif
 endfunction
 
 if has('job') || has('nvim')

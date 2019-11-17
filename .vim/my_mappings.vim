@@ -4,22 +4,22 @@
 function Mapping(idx, ...)
   let l:open_help = get(a:, 1, 1)
   if (a:idx == 1)
-    nnoremap <silent> <F1>    :call Mapping(1)<CR>
-    inoremap <silent> <F1>    <C-o>:call Mapping(1)<CR>
-    nnoremap <silent> <F2>    :call Mapping(2)<CR>
-    inoremap <silent> <F2>    <C-o>:call Mapping(2)<CR>
-    nnoremap <silent> <F3>    :set spell!<CR>
-    inoremap <silent> <F3>    <C-o>:set spell!<CR>
-    nnoremap <silent> <F4>    :ToggleCompletion<CR>
-    inoremap <silent> <F4>    <C-o>:ToggleCompletion<CR>
-    nnoremap <silent> <F5>    :exe "HighlightGroupsAddWord " . hg0 . " 1"<CR>
-    nnoremap <silent> <F6>    :exe "HighlightGroupsAddWord " . hg1 . " 1"<CR>
-    nnoremap <silent> <C-F5>  :exe "HighlightGroupsClearGroup " . hg0 . " 1"<CR>
-    nnoremap <silent> <C-F6>  :exe "HighlightGroupsClearGroup " . hg1 . " 1"<CR>
-    nnoremap <silent> <F7>    :call ToggleTrailingSpace()<CR>
-    noremap  <silent> <F8>    :call asyncrun#quickfix_toggle(8)<CR>
-    nnoremap <silent> <F9>    :TagbarToggle<CR>
-    nnoremap <silent> <F10>   :NERDTreeToggle<CR>
+    nnoremap <silent> <F1>          :call Mapping(1)<CR>
+    inoremap <silent> <F1>    <C-o> :call Mapping(1)<CR>
+    nnoremap <silent> <F2>          :call Mapping(2)<CR>
+    inoremap <silent> <F2>    <C-o> :call Mapping(2)<CR>
+    nnoremap <silent> <F3>          :set spell!<CR>
+    inoremap <silent> <F3>    <C-o> :set spell!<CR>
+    nnoremap <silent> <F4>          :ToggleCompletion<CR>
+    inoremap <silent> <F4>    <C-o> :ToggleCompletion<CR>
+    nnoremap <silent> <F5>          :exe "HighlightGroupsAddWord " . hg0 . " 1"<CR>
+    nnoremap <silent> <F6>          :exe "HighlightGroupsAddWord " . hg1 . " 1"<CR>
+    nnoremap <silent> <leader><F5>  :exe "HighlightGroupsClearGroup " . hg0 . " 1"<CR>
+    nnoremap <silent> <leader><F6>  :exe "HighlightGroupsClearGroup " . hg1 . " 1"<CR>
+    nnoremap <silent> <F7>          :call ToggleTrailingSpace()<CR>
+    noremap  <silent> <F8>          :call asyncrun#quickfix_toggle(8)<CR>
+    nnoremap <silent> <F9>          :TagbarToggle<CR>
+    nnoremap <silent> <F10>         :NERDTreeToggle<CR>
     set pastetoggle=<F12>
   elseif (a:idx == 2)
     nnoremap <silent> <F1>    :call Mapping(1)<CR>
