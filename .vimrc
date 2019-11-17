@@ -34,6 +34,7 @@ Plug 'mhinz/vim-startify'                                         " start screen
 Plug 'Yggdroot/indentLine'                                        " display thin vertical lines at each indentation level
 Plug 'andymass/vim-matchup'                                       " replacement for the vim plugin matchit.vim
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}              " file explorer
+Plug 'honza/vim-snippets'                                         " snippets working with coc.nvim
 " filetype specific
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}           " PEP8 compatible multi line indentation
@@ -63,7 +64,6 @@ set hlsearch                   " highlight search
 set expandtab                  " tab expand to space
 set tabstop=2                  " number of spaces that a <Tab> in the file counts for
 set shiftwidth=2               " number of spaces to use for each step of (auto)indent
-set lazyredraw                 " no screen redrawing while executing macros, registers etc
 set isfname-=,                 " don't try to match certain characters in filename
 set isfname-==                 " don't try to match certain characters in filename
 " highlight current line
@@ -103,8 +103,6 @@ endif
 if $TERM_BRACKETED_PASTE != 'true'
   let &t_BE = ''
 endif
-let g:ft_man_no_sect_fallback = 1
-runtime! ftplugin/man.vim      " allow man to be displayed in vim
 
 "--------------------------------------------------------------
 " mappings

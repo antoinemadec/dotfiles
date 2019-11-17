@@ -41,6 +41,7 @@ sudo apt -y install cmake
 sudo apt -y install python3-pip
 sudo pip3 -y install setuptools
 sudo pip3 -y install pynvim
+sudo pip3 -y install neovim-remote
 
 print_banner "fonts"
 sudo apt -y install fonts-inconsolata

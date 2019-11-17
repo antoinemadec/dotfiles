@@ -221,8 +221,11 @@ mkcd() {
 #--------------------------------------------------------------
 
 # use vim in Git and other programs
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR="$VISUAL"
+
+# remote nvim
+alias vvim='nvr'
 
 # source files
 for file in ~/bin/source/*

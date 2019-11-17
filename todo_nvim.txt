@@ -2,8 +2,11 @@
 
 Nvim
     Copy/Paste
+    terminal
 
 Coc
+    run \r
+    Search function names
     Look into formatting
     Remove left bar when no error
     Add formatting error in left bar

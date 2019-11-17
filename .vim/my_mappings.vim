@@ -180,6 +180,50 @@ if has('terminal') || has('nvim')
   nnoremap <leader>tt :cd `=GetCurrentBufferDir()`<CR>:TT<CR><C-\><C-n>:cd -<CR>i
 endif
 
+" completion
+" use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+" format the whole file
+nmap <leader>P <Plug>(coc-format)
+" remap for format selected region
+xmap <leader>p  <Plug>(coc-format-selected)
+nmap <leader>p  <Plug>(coc-format-selected)
+" using coclist
+" show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
 " run/make
 nnoremap <silent> <leader>r                       :RunCurrentBuffer<CR>
 nnoremap <silent> <leader>t                       :RunAndTimeCurrentBuffer<CR>
