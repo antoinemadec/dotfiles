@@ -5,8 +5,9 @@ Nvim
     terminal
 
 Coc
+    refresh lightline
     run \r
     Search function names
     Look into formatting
+        Add formatting error in left bar
     Remove left bar when no error
-    Add formatting error in left bar

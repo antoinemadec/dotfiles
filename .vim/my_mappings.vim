@@ -198,6 +198,8 @@ nmap <leader>P <Plug>(coc-format)
 " remap for format selected region
 xmap <leader>p  <Plug>(coc-format-selected)
 nmap <leader>p  <Plug>(coc-format-selected)
+" remap for rename current word
+nmap <leader>rn <Plug>(coc-refactor)
 " using coclist
 " show all diagnostics
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
