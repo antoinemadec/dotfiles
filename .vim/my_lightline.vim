@@ -39,12 +39,12 @@ let g:lightline = {
   \ }
 
 function! MyCocStatus()
-  let l:status_arr = split(coc#status())
-  if l:status_arr[0][0] == "W" || l:status_arr[0][0] == "E"
-    return l:status_arr[0]
-  else
-    return ""
+  let l:status_str = split(coc#status())[0]
+  if l:status_str[0] == "W" || l:status_str[0] == "E"
+    echom coc#status()
+    return l:status_str
   endif
+  return ""
 endfunction
 
 function! MyRelativePath()
