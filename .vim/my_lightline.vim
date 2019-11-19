@@ -1,5 +1,6 @@
 if v:version >= 704
   autocmd TextChanged,InsertLeave * call lightline#update()
+  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 else
   autocmd InsertLeave * call lightline#update()
 endif

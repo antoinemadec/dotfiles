@@ -3,7 +3,7 @@
 "   TERM_COLORS           : enable termguicolors if >= 256
 "   TERM_FANCY_CURSOR     : enable thin insert cursor if 'true'
 "   TERM_BRACKETED_PASTE  : disable bracketed paste if not 'true'
-"   CSCOPE_DB             : cscope database, compile_commands.json
+"   CSCOPE_DB             : cscope database
 
 "--------------------------------------------------------------
 " plugins
@@ -22,7 +22,6 @@ Plug 'tpope/vim-commentary'                                       " comment stuf
 Plug 'tpope/vim-sensible'                                         " vim defaults that everyone can agree on
 Plug 'tpope/vim-speeddating'                                      " use CTRL-A/CTRL-X to increment dates, times, and more
 Plug 'tpope/vim-repeat'                                           " remaps '.' in a way that plugins can tap into it
-Plug 'tpope/vim-unimpaired'                                       " complementary pairs of mapping
 Plug 'skywind3000/asyncrun.vim'                                   " run asynchronous bash commands
 Plug 'kana/vim-textobj-user'                                      " needed to add text object
 Plug 'kana/vim-textobj-line'                                      " add line text object for motion like 'dil'
@@ -401,7 +400,7 @@ let g:startify_change_to_dir = 0
 let g:matchup_matchparen_status_offscreen = 0
 
 " indent line
-let g:indentLine_fileTypeExclude = ['text', 'startify', 'defx']
+let g:indentLine_fileTypeExclude = ['text', 'startify', 'defx', 'json']
 let g:indentLine_bufTypeExclude = ['help', 'terminal', 'popup', 'quickfix']
 let g:indentLine_char = '│'
 
@@ -409,3 +408,12 @@ let g:indentLine_char = '│'
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeWinPos = "right"
 let g:NERDTreeHijackNetrw = 0
+
+" fzf
+command! -bang -nargs=? -complete=dir Files
+      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+command! -bang -nargs=* Ag
+      \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview(), <bang>0)
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler

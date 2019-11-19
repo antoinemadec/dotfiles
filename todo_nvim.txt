@@ -3,12 +3,12 @@
 Nvim
     Copy/Paste
     terminal
+    :command fuzzy, or at least dont prompt 1st choice
+    () "" {} etc
 
 Coc
     multi cursors
-    refresh lightline
     run \r
-    Search function names
     Look into formatting
         Add formatting error in left bar
     Remove left bar when no error
