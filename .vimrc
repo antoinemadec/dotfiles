@@ -56,9 +56,7 @@ endif
 set nocompatible               " get rid of vi compatibility
 set nobackup                   " don't keep a backup file
 set textwidth=0                " don't wrap words by default
-if !has('nvim')
-  set wildmode=longest,list,full " wildchar completion mode
-endif
+set wildmode=longest:full,full " wildchar completion mode
 set hlsearch                   " highlight search
 set expandtab                  " tab expand to space
 set tabstop=2                  " number of spaces that a <Tab> in the file counts for
