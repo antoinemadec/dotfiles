@@ -1,10 +1,10 @@
 {
+  "coc.source.omni.filetypes": ["verilog_systemverilog"],
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
       "args": ["start"],
-      "filetypes": ["sh"],
-      "ignoredRootPaths": ["~"]
+      "filetypes": ["sh"]
     },
     "ccls": {
       "command": "ccls",

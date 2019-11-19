@@ -5,6 +5,7 @@ Nvim
     terminal
 
 Coc
+    multi cursors
     refresh lightline
     run \r
     Search function names
