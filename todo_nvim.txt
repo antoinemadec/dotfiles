@@ -3,8 +3,13 @@
 Nvim
     Copy/Paste
     terminal
-    :command fuzzy, or at least dont prompt 1st choice
     () "" {} etc
+    vim-gutter
+    vim-guttentags
+
+Fzf
+    :command fuzzy, or at least dont prompt 1st choice
+    :Files preview on ?
 
 Coc
     multi cursors
