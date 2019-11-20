@@ -41,7 +41,6 @@ let g:lightline = {
 function! MyCocStatus()
   let l:status_str = split(coc#status())[0]
   if l:status_str[0] == "W" || l:status_str[0] == "E"
-    echom coc#status()
     return l:status_str
   endif
   return ""
