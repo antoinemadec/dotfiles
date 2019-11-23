@@ -1,17 +1,29 @@
 # vim: ft=indentcolor spell
 
 Nvim
+    fix mappings F1/F2
     Copy/Paste
     terminal
     () "" {} etc
-    vim-gutter
     vim-guttentags
+
+Lightline
+    clearly print fugitive files
 
 Fzf
     :command fuzzy, or at least dont prompt 1st choice
     :Files preview on ?
+    replace certain F1/F2 mappings with fuzzy :Commands
+
 
 Coc
+    user latest version ({tags:* ...}
+    language
+        python
+            flake8
+        bash
+            snippet: remove function
+            linter: remove underline
     multi cursors
     run \r
     Look into formatting
