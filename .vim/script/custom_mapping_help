@@ -11,9 +11,10 @@ cat << EOF
 EOF
 
 F_mappings="$(grep '<F' $map_file |
-  sed -e 's/^.*map.*<F/<F/' -e "s/$remove_chars//g" -e 's/ /_/g' | uniq)"
+  sed -e 's/^.*map.*<F/<F/' -e "s/$remove_chars//g" -e 's/^ \+//' -e 's/ \+/    /' \
+  -e 's/ /_/g' | uniq)"
 
-F1_line_nb="$(echo -e "$F_mappings\n<F1>dummy" | grep -n '<F1>' | cut -d':' -f 1)"
+F1_line_nb="$(echo -e "<F12>dummy\n$F_mappings\n<F12>dummy" | grep -n '<F12>' | cut -d':' -f 1)"
 start_end=$(echo "$F1_line_nb" | sed "$map_idx,$((map_idx+1))!d")
 s=$(echo $start_end | cut -d' ' -f1)
 e=$(echo $start_end | cut -d' ' -f2)
