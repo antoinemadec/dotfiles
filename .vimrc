@@ -408,6 +408,7 @@ let g:NERDTreeWinPos = "right"
 let g:NERDTreeHijackNetrw = 0
 
 " fzf
+let g:fzf_commands_expect = 'alt-enter'
 command! -bang -nargs=? -complete=dir Files
       \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
 command! -bang -nargs=* Ag

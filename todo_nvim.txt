@@ -1,19 +1,11 @@
 # vim: ft=indentcolor spell
 
 Nvim
-    fix mappings F1/F2
     Copy/Paste
     terminal
     () "" {} etc
     vim-guttentags
-
-Lightline
-    clearly print fugitive files
-
-Fzf
-    :command fuzzy, or at least dont prompt 1st choice
-    :Files preview on ?
-    replace certain F1/F2 mappings with fuzzy :Commands
+    :command, dont prompt 1st choice
 
 
 Coc
@@ -22,7 +14,7 @@ Coc
         python
             flake8
         bash
-            snippet: remove function
+            snippet: remove function from "fun" snippet
             linter: remove underline
     multi cursors
     run \r
