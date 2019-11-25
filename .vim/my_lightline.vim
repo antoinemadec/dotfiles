@@ -50,7 +50,13 @@ function! MyRelativePath()
   if &buftype == 'quickfix'
     return '%t [%{g:asyncrun_status}] %{w:quickfix_title}'
   else
-    return '%<%f'
+    let l:path = expand('%<%f')
+    let l:sub = substitute(l:path, "^fugitive:.*/", "fugitive:", "")
+    if l:sub != l:path
+      return l:sub
+    else
+      return '%<%f'
+    endif
   endif
 endfunction
 

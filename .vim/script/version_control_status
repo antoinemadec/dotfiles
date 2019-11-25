@@ -1,24 +1,31 @@
 #!/bin/bash
 
 # Common to SVN and Git:
-#   clean     '✔︎'
-#   modified  '✹'
-#   renamed   '➜'
-#   deleted   '✖'
-#   untracked '✭'
-#   ignored   '☒'
-#   other     '?'
+#   clean     '🌼'
+#   modified  '🔥'
+#   renamed   '⏩'
+#   deleted   '❌'
+#   untracked '❔'
+#   ignored   '🚫'
+#   other     '❗'
 
 # Git specific
-#   staged    '✚'
+#   staged    '➕'
 
 # Svn specific
-#   added     '✚'
+#   added     '➕'
 
 set -e
 
 abs_path="$1"
 buf_nb="$2"
+
+if [[ "$abs_path" =~ 'fugitive:///' ]]; then
+  vc_output='remote 👀'
+  echo "$buf_nb $vc_output"
+  exit 0
+fi
+
 [ -f "$abs_path" ] || exit 0
 [ "$buf_nb" = "" ] && exit 0
 
@@ -41,17 +48,17 @@ get_svn_status() {
     other_col="${svn_status:1:6}"
     if [ "$other_col" != "" ] && [ "$other_col" != "      " ]
     then
-      vc_output="svn ?"
+      vc_output="svn ❗"
     else
       case "$first_col" in
-        '')  vc_output="svn ✔︎";;
-        '?') vc_output="svn ✭";;
-        'A') vc_output="svn ✚";;
-        'D') vc_output="svn ✖";;
-        'M') vc_output="svn ✹";;
-        'R') vc_output="svn ➜";;
-        'I') vc_output="svn ☒";;
-        *)   vc_output="svn ?";;
+        '')  vc_output="svn 🌼";;
+        '?') vc_output="svn ❔";;
+        'A') vc_output="svn ➕";;
+        'D') vc_output="svn ❌";;
+        'M') vc_output="svn 🔥";;
+        'R') vc_output="svn ⏩";;
+        'I') vc_output="svn 🚫";;
+        *)   vc_output="svn ❗";;
       esac
     fi
   fi
@@ -69,27 +76,27 @@ get_git_status() {
       them="${git_status:1:1}"
       if [ "$us" = '?' ] && [ "$them" = '?' ]
       then
-        vc_output="$git_branch ✭"
+        vc_output="$git_branch ❔"
       elif [ "$us" = ' ' ] && [ "$them" = 'M' ]
       then
-        vc_output="$git_branch ✹"
+        vc_output="$git_branch 🔥"
       elif [[ "$us" =~ [MAC] ]]
       then
-        vc_output="$git_branch ✚"
+        vc_output="$git_branch ➕"
       elif [ "$us" = 'R' ]
       then
-        vc_output="$git_branch ➜"
+        vc_output="$git_branch ⏩"
       elif [ "$them" = 'D' ]
       then
-        vc_output="$git_branch ✖"
+        vc_output="$git_branch ❌"
       elif [ "$us" = '!' ]
       then
-        vc_output="$git_branch ☒"
+        vc_output="$git_branch 🚫"
       elif [ "$us" = '' ] && [ "$them" = '' ]
       then
-        vc_output="$git_branch ✔︎"
+        vc_output="$git_branch 🌼"
       else
-        vc_output="$git_branch ?"
+        vc_output="$git_branch ❗"
       fi
     fi
   fi
