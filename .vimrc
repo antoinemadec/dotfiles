@@ -35,7 +35,8 @@ Plug 'andymass/vim-matchup'                                       " replacement 
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}              " file explorer
 Plug 'honza/vim-snippets'                                         " snippets working with coc.nvim
 " filetype specific
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim',
+      \ {'do': 'yarn install --frozen-lockfile'}                  " completion, snippets etc
 Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}           " PEP8 compatible multi line indentation
 Plug 'vhda/verilog_systemverilog.vim',
       \ {'for': 'verilog_systemverilog'}                          " Vim Syntax Plugin for Verilog and SystemVerilog
