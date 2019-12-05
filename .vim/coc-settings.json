@@ -1,5 +1,8 @@
 {
   "coc.source.omni.filetypes": ["verilog_systemverilog"],
+  "snippets.extends": {
+    "verilog_systemverilog": ["verilog", "systemverilog"]
+  },
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
