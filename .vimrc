@@ -55,6 +55,7 @@ endif
 "--------------------------------------------------------------
 set nocompatible               " get rid of vi compatibility
 set clipboard=unnamed          " unnamed register is same as *
+set mouse=a                    " allow to resize and copy/paste without selecting text outside of the window
 set nobackup                   " don't keep a backup file
 set textwidth=0                " don't wrap words by default
 set wildmode=longest:full,full " wildchar completion mode
@@ -74,7 +75,6 @@ set number relativenumber    " show the line number relative to the line with th
 if has('nvim')
   au TermOpen * setlocal nonumber norelativenumber
 endif
-set mouse=a                    " allow to resize and copy/paste without selecting text outside of the window
 set title                      " change terminal title
 set ttimeoutlen=50             " ms waited for a key code/sequence to complete. Allow faster insert to normal mode
 set complete=.,w,b,u           " specifies how keyword completion works when CTRL-P or CTRL-N are used

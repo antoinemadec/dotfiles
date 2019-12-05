@@ -85,6 +85,9 @@ endfunc
 "--------------------------------------------------------------
 " mappings
 "--------------------------------------------------------------
+" copy/paste with mouse select
+vmap <LeftRelease> "*ygv
+
 " window movement
 if has('terminal') || has('nvim')
   tnoremap <Esc><Esc> <C-\><C-n>
