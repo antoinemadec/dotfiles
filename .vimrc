@@ -54,6 +54,7 @@ endif
 " vim options
 "--------------------------------------------------------------
 set nocompatible               " get rid of vi compatibility
+set clipboard=unnamed          " unnamed register is same as *
 set nobackup                   " don't keep a backup file
 set textwidth=0                " don't wrap words by default
 set wildmode=longest:full,full " wildchar completion mode

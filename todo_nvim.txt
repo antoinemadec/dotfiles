@@ -1,7 +1,6 @@
 # vim: ft=indentcolor spell
 
 Nvim
-    Copy/Paste
     terminal
     () "" {} etc
     vim-guttentags
