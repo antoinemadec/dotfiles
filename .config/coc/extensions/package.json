@@ -5,7 +5,7 @@
     "coc-omni": ">=1.2.4",
     "coc-omnisharp": ">=0.0.23",
     "coc-python": ">=1.2.6",
-    "coc-snippets": ">=2.1.13",
+    "coc-snippets": ">=2.1.14",
     "coc-vimlsp": ">=0.4.3"
   }
 }
