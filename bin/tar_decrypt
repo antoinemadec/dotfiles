@@ -1,0 +1,6 @@
+#!/bin/bash
+
+f="secured.tar.gz"
+
+[ -f "$f" ] || { echo "ERROR: cannot find $f"; exit 1; }
+openssl enc -d -aes256 -in $f | tar xz -C .

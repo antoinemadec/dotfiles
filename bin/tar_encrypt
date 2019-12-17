@@ -1,0 +1,6 @@
+#!/bin/bash
+
+f="secured.tar.gz"
+
+[ -f "$f" ] && { echo "ERROR: $f already exist."; exit 1; }
+tar -czf - "$@" | openssl enc -e -aes256 -out $f
