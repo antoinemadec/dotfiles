@@ -1,4 +1,5 @@
 {
+  "coc.preferences.extensionUpdateCheck": "never",
   "coc.source.omni.filetypes": ["verilog_systemverilog"],
   "snippets.extends": {
     "verilog_systemverilog": ["verilog", "systemverilog"]

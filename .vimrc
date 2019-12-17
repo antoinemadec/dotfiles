@@ -384,12 +384,13 @@ let g:startify_custom_header = [
       \ '    \  /  | | | | | | |',
       \ '     \/   |_|_| |_| |_|',
       \]
-let g:startify_commands = [':Scratch',
+let g:startify_commands = [':Files',
+      \ ':Scratch',
       \ ':PlugClean' ,
       \ ':PlugInstall | CocInstall',
       \ ':PlugUpdate  | CocUpdate']
 let g:startify_lists = [
-      \ { 'type': 'commands',  'indices': ['s', 'c', 'i', 'u'] },
+      \ { 'type': 'commands',  'indices': ['f', 's', 'c', 'i', 'u'] },
       \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
       \ { 'type': 'files',     'header': ['   MRU']            },
       \ { 'type': 'sessions',  'header': ['   Sessions']       },
