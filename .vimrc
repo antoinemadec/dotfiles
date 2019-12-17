@@ -284,10 +284,9 @@ if exists('*remote_startserver') && has('clientserver') && v:servername == ''
 endif
 
 function! GetCurrentBufferDir()
-  let cur_buf_name = expand('%')
-  if isdirectory(cur_buf_name)
-    return cur_buf_name
-  elseif cur_buf_name == "" || &buftype ==# 'terminal'
+  if exists("b:netrw_curdir")
+    return b:netrw_curdir
+  elseif expand('%') == "" || &buftype ==# 'terminal'
     return "."
   else
     return expand('%:h')
