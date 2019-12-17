@@ -3,4 +3,4 @@
 f="secured.tar.gz"
 
 [ -f "$f" ] && { echo "ERROR: $f already exist."; exit 1; }
-tar -czf - "$@" | openssl enc -e -aes256 -out $f
+tar -czf - "$@" | openssl enc -e -aes256 -md sha256 -out $f
