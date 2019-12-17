@@ -1,7 +1,8 @@
 #!/bin/bash
 
-for vs in $(vim --serverlist)
-do
-  vim --servername $vs --remote-send "<C-\><C-N>:wa!<CR>"
-  vim --servername $vs --remote-send "<C-\><C-N>:qa!<CR>"
+for program in "vim" "nvr"; do
+  for vs in $($program --serverlist); do
+    $program --servername $vs --remote-send "<C-\><C-N>:wa!<CR>"
+    $program --servername $vs --remote-send "<C-\><C-N>:qa!<CR>"
+  done
 done
