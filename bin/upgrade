@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+
+set -e
+
+
+#--------------------------------------------------------------
+# functions
+#--------------------------------------------------------------
+usage() {
+  script="$(basename $0)"
+  program_list="$($script -l)"
+  cat << EOF
+usage: $script [-h] [-a|--all] [-l|--list] program0 program1 ...
+
+where:
+  -a|--all    : upgrade all programs
+  -l|--list   : list all programs
+  -h|--help   : get this helps
+
+programs: $program_list
+EOF
+}
+
+
+print_banner() {
+  cat << EOF
+
+#--------------------------------------------------------------
+# $1
+#--------------------------------------------------------------
+EOF
+}
+
+
+#--------------------------------------------------------------
+# execution
+#--------------------------------------------------------------
+programs=""
+list="$(ls ~/bin/upgrade_scripts/* | xargs -n1 basename | sed 's/_upgrade//g')"
+while [[ "$#" > 0 ]]; do
+  case "$1" in
+    -l|--list)
+      echo $list
+      exit 0
+      ;;
+    -a|--all)
+      shift 1
+      programs="$list"
+      break
+      ;;
+    -h|--help )
+      usage
+      exit 0
+      ;;
+    *)
+      prog="$1"
+      shift 1
+      if [[ "$prog" =~ $(echo ^\($(echo "$list" | paste -sd'|')\)$) ]]; then
+        programs+="$prog "
+      else
+        usage
+        exit 1
+      fi
+  esac
+done
+
+for p in $programs; do
+  print_banner "$p"
+  sudo -nv || { echo "Use sudo in this terminal before running the script"; exit 1; }
+  ~/bin/upgrade_scripts/${p}_upgrade
+done
