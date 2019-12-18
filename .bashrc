@@ -268,3 +268,7 @@ then
     fi
   }
 fi
+
+# expand $VAR when VAR is a directory
+shopt -s direxpand
+compopt -o nospace ls
