@@ -285,7 +285,7 @@ if exists('*remote_startserver') && has('clientserver') && v:servername == ''
 endif
 
 function! GetCurrentBufferDir()
-  if exists("b:netrw_curdir")
+  if exists("b:netrw_browser_active")
     return b:netrw_curdir
   elseif expand('%') == "" || &buftype ==# 'terminal'
     return "."
