@@ -49,6 +49,7 @@ call plug#end()
 
 if empty(glob("~/.vim/plugins_by_vimplug"))
   PlugInstall
+  call coc#util#install()
 endif
 
 "--------------------------------------------------------------
