@@ -4,6 +4,14 @@
   "snippets.extends": {
     "verilog_systemverilog": ["verilog", "systemverilog"]
   },
+  "pairs.enableCharacters":[
+    "(",
+    "[",
+    "{",
+    "<",
+    "'",
+    "\""
+  ],
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
