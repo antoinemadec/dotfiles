@@ -8,3 +8,105 @@ vim() {
    /c/Program\ Files\ \(x86\)/Vim/vim80/gvim "$@"
 }
 export -f vim
+
+
+#------------------------------------------------------
+# jump and setup raptor project
+#------------------------------------------------------
+_RAPTOR_REPOS_HOME="~/repos"
+_RAPTOR_FIRST_REPO="raptor_fpga_xilinx"
+
+_getRaptorFzf() {
+  local grep_pattern="^$_RAPTOR_FIRST_REPO\$"
+  local repo_list="$(ls $(eval echo "$_RAPTOR_REPOS_HOME") | grep raptor | grep -v create_raptor)"
+  local repo_list_no_first="$(echo "$repo_list" | grep -v "$grep_pattern")"
+  local repo_list_first="$(echo "$repo_list" | grep "$grep_pattern")"
+  echo "$repo_list_first
+$repo_list_no_first" | fzf
+}
+
+_goToRaptor() {
+  local dir="$1"
+  local repo="$2"
+  if [ "$SOURCE_DIR" = "" ] || [ "$_GOTORAPTOR_RETRIGGER" = 1 ]
+  then
+    _GOTORAPTOR_RETRIGGER=0
+    [ "$repo" = "" ] && repo="$(_getRaptorFzf)"
+    [ "$repo" = "" ] && return
+    eval source $_RAPTOR_REPOS_HOME/$repo/verif/script/raptor.bash
+  fi
+  cd $SOURCE_DIR/$1
+}
+
+A(){
+  _goToRaptor ""
+}
+
+D(){
+  _goToRaptor "DinoSDK"
+}
+
+R(){
+  _goToRaptor "runs"
+}
+
+V(){
+  _goToRaptor "verif"
+}
+
+AA(){
+  _GOTORAPTOR_RETRIGGER=1
+  A
+}
+
+DD(){
+  _GOTORAPTOR_RETRIGGER=1
+  D
+}
+
+RR(){
+  _GOTORAPTOR_RETRIGGER=1
+  R
+}
+
+VV(){
+  _GOTORAPTOR_RETRIGGER=1
+  V
+}
+
+L(){
+  local latest_date="$(ls -1 /home/regression/* | grep '^20' | sort -n | tail -n 1)"
+  _GOTORAPTOR_RETRIGGER=1
+  _goToRaptor "verif" "raptor_debug"
+  cd "$(readlink -e /home/regression/*/$latest_date)/sessions"
+}
+
+S(){
+  local cur_dir=$PWD
+  while true
+  do
+    [ "$PWD" = "/" ] && break
+    source verif/script/raptor.bash &> /dev/null && break
+    cd ..
+  done
+  cd $cur_dir
+}
+
+# display [raptor_repo]
+function _raptor_ps1() {
+  [ "$SOURCE_DIR" = "" ] && return
+  export PS1="${COLOR_GRAY}[$(basename "$SOURCE_DIR")] $PS1"
+}
+
+PROMPT_COMMAND="$PROMPT_COMMAND ; _raptor_ps1"
+#------------------------------------------------------
+
+pre_path ~/bin_local
+
+alias git_updateall='S && cd $SOURCE_DIR && git updateall && gen_verif_tags DinoSDK rtl verif && dsim_compile_commands'
+alias git_stash_update_pop='git stash && git_updateall && git stash pop'
+alias it='cd ~/repos/it/license && ./print_users'
+
+# for vim completion
+export LIBCLANG_PATH='/usr/lib64/llvm/libclang.so'
+export CLANG_HEADER='/usr/lib/clang'
