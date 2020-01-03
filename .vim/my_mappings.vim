@@ -37,6 +37,18 @@ function Mapping(idx, ...)
   endif
 endfunction
 
+function OpenInNewTab()
+  "there is only one window
+  if tabpagenr('$') == 1 && winnr('$') == 1
+    return
+  endif
+  "preparing new window
+  let l:cur_buf = bufnr('%')
+  close!
+  tabnew
+  exe "b".l:cur_buf
+endfunc
+
 function MoveToPrevTab()
   "there is only one window
   if tabpagenr('$') == 1 && winnr('$') == 1
@@ -132,13 +144,14 @@ nnoremap <silent> <A-S-Right>   <C-w>L
 if has('terminal') || has('nvim')
   tnoremap <C-A-Left>           <C-\><C-n>gT
   tnoremap <C-A-Right>          <C-\><C-n>gt
-  tnoremap <C-A-S-Left>         <C-\><C-n>:call MoveToPrevTab()<cr>
-  tnoremap <C-A-S-Right>        <C-\><C-n>:call MoveToNextTab()<cr>
+  tnoremap <C-A-S-Left>         <C-\><C-n>:call MoveToPrevTab()<CR>
+  tnoremap <C-A-S-Right>        <C-\><C-n>:call MoveToNextTab()<CR>
 endif
 nnoremap <silent> <C-A-Left>    gT
 nnoremap <silent> <C-A-Right>   gt
-nnoremap <silent> <C-A-S-Left>  :call MoveToPrevTab()<cr>
-nnoremap <silent> <C-A-S-Right> :call MoveToNextTab()<cr>
+nnoremap <silent> <C-A-S-Left>  :call MoveToPrevTab()<CR>
+nnoremap <silent> <C-A-S-Right> :call MoveToNextTab()<CR>
+nnoremap <silent> <C-A-n>       :call OpenInNewTab()<CR>
 
 " function keys
 call Mapping(1, 0)
@@ -163,7 +176,7 @@ nnoremap <silent> <leader>/     :Lines<CR>
 nnoremap <silent> <leader>\     :Commands<CR>
 nnoremap <silent> <leader>f     :Files<CR>
 nnoremap <silent> <leader>g     :Ag<CR>
-nnoremap <silent> <leader>s     :Gstatus<CR>
+nnoremap <silent> <leader>s     :Gtabedit :<CR>:set previewwindow<CR>
 nnoremap <silent> <leader>cv    :Gdiffsplit<CR>
 nnoremap <silent> <leader>cn    :Gblame<CR>
 if has('terminal') || has('nvim')
@@ -195,15 +208,15 @@ nmap <leader>p  <Plug>(coc-format-selected)
 nmap <leader>rn <Plug>(coc-refactor)
 " using coclist
 " show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<CR>
 " manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent> <space>e  :<C-u>CocList extensions<CR>
 " show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent> <space>c  :<C-u>CocList commands<CR>
 " find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent> <space>o  :<C-u>CocList outline<CR>
 " search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<CR>
 " do default action for next item.
 nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 " do default action for previous item.
