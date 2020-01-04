@@ -76,6 +76,7 @@ augroup END
 set number relativenumber    " show the line number relative to the line with the cursor
 if has('nvim')
   au TermOpen * setlocal nonumber norelativenumber
+  set inccommand=nosplit
 endif
 set title                      " change terminal title
 set ttimeoutlen=50             " ms waited for a key code/sequence to complete. Allow faster insert to normal mode
