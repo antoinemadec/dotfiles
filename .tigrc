@@ -1,0 +1,2 @@
+bind diff <Up> move-up
+bind diff <Down> move-down
