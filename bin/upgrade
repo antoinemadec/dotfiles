@@ -65,6 +65,7 @@ while [[ "$#" > 0 ]]; do
   esac
 done
 
+sudo echo ""
 for p in $programs; do
   print_banner "$p"
   sudo -nv || { echo "Use sudo in this terminal before running the script"; exit 1; }

@@ -17,7 +17,7 @@ sudo pip3 install neovim-remote --upgrade
 sudo pip install pynvim --upgrade
 sudo pip3 install pynvim --upgrade
 sudo gem install neovim
-npm install -g neovim
+sudo npm install -g neovim
 
 make CMAKE_BUILD_TYPE=Release
 sudo make install
