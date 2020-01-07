@@ -230,6 +230,7 @@ endfunction
 " language specific
 "--------------------------------------------------------------
 " SystemVerilog
+autocmd FileType verilog_systemverilog let b:coc_pairs_disabled = ["'"]
 " -- map '-' to 'begin end' surrounding
 autocmd FileType verilog_systemverilog let b:surround_45 = "begin \r end"
 autocmd FileType verilog_systemverilog setlocal commentstring=//%s
