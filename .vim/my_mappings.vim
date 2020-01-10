@@ -176,7 +176,7 @@ nnoremap <silent> <leader>/     :Lines<CR>
 nnoremap <silent> <leader>\     :Commands<CR>
 nnoremap <silent> <leader>f     :Files<CR>
 nnoremap <silent> <leader>g     :Ag<CR>
-nnoremap <silent> <leader>s     :Gtabedit :<CR>:set previewwindow<CR>
+nnoremap <silent> <leader>s     :call ToggleGstatus()<CR>
 nnoremap <silent> <leader>cv    :Gdiffsplit<CR>
 nnoremap <silent> <leader>cn    :Gblame<CR>
 if has('terminal') || has('nvim')

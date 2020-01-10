@@ -36,6 +36,16 @@ let g:lightline = {
   \   'mycocstatus': 'warning',
   \   'detecttrailingspace': 'error'
   \ },
+  \ 'tab' : {
+  \   'active': [ 'tabnum', 'mytabname', 'modified' ],
+  \   'inactive': [ 'tabnum', 'mytabname', 'modified' ]
+  \ },
+  \ 'tab_component_function' : {
+  \   'mytabname': 'MyTabname',
+  \   'modified': 'lightline#tab#modified',
+  \   'readonly': 'lightline#tab#readonly',
+  \   'tabnum': 'lightline#tab#tabnum'
+  \ },
   \ }
 
 function! MyCocStatus()
@@ -58,6 +68,14 @@ function! MyRelativePath()
       return '%<%f'
     endif
   endif
+endfunction
+
+function! MyTabname(n)
+  let buflist = tabpagebuflist(a:n)
+  let winnr = tabpagewinnr(a:n)
+  let _ = expand('#'.buflist[winnr - 1].':t')
+  let tn = gettabvar(a:n, 'tabname')
+  return strlen(tn) ? tn : _
 endfunction
 
 function! MyModified()
