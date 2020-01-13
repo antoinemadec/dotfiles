@@ -449,3 +449,24 @@ command! -bang -nargs=* Ag
 autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+" window tiles with golden ratio, rotate windows
+function DoTile() abort
+  if (winnr('$') != 1)
+    let cur_buflist = tabpagebuflist()
+    let cur_layout = map(range(1, winnr('$')), 'win_screenpos(v:val)')
+    wincmd H
+    windo wincmd J
+    1 wincmd w
+    wincmd H
+    exe 'vertical resize '. string(&columns * 0.618)
+    let new_buflist = tabpagebuflist()
+    let new_layout = map(range(1, winnr('$')), 'win_screenpos(v:val)')
+    " rotate windows
+    if  (cur_buflist == new_buflist) && (cur_layout == new_layout)
+      wincmd L
+      1 wincmd w
+      call DoTile()
+    endif
+  endif
+endfunction

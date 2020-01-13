@@ -139,6 +139,7 @@ nnoremap <silent> <A-S-Left>    <C-w>H
 nnoremap <silent> <A-S-Down>    <C-w>J
 nnoremap <silent> <A-S-Up>      <C-w>K
 nnoremap <silent> <A-S-Right>   <C-w>L
+nnoremap <silent> <A-w>         :call DoTile()<CR>
 
 " tab movement
 if has('terminal') || has('nvim')
