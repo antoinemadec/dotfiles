@@ -5,6 +5,17 @@ else
   autocmd InsertLeave * call lightline#update()
 endif
 
+autocmd VimEnter * call SetupLightlineColors()
+function SetupLightlineColors() abort
+  let l:palette = lightline#palette()
+  let l:color = l:palette.normal.left[1]
+  let l:palette.inactive.right = [l:color]
+  let l:palette.inactive.middle = [l:color]
+  let l:palette.inactive.left = [l:color]
+  call lightline#colorscheme()
+endfunction
+highlight StatusLineNC cterm=reverse ctermfg=239 ctermbg=223 gui=reverse guifg=#504945 guibg=#ebdbb1
+
 let g:lightline = {
   \ 'colorscheme': 'gruvbox',
   \ 'active': {
@@ -19,7 +30,7 @@ let g:lightline = {
   \ },
   \ 'inactive' : {
   \   'left': [ [ 'filename', 'mymodified' ] ],
-  \   'right': [ [ 'lineinfo' ] ]
+  \   'right': [ [ '' ] ]
   \ },
   \ 'component_function': {
   \   'mymodified': 'MyModified',
