@@ -8,7 +8,7 @@
 "--------------------------------------------------------------
 " plugins
 "--------------------------------------------------------------
-call plug#begin('~/.vim/plugins_by_vimplug')
+call plug#begin('~/.vim/plugins')
 Plug 'gruvbox-community/gruvbox'                                  " colorscheme
 Plug 'itchyny/lightline.vim'                                      " status line
 Plug 'junegunn/fzf',
@@ -47,9 +47,8 @@ Plug 'antoinemadec/vim-indentcolor-filetype'                      " make notes m
 Plug 'chrisbra/csv.vim'                                           " a filetype plugin for csv files
 call plug#end()
 
-if empty(glob("~/.vim/plugins_by_vimplug"))
+if empty(glob("~/.vim/plugins"))
   PlugInstall
-  call coc#util#install()
 endif
 
 "--------------------------------------------------------------
