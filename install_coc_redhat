@@ -18,3 +18,6 @@ sudo ln -s /var/lib/snapd/snap /snap
 # language server
 sudo npm i -g bash-language-server
 sudo snap install ccls --classic
+
+echo "install yarn:"
+echo "https://yarnpkg.com/en/docs/install#debian-stable"

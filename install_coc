@@ -6,3 +6,6 @@ sudo -nv || { echo "Use sudo in this terminal before running the script"; exit 1
 # language server
 sudo npm i -g bash-language-server
 sudo snap install ccls --classic
+
+echo "install yarn:"
+echo "https://yarnpkg.com/en/docs/install#debian-stable"
