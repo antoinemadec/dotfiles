@@ -1,39 +1,15 @@
 "--------------------------------------------------------------
 " functions
 "--------------------------------------------------------------
-" if we want to add more Func key mappings
-function Mapping(idx, ...)
-  let l:open_help = get(a:, 1, 1)
-  if (a:idx == 1)
-    nnoremap <silent> <F1>          :call Mapping(1)<CR>
-    inoremap <silent> <F1>    <C-o> :call Mapping(1)<CR>
-    nnoremap <silent> <F3>          :set spell!<CR>
-    inoremap <silent> <F3>    <C-o> :set spell!<CR>
-    nnoremap <silent> <F4>          :ToggleCompletion<CR>
-    inoremap <silent> <F4>    <C-o> :ToggleCompletion<CR>
-    nnoremap <silent> <F5>          :exe "HighlightGroupsAddWord " . hg0 . " 1"<CR>
-    nnoremap <silent> <leader><F5>  :exe "HighlightGroupsClearGroup " . hg0 . " 1"<CR>
-    nnoremap <silent> <F6>          :exe "HighlightGroupsAddWord " . hg1 . " 1"<CR>
-    nnoremap <silent> <leader><F6>  :exe "HighlightGroupsClearGroup " . hg1 . " 1"<CR>
-    nnoremap <silent> <F7>          :call ToggleTrailingSpace()<CR>
-    noremap  <silent> <F8>          :call asyncrun#quickfix_toggle(8)<CR>
-    nnoremap <silent> <F9>          :TagbarToggle<CR>
-    nnoremap <silent> <F10>         :NERDTreeToggle<CR>
-    set pastetoggle=<F12>
-  endif
-  if (l:open_help)
-    if !exists("b:help_scratch_open") || (b:help_scratch_open != a:idx)
-      let l:help_stdout = system("~/.vim/script/custom_mapping_help " . a:idx)
-      let l:stdout_line_count = len(split(l:help_stdout,'\n')) + 1
-      if exists("b:help_scratch_open") && (b:help_scratch_open != a:idx)
-        q
-      endif
-      exe "Scratch" . l:stdout_line_count . "| 0 put =l:help_stdout | normal gg"
-      set ft=docbk
-      let b:help_scratch_open = a:idx
-    else
-      q
-    endif
+function MappingHelp()
+  if !exists("b:help_scratch_open")
+    let l:help_stdout = system("~/.vim/script/custom_mapping_help " . 1)
+    let l:stdout_line_count = len(split(l:help_stdout,'\n')) + 1
+    exe "Scratch" . l:stdout_line_count . "| 0 put =l:help_stdout | normal gg"
+    set ft=docbk
+    let b:help_scratch_open = 1
+  else
+    q
   endif
 endfunction
 
@@ -155,7 +131,20 @@ nnoremap <silent> <C-A-S-Right> :call MoveToNextTab()<CR>
 nnoremap <silent> <C-A-n>       :call OpenInNewTab()<CR>
 
 " function keys
-call Mapping(1, 0)
+nnoremap <silent> <F1>          :call MappingHelp()<CR>
+nnoremap <silent> <F3>          :TagbarToggle<CR>
+nnoremap <silent> <F4>          :NERDTreeToggle<CR>
+nnoremap <silent> <F5>          :exe "HighlightGroupsAddWord " . hg0 . " 1"<CR>
+nnoremap <silent> <leader><F5>  :exe "HighlightGroupsClearGroup " . hg0 . " 1"<CR>
+nnoremap <silent> <F6>          :exe "HighlightGroupsAddWord " . hg1 . " 1"<CR>
+nnoremap <silent> <leader><F6>  :exe "HighlightGroupsClearGroup " . hg1 . " 1"<CR>
+nnoremap <silent> <F7>          :call ToggleTrailingSpace()<CR>
+noremap  <silent> <F8>          :call asyncrun#quickfix_toggle(8)<CR>
+nnoremap <silent> <F9>          :set spell!<CR>
+inoremap <silent> <F9>    <C-o> :set spell!<CR>
+nnoremap <silent> <F10>         :ToggleCompletion<CR>
+inoremap <silent> <F10>   <C-o> :ToggleCompletion<CR>
+set pastetoggle=<F12>
 
 " leader (inspired by Janus)
 if has('terminal')
