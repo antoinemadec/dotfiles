@@ -400,7 +400,6 @@ command! MacroStore call marvim#macro_store()
 command! MacroLoad call marvim#search()
 
 " tagbar
-let g:tagbar_left = 1
 let g:tagbar_width = 30
 let g:tagbar_ctags_bin = 'uctags'
 
@@ -436,7 +435,6 @@ let g:indentLine_char = '│'
 
 " nerdtree
 let g:NERDTreeShowHidden = 1
-let g:NERDTreeWinPos = "right"
 let g:NERDTreeHijackNetrw = 0
 
 " fzf

@@ -132,8 +132,8 @@ nnoremap <silent> <C-A-n>       :call OpenInNewTab()<CR>
 
 " function keys
 nnoremap <silent> <F1>          :call MappingHelp()<CR>
-nnoremap <silent> <F3>          :TagbarToggle<CR>
-nnoremap <silent> <F4>          :NERDTreeToggle<CR>
+nnoremap <silent> <F3>          :NERDTreeToggle<CR>
+nnoremap <silent> <F4>          :TagbarToggle<CR>
 nnoremap <silent> <F5>          :exe "HighlightGroupsAddWord " . hg0 . " 1"<CR>
 nnoremap <silent> <leader><F5>  :exe "HighlightGroupsClearGroup " . hg0 . " 1"<CR>
 nnoremap <silent> <F6>          :exe "HighlightGroupsAddWord " . hg1 . " 1"<CR>
