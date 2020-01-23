@@ -81,3 +81,20 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " use `:OR` for organize import of current buffer
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+
+"--------------------------------------------------------------
+" personal config
+"--------------------------------------------------------------
+autocmd FileType verilog_systemverilog let b:coc_pairs_disabled = ["'"]
+
+command! ToggleCompletion call ToggleCompletion()
+function ToggleCompletion()
+  if g:coc_enabled
+    CocDisable
+    echom "Coc disabled"
+  else
+    CocEnable
+    echom "Coc enabled"
+  endif
+endfunction

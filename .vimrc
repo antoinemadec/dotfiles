@@ -128,7 +128,15 @@ highlight Todo      term=standout cterm=bold ctermfg=235 ctermbg=167 gui=bold gu
 highlight VertSplit guibg=#32302f guifg=#181A1F
 set fillchars=vert:│,fold:+
 
-source ~/.vim/my_lightline.vim
+"--------------------------------------------------------------
+" plugins config
+"--------------------------------------------------------------
+for plugin in keys(g:plugs)
+  let s:plugin_config = $HOME . '/.vim/plugins_config/' . plugin .'.vim'
+  if filereadable(s:plugin_config)
+    execute 'source ' . s:plugin_config
+  endif
+endfor
 
 "--------------------------------------------------------------
 " highlighting
@@ -210,31 +218,10 @@ function! ToggleFoldEnable()
 endfunction
 
 "--------------------------------------------------------------
-" completion, doc, definition, syntax check
-"--------------------------------------------------------------
-source ~/.vim/my_coc.vim
-
-command! ToggleCompletion call ToggleCompletion()
-function ToggleCompletion()
-  if g:coc_enabled
-    CocDisable
-    echom "Coc disabled"
-  else
-    CocEnable
-    echom "Coc enabled"
-  endif
-endfunction
-
-"--------------------------------------------------------------
 " language specific
 "--------------------------------------------------------------
 " SystemVerilog
-autocmd FileType verilog_systemverilog let b:coc_pairs_disabled = ["'"]
-" -- map '-' to 'begin end' surrounding
-autocmd FileType verilog_systemverilog let b:surround_45 = "begin \r end"
 autocmd FileType verilog_systemverilog setlocal commentstring=//%s
-let g:verilog_disable_indent_lst = "eos"
-let g:verilog_instance_skip_last_coma = 1
 let g:uvm_tags_is_on = 0
 let g:uvm_tags_path = "~/.vim/tags/UVM_CDNS-1.2"
 command! ToggleUVMTags call ToggleUVMTags()
@@ -261,34 +248,6 @@ autocmd FileType cs setlocal shiftwidth=4 tabstop=4
 
 " java
 autocmd FileType java setlocal shiftwidth=4 tabstop=4
-
-"--------------------------------------------------------------
-" git
-"--------------------------------------------------------------
-function! ToggleGstatus()
-  let t = 1
-  let tabs_nb = tabpagenr('$')
-  while t <= tabs_nb
-    if gettabvar(t, 'tabname') == 'git_status'
-      break
-    endif
-    let t += 1
-  endwhile
-  if t <= tabs_nb
-    if t == tabpagenr()
-      " git_status is current tab: close it
-      tabclose
-    else
-      " git_status is not current tab: jump
-      exe 'tabn ' . t
-    endif
-  else
-    " git_status does not exist: create it
-    Gtabedit :
-    set previewwindow
-    let t:tabname = 'git_status'
-  endif
-endfunction
 
 "--------------------------------------------------------------
 " terminal
@@ -335,15 +294,6 @@ command! -nargs=0 RemoveTrailingSpace :let _s=@/ | :%s/\s\+$//e | :let @/=_s | :
 " open scratch buffer
 command! -bar -nargs=? Scratch <args>new | setlocal buftype=nofile bufhidden=hide noswapfile
 
-" AsyncRun
-command! -nargs=* -complete=shellcmd Run AsyncRun <args>
-command! -nargs=0 RunCurrentBuffer :w | execute("Run " . expand('%:p'))
-command! -nargs=0 RunAndTimeCurrentBuffer :w | execute("Run time(" . expand('%:p') . ")")
-command! -nargs=0 RunJavaCurrentBuffer :w | execute("Run javac " . expand('%:t') .
-      \ " && java " . expand('%:r') )
-command! -bang -nargs=* -complete=file Grep AsyncRun -program=grep @ <args>
-command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
-
 function! ToggleIndent()
   if &shiftwidth == 2
     setlocal shiftwidth=4 tabstop=4
@@ -366,13 +316,6 @@ autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
 " make *.bashrc bash files
 au BufNewFile,BufRead *.bashrc* set ft=sh
 
-" csv filetype
-aug CSV_Editing
-  au!
-  au BufRead,BufWritePost *.csv :%ArrangeColumn
-  au BufWritePre *.csv :%UnArrangeColumn
-aug end
-
 " gui/not gui specific options
 if has('gui_running')
   set guifont=DejaVu\ Sans\ Mono\ 12
@@ -390,62 +333,6 @@ endif
 if has('win32') && filereadable($HOME.'\.vim\windows.vim')
   source ~/.vim/windows.vim
 endif
-
-" macros
-let g:marvim_store = $HOME."/.vim/marvim"
-let g:marvim_find_key = ''
-let g:marvim_store_key = ''
-let g:macro_debug_cnt = 0
-command! MacroStore call marvim#macro_store()
-command! MacroLoad call marvim#search()
-
-" tagbar
-let g:tagbar_width = 30
-let g:tagbar_ctags_bin = 'uctags'
-
-"startify
-let g:startify_custom_header = [
-      \ ' __      ___',
-      \ ' \ \    / (_)',
-      \ '  \ \  / / _ _ __ ___',
-      \ '   \ \/ / | |  _ ` _ \',
-      \ '    \  /  | | | | | | |',
-      \ '     \/   |_|_| |_| |_|',
-      \]
-let g:startify_commands = [':Files',
-      \ ':Scratch',
-      \ ':PlugClean' ,
-      \ ':PlugInstall | CocInstall',
-      \ ':PlugUpdate  | CocUpdate']
-let g:startify_lists = [
-      \ { 'type': 'commands',  'indices': ['f', 's', 'c', 'i', 'u'] },
-      \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
-      \ { 'type': 'files',     'header': ['   MRU']            },
-      \ { 'type': 'sessions',  'header': ['   Sessions']       },
-      \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-      \ ]
-let g:startify_change_to_dir = 0
-
-let g:matchup_matchparen_status_offscreen = 0
-
-" indent line
-let g:indentLine_fileTypeExclude = ['text', 'startify', 'defx', 'json']
-let g:indentLine_bufTypeExclude = ['help', 'terminal', 'popup', 'quickfix']
-let g:indentLine_char = '│'
-
-" nerdtree
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeHijackNetrw = 0
-
-" fzf
-let g:fzf_commands_expect = 'alt-enter'
-command! -bang -nargs=? -complete=dir Files
-      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
-command! -bang -nargs=* Ag
-      \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
-autocmd! FileType fzf
-autocmd  FileType fzf set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 " window tiles with golden ratio, rotate windows
 function DoTile() abort
