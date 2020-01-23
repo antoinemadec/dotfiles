@@ -16,6 +16,7 @@ set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <TAB>
+      \ (g:coc_enabled == 0) ? "\<TAB>" :
       \ pumvisible() ? "\<C-n>" :
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -86,15 +87,43 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 "--------------------------------------------------------------
 " personal config
 "--------------------------------------------------------------
+let s:coc_is_init = 0
+autocmd User CocNvimInit let s:coc_is_init = 1 | call DisableCocIfFileTooBig()
+autocmd BufWinEnter * call DisableCocIfFileTooBig()
+
 autocmd FileType verilog_systemverilog let b:coc_pairs_disabled = ["'"]
+
+function DisableCocIfFileTooBig() abort
+  if s:coc_is_init && g:coc_enabled && getfsize(@%) > 1000000
+    call wait(3000, "maparg('<BS>', 'i') != ''")
+    call MyCocDisable()
+  endif
+endfunction
+
+function MyCocDisable() abort
+  CocDisable
+  let l:coc_bs_imap = maparg('<BS>', 'i')
+  if l:coc_bs_imap != ""
+    let s:coc_bs_imap = l:coc_bs_imap
+    iunmap <BS>
+  endif
+endfunction
+
+function MyCocEnable() abort
+  if exists('s:coc_bs_imap')
+    exe 'inoremap <expr> <BS> ' . s:coc_bs_imap
+  endif
+  CocEnable
+  echohl MoreMsg
+  echom '[coc.nvim] Enabled'
+  echohl None
+endfunction
 
 command! ToggleCompletion call ToggleCompletion()
 function ToggleCompletion()
   if g:coc_enabled
-    CocDisable
-    echom "Coc disabled"
+    call MyCocDisable()
   else
-    CocEnable
-    echom "Coc enabled"
+    call MyCocEnable()
   endif
 endfunction
