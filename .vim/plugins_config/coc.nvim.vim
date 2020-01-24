@@ -87,6 +87,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 "--------------------------------------------------------------
 " personal config
 "--------------------------------------------------------------
+let g:coc_max_file_size = 1000000
 let s:coc_is_init = 0
 autocmd User CocNvimInit let s:coc_is_init = 1 | call DisableCocIfFileTooBig()
 autocmd BufWinEnter * call DisableCocIfFileTooBig()
@@ -94,7 +95,7 @@ autocmd BufWinEnter * call DisableCocIfFileTooBig()
 autocmd FileType verilog_systemverilog let b:coc_pairs_disabled = ["'"]
 
 function DisableCocIfFileTooBig() abort
-  if s:coc_is_init && g:coc_enabled && getfsize(@%) > 1000000
+  if s:coc_is_init && g:coc_enabled && getfsize(@%) > g:coc_max_file_size
     call wait(3000, "maparg('<BS>', 'i') != ''")
     call MyCocDisable()
   endif
@@ -111,7 +112,7 @@ endfunction
 
 function MyCocEnable() abort
   if exists('s:coc_bs_imap')
-    exe 'inoremap <expr> <BS> ' . s:coc_bs_imap
+    exe 'inoremap <silent><expr> <BS> ' . s:coc_bs_imap
   endif
   CocEnable
   echohl MoreMsg
