@@ -1,6 +1,6 @@
-# do ". acd_func.sh"
 # acd_func 1.0.5, 10-nov-2004
 # petar marinov, http:/geocities.com/h2428, this is public domain
+# antoine madec, modified to add fzf support to cd --
 
 cd_func ()
 {
@@ -8,7 +8,9 @@ cd_func ()
   local -i cnt
 
   if [[ $1 ==  "--" ]]; then
-    dirs -v
+    local fzf_output
+    fzf_output="$(dirs -v | fzf | awk '{print $1}')"
+    [[ "$fzf_output" != "" ]] && cd_func -$fzf_output
     return 0
   fi
 
@@ -16,7 +18,6 @@ cd_func ()
   [[ -z $1 ]] && the_new_dir=$HOME
 
   if [[ ${the_new_dir:0:1} == '-' ]]; then
-    #
     # Extract dir N from dirs
     index=${the_new_dir:1}
     [[ -z $index ]] && index=1
@@ -25,21 +26,17 @@ cd_func ()
     the_new_dir=$adir
   fi
 
-  #
   # '~' has to be substituted by ${HOME}
   [[ ${the_new_dir:0:1} == '~' ]] && the_new_dir="${HOME}${the_new_dir:1}"
 
-  #
   # Now change to the new dir and add to the top of the stack
   pushd "${the_new_dir}" > /dev/null
   [[ $? -ne 0 ]] && return 1
   the_new_dir=$(pwd)
 
-  #
   # Trim down everything beyond 11th entry
   popd -n +21 2>/dev/null 1>/dev/null
 
-  #
   # Remove any other occurence of this dir, skipping the top of the stack
   for ((cnt=1; cnt <= 10; cnt++)); do
     x2=$(dirs +${cnt} 2>/dev/null)
@@ -55,9 +52,3 @@ cd_func ()
 }
 
 alias cd=cd_func
-
-if [[ $BASH_VERSION > "2.05a" ]]; then
-  # ctrl+w shows the menu
-  bind -x "\"\C-w\":cd_func -- ;"
-fi
-
