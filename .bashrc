@@ -235,7 +235,7 @@ done
 type __git_ps1 &>/dev/null || source ~/bin/source_conditional/git_ps1
 
 # put custom binaries in ~/bin
-add_path ~/bin
+pre_path ~/bin
 for file in ~/bin/completion/*
 do
   [ -f $file ] && source $file
