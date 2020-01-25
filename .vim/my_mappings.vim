@@ -78,7 +78,7 @@ vmap <LeftRelease> "*ygv
 
 " window movement
 if has('terminal') || has('nvim')
-  tnoremap <Esc><Esc> <C-\><C-n>
+  tnoremap <expr> <Esc><Esc> (&filetype == "fzf") ? "<Esc>" : "<C-\><C-n>"
   if has('nvim')
     tnoremap <A-Left>     <C-\><C-N><C-w>h
     tnoremap <A-Down>     <C-\><C-N><C-w>j
@@ -197,16 +197,12 @@ nmap <leader>p  <Plug>(coc-format-selected)
 " remap for rename current word
 nmap <leader>rn <Plug>(coc-refactor)
 " using coclist
-" show all diagnostics
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<CR>
-" manage extensions
 nnoremap <silent> <space>e  :<C-u>CocList extensions<CR>
-" show commands
 nnoremap <silent> <space>c  :<C-u>CocList commands<CR>
-" find symbol of current document
 nnoremap <silent> <space>o  :<C-u>CocList outline<CR>
-" search workspace symbols
 nnoremap <silent> <space>s  :<C-u>CocList -I symbols<CR>
+nnoremap <silent> <space>S  :<C-u>CocList services<CR>
 " do default action for next item.
 nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 " do default action for previous item.
