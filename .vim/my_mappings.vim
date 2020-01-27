@@ -197,7 +197,7 @@ nmap <leader>p  <Plug>(coc-format-selected)
 " remap for rename current word
 nmap <leader>rn <Plug>(coc-refactor)
 " using coclist
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<CR>
+nnoremap <silent> <space>a  :<C-u>CocFzfListDiagnostics<CR>
 nnoremap <silent> <space>e  :<C-u>CocList extensions<CR>
 nnoremap <silent> <space>c  :<C-u>CocList commands<CR>
 nnoremap <silent> <space>o  :<C-u>CocList outline<CR>
