@@ -95,7 +95,8 @@ autocmd BufWinEnter * call DisableCocIfFileTooBig()
 autocmd FileType verilog_systemverilog let b:coc_pairs_disabled = ["'"]
 
 function DisableCocIfFileTooBig() abort
-  if s:coc_is_init && g:coc_enabled && getfsize(@%) > g:coc_max_file_size
+  if s:coc_is_init && g:coc_enabled && &ft != 'fugitive' &&
+        \ getfsize(@%) > g:coc_max_file_size
     call wait(3000, "maparg('<BS>', 'i') != ''")
     call MyCocDisable()
   endif
