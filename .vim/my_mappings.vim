@@ -198,11 +198,11 @@ nmap <leader>p  <Plug>(coc-format-selected)
 nmap <leader>rn <Plug>(coc-refactor)
 " using coclist
 nnoremap <silent> <space>a  :<C-u>CocFzfListDiagnostics<CR>
-nnoremap <silent> <space>e  :<C-u>CocList extensions<CR>
+nnoremap <silent> <space>e  :<C-u>CocFzfListExtensions<CR>
 nnoremap <silent> <space>c  :<C-u>CocList commands<CR>
-nnoremap <silent> <space>o  :<C-u>CocList outline<CR>
+nnoremap <silent> <space>o  :<C-u>CocFzfListOutline<CR>
 nnoremap <silent> <space>s  :<C-u>CocList -I symbols<CR>
-nnoremap <silent> <space>S  :<C-u>CocList services<CR>
+nnoremap <silent> <space>S  :<C-u>CocFzfListServices<CR>
 " do default action for next item.
 nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 " do default action for previous item.
