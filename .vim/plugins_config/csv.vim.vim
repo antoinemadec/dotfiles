@@ -1,5 +1,1 @@
-aug CSV_Editing
-  au!
-  au BufRead,BufWritePost *.csv :%ArrangeColumn
-  au BufWritePre *.csv :%UnArrangeColumn
-aug end
+let g:csv_autocmd_arrange = 1
