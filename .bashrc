@@ -223,6 +223,7 @@ mkcd() {
 # use vim in Git and other programs
 export VISUAL=nvim
 export EDITOR="$VISUAL"
+export GIT_EDITOR="$VISUAL"
 
 # remote nvim
 alias vvim='nvr'
