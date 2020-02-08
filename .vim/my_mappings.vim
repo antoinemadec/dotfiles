@@ -200,6 +200,7 @@ nmap <leader>rn <Plug>(coc-refactor)
 nnoremap <silent> <space>a  :<C-u>CocFzfListDiagnostics<CR>
 nnoremap <silent> <space>e  :<C-u>CocFzfListExtensions<CR>
 nnoremap <silent> <space>c  :<C-u>CocList commands<CR>
+nnoremap <silent> <space>l  :<C-u>CocFzfListLocation<CR>
 nnoremap <silent> <space>o  :<C-u>CocFzfListOutline<CR>
 nnoremap <silent> <space>s  :<C-u>CocList -I symbols<CR>
 nnoremap <silent> <space>S  :<C-u>CocFzfListServices<CR>
@@ -208,7 +209,7 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 " do default action for previous item.
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent> <space>p  :<C-u>CocFzfListResume<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
