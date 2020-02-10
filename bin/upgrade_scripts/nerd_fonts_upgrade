@@ -7,12 +7,12 @@ FONTS="DejaVuSansMono SourceCodePro"
 for font in $FONTS; do
   dir=$(mktemp -d)
   cd $dir
-  wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/SourceCodePro.zip
+  wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/$font.zip
   unzip *.zip
   rm *.zip
 
-  mkdir -p ~/.fonts/SourceCodePro
-  cd ~/.fonts/SourceCodePro
+  mkdir -p ~/.fonts/$font
+  cd ~/.fonts/$font
   rm -f *
   cp $dir/* .
 

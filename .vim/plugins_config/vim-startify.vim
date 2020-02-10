@@ -21,8 +21,3 @@ let g:startify_lists = [
 let g:startify_change_to_dir = 0
 
 let g:matchup_matchparen_status_offscreen = 0
-
-let g:webdevicons_enable_startify = 0
-function! StartifyEntryFormat()
-  return 'WebDevIconsGetFileTypeSymbol(absolute_path) . "  " . entry_path'
-endfunction
