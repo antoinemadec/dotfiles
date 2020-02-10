@@ -1,3 +1,5 @@
+set noshowmode " do not show insert when in insert mode
+
 if v:version >= 704
   autocmd TextChanged,InsertLeave * call lightline#update()
   autocmd User CocStatusChange,CocDiagnosticChange if (getfsize(@%) <= g:coc_max_file_size) | call lightline#update() | endif
@@ -59,8 +61,8 @@ let g:lightline = {
   \   'readonly': 'lightline#tab#readonly',
   \   'tabnum': 'lightline#tab#tabnum'
   \ },
-  \ 'separator': { 'left': '', 'right': '' },
-  \ 'subseparator': { 'left': '', 'right': '' },
+  \ 'separator': { 'left': '', 'right': '' },
+  \ 'subseparator': { 'left': '\\', 'right': '/' },
   \ }
 
 function! MyReadonly()
