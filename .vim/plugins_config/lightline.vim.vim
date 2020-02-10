@@ -33,6 +33,7 @@ let g:lightline = {
   \   'right': [ [ '' ] ]
   \ },
   \ 'component_function': {
+  \   'readonly': 'MyReadonly',
   \   'filetype': 'MyFiletype',
   \   'mymodified': 'MyModified',
   \   'version_control': 'LightlineVersionControl'
@@ -58,7 +59,13 @@ let g:lightline = {
   \   'readonly': 'lightline#tab#readonly',
   \   'tabnum': 'lightline#tab#tabnum'
   \ },
+  \ 'separator': { 'left': '', 'right': '' },
+  \ 'subseparator': { 'left': '', 'right': '' },
   \ }
+
+function! MyReadonly()
+  return &readonly ? '🔒' : ''
+endfunction
 
 function! MyCocStatus()
   let l:status_str = split(coc#status())[0]
