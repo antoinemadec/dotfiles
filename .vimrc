@@ -30,6 +30,7 @@ Plug 'terryma/vim-multiple-cursors'                               " Sublime Text
 Plug 'chamindra/marvim'                                           " store/load macros easily
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}                  " display buffer's classes/functions/vars based on ctags
 Plug 'mhinz/vim-startify'                                         " start screen for Vim
+Plug 'ryanoasis/vim-devicons'                                     " add icons to your plugins
 Plug 'Yggdroot/indentLine'                                        " display thin vertical lines at each indentation level
 Plug 'andymass/vim-matchup'                                       " replacement for the vim plugin matchit.vim
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}              " file explorer

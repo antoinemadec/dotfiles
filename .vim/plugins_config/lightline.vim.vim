@@ -33,6 +33,7 @@ let g:lightline = {
   \   'right': [ [ '' ] ]
   \ },
   \ 'component_function': {
+  \   'filetype': 'MyFiletype',
   \   'mymodified': 'MyModified',
   \   'version_control': 'LightlineVersionControl'
   \ },
@@ -79,6 +80,10 @@ function! MyRelativePath()
       return '%<%f'
     endif
   endif
+endfunction
+
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' . &ft : 'no ft') : ''
 endfunction
 
 function! MyTabname(n)
