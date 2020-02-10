@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -e
+
+FONTS="DejaVuSansMono SourceCodePro"
+
+for font in $FONTS; do
+  dir=$(mktemp -d)
+  cd $dir
+  wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/SourceCodePro.zip
+  unzip *.zip
+  rm *.zip
+
+  mkdir -p ~/.fonts/SourceCodePro
+  cd ~/.fonts/SourceCodePro
+  rm -f *
+  cp $dir/* .
+
+  rm -rf $dir
+done
+
+fc-cache
