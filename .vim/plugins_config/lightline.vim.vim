@@ -62,7 +62,7 @@ let g:lightline = {
   \   'tabnum': 'lightline#tab#tabnum'
   \ },
   \ 'separator': { 'left': '', 'right': '' },
-  \ 'subseparator': { 'left': '\\', 'right': '/' },
+  \ 'subseparator': { 'left': '', 'right': '' },
   \ }
 
 function! MyReadonly()

@@ -45,6 +45,7 @@ Plug 'vhda/verilog_systemverilog.vim',
 Plug 'antoinemadec/vim-verilog-instance',
       \ {'for': 'verilog_systemverilog'}                          " Verilog port instantiation from port declaration
 Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}                " i3/config highlighting
+Plug 'pangloss/vim-javascript', {'for': 'javascript'}             " provides syntax highlighting and improved indentation
 Plug 'antoinemadec/vim-indentcolor-filetype'                      " make notes more readable
 Plug 'chrisbra/csv.vim'                                           " a filetype plugin for csv files
 call plug#end()
