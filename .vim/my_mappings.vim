@@ -202,7 +202,7 @@ nnoremap <silent> <space>e  :<C-u>CocFzfListExtensions<CR>
 nnoremap <silent> <space>c  :<C-u>CocList commands<CR>
 nnoremap <silent> <space>l  :<C-u>CocFzfListLocation<CR>
 nnoremap <silent> <space>o  :<C-u>CocFzfListOutline<CR>
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<CR>
+nnoremap <silent> <space>s  :<C-u>CocFzfListSymbols<CR>
 nnoremap <silent> <space>S  :<C-u>CocFzfListServices<CR>
 " do default action for next item.
 nnoremap <silent> <space>j  :<C-u>CocNext<CR>

@@ -38,8 +38,7 @@ Plug 'honza/vim-snippets'                                         " snippets wor
 " filetype specific
 Plug 'neoclide/coc.nvim',
       \ {'do': 'yarn install --frozen-lockfile'}                  " completion, snippets etc
-" Plug 'antoinemadec/coc-fzf'
-Plug '/home/amadec/src/coc-fzf'
+Plug 'antoinemadec/coc-fzf'
 Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}           " PEP8 compatible multi line indentation
 Plug 'vhda/verilog_systemverilog.vim',
       \ {'for': 'verilog_systemverilog'}                          " Vim Syntax Plugin for Verilog and SystemVerilog
