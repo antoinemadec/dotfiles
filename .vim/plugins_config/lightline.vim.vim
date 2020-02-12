@@ -92,7 +92,8 @@ function! MyRelativePath()
 endfunction
 
 function! MyFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' . &ft : 'no ft') : ''
+  let l:val = winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' . &ft : 'no ft') : ''
+  return substitute(l:val, 'verilog_systemverilog', 'sv', '')
 endfunction
 
 function! MyTabname(n)
