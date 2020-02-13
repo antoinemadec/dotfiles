@@ -4,11 +4,6 @@ command! -bang -nargs=? -complete=dir Files
 command! -bang -nargs=* Ag
       \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%', '?'), <bang>0)
 
-" remove status line when floating windows are not available
-autocmd! FileType fzf
-autocmd  FileType fzf set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-
 " Using floating windows of Neovim to start fzf
 if has('nvim')
   function! FloatingFZF(width, height, border_highlight)
