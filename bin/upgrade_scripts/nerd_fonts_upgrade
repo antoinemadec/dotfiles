@@ -2,7 +2,7 @@
 
 set -e
 
-FONTS="DejaVuSansMono SourceCodePro"
+FONTS="DejaVuSansMono FiraCode Inconsolata SourceCodePro"
 
 for font in $FONTS; do
   dir=$(mktemp -d)

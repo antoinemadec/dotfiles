@@ -1,5 +1,7 @@
 [options]
 font = DejaVuSansMono Nerd Font Mono 12
+# font = Inconsolata Nerd Font Mono, Medium 14
+# font = FiraCode Nerd Font Mono, Light 12
 # font = SauceCodePro Nerd Font Mono 12
 # font = DejaVu Sans Mono 12
 # font = Inconsolata 15
