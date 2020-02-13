@@ -3,4 +3,4 @@
   " systemverilog
   let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['v'] = ''
   let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['sv'] = ''
-  let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['sh'] = ''
+  let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['svh'] = ''
