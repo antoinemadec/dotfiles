@@ -36,18 +36,15 @@ Plug 'andymass/vim-matchup'                                       " replacement 
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}              " file explorer
 Plug 'honza/vim-snippets'                                         " snippets working with coc.nvim
 " filetype specific
+Plug 'sheerun/vim-polyglot', {'do': './build'}                    " a collection of language packs for Vim
 Plug 'neoclide/coc.nvim',
       \ {'do': 'yarn install --frozen-lockfile'}                  " completion, snippets etc
 Plug 'antoinemadec/coc-fzf'
-Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}           " PEP8 compatible multi line indentation
 Plug 'vhda/verilog_systemverilog.vim',
       \ {'for': 'verilog_systemverilog'}                          " Vim Syntax Plugin for Verilog and SystemVerilog
 Plug 'antoinemadec/vim-verilog-instance',
       \ {'for': 'verilog_systemverilog'}                          " Verilog port instantiation from port declaration
-Plug 'PotatoesMaster/i3-vim-syntax', {'for': 'i3'}                " i3/config highlighting
-Plug 'pangloss/vim-javascript', {'for': 'javascript'}             " provides syntax highlighting and improved indentation
 Plug 'antoinemadec/vim-indentcolor-filetype'                      " make notes more readable
-Plug 'chrisbra/csv.vim'                                           " a filetype plugin for csv files
 call plug#end()
 
 if empty(glob("~/.vim/plugins"))
