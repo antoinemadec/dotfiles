@@ -2,9 +2,6 @@
 
 set -e
 
-# sudo snap install polybar-git --edge --devmode
-# sudo snap refresh polybar-git
-
 mkdir -p ~/src
 cd ~/src
 
@@ -14,6 +11,7 @@ sudo apt-get install cmake cmake-data libcairo2-dev libxcb1-dev libxcb-ewmh-dev 
   libasound2-dev libmpdclient-dev libiw-dev libcurl4-openssl-dev libpulse-dev \
   libxcb-composite0-dev xcb libxcb-ewmh2 libjsoncpp-dev psmisc
 
+# polybar
 if !(git clone https://github.com/jaagr/polybar.git)
 then
   cd polybar
@@ -24,6 +22,7 @@ fi
 
 ./build.sh
 
+# polybar themes
 cd ~/src
 if !(git clone  https://github.com/adi1090x/polybar-themes.git)
 then
@@ -32,11 +31,17 @@ then
 else
   cd polybar-themes
 fi
+# sudo snap install polybar-git --edge --devmode
+# sudo snap refresh polybar-git
 
-cp -rf polybar-8/* $HOME/.config/polybar
-
-font_dir="$HOME/.config/polybar/fonts"
-if [[ -d "$font_dir" ]]; then
-  cp $font_dir/* ~/.fonts
-  fc-cache
+cd ~/src
+if !(git clone https://github.com/stark/siji)
+then
+  cd siji
+  git pull
+else
+  cd siji
 fi
+./install.sh -d ~/.fonts
+
+change_polybar_themes 8
