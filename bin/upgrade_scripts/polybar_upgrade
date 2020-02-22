@@ -1,0 +1,42 @@
+#!/bin/bash
+
+set -e
+
+# sudo snap install polybar-git --edge --devmode
+# sudo snap refresh polybar-git
+
+mkdir -p ~/src
+cd ~/src
+
+sudo apt-get install cmake cmake-data libcairo2-dev libxcb1-dev libxcb-ewmh-dev \
+  libxcb-icccm4-dev libxcb-image0-dev libxcb-randr0-dev libxcb-util0-dev \
+  libxcb-xkb-dev pkg-config python-xcbgen xcb-proto libxcb-xrm-dev i3-wm \
+  libasound2-dev libmpdclient-dev libiw-dev libcurl4-openssl-dev libpulse-dev \
+  libxcb-composite0-dev xcb libxcb-ewmh2 libjsoncpp-dev psmisc
+
+if !(git clone https://github.com/jaagr/polybar.git)
+then
+  cd polybar
+  git pull
+else
+  cd polybar
+fi
+
+./build.sh
+
+cd ~/src
+if !(git clone  https://github.com/adi1090x/polybar-themes.git)
+then
+  cd polybar-themes
+  git pull
+else
+  cd polybar-themes
+fi
+
+cp -rf polybar-8/* $HOME/.config/polybar
+
+font_dir="$HOME/.config/polybar/fonts"
+if [[ -d "$font_dir" ]]; then
+  cp $font_dir/* ~/.fonts
+  fc-cache
+fi
