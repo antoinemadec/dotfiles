@@ -243,6 +243,9 @@ do
 done
 [ -d ~/src/$(get_release_string)/bin ] && pre_path ~/src/$(get_release_string)/bin
 
+# npm
+[ -d ~/.npm-global/bin ] && pre_path ~/.npm-global/bin
+
 # term capabilities
 tput ritm && export TERM_ITALICS=true
 export TERM_COLORS="$(tput colors)"
