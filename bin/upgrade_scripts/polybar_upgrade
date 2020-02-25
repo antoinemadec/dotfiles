@@ -24,7 +24,7 @@ fi
 
 # polybar themes
 cd ~/src
-if !(git clone  https://github.com/adi1090x/polybar-themes.git)
+if !(git clone  https://github.com/antoinemadec/polybar-themes.git)
 then
   cd polybar-themes
   git pull
