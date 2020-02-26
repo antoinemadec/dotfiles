@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "coc-highlight": ">=1.2.5",
-    "coc-json": ">=1.2.4",
+    "coc-json": ">=1.2.5",
     "coc-marketplace": ">=1.7.0",
     "coc-omni": ">=1.2.4",
     "coc-omnisharp": ">=0.0.23",
