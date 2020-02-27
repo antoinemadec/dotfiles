@@ -165,7 +165,8 @@ nnoremap <silent> <leader>cd    :cd `=GetCurrentBufferDir()`<CR>
 nnoremap <silent> <leader>/     :Lines<CR>
 nnoremap <silent> <leader>\     :Commands<CR>
 nnoremap <silent> <leader>f     :Files<CR>
-nnoremap <silent> <leader>g     :Ag<CR>
+nnoremap <silent> <leader>g     :GitFiles<CR>
+nnoremap <silent> <leader>ag    :Ag<CR>
 nnoremap <silent> <leader>s     :call ToggleGstatus()<CR>
 nnoremap <silent> <leader>cv    :Gdiffsplit<CR>
 nnoremap <silent> <leader>cn    :Gblame<CR>
