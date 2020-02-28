@@ -8,3 +8,11 @@ command! -bang -nargs=* Ag
 if has('nvim')
   let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 endif
+
+" Maps can receive mode argument. E.g.: Maps i
+function s:maps(mode, ...) abort
+  let l:mode = empty(a:mode) ? "n" : a:mode
+  let l:a000_str = join(a:000, ',')
+  exe 'call fzf#vim#maps("' . l:mode . '", ' . l:a000_str ')'
+endfunction
+command! -bar -bang -nargs=? Maps call s:maps(<q-args>, <bang>0)
