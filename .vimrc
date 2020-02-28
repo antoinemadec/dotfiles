@@ -336,7 +336,7 @@ if has('win32') && filereadable($HOME.'\.vim\windows.vim')
 endif
 
 " window tiles with golden ratio, rotate windows
-function DoTile() abort
+function WindowDoTile() abort
   if (winnr('$') != 1)
     let cur_buflist = tabpagebuflist()
     let cur_layout = map(range(1, winnr('$')), 'win_screenpos(v:val)')
@@ -351,7 +351,25 @@ function DoTile() abort
     if  (cur_buflist == new_buflist) && (cur_layout == new_layout)
       wincmd L
       1 wincmd w
-      call DoTile()
+      call WindowDoTile()
     endif
   endif
 endfunction
+
+" make current window float
+function WindowDoFloat() abort
+  let width = float2nr(&columns * 0.9)
+  let height = float2nr(&lines * 0.6)
+  let opts = { 'relative': 'editor',
+        \ 'row': (&lines - height) / 2,
+        \ 'col': (&columns - width) / 2,
+        \ 'width': width,
+        \ 'height': height,
+        \ 'style': 'minimal'
+        \}
+  call nvim_win_set_config(0, opts)
+endfunction
+
+" help
+command -complete=help -nargs=* H help <args> | call WindowDoFloat()
+command -complete=help -nargs=* Ht tab help <args>
