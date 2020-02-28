@@ -13,16 +13,23 @@ function MappingHelp()
   endif
 endfunction
 
-function OpenInNewTab()
+function OpenInNewTab(close)
   "there is only one window
   if tabpagenr('$') == 1 && winnr('$') == 1
     return
   endif
   "preparing new window
   let l:cur_buf = bufnr('%')
-  close!
+  if a:close
+    close!
+  else
+    let l:cur_pos = getpos('.')
+  endif
   tabnew
   exe "b".l:cur_buf
+  if !a:close
+    call cursor(l:cur_pos[1:2])
+  endif
 endfunc
 
 function MoveToPrevTab()
@@ -128,7 +135,9 @@ nnoremap <silent> <C-A-Left>    gT
 nnoremap <silent> <C-A-Right>   gt
 nnoremap <silent> <C-A-S-Left>  :call MoveToPrevTab()<CR>
 nnoremap <silent> <C-A-S-Right> :call MoveToNextTab()<CR>
-nnoremap <silent> <C-A-n>       :call OpenInNewTab()<CR>
+nnoremap <silent> <C-A-n>       :call OpenInNewTab(1)<CR>
+nnoremap <silent> <C-w><C-t>    :call OpenInNewTab(0)<CR>
+nnoremap <silent> <C-w>t        :call OpenInNewTab(0)<CR>
 
 " function keys
 nnoremap <silent> <F1>          :call MappingHelp()<CR>
