@@ -356,20 +356,36 @@ function WindowDoTile() abort
   endif
 endfunction
 
-" make current window float
-function WindowDoFloat() abort
-  let width = float2nr(&columns * 0.9)
-  let height = float2nr(&lines * 0.6)
-  let opts = { 'relative': 'editor',
+" make current window float or create float with empty buffer
+function WindowDoFloat(...) abort
+  let create       = a:0 >= 1 ? a:1 : 0
+  let width_ratio  = a:0 >= 2 ? a:2 : 0.9
+  let height_ratio = a:0 >= 3 ? a:3 : 0.6
+  let width = float2nr(&columns * width_ratio)
+  let height = float2nr(&lines * height_ratio)
+  let config = { 'relative': 'editor',
         \ 'row': (&lines - height) / 2,
         \ 'col': (&columns - width) / 2,
         \ 'width': width,
         \ 'height': height,
         \ 'style': 'minimal'
         \}
-  call nvim_win_set_config(0, opts)
+  if create
+    let buf = nvim_create_buf(v:false, v:false)
+    call nvim_open_win(buf, v:true, config)
+  else
+    call nvim_win_set_config(0, config)
+  endif
 endfunction
 
 " help
-command -complete=help -nargs=* H help <args> | call WindowDoFloat()
+function! OpenHelpInCurrentWindow(topic)
+  view $VIMRUNTIME/doc/help.txt
+  setl filetype=help
+  setl buftype=help
+  setl nomodifiable
+  setl nobuflisted
+  exe 'keepjumps help ' . a:topic
+endfunction
+command -complete=help -nargs=* H call WindowDoFloat(1, 0.6) | call OpenHelpInCurrentWindow(<q-args>)
 command -complete=help -nargs=* Ht tab help <args>

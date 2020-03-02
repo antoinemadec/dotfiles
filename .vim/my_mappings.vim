@@ -203,7 +203,7 @@ nnoremap <silent> <space>p  :<C-u>CocFzfListResume<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
+    execute 'H '.expand('<cword>')
   else
     call CocAction('doHover')
   endif
