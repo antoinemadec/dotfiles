@@ -143,7 +143,7 @@ bindsym $mod+r mode "resize"
 set $bg       #504945
 set $white    #ffffff
 set $gray     #bdae93
-set $darkgray #928374
+set $darkgray #7c6f64
 set $blue     #458588
 set $aqua     #83a598
 set $red      #fb4934
