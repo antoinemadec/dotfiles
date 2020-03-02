@@ -136,14 +136,21 @@ inoremap <silent> <F10>   <C-o> :ToggleCompletion<CR>
 set pastetoggle=<F12>
 
 " leader (inspired by Janus)
-if has('terminal')
-  tnoremap <script> <leader>be  vim_server_cmd 'Buffers'<CR>
-  tnoremap <leader>ew           vim_server_open .<CR>
-  tnoremap <leader>es           vim_server_open . -o<CR>
-  tnoremap <leader>ev           vim_server_open . -O<CR>
-  tnoremap <leader>et           vim_server_open . -p<CR>
-  tnoremap vvim                 vim_server_open
+if has('terminal') || has('nvim')
+  tnoremap <script> <leader>be  <C-\><C-N>:Buffers<CR>
   tnoremap <leader>cd           vim_server_cmd "cd $PWD" -i<CR>
+  if  has('nvim')
+    tnoremap <leader>ew         nvr .<CR>
+    tnoremap <leader>es         nvr -o .<CR>
+    tnoremap <leader>ev         nvr -O .<CR>
+    tnoremap <leader>et         nvr -p .<CR>
+  elseif has('terminal')
+    tnoremap vvim               vim_server_open
+    tnoremap <leader>ew         vim_server_open .<CR>
+    tnoremap <leader>es         vim_server_open . -o<CR>
+    tnoremap <leader>ev         vim_server_open . -O<CR>
+    tnoremap <leader>et         vim_server_open . -p<CR>
+  endif
 endif
 nnoremap <script> <leader>be    :Buffers<CR>
 nnoremap <silent> <leader>ew    :e `=GetCurrentBufferDir()`<CR>

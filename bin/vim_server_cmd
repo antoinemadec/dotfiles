@@ -27,4 +27,11 @@ do
   esac
 done
 
-vim --servername $VIM_SERVERNAME --remote-send "<C-\><C-N>:$VIM_CMD<CR>$back_in_insert"
+server="$NVIM_LISTEN_ADDRESS"
+program="nvr"
+if [[ "$server" = "" ]]; then
+  server="$VIM_SERVERNAME"
+  program="vim"
+fi
+
+$program --servername $server --remote-send "<C-\><C-N>:$VIM_CMD<CR>$back_in_insert"
