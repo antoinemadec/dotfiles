@@ -8,7 +8,7 @@
 "--------------------------------------------------------------
 " plugins
 "--------------------------------------------------------------
-let g:polyglot_disabled = ['v']
+let g:polyglot_disabled = ['v', 'python-compiler']
 call plug#begin('~/.vim/plugins')
 Plug 'gruvbox-community/gruvbox'                                  " colorscheme
 Plug 'itchyny/lightline.vim'                                      " status line
