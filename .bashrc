@@ -246,6 +246,9 @@ done
 # npm
 [ -d ~/.npm-global/bin ] && pre_path ~/.npm-global/bin
 
+# sbin
+add_path /usr/sbin
+
 # term capabilities
 tput ritm && export TERM_ITALICS=true
 export TERM_COLORS="$(tput colors)"
