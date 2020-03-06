@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "coc-highlight": ">=1.2.5",
+    "coc-html": ">=1.2.3",
     "coc-json": ">=1.2.5",
     "coc-marketplace": ">=1.7.0",
     "coc-omni": ">=1.2.4",
@@ -8,8 +9,9 @@
     "coc-pairs": ">=1.2.20",
     "coc-prettier": ">=1.1.11",
     "coc-python": ">=1.2.9",
-    "coc-snippets": ">=2.1.19",
+    "coc-snippets": ">=2.1.21",
     "coc-tsserver": ">=1.4.9",
+    "coc-vetur": ">=1.1.7",
     "coc-vimlsp": ">=0.4.5"
   }
 }
