@@ -31,7 +31,7 @@ endfunction
 let g:coc_snippet_next = '<tab>'
 
 " Enhanced <CR> experience
-inoremap <silent> <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>"
+inoremap <silent> <expr> <cr> pumvisible() ? "\<C-y>"
       \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! s:show_documentation()
