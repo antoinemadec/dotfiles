@@ -314,9 +314,6 @@ endfunction
 " automate opening quickfix window when text adds to it
 autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
 
-" make *.bashrc bash files
-au BufNewFile,BufRead *.bashrc* set ft=sh
-
 " gui/not gui specific options
 if has('gui_running')
   set guifont=DejaVu\ Sans\ Mono\ 12
