@@ -279,3 +279,6 @@ fi
 # expand $VAR when VAR is a directory
 shopt -s direxpand
 compopt -o nospace ls
+
+# bat default style: used for FZF preview in vim
+export BAT_THEME="Monokai Extended Bright"
