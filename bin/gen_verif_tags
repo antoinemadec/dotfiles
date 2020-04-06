@@ -40,11 +40,14 @@ do
   excludes+="--exclude=${p%/} "
 done
 
+# don't tag SV ports until typedef detection is fixed
 uctags \
   --languages=verilog,systemverilog,c++,c \
+  --kinds-systemverilog=-p \
   --extras=+q \
   --fields=+i \
   --exclude=.git \
   --exclude=.svn \
+  --exclude="output*" \
   $excludes \
   -R $DIRS
