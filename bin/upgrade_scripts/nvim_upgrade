@@ -14,7 +14,6 @@ else
 fi
 
 sudo pip3 install neovim-remote --upgrade
-sudo pip install pynvim --upgrade
 sudo pip3 install pynvim --upgrade
 sudo gem install neovim
 sudo npm install -g neovim
