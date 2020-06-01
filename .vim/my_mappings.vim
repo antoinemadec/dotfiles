@@ -173,49 +173,6 @@ if has('terminal') || has('nvim')
   nnoremap <leader>tt :cd `=GetCurrentBufferDir()`<CR>:TT<CR><C-\><C-n>:cd -<CR>i
 endif
 
-" completion
-" use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-" remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-" use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-" format the whole file
-nmap <leader>P <Plug>(coc-format)
-" remap for format selected region
-xmap <leader>p  <Plug>(coc-format-selected)
-nmap <leader>p  <Plug>(coc-format-selected)
-" remap for rename current word
-nmap <leader>rn <Plug>(coc-refactor)
-" using coclist
-nnoremap <silent> <space>a  :<C-u>CocFzfList diagnostics<CR>
-nnoremap <silent> <space>b  :<C-u>CocFzfList diagnostics --current-buf<CR>
-nnoremap <silent> <space>c  :<C-u>CocFzfList commands<CR>
-nnoremap <silent> <space>e  :<C-u>CocFzfList extensions<CR>
-nnoremap <silent> <space>l  :<C-u>CocFzfList location<CR>
-nnoremap <silent> <space>o  :<C-u>CocFzfList outline<CR>
-nnoremap <silent> <space>s  :<C-u>CocFzfList symbols<CR>
-nnoremap <silent> <space>S  :<C-u>CocFzfList services<CR>
-nnoremap <silent> <space>p  :<C-u>CocFzfListResume<CR>
-" do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'H '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
 " run/make
 nnoremap <silent> <leader>r                       :RunCurrentBuffer<CR>
 nnoremap <silent> <leader>t                       :RunAndTimeCurrentBuffer<CR>
