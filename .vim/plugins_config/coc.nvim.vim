@@ -127,3 +127,20 @@ function ToggleCompletion()
     call MyCocEnable()
   endif
 endfunction
+
+let g:coc_global_extensions = [
+      \ 'coc-css',
+      \ 'coc-highlight',
+      \ 'coc-html',
+      \ 'coc-json',
+      \ 'coc-marketplace',
+      \ 'coc-omni',
+      \ 'coc-omnisharp',
+      \ 'coc-pairs',
+      \ 'coc-prettier',
+      \ 'coc-python',
+      \ 'coc-snippets',
+      \ 'coc-tsserver',
+      \ 'coc-vetur',
+      \ 'coc-vimlsp'
+      \]
