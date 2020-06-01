@@ -11,40 +11,40 @@
 let g:polyglot_disabled = ['v', 'python-compiler']
 call plug#begin('~/.vim/plugins')
 " style
-Plug 'gruvbox-community/gruvbox'                                               " colorscheme
-Plug 'itchyny/lightline.vim'                                                   " status line
-Plug 'yggdroot/indentline'                                                     " display thin vertical lines at each indentation level
-Plug 'antoinemadec/vim-indentcolor-filetype'                                   " make notes more readable
-Plug 'mhinz/vim-startify'                                                      " start screen for vim
-Plug 'ryanoasis/vim-devicons'                                                  " add icons to your plugins
+Plug 'gruvbox-community/gruvbox'                                           " colorscheme
+Plug 'itchyny/lightline.vim'                                               " status line
+Plug 'yggdroot/indentline'                                                 " display thin vertical lines at each indentation level
+Plug 'antoinemadec/vim-indentcolor-filetype'                               " make notes more readable
+Plug 'mhinz/vim-startify'                                                  " start screen for vim
+Plug 'ryanoasis/vim-devicons'                                              " add icons to your plugins
 " completion
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}             " completion, snippets etc
-Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all --no-completion'} " fuzzy search in a dir
-Plug 'junegunn/fzf.vim'                                                        " fuzzy search in a dir
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}         " completion, snippets etc
+Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all'}             " fuzzy search in a dir
+Plug 'junegunn/fzf.vim'                                                    " fuzzy search in a dir
 Plug 'antoinemadec/coc-fzf'
 " languages
-Plug 'sheerun/vim-polyglot'                                                    " a collection of language packs for vim
-Plug 'antoinemadec/vim-verilog-instance', {'for': 'verilog_systemverilog'}     " verilog port instantiation from port declaration
-Plug 'vhda/verilog_systemverilog.vim', {'for': 'verilog_systemverilog'}        " vim syntax plugin for verilog and systemverilog
+Plug 'sheerun/vim-polyglot'                                                " a collection of language packs for vim
+Plug 'antoinemadec/vim-verilog-instance', {'for': 'verilog_systemverilog'} " verilog port instantiation from port declaration
+Plug 'vhda/verilog_systemverilog.vim', {'for': 'verilog_systemverilog'}    " vim syntax plugin for verilog and systemverilog
 " misc
-Plug 'andymass/vim-matchup'                                                    " replacement for the vim plugin matchit.vim
-Plug 'antoinemadec/vim-highlight-groups'                                       " add words in highlight groups on the fly
-Plug 'chamindra/marvim'                                                        " store/load macros easily
-Plug 'honza/vim-snippets'                                                      " snippets working with coc.nvim
-Plug 'junegunn/vim-easy-align'                                                 " easy alignment of line fields
-Plug 'kana/vim-textobj-indent'                                                 " add indent text object for motion like 'dii'
-Plug 'kana/vim-textobj-line'                                                   " add line text object for motion like 'dil'
-Plug 'kana/vim-textobj-user'                                                   " needed to add text object
-Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}                               " display buffer's classes/functions/vars based on ctags
-Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}                           " file explorer
-Plug 'skywind3000/asyncrun.vim'                                                " run asynchronous bash commands
-Plug 'terryma/vim-multiple-cursors'                                            " sublime text's multiple selection feature
-Plug 'tpope/vim-commentary'                                                    " comment stuff out
-Plug 'tpope/vim-fugitive'                                                      " git wrapper
-Plug 'tpope/vim-repeat'                                                        " remaps '.' in a way that plugins can tap into it
-Plug 'tpope/vim-sensible'                                                      " vim defaults that everyone can agree on
-Plug 'tpope/vim-speeddating'                                                   " use ctrl-a/ctrl-x to increment dates, times, and more
-Plug 'tpope/vim-surround'                                                      " delete, change and add surroundings in pairs
+Plug 'andymass/vim-matchup'                                                " replacement for the vim plugin matchit.vim
+Plug 'antoinemadec/vim-highlight-groups'                                   " add words in highlight groups on the fly
+Plug 'chamindra/marvim'                                                    " store/load macros easily
+Plug 'honza/vim-snippets'                                                  " snippets working with coc.nvim
+Plug 'junegunn/vim-easy-align'                                             " easy alignment of line fields
+Plug 'kana/vim-textobj-indent'                                             " add indent text object for motion like 'dii'
+Plug 'kana/vim-textobj-line'                                               " add line text object for motion like 'dil'
+Plug 'kana/vim-textobj-user'                                               " needed to add text object
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}                           " display buffer's classes/functions/vars based on ctags
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}                       " file explorer
+Plug 'skywind3000/asyncrun.vim'                                            " run asynchronous bash commands
+Plug 'terryma/vim-multiple-cursors'                                        " sublime text's multiple selection feature
+Plug 'tpope/vim-commentary'                                                " comment stuff out
+Plug 'tpope/vim-fugitive'                                                  " git wrapper
+Plug 'tpope/vim-repeat'                                                    " remaps '.' in a way that plugins can tap into it
+Plug 'tpope/vim-sensible'                                                  " vim defaults that everyone can agree on
+Plug 'tpope/vim-speeddating'                                               " use ctrl-a/ctrl-x to increment dates, times, and more
+Plug 'tpope/vim-surround'                                                  " delete, change and add surroundings in pairs
 call plug#end()
 
 if empty(glob("~/.vim/plugins"))
