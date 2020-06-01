@@ -281,4 +281,4 @@ shopt -s direxpand
 compopt -o nospace ls
 
 # bat default style: used for FZF preview in vim
-export BAT_THEME="Monokai Extended Bright"
+export BAT_THEME="1337"
