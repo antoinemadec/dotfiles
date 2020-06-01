@@ -24,7 +24,6 @@ deploy_core .bash_profile
 deploy_core .bashrc
 deploy_core bin
 deploy_core .config/compton.conf
-deploy_core .config/coc
 deploy_core .config/emoji
 deploy_core .config/flake8
 deploy_core .config/htop
