@@ -86,12 +86,15 @@ case "$TERM" in
     if [ -f /etc/profile.d/vte-2.91.sh ] && [ "$VIM" = "" ]
     then
       . /etc/profile.d/vte-2.91.sh
+      [ -n "$BASH_VERSION" ] && PROMPT_COMMAND="__vte_prompt_command"
     else
       XTERM_TITLE='${USER}@${HOSTNAME/.*}:${PWD/$HOME/\~}'
       PROMPT_COMMAND='eval "echo -ne \"\033]0;${XTERM_TITLE}\007\""'
     fi
     ;;
   *)
+    XTERM_TITLE='${USER}@${HOSTNAME/.*}:${PWD/$HOME/\~}'
+    PROMPT_COMMAND='eval "echo -ne \"\033]0;${XTERM_TITLE}\007\""'
     ;;
 esac
 #--------------------------------------------------------------
