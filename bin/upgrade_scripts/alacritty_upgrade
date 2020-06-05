@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+dir=$(mktemp -d)
+cd $dir
+
+deb_file="$(curl -s https://api.github.com/repos/alacritty/alacritty/releases/latest |
+  grep '"name"' | grep '\.deb' | grep amd64 | sed -e 's/.*: "//' -e 's/".*//')"
+
+wget https://github.com/alacritty/alacritty/releases/latest/download/$deb_file
+
+sudo apt install $dir/$deb_file
+
+rm -rf $dir
