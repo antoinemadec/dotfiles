@@ -1,4 +1,5 @@
-background_opacity: 0.96
+# handle opacity in compton.conf
+# background_opacity: 0.96
 
 window:
   padding:
@@ -20,9 +21,10 @@ draw_bold_text_with_bright_colors: true
 colors:
   # Default colors
   primary:
-    # hard contrast: background = '#1d2021'
-    background: "#282828"
-    # soft contrast: background = '#32302f'
+    # hard contrast: background: '#1d2021'
+    # medium constrast: background: "#282828"
+    # soft contrast: background: '#32302f'
+    background: '#32302f'
     foreground: "#ebdbb2"
 
   # Normal colors
