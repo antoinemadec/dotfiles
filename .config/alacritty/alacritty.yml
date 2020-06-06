@@ -1,5 +1,10 @@
 background_opacity: 0.96
 
+window:
+  padding:
+    x: 1
+    y: 1
+
 font:
   normal:
     family: monospace
