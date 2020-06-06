@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+set -e
+
+dir=$(mktemp -d)
+cd $dir
+
+deb_file="$(curl -s https://api.github.com/repos/sharkdp/bat/releases/latest |
+  grep '"name"' | grep '\.deb' | grep amd64 | grep -v musl |
+  sed -e 's/.*: "//' -e 's/".*//')"
+
+echo $deb_file
+
+wget https://github.com/sharkdp/bat/releases/latest/download/$deb_file
+
+sudo apt install $dir/$deb_file
+
+rm -rf $dir
