@@ -213,7 +213,7 @@ bindsym $mod+Shift+Prior move workspace to output right
 # scratchpad
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
-exec --no-startup-id exec alacritty -t vim_todo -e 'bash -ic \"nvim ~/org/todo_*.txt -p\"'
+exec --no-startup-id exec alacritty -t vim_todo -e bash -ic "nvim ~/org/todo_*.txt -p"
 bindsym $mod+t [title="vim_todo"] scratchpad show
 exec --no-startup-id exec Thunar&
 bindsym $mod+m [class="Thunar"] scratchpad show; [class="Thunar"] move position center
