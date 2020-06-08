@@ -185,26 +185,26 @@ gaps inner $inner_gaps
 gaps outer $outer_gaps
 smart_borders on
 smart_gaps on
-bindsym $mod+Shift+g exec exec ~/.config/i3/bin/toggle_gaps "toggle" $inner_gaps $outer_gaps
-bindsym $mod+Shift+t exec exec ~/.config/i3/bin/toggle_gaps "toggle_title" $inner_gaps $outer_gaps $border
+bindsym $mod+Shift+g  exec --no-startup-id ~/.config/i3/bin/toggle_gaps "toggle" $inner_gaps $outer_gaps
+bindsym $mod+Shift+t  exec --no-startup-id ~/.config/i3/bin/toggle_gaps "toggle_title" $inner_gaps $outer_gaps $border
 
 #------------------------------
 # shortcuts
 #------------------------------
 bindsym $mod+backslash workspace back_and_forth
-bindsym $mod+c exec exec gnome-calculator
+bindsym $mod+c  exec --no-startup-id gnome-calculator
 # use rofi instead of dmenu,
 # add equivalent of "alt+Tab functionality"
 bindsym $mod+d       exec "PATH=~/bin:~/bin_local:$PATH rofi -show run"
 bindsym $mod+Tab     exec "exec rofi -show window"
 bindsym $mod+Shift+s exec "exec rofi -show ssh"
-bindsym $mod+Shift+w exec exec ~/.config/i3/bin/rofi_workspace
-bindsym $mod+Shift+u exec exec ~/.config/i3/bin/rofi_unicode
+bindsym $mod+Shift+w  exec --no-startup-id ~/.config/i3/bin/rofi_workspace
+bindsym $mod+Shift+u  exec --no-startup-id ~/.config/i3/bin/rofi_unicode
 # changing workspaces
-bindsym $mod+Control+Left exec exec ~/.config/i3/bin/change_workspace 0
-bindsym $mod+Control+Right exec exec ~/.config/i3/bin/change_workspace 1
-bindsym $mod+Control+Shift+Left exec exec ~/.config/i3/bin/change_workspace 0 1
-bindsym $mod+Control+Shift+Right exec exec ~/.config/i3/bin/change_workspace 1 1
+bindsym $mod+Control+Left  exec --no-startup-id ~/.config/i3/bin/change_workspace 0
+bindsym $mod+Control+Right  exec --no-startup-id ~/.config/i3/bin/change_workspace 1
+bindsym $mod+Control+Shift+Left  exec --no-startup-id ~/.config/i3/bin/change_workspace 0 1
+bindsym $mod+Control+Shift+Right  exec --no-startup-id ~/.config/i3/bin/change_workspace 1 1
 # output
 bindsym $mod+Next focus output left
 bindsym $mod+Prior focus output right
@@ -222,7 +222,7 @@ bindsym $mod+Shift+l exec "PATH=~/.config/i3/bin/i3lock/i3lock-color:$PATH ~/.co
 # terminals
 bindsym $mod+Return exec [ -f ~/remote_machine.txt ] && exec alacritty -e "ssh -X $(cat ~/remote_machine.txt)" \
   || i3-nagbar -t warning -m 'Please populate ~/remote_machine.txt'
-bindsym $mod+Shift+Return exec exec alacritty
+bindsym $mod+Shift+Return exec --no-startup-id exec alacritty
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
@@ -233,9 +233,9 @@ bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 20 # decrease
 # change layout
 bindsym $mod+l exec --no-startup-id exec ~/.config/i3/bin/change_layout
 # print screen
-bindsym --release Print exec exec scrot -e 'mv $f /tmp/ && pinta /tmp/$f'
+bindsym --release Print  exec --no-startup-id scrot -e 'mv $f /tmp/ && pinta /tmp/$f'
 # print screen - select window or rectangle
-bindsym --release Shift+Print exec exec scrot -s -e 'mv $f /tmp/ && pinta /tmp/$f'
+bindsym --release Shift+Print  exec --no-startup-id scrot -s -e 'mv $f /tmp/ && pinta /tmp/$f'
 
 #------------------------------
 # enable/disable floating windows
