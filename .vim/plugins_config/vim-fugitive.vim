@@ -1,3 +1,5 @@
+autocmd User FugitiveIndex nnoremap <buffer> . :Git difftool -y<CR>
+
 function! ToggleGstatus()
   let t = 1
   let tabs_nb = tabpagenr('$')
