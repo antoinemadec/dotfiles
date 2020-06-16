@@ -102,13 +102,6 @@ esac
 #--------------------------------------------------------------
 # prompt
 #--------------------------------------------------------------
-# termite is sometimes not recognized as a TERM type
-if [ $TERM == xterm-termite ] && ! (tput colors &> /dev/null)
-then
-  wget https://raw.githubusercontent.com/thestinger/termite/master/termite.terminfo --no-check-certificate
-  tic -x termite.terminfo
-fi
-
 if tput colors &> /dev/null
 then
   # see man 4 console_codes
