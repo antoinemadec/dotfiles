@@ -92,11 +92,13 @@ function! MyRelativePath()
 endfunction
 
 function! MyFiletype()
-  if !exists("b:my_file_type")
+  if !exists("b:my_file_type") || b:my_file_type['ft'] != &ft
+    let b:my_file_type = {}
     let l:val = winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' . &ft : 'no ft') : ''
-    let b:my_file_type = substitute(l:val, 'verilog_systemverilog', 'sv', '')
+    let b:my_file_type['str'] = substitute(l:val, 'verilog_systemverilog', 'sv', '')
+    let b:my_file_type['ft'] = &ft
   endif
-  return b:my_file_type
+  return b:my_file_type['str']
 endfunction
 
 function! MyTabname(n)
