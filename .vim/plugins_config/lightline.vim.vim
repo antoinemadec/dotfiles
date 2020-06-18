@@ -2,7 +2,7 @@ set noshowmode " do not show insert when in insert mode
 
 if v:version >= 704
   autocmd TextChanged,InsertLeave * call lightline#update()
-  autocmd User CocStatusChange,CocDiagnosticChange if (getfsize(@%) <= g:coc_max_file_size) | call lightline#update() | endif
+  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 else
   autocmd InsertLeave * call lightline#update()
 endif

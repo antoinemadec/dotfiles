@@ -1,5 +1,6 @@
 {
   "coc.preferences.extensionUpdateCheck": "never",
+  "coc.preferences.maxFileSize": "1MB",
   "coc.source.omni.filetypes": ["verilog_systemverilog"],
   "suggest.completionItemKindLabels": {
     "keyword": "\uf1de",

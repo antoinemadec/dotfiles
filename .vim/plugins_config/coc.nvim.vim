@@ -151,46 +151,14 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 "--------------------------------------------------------------
 " personal config
 "--------------------------------------------------------------
-let g:coc_max_file_size = 1000000
-let s:coc_is_init = 0
-autocmd User CocNvimInit let s:coc_is_init = 1 | call DisableCocIfFileTooBig()
-autocmd BufWinEnter * call DisableCocIfFileTooBig()
-
 autocmd FileType verilog_systemverilog let b:coc_pairs_disabled = ["'"]
-
-function DisableCocIfFileTooBig() abort
-  if s:coc_is_init && g:coc_enabled && &ft != 'fugitive' &&
-        \ getfsize(@%) > g:coc_max_file_size
-    call wait(3000, "maparg('<BS>', 'i') != ''")
-    call MyCocDisable()
-  endif
-endfunction
-
-function MyCocDisable() abort
-  CocDisable
-  let l:coc_bs_imap = maparg('<BS>', 'i')
-  if l:coc_bs_imap != ""
-    let s:coc_bs_imap = l:coc_bs_imap
-    iunmap <BS>
-  endif
-endfunction
-
-function MyCocEnable() abort
-  if exists('s:coc_bs_imap')
-    exe 'inoremap <silent><expr> <BS> ' . s:coc_bs_imap
-  endif
-  CocEnable
-  echohl MoreMsg
-  echom '[coc.nvim] Enabled'
-  echohl None
-endfunction
 
 command! ToggleCompletion call ToggleCompletion()
 function ToggleCompletion()
   if g:coc_enabled
-    call MyCocDisable()
+    CocDisable
   else
-    call MyCocEnable()
+    CocEnable
   endif
 endfunction
 
