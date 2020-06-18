@@ -280,8 +280,9 @@ workspace 8 output HDMI1
 workspace 9 output HDMI1
 workspace 10 output HDMI1
 exec --no-startup-id exec ~/.i3_startup.sh
-exec --no-startup-id nm-applet
-exec --no-startup-id blueman-applet
-exec_always --no-startup-id numlockx on
+exec --no-startup-id exec nm-applet
+exec --no-startup-id exec blueman-applet
 exec --no-startup-id exec start-pulseaudio-x11
+exec_always --no-startup-id exec numlockx on
+exec_always --no-startup-id exec xset r rate 200 50
 #==============================================================
