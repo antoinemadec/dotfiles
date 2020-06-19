@@ -22,7 +22,7 @@ EOF
 # not compiled from source
 #--------------------------------------------------------------
 print_banner "misc"
-sudo apt -y install git tig htop vim curl
+sudo apt -y install git tig htop neovim-qt curl
 sudo apt -y install grub-customizer
 sudo apt -y install libreoffice evince gnome-calculator
 sudo apt -y install software-properties-common
