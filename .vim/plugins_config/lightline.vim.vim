@@ -52,8 +52,8 @@ let g:lightline = {
   \   'detecttrailingspace': 'error'
   \ },
   \ 'tab' : {
-  \   'active': [ 'tabnum', 'mytabname', 'modified' ],
-  \   'inactive': [ 'tabnum', 'mytabname', 'modified' ]
+  \   'active': [ 'mytabname', 'modified' ],
+  \   'inactive': [ 'mytabname', 'modified' ]
   \ },
   \ 'tab_component_function' : {
   \   'mytabname': 'MyTabname',
