@@ -284,5 +284,5 @@ exec --no-startup-id exec nm-applet
 exec --no-startup-id exec blueman-applet
 exec --no-startup-id exec start-pulseaudio-x11
 exec_always --no-startup-id exec numlockx on
-exec_always --no-startup-id exec xset r rate 200 50
+exec_always --no-startup-id exec xset r rate 150 50
 #==============================================================
