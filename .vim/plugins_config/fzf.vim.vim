@@ -1,11 +1,10 @@
+let g:fzf_layout = {'window': { 'width': 0.9, 'height': 0.8, 'border': 'sharp' } }
 let g:fzf_commands_expect = 'alt-enter'
+let g:coc_fzf_preview = 'right:50%'
+let g:coc_fzf_opts = []
+
 command! -bang -nargs=* Ag
       \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%', '?'), <bang>0)
-
-" popup windows
-if has('nvim')
-  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-endif
 
 " Maps can receive mode argument. E.g.: Maps i
 function s:maps(mode, ...) abort

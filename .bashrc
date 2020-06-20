@@ -256,6 +256,7 @@ export TERM_BRACKETED_PASTE=true  # can be modified in .bashrc.local
 
 # fzf: fuzzy search
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+export FZF_DEFAULT_OPTS='--layout=reverse --info=inline'
 if (type ag &> /dev/null) && (type fzf &> /dev/null)
 then
   export FZF_DEFAULT_COMMAND='ag -g ""'
