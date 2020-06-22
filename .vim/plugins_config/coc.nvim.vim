@@ -140,6 +140,7 @@ nnoremap <silent> <space>l  :<C-u>CocFzfList location<CR>
 nnoremap <silent> <space>o  :<C-u>CocFzfList outline<CR>
 nnoremap <silent> <space>s  :<C-u>CocFzfList symbols<CR>
 nnoremap <silent> <space>S  :<C-u>CocFzfList services<CR>
+nnoremap <silent> <space>y  :<C-u>CocFzfList yank<CR>
 nnoremap <silent> <space>p  :<C-u>CocFzfListResume<CR>
 
 " Do default action for next item.
@@ -162,8 +163,21 @@ function ToggleCompletion()
   endif
 endfunction
 
+nmap <silent> [d <Plug>(coc-diagnostic-prev)
+nmap <silent> ]d <Plug>(coc-diagnostic-next)
+
+nmap <silent> [g <Plug>(coc-git-prevchunk)
+nmap <silent> ]g <Plug>(coc-git-nextchunk)
+nmap <silent> <leader>cs <Plug>(coc-git-chunkinfo)
+nmap <silent> <leader>cc <Plug>(coc-git-commit)
+omap <silent> ig <Plug>(coc-git-chunk-inner)
+xmap <silent> ig <Plug>(coc-git-chunk-inner)
+omap <silent> ag <Plug>(coc-git-chunk-outer)
+xmap <silent> ag <Plug>(coc-git-chunk-outer)
+
 let g:coc_global_extensions = [
       \ 'coc-css',
+      \ 'coc-git',
       \ 'coc-highlight',
       \ 'coc-html',
       \ 'coc-json',
