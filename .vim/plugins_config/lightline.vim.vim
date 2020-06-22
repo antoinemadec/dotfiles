@@ -2,7 +2,7 @@ set noshowmode " do not show insert when in insert mode
 
 if v:version >= 704
   autocmd TextChanged,InsertLeave * call lightline#update()
-  autocmd User CocStatusChange,CocDiagnosticChange call CocLightlineUpdate()
+  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 else
   autocmd InsertLeave * call lightline#update()
 endif
@@ -39,13 +39,13 @@ let g:lightline = {
   \   'filetype': 'MyFiletype',
   \   'mymodified': 'MyModified',
   \   'mycocinfo': 'MyCocInfo',
-  \   'version_control': 'LightlineVersionControl'
+  \   'version_control': 'MyVersionControl'
   \ },
   \ 'component_expand': {
   \   'myrelativepath': 'MyRelativePath',
-  \   'foldinfo': 'FoldInfo',
+  \   'foldinfo': 'MyFoldInfo',
   \   'mycocstatus': 'MyCocStatus',
-  \   'detecttrailingspace': 'DetectTrailingSpace'
+  \   'detecttrailingspace': 'MyDetectTrailingSpace'
   \ },
   \ 'component_type': {
   \   'foldinfo': 'middle',
@@ -70,25 +70,23 @@ function! MyReadonly()
   return &readonly ? '🔒' : ''
 endfunction
 
-function CocLightlineUpdate() abort
-  let full_status_str = coc#status()
-  let full_status_array = split(full_status_str)
-  let g:lightline_coc_status = ""
-  if len(full_status_array) >= 1 && (full_status_str[0] == "W" || full_status_str[0] == "E")
-    let g:lightline_coc_status = full_status_array[0]
-    let g:lightline_coc_info = join(full_status_array[1:])
-  else
-    let g:lightline_coc_info = full_status_str
-  endif
-  call lightline#update()
+function! MyCocInfo()
+  return trim(get(g:, 'coc_status', ''))
 endfunction
 
-function! MyCocInfo()
-  return get(g:, "lightline_coc_info", "")
-endfunction
+let s:error_sign = get(g:, 'coc_status_error_sign', has('mac') ? '❌ ' : 'E')
+let s:warning_sign = get(g:, 'coc_status_warning_sign', has('mac') ? '⚠️ ' : 'W')
 
 function! MyCocStatus()
-  return get(g:, "lightline_coc_status", "")
+  let info = get(b:, 'coc_diagnostic_info', {})
+  let msgs = []
+  if get(info, 'error', 0)
+    call add(msgs, s:error_sign . info['error'])
+  endif
+  if get(info, 'warning', 0)
+    call add(msgs, s:warning_sign . info['warning'])
+  endif
+  return trim(join(msgs, ' '))
 endfunction
 
 function! MyRelativePath()
@@ -132,16 +130,16 @@ function! MyModified()
 endfunction
 
 if has('job') || has('nvim')
-  autocmd BufEnter,BufWinEnter,BufWritePost * call UpdateRevStatus()
+  autocmd BufEnter,BufWinEnter,BufWritePost * call s:UpdateRevStatus()
 else
-  autocmd BufWinEnter,BufWritePost * call UpdateRevStatus()
+  autocmd BufWinEnter,BufWritePost * call s:UpdateRevStatus()
 endif
-function! UpdateRevStatus()
+function! s:UpdateRevStatus()
   let l:vc_cmd = expand('~/.vim/script/version_control_status ' . expand('%:p')) . ' ' . bufnr("%")
   if has('job')
-    let l:job = job_start(l:vc_cmd, {"out_cb": "UpdateRevStatusOutCb", "exit_cb": "UpdateRevStatusExitCb"})
+    let l:job = job_start(l:vc_cmd, {'out_cb': function('s:UpdateRevStatusOutCb'), 'exit_cb': function('s:UpdateRevStatusExitCb')})
   elseif has('nvim')
-    let l:job = jobstart(l:vc_cmd, {"on_stdout": "UpdateRevStatusOutCb", "on_exit": "UpdateRevStatusExitCb"})
+    let l:job = jobstart(l:vc_cmd, {'on_stdout': function('s:UpdateRevStatusOutCb'), 'on_exit': function('s:UpdateRevStatusExitCb')})
   else
     let stdout_list = split(system(l:vc_cmd))
     if v:shell_error
@@ -153,7 +151,7 @@ function! UpdateRevStatus()
   endif
 endfunction
 
-function! UpdateRevStatusOutCb(ch, stdout, ...)
+function! s:UpdateRevStatusOutCb(ch, stdout, ...)
   let stdl = type(a:stdout) == 3 ? a:stdout : split(a:stdout)
   let stdout_list = has('nvim') ? split(stdl[0]) : stdl
   if len(stdout_list) == 3
@@ -163,18 +161,18 @@ function! UpdateRevStatusOutCb(ch, stdout, ...)
   endif
 endfunction
 
-function! UpdateRevStatusExitCb(ch, err, ...)
+function! s:UpdateRevStatusExitCb(ch, err, ...)
   if a:err
     let b:lightline_version_control = 'error'
   endif
   call lightline#update()
 endfunction
 
-function! LightlineVersionControl()
+function! MyVersionControl()
   return exists("b:lightline_version_control") ? b:lightline_version_control : ''
 endfunction
 
-function! FoldInfo()
+function! MyFoldInfo()
   if &foldenable && &foldcolumn >= 6
     return "lvl" . &foldlevel . repeat(" ", &foldcolumn - 6)
   else
@@ -182,7 +180,7 @@ function! FoldInfo()
   endif
 endfunction
 
-function! DetectTrailingSpace()
+function! MyDetectTrailingSpace()
   if &buftype != 'terminal' && mode() == 'n'
     let save_cursor = getpos('.')
     call cursor(1,1)
