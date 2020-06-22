@@ -2,7 +2,7 @@ set noshowmode " do not show insert when in insert mode
 
 if v:version >= 704
   autocmd TextChanged,InsertLeave * call lightline#update()
-  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+  autocmd User CocStatusChange,CocDiagnosticChange call CocLightlineUpdate()
 else
   autocmd InsertLeave * call lightline#update()
 endif
@@ -24,7 +24,7 @@ let g:lightline = {
   \   'left': [ [ 'foldinfo', 'mode', 'paste' ],
   \             [ 'readonly', 'myrelativepath', 'mymodified' ],
   \             [ 'version_control' ],
-  \             ['mycocstatus'] ],
+  \             ['mycocstatus', 'mycocinfo'] ],
   \   'right': [ [ 'lineinfo' ],
   \              [ 'percentwin' ],
   \              [ 'spell', 'filetype' ],
@@ -38,6 +38,7 @@ let g:lightline = {
   \   'readonly': 'MyReadonly',
   \   'filetype': 'MyFiletype',
   \   'mymodified': 'MyModified',
+  \   'mycocinfo': 'MyCocInfo',
   \   'version_control': 'LightlineVersionControl'
   \ },
   \ 'component_expand': {
@@ -69,12 +70,25 @@ function! MyReadonly()
   return &readonly ? '🔒' : ''
 endfunction
 
-function! MyCocStatus()
-  let l:status_str = split(coc#status())[0]
-  if l:status_str[0] == "W" || l:status_str[0] == "E"
-    return l:status_str
+function CocLightlineUpdate() abort
+  let full_status_str = coc#status()
+  let full_status_array = split(full_status_str)
+  let g:lightline_coc_status = ""
+  if len(full_status_array) >= 1 && (full_status_str[0] == "W" || full_status_str[0] == "E")
+    let g:lightline_coc_status = full_status_array[0]
+    let g:lightline_coc_info = join(full_status_array[1:])
+  else
+    let g:lightline_coc_info = full_status_str
   endif
-  return ""
+  call lightline#update()
+endfunction
+
+function! MyCocInfo()
+  return get(g:, "lightline_coc_info", "")
+endfunction
+
+function! MyCocStatus()
+  return get(g:, "lightline_coc_status", "")
 endfunction
 
 function! MyRelativePath()
