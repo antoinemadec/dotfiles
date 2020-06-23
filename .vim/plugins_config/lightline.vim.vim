@@ -71,7 +71,7 @@ function! MyReadonly()
 endfunction
 
 function! MyCocInfo()
-  return trim(get(g:, 'coc_status', ''))
+  return winwidth(0) > 100 ? trim(get(g:, 'coc_status', '')) : ''
 endfunction
 
 let s:error_sign = get(g:, 'coc_status_error_sign', has('mac') ? '❌ ' : 'E')
@@ -90,7 +90,7 @@ function! MyCocStatus()
 endfunction
 
 function! MyRelativePath()
-  if &buftype == 'quickfix'
+  if &buftype == 'quickfix' && exists('w:quickfix_title')
     return '%t [%{g:asyncrun_status}] %{w:quickfix_title}'
   else
     let l:path = expand('%<%f')
@@ -106,11 +106,11 @@ endfunction
 function! MyFiletype()
   if !exists("b:my_file_type") || b:my_file_type['ft'] != &ft
     let b:my_file_type = {}
-    let l:val = winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' . &ft : 'no ft') : ''
+    let l:val =  strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' . &ft : 'no ft'
     let b:my_file_type['str'] = substitute(l:val, 'verilog_systemverilog', 'sv', '')
     let b:my_file_type['ft'] = &ft
   endif
-  return b:my_file_type['str']
+  return winwidth(0) > 70 ? b:my_file_type['str'] : ''
 endfunction
 
 function! MyTabname(n)
@@ -181,7 +181,7 @@ function! MyFoldInfo()
 endfunction
 
 function! MyDetectTrailingSpace()
-  if &buftype != 'terminal' && mode() == 'n'
+  if winwidth(0) > 100 && &buftype != 'terminal' && mode() == 'n'
     let save_cursor = getpos('.')
     call cursor(1,1)
     let search_result = search("  *$", "c")
