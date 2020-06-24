@@ -52,7 +52,7 @@ let g:lightline = {
   \   'foldinfo': 'middle',
   \   'mycocstatuserror': 'error',
   \   'mycocstatuswarning': 'warning',
-  \   'detecttrailingspace': 'error'
+  \   'detecttrailingspace': 'warning'
   \ },
   \ 'tab' : {
   \   'active': [ 'mytabname', 'modified' ],
@@ -187,13 +187,13 @@ function! MyFoldInfo()
 endfunction
 
 function! MyDetectTrailingSpace()
-  if winwidth(0) > 100 && &buftype != 'terminal' && mode() == 'n'
+  if winwidth(0) > 100 && &ft != 'help' && &ft != 'startify' && &buftype != 'terminal' && mode() == 'n'
     let save_cursor = getpos('.')
     call cursor(1,1)
     let search_result = search("  *$", "c")
     call setpos('.', save_cursor)
     if &list
-      return search_result ? "trailing space" : ""
+      return search_result ? "t.space" : ""
     else
       return "tab & ts hidden"
     endif
