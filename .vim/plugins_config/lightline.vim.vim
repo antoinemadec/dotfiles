@@ -24,7 +24,7 @@ let g:lightline = {
   \   'left': [ [ 'foldinfo', 'mode', 'paste' ],
   \             [ 'readonly', 'myrelativepath', 'mymodified' ],
   \             [ 'version_control' ],
-  \             ['mycocstatus', 'mycocinfo'] ],
+  \             ['mycocstatuserror', 'mycocstatuswarning', 'mycocinfo'] ],
   \   'right': [ [ 'lineinfo' ],
   \              [ 'percentwin' ],
   \              [ 'spell', 'filetype' ],
@@ -44,12 +44,14 @@ let g:lightline = {
   \ 'component_expand': {
   \   'myrelativepath': 'MyRelativePath',
   \   'foldinfo': 'MyFoldInfo',
-  \   'mycocstatus': 'MyCocStatus',
+  \   'mycocstatuserror': 'MyCocStatusError',
+  \   'mycocstatuswarning': 'MyCocStatusWarning',
   \   'detecttrailingspace': 'MyDetectTrailingSpace'
   \ },
   \ 'component_type': {
   \   'foldinfo': 'middle',
-  \   'mycocstatus': 'warning',
+  \   'mycocstatuserror': 'error',
+  \   'mycocstatuswarning': 'warning',
   \   'detecttrailingspace': 'error'
   \ },
   \ 'tab' : {
@@ -77,16 +79,20 @@ endfunction
 let s:error_sign = get(g:, 'coc_status_error_sign', has('mac') ? '❌ ' : 'E')
 let s:warning_sign = get(g:, 'coc_status_warning_sign', has('mac') ? '⚠️ ' : 'W')
 
-function! MyCocStatus()
+function! MyCocStatusError()
   let info = get(b:, 'coc_diagnostic_info', {})
-  let msgs = []
   if get(info, 'error', 0)
-    call add(msgs, s:error_sign . info['error'])
+    return s:error_sign . info['error']
   endif
+  return ''
+endfunction
+
+function! MyCocStatusWarning()
+  let info = get(b:, 'coc_diagnostic_info', {})
   if get(info, 'warning', 0)
-    call add(msgs, s:warning_sign . info['warning'])
+    return s:warning_sign . info['warning']
   endif
-  return trim(join(msgs, ' '))
+  return ''
 endfunction
 
 function! MyRelativePath()
