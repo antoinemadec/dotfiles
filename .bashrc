@@ -10,12 +10,13 @@ esac
 
 export SHELL=/bin/bash
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
+# don't put duplicate lines in the history.
+HISTCONTROL=ignoredups:erasedups
 
 # append to the history file, don't overwrite it
 shopt -s histappend
+
+PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=4000000
@@ -25,24 +26,19 @@ HISTFILESIZE=4000000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
-
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    [ "$LS_COLORS" = "" ] && source ~/bin/source_conditional/ls_colors.bash
-    alias ls='ls -h --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  [ "$LS_COLORS" = "" ] && source ~/bin/source_conditional/ls_colors.bash
+  alias ls='ls -h --color=auto'
+  #alias dir='dir --color=auto'
+  #alias vdir='vdir --color=auto'
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
 fi
 
 # colored GCC warnings and errors
@@ -77,27 +73,12 @@ fi
 # disable the bell
 xset b off
 
-#--------------------------------------------------------------
 # xterm title
-#--------------------------------------------------------------
-case "$TERM" in
-  xterm*|rxvt*)
-    # TODO: remove VIM test when vim is fixed
-    if [ -f /etc/profile.d/vte-2.91.sh ] && [ "$VIM" = "" ]
-    then
-      . /etc/profile.d/vte-2.91.sh
-      [ -n "$BASH_VERSION" ] && PROMPT_COMMAND="__vte_prompt_command"
-    else
-      XTERM_TITLE='${USER}@${HOSTNAME/.*}:${PWD/$HOME/\~}'
-      PROMPT_COMMAND='eval "echo -ne \"\033]0;${XTERM_TITLE}\007\""'
-    fi
-    ;;
-  *)
-    XTERM_TITLE='${USER}@${HOSTNAME/.*}:${PWD/$HOME/\~}'
-    PROMPT_COMMAND='eval "echo -ne \"\033]0;${XTERM_TITLE}\007\""'
-    ;;
-esac
-#--------------------------------------------------------------
+eval_xterm_title() {
+  local XTERM_TITLE='${USER}@${HOSTNAME/.*}:${PWD/$HOME/\~}'
+  eval "echo -ne \"\033]0;${XTERM_TITLE}\007\""
+}
+PROMPT_COMMAND="eval_xterm_title; $PROMPT_COMMAND"
 
 #--------------------------------------------------------------
 # prompt
@@ -129,16 +110,15 @@ fi
 # test speed of __git_ps1 with different options in background
 # 200ms is the threshold; don't run it if current directory has not change
 test_git_ps1_speed() {
-  local file="$1"
-  local repo="$2"
   (
   local status="true"
-  local t=$( (time (GIT_PS1_SHOWDIRTYSTATE=true __git_ps1)) 2>&1 | grep real | sed -e 's/.*m//' -e 's/s//' -e 's/\.//' )
+  local t=$( (time GIT_PS1_SHOWDIRTYSTATE=true __git_ps1) 2>&1 | grep real | sed -e 's/.*m//' -e 's/s//' -e 's/\.//' )
   [ "$t" -gt 200 ] && status="false"
-  echo "$repo $status" > $file
+  echo "$GIT_REPO $status" > $FANCY_PROMPT_GIT_FILE
   )& disown %-
 }
 
+FANCY_PROMPT_GIT_FILE="/tmp/git_ps1_speed_$(whoami)_$(tty | tr '/' _)"
 fancy_prompt () {
   local return_code="$?"
   if [ "$return_code" = 0 ]
@@ -148,21 +128,23 @@ fancy_prompt () {
       local arrow="${COLOR_RED}"
   fi
   local arrow+=">"
-  local git_ds_file="/tmp/git_ps1_speed_$(whoami)_$(tty | sed 's#/#_#g')"
-  local repo="$(git rev-parse --show-toplevel 2>/dev/null)"
-  test_git_ps1_speed "$git_ds_file" "$repo"
-  local ds_status=""
-  local speed_repo="$(cat $git_ds_file   2>/dev/null | cut -d ' ' -f1)"
-  local speed_status="$(cat $git_ds_file 2>/dev/null | cut -d ' ' -f2)"
-  [ "$speed_repo" = "$repo" ] && [ "$speed_status" = "true" ] && ds_status="true"
-  GIT_PS1_SHOWDIRTYSTATE="$ds_status"
-  GIT_PS1_SHOWSTASHSTATE=true
-  GIT_PS1_SHOWUPSTREAM="auto"
-  GIT_PS1_DESCRIBE_STYLE="branch"
-  local git=$(__git_ps1 "${COLOR_NEUTRAL}on ${COLOR_LIGHT_CYAN}%s" 2> /dev/null)
+  GIT_REPO="$(git rev-parse --show-toplevel 2>/dev/null)"
+  if [ "$GIT_REPO" != "" ]; then
+    test_git_ps1_speed
+    local ds_status=""
+    local speed="$(cat $FANCY_PROMPT_GIT_FILE 2>/dev/null)"
+    local speed_repo="${speed/ */}"
+    local speed_status="${speed/* /}"
+    [ "$speed_repo" = "$GIT_REPO" ] && [ "$speed_status" = "true" ] && ds_status="true"
+    GIT_PS1_SHOWDIRTYSTATE="$ds_status"
+    GIT_PS1_SHOWSTASHSTATE=true
+    GIT_PS1_SHOWUPSTREAM="auto"
+    GIT_PS1_DESCRIBE_STYLE="branch"
+    local git=$(__git_ps1 "${COLOR_NEUTRAL}on ${COLOR_LIGHT_CYAN}%s" 2> /dev/null)
+    [ "$GIT_PS1_SHOWDIRTYSTATE" = "" ] && [ "$git" != "" ] && git+=" ${COLOR_GRAY}(no-ds)"
+  fi
   local python_virtual_env=""
   [ "$VIRTUAL_ENV" != "" ] && python_virtual_env="${COLOR_GRAY}($(basename "$VIRTUAL_ENV")) "
-  [ "$GIT_PS1_SHOWDIRTYSTATE" = "" ] && [ "$git" != "" ] && git+=" ${COLOR_GRAY}(no-ds)"
   export PS1="${python_virtual_env}${COLOR_RED}\u${COLOR_NEUTRAL}@${HILIT}\h${COLOR_NEUTRAL}:${COLOR_YELLOW}\w ${git}${COLOR_NEUTRAL}\n$arrow${COLOR_NEUTRAL} "
 }
 
@@ -172,13 +154,7 @@ else
     HILIT=${COLOR_LIGHT_GREEN}  # local machine
 fi
 
-# execute xterm_autotitle for each prompt
-if [ "$PROMPT_COMMAND" = "" ]
-then
-  PROMPT_COMMAND="fancy_prompt"
-else
-  PROMPT_COMMAND="fancy_prompt ; $PROMPT_COMMAND"
-fi
+PROMPT_COMMAND="fancy_prompt ; $PROMPT_COMMAND"
 #--------------------------------------------------------------
 
 #--------------------------------------------------------------
