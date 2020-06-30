@@ -55,7 +55,7 @@ endif
 " vim options
 "--------------------------------------------------------------
 set nocompatible               " get rid of vi compatibility
-set clipboard=unnamed          " unnamed register is same as *
+set cb=unnamed,unnamedplus     " use * and + registers for yank
 set mouse=a                    " allow to resize and copy/paste without selecting text outside of the window
 set nobackup                   " don't keep a backup file
 set textwidth=0                " don't wrap words by default
