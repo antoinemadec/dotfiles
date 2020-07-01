@@ -7,8 +7,8 @@ else
   autocmd InsertLeave * call lightline#update()
 endif
 
-autocmd VimEnter * call SetupLightlineColors()
-function SetupLightlineColors() abort
+autocmd VimEnter * call s:SetupLightlineColors()
+function s:SetupLightlineColors() abort
   let l:palette = lightline#palette()
   let l:color = l:palette.normal.left[1]
   let l:palette.inactive.right = [l:color]
@@ -16,7 +16,6 @@ function SetupLightlineColors() abort
   let l:palette.inactive.left = [l:color]
   call lightline#colorscheme()
 endfunction
-highlight StatusLineNC cterm=reverse ctermfg=239 ctermbg=223 gui=reverse guifg=#504945 guibg=#ebdbb1
 
 let g:lightline = {
   \ 'colorscheme': 'gruvbox',

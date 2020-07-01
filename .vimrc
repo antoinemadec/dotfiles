@@ -129,8 +129,6 @@ endif
 set background=dark
 let g:gruvbox_contrast_dark = 'soft'
 colorscheme gruvbox
-highlight Todo      term=standout cterm=bold ctermfg=235 ctermbg=167 gui=bold guifg=#282828 guibg=#fb4934
-highlight VertSplit guibg=#32302f guifg=#181A1F
 set fillchars=vert:│,fold:+
 
 "--------------------------------------------------------------
@@ -153,7 +151,7 @@ function ToggleTrailingSpace()
     highlight CustomHighlight_TrailingSpace NONE
   else
     windo set list
-    highlight CustomHighlight_TrailingSpace term=standout cterm=bold ctermfg=235 ctermbg=167 gui=bold guifg=#282828 guibg=#fb4934
+    highlight link CustomHighlight_TrailingSpace Todo
   endif
   exe l:nr . "wincmd w"
   call lightline#update()
