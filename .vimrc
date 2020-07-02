@@ -29,6 +29,7 @@ Plug 'vhda/verilog_systemverilog.vim', {'for': 'verilog_systemverilog'}    " vim
 " misc
 Plug 'andymass/vim-matchup'                                                " replacement for the vim plugin matchit.vim
 Plug 'antoinemadec/vim-highlight-groups'                                   " add words in highlight groups on the fly
+Plug 'RRethy/vim-illuminate'                                               " highlight other uses of the current word under the cursor
 Plug 'chamindra/marvim'                                                    " store/load macros easily
 Plug 'honza/vim-snippets'                                                  " snippets working with coc.nvim
 Plug 'junegunn/vim-easy-align'                                             " easy alignment of line fields
