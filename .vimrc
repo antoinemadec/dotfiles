@@ -46,6 +46,7 @@ Plug 'tpope/vim-repeat'                                                    " rem
 Plug 'tpope/vim-sensible'                                                  " vim defaults that everyone can agree on
 Plug 'tpope/vim-speeddating'                                               " use ctrl-a/ctrl-x to increment dates, times, and more
 Plug 'tpope/vim-surround'                                                  " delete, change and add surroundings in pairs
+Plug 'antoinemadec/FixCursorHold.nvim'                                     " fix CursorHold perf bug
 call plug#end()
 
 if empty(glob("~/.vim/plugins"))
