@@ -299,6 +299,7 @@ command! -nargs=0 RemoveTrailingSpace :let _s=@/ | :%s/\s\+$//e | :let @/=_s | :
 " open scratch buffer
 command! -bar -nargs=? Scratch <args>new | setlocal buftype=nofile bufhidden=hide noswapfile
 
+command! ToggleIndent call ToggleIndent()
 function! ToggleIndent()
   if &shiftwidth == 2
     setlocal shiftwidth=4 tabstop=4
