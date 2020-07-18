@@ -123,7 +123,8 @@ function! MyTabname(n)
   let winnr = tabpagewinnr(a:n)
   let _ = expand('#'.buflist[winnr - 1].':t')
   let tn = gettabvar(a:n, 'tabname')
-  return strlen(tn) ? tn : _
+  let r = strlen(tn) ? tn : _
+  return strlen(r) ? r : '◼'
 endfunction
 
 function! MyModified()
