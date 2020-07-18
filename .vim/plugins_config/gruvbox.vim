@@ -1,5 +1,6 @@
 let s:bg0 = g:current_gruvbox_colors.bg0
 let s:bg2 = g:current_gruvbox_colors.bg2
+let s:fg0 = g:current_gruvbox_colors.fg0
 let s:fg1 = g:current_gruvbox_colors.fg1
 let s:bright_red = g:current_gruvbox_colors.bright_red
 let s:dark_hard = g:current_gruvbox_colors.dark0_hard
@@ -15,3 +16,5 @@ exe 'hi Todo term=standout cterm=bold ctermfg=' . s:dark_hard[1] . ' ctermbg=' .
       \ ' gui=bold guifg=' . s:dark_hard[0] . ' guibg=' . s:bright_red[0]
 
 exe 'hi VertSplit guibg=' . s:bg0[0] . ' guifg=#181A1F'
+
+exe 'hi VM_Mono_hl ctermbg=' . s:bright_red[1] . ' guibg=' . s:bright_red[0] . ' ctermfg=' . s:fg0[1] . ' guifg=' . s:fg0[0] . ' cterm=bold term=bold gui=bold'

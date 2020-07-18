@@ -20,7 +20,7 @@ endfunction
 let g:lightline = {
   \ 'colorscheme': 'gruvbox',
   \ 'active': {
-  \   'left': [ [ 'foldinfo', 'mode', 'paste' ],
+  \   'left': [ [ 'foldinfo', 'mymode', 'paste' ],
   \             [ 'readonly', 'myrelativepath', 'mymodified' ],
   \             [ 'version_control' ],
   \             ['mycocstatuserror', 'mycocstatuswarning', 'mycocinfo'] ],
@@ -34,6 +34,7 @@ let g:lightline = {
   \   'right': [ [ '' ] ]
   \ },
   \ 'component_function': {
+  \   'mymode': 'MyMode',
   \   'readonly': 'MyReadonly',
   \   'filetype': 'MyFiletype',
   \   'mymodified': 'MyModified',
@@ -66,6 +67,30 @@ let g:lightline = {
   \ 'separator': { 'left': '', 'right': '' },
   \ 'subseparator': { 'left': '', 'right': '' },
   \ }
+
+function MyMode() abort
+  if !get(w:, 'VM_is_active', 0)
+    return lightline#mode()
+  else
+    let v = b:VM_Selection.Vars
+    let vm = VMInfos()
+    try
+      if v.insert
+        if b:VM_Selection.Insert.replace
+          let mode = 'V-R'
+        else
+          let mode = 'V-I'
+        endif
+      else
+        let mode = { 'n': 'V-M', 'v': 'V', 'V': 'V-L', "\<C-v>": 'V-B' }[mode()]
+      endif
+    catch
+      let mode = 'V-M'
+    endtry
+    let mode = exists('v.statusline_mode') ? v.statusline_mode : mode
+    return printf("%s %s", mode, substitute(vm.ratio, ' ', '', 'g'))
+  endif
+endfunction
 
 function! MyReadonly()
   return &readonly ? '🔒' : ''

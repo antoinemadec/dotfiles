@@ -39,7 +39,7 @@ Plug 'kana/vim-textobj-user'                                               " nee
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}                           " display buffer's classes/functions/vars based on ctags
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}                       " file explorer
 Plug 'skywind3000/asyncrun.vim'                                            " run asynchronous bash commands
-Plug 'terryma/vim-multiple-cursors'                                        " sublime text's multiple selection feature
+Plug 'mg979/vim-visual-multi'
 Plug 'tpope/vim-commentary'                                                " comment stuff out
 Plug 'tpope/vim-fugitive'                                                  " git wrapper
 Plug 'tpope/vim-repeat'                                                    " remaps '.' in a way that plugins can tap into it
@@ -163,14 +163,13 @@ call ToggleTrailingSpace()
 autocmd BufWinEnter * match CustomHighlight_TrailingSpace /\s\+$/
 autocmd InsertEnter * match CustomHighlight_TrailingSpace /\s\+\%#\@<!$/
 autocmd InsertLeave * match CustomHighlight_TrailingSpace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
 
 " highlight non breakable space
 set listchars=nbsp:?
 
 " always highlight TBD TODO and FIXME no matter the filetype
 highlight link CustomHighlight_Warning Todo
-autocmd WinEnter,VimEnter * :silent! call matchadd('CustomHighlight_Warning', 'TBD\|TODO\|FIXME', -1)
+autocmd WinEnter,VimEnter * match CustomHighlight_Warning /TBD\|TODO\|FIXME/
 
 "--------------------------------------------------------------
 " folding
