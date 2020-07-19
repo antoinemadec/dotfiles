@@ -160,16 +160,20 @@ function ToggleTrailingSpace()
 endfunction
 call ToggleTrailingSpace()
 
-autocmd BufWinEnter * match CustomHighlight_TrailingSpace /\s\+$/
-autocmd InsertEnter * match CustomHighlight_TrailingSpace /\s\+\%#\@<!$/
-autocmd InsertLeave * match CustomHighlight_TrailingSpace /\s\+$/
+autocmd BufWinEnter * call MatchPattern('trailingspace',
+      \ 'CustomHighlight_TrailingSpace',  '\s\+$', 11)
+autocmd InsertEnter * call MatchPattern('trailingspace',
+      \ 'CustomHighlight_TrailingSpace', '\s\+\%#\@<!$', 11)
+autocmd InsertLeave * call MatchPattern('trailingspace',
+      \ 'CustomHighlight_TrailingSpace',  '\s\+$', 11)
 
 " highlight non breakable space
 set listchars=nbsp:?
 
 " always highlight TBD TODO and FIXME no matter the filetype
 highlight link CustomHighlight_Warning Todo
-autocmd WinEnter,VimEnter * match CustomHighlight_Warning /TBD\|TODO\|FIXME/
+autocmd WinEnter,VimEnter * call MatchPattern('todo',
+      \ 'CustomHighlight_Warning', 'TBD\|TODO\|FIXME', 11)
 
 "--------------------------------------------------------------
 " folding
@@ -275,6 +279,16 @@ endif
 if exists('*remote_startserver') && has('clientserver') && v:servername == ''
   call remote_startserver('vim_server_' . getpid())
 endif
+
+function MatchPattern(id_str, hl, pattern, priority) abort
+  exe 'let id_varname = "match_' . a:id_str . '_id"'
+  let id_value = get(w:, id_varname, -1)
+  if id_value != -1
+    call matchdelete(id_value)
+  endif
+  let matchadd_id = matchadd(a:hl, a:pattern, a:priority, id_value)
+  exe 'let w:' . id_varname . ' = matchadd_id'
+endfunction
 
 function! GetCurrentBufferDir()
   if exists("b:netrw_browser_active")
