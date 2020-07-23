@@ -68,8 +68,20 @@ let g:lightline = {
   \ 'subseparator': { 'left': '', 'right': '' },
   \ }
 
+let s:prev_llm = ''
+let w:VM_is_active = 0
+
 function MyMode() abort
-  if !get(w:, 'VM_is_active', 0)
+  if !w:VM_is_active && mode() == s:prev_llm
+    return lightline#mode()
+  endif
+  if !w:VM_is_active
+    if mode() == 'n'
+      set noshowcmd
+    else
+      set showcmd
+    endif
+    let s:prev_llm = mode()
     return lightline#mode()
   else
     let v = b:VM_Selection.Vars
@@ -134,13 +146,14 @@ function! MyRelativePath()
 endfunction
 
 function! MyFiletype()
-  if !exists("b:my_file_type") || b:my_file_type['ft'] != &ft
-    let b:my_file_type = {}
-    let l:val =  strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' . &ft : 'no ft'
-    let b:my_file_type['str'] = substitute(l:val, 'verilog_systemverilog', 'sv', '')
-    let b:my_file_type['ft'] = &ft
+  if exists("b:my_file_type") && b:my_file_type['ft'] == &ft
+    return winwidth(0) > 70 ? b:my_file_type['str'] : ''
   endif
-  return winwidth(0) > 70 ? b:my_file_type['str'] : ''
+  let b:my_file_type = {}
+  let l:val =  strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' . &ft : 'no ft'
+  let b:my_file_type['str'] = substitute(l:val, 'verilog_systemverilog', 'sv', '')
+  let b:my_file_type['ft'] = &ft
+  call MyFiletype()
 endfunction
 
 function! MyTabname(n)
@@ -153,10 +166,10 @@ function! MyTabname(n)
 endfunction
 
 function! MyModified()
-  if &buftype == 'quickfix' || &buftype == 'terminal'
-    return ''
-  else
+  if &buftype != 'quickfix' && &buftype != 'terminal'
     return &modified ? '+' : &modifiable ? '' : '-'
+  else
+    return ''
   endif
 endfunction
 

@@ -6,6 +6,8 @@ let g:VM_Mono_hl   = 'VM_Mono_hl'
 
 autocmd User visual_multi_mappings  imap <buffer><expr> <CR> pumvisible() ? "\<C-Y>" : "\<Plug>(VM-I-Return)"
 
+autocmd WinEnter * let w:VM_is_active = 0
+
 function! VM_Start()
   let w:VM_is_active = 1
   silent! call CocAction('deactivateExtension', 'coc-snippets')

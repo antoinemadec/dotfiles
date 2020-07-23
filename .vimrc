@@ -83,7 +83,7 @@ endif
 set title                      " change terminal title
 set ttimeoutlen=50             " ms waited for a key code/sequence to complete. Allow faster insert to normal mode
 set complete=.,w,b,u           " specifies how keyword completion works when CTRL-P or CTRL-N are used
-set showcmd                    " in Visual mode the size of the selected area is shown
+set noshowcmd                  " don't show (partial) command in the last line of the screen
 set ignorecase smartcase       " pattern with at least one uppercase character: search becomes case sensitive
 set cscopetag                  " cstag performs the equivalent of tjump when searching through tags file
 set cscopetagorder=1           " tag files searched before cscopte database
