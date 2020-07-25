@@ -133,16 +133,16 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings using CoCList:
-nnoremap <silent> <space>a  :<C-u>CocFzfList diagnostics<CR>
-nnoremap <silent> <space>b  :<C-u>CocFzfList diagnostics --current-buf<CR>
-nnoremap <silent> <space>c  :<C-u>CocFzfList commands<CR>
-nnoremap <silent> <space>e  :<C-u>CocFzfList extensions<CR>
-nnoremap <silent> <space>l  :<C-u>CocFzfList location<CR>
-nnoremap <silent> <space>o  :<C-u>CocFzfList outline<CR>
-nnoremap <silent> <space>s  :<C-u>CocFzfList symbols<CR>
-nnoremap <silent> <space>S  :<C-u>CocFzfList services<CR>
-nnoremap <silent> <space>y  :<C-u>CocFzfList yank<CR>
-nnoremap <silent> <space>p  :<C-u>CocFzfListResume<CR>
+nnoremap <silent> <space><space> :<C-u>CocFzfList<CR>
+nnoremap <silent> <space>a       :<C-u>CocFzfList diagnostics<CR>
+nnoremap <silent> <space>b       :<C-u>CocFzfList diagnostics --current-buf<CR>
+nnoremap <silent> <space>c       :<C-u>CocFzfList commands<CR>
+nnoremap <silent> <space>e       :<C-u>CocFzfList extensions<CR>
+nnoremap <silent> <space>l       :<C-u>CocFzfList location<CR>
+nnoremap <silent> <space>o       :<C-u>CocFzfList outline<CR>
+nnoremap <silent> <space>s       :<C-u>CocFzfList symbols<CR>
+nnoremap <silent> <space>y       :<C-u>CocFzfList yank<CR>
+nnoremap <silent> <space>p       :<C-u>CocFzfListResume<CR>
 
 " Do default action for next item.
 nnoremap <silent> <space>j  :<C-u>CocNext<CR>

@@ -10,3 +10,5 @@ function s:FasterAutocmd() abort
     autocmd InsertEnter * call illuminate#on_insert_entered()
   augroup END
 endfunction
+
+let g:Illuminate_ftblacklist = ['list']
