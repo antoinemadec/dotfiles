@@ -346,27 +346,6 @@ if has('win32') && filereadable($HOME.'\.vim\windows.vim')
   source ~/.vim/windows.vim
 endif
 
-" window tiles with golden ratio, rotate windows
-function WindowDoTile() abort
-  if (winnr('$') != 1)
-    let cur_buflist = tabpagebuflist()
-    let cur_layout = map(range(1, winnr('$')), 'win_screenpos(v:val)')
-    wincmd H
-    windo wincmd J
-    1 wincmd w
-    wincmd H
-    exe 'vertical resize '. string(&columns * 0.618)
-    let new_buflist = tabpagebuflist()
-    let new_layout = map(range(1, winnr('$')), 'win_screenpos(v:val)')
-    " rotate windows
-    if  (cur_buflist == new_buflist) && (cur_layout == new_layout)
-      wincmd L
-      1 wincmd w
-      call WindowDoTile()
-    endif
-  endif
-endfunction
-
 " make current window float or create float with empty buffer
 function WindowDoFloat(...) abort
   let create       = a:0 >= 1 ? a:1 : 0
@@ -382,8 +361,11 @@ function WindowDoFloat(...) abort
         \ 'style': 'minimal'
         \}
   if create
-    let buf = nvim_create_buf(v:false, v:false)
-    call nvim_open_win(buf, v:true, config)
+    let is_already_floating = nvim_win_get_config(0).relative != ''
+    if !is_already_floating
+      let buf = nvim_create_buf(v:false, v:false)
+      call nvim_open_win(buf, v:true, config)
+    endif
   else
     call nvim_win_set_config(0, config)
   endif
