@@ -1,8 +1,9 @@
 {
   "coc.preferences.extensionUpdateCheck": "never",
   "coc.preferences.maxFileSize": "1MB",
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.source.omni.filetypes": ["verilog_systemverilog"],
-  "highlight.document.enable":false,
+  "highlight.document.enable": false,
   "suggest.completionItemKindLabels": {
     "keyword": "\uf1de",
     "variable": "\ue79b",

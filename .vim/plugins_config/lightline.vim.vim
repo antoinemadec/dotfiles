@@ -20,18 +20,18 @@ endfunction
 let g:lightline = {
   \ 'colorscheme': 'gruvbox',
   \ 'active': {
-  \   'left': [ [ 'foldinfo', 'mymode', 'paste' ],
-  \             [ 'readonly', 'myrelativepath', 'mymodified' ],
-  \             [ 'version_control' ],
-  \             ['mycocstatuserror', 'mycocstatuswarning', 'mycocinfo'] ],
-  \   'right': [ [ 'lineinfo' ],
-  \              [ 'percentwin' ],
-  \              [ 'spell', 'filetype' ],
-  \              [ 'detecttrailingspace' ] ]
+  \   'left': [['foldinfo', 'mymode', 'paste'],
+  \             ['readonly', 'myrelativepath', 'mymodified'],
+  \             ['version_control'],
+  \             ['mycocstatuserror', 'mycocstatuswarning', 'mycocinfo', 'mycocfunc']],
+  \   'right': [['lineinfo'],
+  \              ['percentwin'],
+  \              ['spell', 'filetype'],
+  \              ['detecttrailingspace']]
   \ },
   \ 'inactive' : {
-  \   'left': [ [ 'filename', 'mymodified' ] ],
-  \   'right': [ [ '' ] ]
+  \   'left': [['filename', 'mymodified']],
+  \   'right': [['']]
   \ },
   \ 'component_function': {
   \   'mymode': 'MyMode',
@@ -39,6 +39,7 @@ let g:lightline = {
   \   'filetype': 'MyFiletype',
   \   'mymodified': 'MyModified',
   \   'mycocinfo': 'MyCocInfo',
+  \   'mycocfunc': 'MyCocFunc',
   \   'version_control': 'MyVersionControl'
   \ },
   \ 'component_expand': {
@@ -55,8 +56,8 @@ let g:lightline = {
   \   'detecttrailingspace': 'warning'
   \ },
   \ 'tab' : {
-  \   'active': [ 'mytabname', 'modified' ],
-  \   'inactive': [ 'mytabname', 'modified' ]
+  \   'active': ['mytabname', 'modified'],
+  \   'inactive': ['mytabname', 'modified']
   \ },
   \ 'tab_component_function' : {
   \   'mytabname': 'MyTabname',
@@ -112,6 +113,10 @@ function! MyCocInfo()
   return winwidth(0) > 100 ? trim(get(g:, 'coc_status', '')) : ''
 endfunction
 
+function! MyCocFunc()
+  return winwidth(0) > 100 ? get(b:, 'coc_current_function', '') : ''
+endfunction
+
 let s:error_sign = get(g:, 'coc_status_error_sign', has('mac') ? '❌ ' : 'E')
 let s:warning_sign = get(g:, 'coc_status_warning_sign', has('mac') ? '⚠️ ' : 'W')
 
@@ -161,8 +166,7 @@ function! MyTabname(n)
   let winnr = tabpagewinnr(a:n)
   let _ = expand('#'.buflist[winnr - 1].':t')
   let tn = gettabvar(a:n, 'tabname')
-  let r = strlen(tn) ? tn : _
-  return strlen(r) ? r : '◼'
+  return strlen(tn) ? tn : _
 endfunction
 
 function! MyModified()
