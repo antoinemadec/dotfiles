@@ -103,6 +103,8 @@ nnoremap <silent> <A-S-Left>    <C-w>H
 nnoremap <silent> <A-S-Down>    <C-w>J
 nnoremap <silent> <A-S-Up>      <C-w>K
 nnoremap <silent> <A-S-Right>   <C-w>L
+nnoremap <silent> <C-Down>      <C-e>
+nnoremap <silent> <C-Up>        <C-y>
 
 " tab movement
 if has('terminal') || has('nvim')

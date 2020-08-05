@@ -8,6 +8,10 @@ autocmd User visual_multi_mappings  imap <buffer><expr> <CR> pumvisible() ? "\<C
 
 autocmd WinEnter * let w:VM_is_active = 0
 
+let g:VM_maps = {}
+let g:VM_maps["Add Cursor Down"] = '<C-S-Down>'
+let g:VM_maps["Add Cursor Up"]   = '<C-S-Up>'
+
 function! VM_Start()
   let w:VM_is_active = 1
   silent! call CocAction('deactivateExtension', 'coc-snippets')
