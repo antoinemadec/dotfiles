@@ -4,6 +4,12 @@
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.source.omni.filetypes": ["verilog_systemverilog"],
   "highlight.document.enable": false,
+  "diagnostic.warningSign": ">>",
+  "git.changedSign.hlGroup": "CocGitDiffChange",
+  "git.addedSign.hlGroup": "CocGitDiffAdd",
+  "git.removedSign.hlGroup": "CocGitDiffDelete",
+  "git.topRemovedSign.hlGroup": "CocGitDiffDelete",
+  "git.changeRemovedSign.hlGroup": "CocGitDiffChange",
   "suggest.completionItemKindLabels": {
     "keyword": "\uf1de",
     "variable": "\ue79b",

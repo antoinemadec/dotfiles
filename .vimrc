@@ -81,6 +81,7 @@ if has('nvim')
   set inccommand=nosplit
 endif
 set title                      " change terminal title
+set timeoutlen=500             " time in milliseconds to wait for a mapped sequence to complete
 set ttimeoutlen=50             " ms waited for a key code/sequence to complete. Allow faster insert to normal mode
 set complete=.,w,b,u           " specifies how keyword completion works when CTRL-P or CTRL-N are used
 set noshowcmd                  " don't show (partial) command in the last line of the screen

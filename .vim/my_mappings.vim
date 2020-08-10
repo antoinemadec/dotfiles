@@ -160,7 +160,7 @@ nnoremap <silent> <leader>ev    :vsp `=GetCurrentBufferDir()`<CR>
 nnoremap <silent> <leader>et    :tabe `=GetCurrentBufferDir()`<CR>
 nnoremap <silent> <leader>cd    :cd `=GetCurrentBufferDir()`<CR>
 nnoremap <silent> <leader>/     :BLines<CR>
-nnoremap <silent> <leader>\     :Commands<CR>
+nnoremap <silent> <leader>;     :Commands<CR>
 nnoremap <silent> <leader>f     :Files<CR>
 nnoremap <silent> <leader>g     :GitFiles<CR>
 nnoremap <silent> <leader>ag    :Ag<CR>
