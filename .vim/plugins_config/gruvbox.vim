@@ -1,37 +1,100 @@
-function s:set_highlight(name, fg, bg, extra_opts) abort
-  let fg_str = ''
+function s:set_highlight(name, bg, fg, extra_opts) abort
   let bg_str = ''
-  let opts_str = ' ' . a:extra_opts
-  if !empty(a:fg)
-    let fg_str = ' guifg=' . a:fg[0] . ' ctermfg=' . a:fg[1]
-  endif
+  let fg_str = ''
+  let opts_str = ''
   if !empty(a:bg)
-    let bg_str = ' guibg=' . a:bg[0] . ' ctermbg=' . a:bg[1]
+    exe 'let bg = g:current_gruvbox_colors.' . a:bg
+    let bg_str = ' guibg=' . bg[0] . ' ctermbg=' . bg[1]
+  endif
+  if !empty(a:fg)
+    exe 'let fg = g:current_gruvbox_colors.' . a:fg
+    let fg_str = ' guifg=' . fg[0] . ' ctermfg=' . fg[1]
+  endif
+  if !empty(a:extra_opts)
+    let opts_str = ''
+    for ui in ['cterm', 'gui']
+      exe printf('let opts_str .= " %s=%s"', ui, join(a:extra_opts, ','))
+    endfor
   endif
   exe 'highlight ' . a:name . fg_str . bg_str . opts_str
 endfunction
 
-let s:bg0 = g:current_gruvbox_colors.bg0
 let s:bg2 = g:current_gruvbox_colors.bg2
-let s:fg0 = g:current_gruvbox_colors.fg0
 let s:fg1 = g:current_gruvbox_colors.fg1
-let s:bright_red = g:current_gruvbox_colors.bright_red
-let s:bright_orange = g:current_gruvbox_colors.bright_orange
-let s:bright_yellow = g:current_gruvbox_colors.bright_yellow
-let s:bright_green = g:current_gruvbox_colors.bright_green
-let s:bright_blue = g:current_gruvbox_colors.bright_blue
-let s:bright_aqua = g:current_gruvbox_colors.bright_aqua
-let s:dark0_hard = g:current_gruvbox_colors.dark0_hard
 
 " fg[1]-1: make sure StatusLineNC and StatusLine are not identical to avoid ^^^^^
 exe 'hi StatusLineNC cterm=reverse ctermfg=' . s:bg2[1] . ' ctermbg=' . string(s:fg1[1]-1) .
       \ ' gui=reverse guifg=' . s:bg2[0] . ' guibg=' . s:fg1[0]
-call s:set_highlight('CocHighlightText', '', s:bg2, '')
-call s:set_highlight('Todo', s:dark0_hard, s:bright_red, 'term=standout cterm=bold gui=bold')
-call s:set_highlight('VertSplit', s:dark0_hard, s:bg0, '')
-call s:set_highlight('VM_Mono_hl', s:fg0, s:bright_red, 'cterm=bold term=bold gui=bold')
+call s:set_highlight('CocHighlightText', 'bg2',           '',            '')
+call s:set_highlight('Todo',             'bright_red',    'dark0_hard',  ['bold'])
+call s:set_highlight('VertSplit',        'bg0',           'dark0_hard',  '')
+call s:set_highlight('VM_Extend_hl',     'faded_blue',    '',            '')
+call s:set_highlight('VM_Cursor_hl',     'neutral_blue',  'bright_aqua', '')
+call s:set_highlight('VM_Insert_hl',     'gray',          ''           , '')
+call s:set_highlight('VM_Mono_hl',       'bright_orange', 'fg0',         ['bold'])
 
 hi link illuminatedWord CocHighlightText
 hi link CocGitDiffDelete GruvboxRedSign
 hi link CocGitDiffAdd GruvboxGreenSign
 hi link CocGitDiffChange GruvboxAquaSign
+hi link Sneak VM_Mono_hl
+hi link SneakLabel VM_Mono_hl
+
+" 'light4':         #a89984
+" 'neutral_green':  #98971a
+" 'yellow':         #fabd2f
+" 'faded_aqua':     #427b58
+" 'bright_blue':    #83a598
+" 'orange':         #fe8019
+" 'neutra l_blue':  #458588
+" 'purple':         #d3869b
+" 'faded_green':    #79740e
+" 'neutral_red':    #cc241d
+" 'gray_244':       #928374
+" 'gray_245':       #928374
+" 'bright_yel low': #fabd2f
+" 'fg4_256':        #a89984
+" 'fg0':            #fbf1c7
+" 'fg1':            #ebdbb2
+" 'fg2':            #d5c4a1
+" 'fg3':            #bdae93
+" 'fg4':            #a89984
+" 'bright_purpl e': #d3869b
+" 'neutral_orange': #d65d0e
+" 'bright_orange':  #fe8019
+" 'faded_red':      #9d0006
+" 'light0_soft':    #f2e5bc
+" 'blue':           #83a598
+" 'faded_bl ue':    #076678
+" 'light0_hard':    #f9f5d7
+" 'bright_green':   #b8bb26
+" 'gray':           #928374
+" 'dark4_256':      #7c6f64
+" 'neutral_purple': #b16286
+" 'dark0':          #282828
+" 'dark1':          #3c3836
+" 'dark2':          #504945
+" 'dark3':          #665c54
+" 'dark4':          #7c6f64
+" 'dark0_soft':     #32302f
+" 'bright_aqua':    #8ec07c
+" 'neutral_aqua':   #689d6a
+" 'dark0_hard':     #1d2021
+" 'light4_256':     #a89984
+" 'green':          #b8bb26
+" 'neutral_yellow': #d79921
+" 'aqua':           #8ec07c
+" 'fade d_yellow':  #b57614
+" 'red':            #fb4934
+" 'faded_purple':   #8f3f71
+" 'bg0':            #32302f
+" 'bg1':            #3c3836
+" 'bg2':            #504945
+" 'bg3':            #665c54
+" 'bg4 ':           #7c6f64
+" 'bright_red':     #fb4934
+" 'faded_orange':   #af3a03
+" 'light0':         #fbf1c7
+" 'light1':         #ebdbb2
+" 'light2':         #d5c4a1
+" 'light3':         #bdae93

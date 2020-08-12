@@ -27,6 +27,7 @@ Plug 'sheerun/vim-polyglot'                                                " a c
 Plug 'antoinemadec/vim-verilog-instance', {'for': 'verilog_systemverilog'} " verilog port instantiation from port declaration
 Plug 'vhda/verilog_systemverilog.vim', {'for': 'verilog_systemverilog'}    " vim syntax plugin for verilog and systemverilog
 " misc
+Plug 'justinmk/vim-sneak'                                                  " jump to any location specified by two characters
 Plug 'andymass/vim-matchup'                                                " replacement for the vim plugin matchit.vim
 Plug 'antoinemadec/vim-highlight-groups'                                   " add words in highlight groups on the fly
 Plug 'RRethy/vim-illuminate'                                               " highlight other uses of the current word under the cursor
@@ -281,7 +282,7 @@ function MatchPattern(id_str, hl, pattern, priority) abort
   exe 'let id_varname = "match_' . a:id_str . '_id"'
   let id_value = get(w:, id_varname, -1)
   if id_value != -1
-    call matchdelete(id_value)
+    silent! call matchdelete(id_value)
   endif
   let matchadd_id = matchadd(a:hl, a:pattern, a:priority, id_value)
   exe 'let w:' . id_varname . ' = matchadd_id'
