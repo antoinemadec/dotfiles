@@ -7,6 +7,18 @@ set -e
 #--------------------------------------------------------------
 # functions
 #--------------------------------------------------------------
+get_list() {
+  echo "$(ls ~/bin/upgrade_scripts/*_upgrade | xargs -n1 basename | sed 's/_upgrade//g')"
+}
+
+get_all() {
+  local list=""
+  for p in $(get_list) ; do
+    grep -q "^$p$" ~/bin/upgrade_scripts/ignore_all.txt || list+="$p "
+  done
+  echo "$list"
+}
+
 usage() {
   script="$(basename $0)"
   program_list="$($script -l)"
@@ -14,8 +26,8 @@ usage() {
 usage: $script [-h] [-a|--all] [-l|--list] program0 program1 ...
 
 where:
-  -a|--all    : upgrade all programs
-  -l|--list   : list all programs
+  -a|--all    : $(get_all)
+  -l|--list   : list all available programs
   -h|--help   : get this helps
 
 programs: $program_list
@@ -37,7 +49,7 @@ EOF
 # execution
 #--------------------------------------------------------------
 programs=""
-list="$(ls ~/bin/upgrade_scripts/* | xargs -n1 basename | sed 's/_upgrade//g')"
+list="$(get_list)"
 while [[ "$#" > 0 ]]; do
   case "$1" in
     -l|--list)
@@ -46,7 +58,7 @@ while [[ "$#" > 0 ]]; do
       ;;
     -a|--all)
       shift 1
-      programs="$list"
+      programs="$(get_all)"
       break
       ;;
     -h|--help )

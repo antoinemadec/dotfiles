@@ -2,14 +2,9 @@
 
 set -e
 
-dir=$(mktemp -d)
-cd $dir
+. ~/bin/upgrade_scripts/common_snap.sh
+snap_install_refresh alacritty --edge --classic
 
-deb_file="$(curl -s https://api.github.com/repos/alacritty/alacritty/releases/latest |
-  grep '"name"' | grep '\.deb' | grep amd64 | sed -e 's/.*: "//' -e 's/".*//')"
-
-wget https://github.com/alacritty/alacritty/releases/latest/download/$deb_file
-
-sudo apt install $dir/$deb_file
-
-rm -rf $dir
+# to make it can be seen without sourcing .bashrc,
+# needed by i3
+sudo ln -sf /snap/bin/alacritty /usr/bin

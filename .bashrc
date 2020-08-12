@@ -207,19 +207,18 @@ do
 done
 type __git_ps1 &>/dev/null || source ~/bin/source_conditional/git_ps1
 
-# put custom binaries in ~/bin
+# path
+# -- custom bins
 pre_path ~/bin
 for file in ~/bin/completion/*
 do
   [ -f $file ] && source $file
 done
 [ -d ~/src/$(get_release_string)/bin ] && pre_path ~/src/$(get_release_string)/bin
-
-# npm
-[ -d ~/.npm-global/bin ] && pre_path ~/.npm-global/bin
-
-# sbin
+add_path /snap/bin
+# -- other
 add_path /usr/sbin
+[ -d ~/.npm-global/bin ] && pre_path ~/.npm-global/bin
 
 # term capabilities
 tput ritm && export TERM_ITALICS=true

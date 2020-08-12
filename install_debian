@@ -52,7 +52,7 @@ upgrade nerd_fonts
 #--------------------------------------------------------------
 
 #--------------------------------------------------------------
-# compiled from source
+# compiled from source / snap
 #--------------------------------------------------------------
 # dependencies:
 #-- pinta
@@ -106,9 +106,14 @@ upgrade nvim
 
 print_banner "universal ctags"
 upgrade ctags
+
+print_banner "LSP"
+upgrade lsp
+
+print_banner "bat"
+upgrade bat
 #--------------------------------------------------------------
 
-# TODO: fix
 print_banner "gtk theme"
 sudo apt -y install lxappearance gtk-chtheme qt4-qtconfig
 cat << EOF
@@ -116,5 +121,3 @@ lxappearance  : choose a theme
 gtk-chtheme   : choose same theme
 qtconfig      : dropdown menu setting to make qt take the GTK+ settings
 EOF
-
-# TODO: add coc

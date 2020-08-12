@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+set -e
+
+. ~/bin/upgrade_scripts/common_snap.sh
+snap_install_refresh ccls --edge --classic
+
+sudo npm i -g bash-language-server
+
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update && sudo apt install yarn

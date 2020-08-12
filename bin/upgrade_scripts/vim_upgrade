@@ -17,8 +17,6 @@ fi
   --enable-multibyte \
   --enable-perlinterp=dynamic \
   --enable-python3interp \
-  --enable-luainterp \
-  --with-luajit \
   --enable-cscope \
   --enable-gui=gtk3 \
   --with-features=huge \
@@ -31,3 +29,6 @@ fi
 
 make -j8
 sudo make install
+
+# let's use neovim-qt instead
+sudo rm /usr/local/bin/gvim

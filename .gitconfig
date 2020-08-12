@@ -6,5 +6,5 @@
 	name = antoinemadec
 	email = ajamadec@gmail.com
 	signingkey = 2FA3CC716FEB6DD9
-[commit]
-	gpgsign = true
+; [commit]
+; 	gpgsign = true
