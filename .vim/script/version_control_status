@@ -69,7 +69,8 @@ get_git_status() {
   git_branch="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)" || git_fail=1
   if ((git_fail == 0))
   then
-    git_status="$(git status --ignored=traditional --untracked-files=all --porcelain "$filename" 2> /dev/null)" || git_fail=1
+    git_status="$(git status --ignored=traditional --untracked-files=all --porcelain "$filename" |
+      head -n1 2> /dev/null)" || git_fail=1
     if ((git_fail == 0))
     then
       us="${git_status:0:1}"
@@ -92,6 +93,12 @@ get_git_status() {
       elif [ "$us" = '!' ]
       then
         vc_output="$git_branch 🚫"
+        # fix bug happing when:
+        #   - filename='.file'
+        #   - an git-ignored file starting with '.file' exists
+        echo $filename > ~/toto.txt
+        echo "${git_status/* /}" >> ~/toto.txt
+        [ "$filename" = "${git_status/* /}" ] || vc_output="$git_branch 🌼"
       elif [ "$us" = '' ] && [ "$them" = '' ]
       then
         vc_output="$git_branch 🌼"
