@@ -46,26 +46,26 @@ hi link SneakLabel VM_Mono_hl
 " 'faded_aqua':     #427b58
 " 'bright_blue':    #83a598
 " 'orange':         #fe8019
-" 'neutra l_blue':  #458588
+" 'neutral_blue':   #458588
 " 'purple':         #d3869b
 " 'faded_green':    #79740e
 " 'neutral_red':    #cc241d
 " 'gray_244':       #928374
 " 'gray_245':       #928374
-" 'bright_yel low': #fabd2f
+" 'bright_yellow':  #fabd2f
 " 'fg4_256':        #a89984
 " 'fg0':            #fbf1c7
 " 'fg1':            #ebdbb2
 " 'fg2':            #d5c4a1
 " 'fg3':            #bdae93
 " 'fg4':            #a89984
-" 'bright_purpl e': #d3869b
+" 'bright_purple':  #d3869b
 " 'neutral_orange': #d65d0e
 " 'bright_orange':  #fe8019
 " 'faded_red':      #9d0006
 " 'light0_soft':    #f2e5bc
 " 'blue':           #83a598
-" 'faded_bl ue':    #076678
+" 'faded_blue':     #076678
 " 'light0_hard':    #f9f5d7
 " 'bright_green':   #b8bb26
 " 'gray':           #928374
@@ -84,7 +84,7 @@ hi link SneakLabel VM_Mono_hl
 " 'green':          #b8bb26
 " 'neutral_yellow': #d79921
 " 'aqua':           #8ec07c
-" 'fade d_yellow':  #b57614
+" 'faded_yellow':   #b57614
 " 'red':            #fb4934
 " 'faded_purple':   #8f3f71
 " 'bg0':            #32302f

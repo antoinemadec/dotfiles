@@ -174,11 +174,6 @@ if has('terminal') || has('nvim')
   nnoremap <leader>tt :cd `=GetCurrentBufferDir()`<CR>:TT<CR><C-\><C-n>:cd -<CR>i
 endif
 
-" run/make
-nnoremap <silent> <leader>r                       :RunCurrentBuffer<CR>
-nnoremap <silent> <leader>t                       :RunAndTimeCurrentBuffer<CR>
-autocmd FileType java nnoremap <buffer> <leader>r :RunJavaCurrentBuffer<CR>
-
 " misc
 " -- cscope: find functions calling this function
 map <C-\> :cs find 3 <C-R>=expand("<cword>")<CR><CR>

@@ -181,3 +181,16 @@ let g:coc_global_extensions = [
       \ 'coc-vimlsp',
       \ 'coc-yank'
       \]
+
+autocmd User CocTerminalOpen norm L
+
+" run file
+nnoremap <silent> <leader>r :RunCurrentBuffer<CR>
+nnoremap <silent> <leader>t :RunAndTimeCurrentBuffer<CR>
+autocmd FileType java   nnoremap <buffer> <silent> <leader>r :RunJavaCurrentBuffer<CR>
+" run selection in REPL
+autocmd FileType python vnoremap <buffer> <silent> <leader>r <Esc>
+      \ :<C-U>call CocActionAsync('runCommand', 'python.execSelectionInTerminal')<CR>
+" run file in REPL
+autocmd FileType python nnoremap <buffer> <silent> <leader>R :<C-U>normal ggVG<CR><Esc>
+      \ :<C-U>call CocActionAsync('runCommand', 'python.execSelectionInTerminal')<CR>

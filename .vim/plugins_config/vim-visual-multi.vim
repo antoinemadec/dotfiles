@@ -10,7 +10,8 @@ let g:VM_Mono_hl   = 'VM_Mono_hl'
 
 autocmd User visual_multi_mappings  imap <buffer><expr> <CR> pumvisible() ? "\<C-Y>" : "\<Plug>(VM-I-Return)"
 
-autocmd WinEnter * let w:VM_is_active = 0
+autocmd BufWinEnter      * let w:VM_is_active = 0
+autocmd User AsyncRunPre * let w:VM_is_active = 0
 
 let g:VM_maps = {}
 let g:VM_maps["Add Cursor Down"] = '<C-S-Down>'
