@@ -1,0 +1,13 @@
+{
+  "configurations": {
+    "simple_c_program - Launch": {
+      "adapter": "vscode-cpptools",
+      "configuration": {
+        "request": "launch",
+        "program": "${workspaceRoot}/build/bin/nvim",
+        "args#json": "${args:[]}",
+        "stopAtEntry": true
+      }
+    }
+  }
+}

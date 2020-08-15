@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+directory="$1"
+file="$2"
+
+cd $directory
+for v in $(env); do
+  [[ $v =~ VIM ]] && unset ${v/=*/}
+done
+gvim -c ":e $file | let g:launch_debugger=1"

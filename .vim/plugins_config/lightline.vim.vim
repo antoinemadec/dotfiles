@@ -70,13 +70,13 @@ let g:lightline = {
   \ }
 
 let s:prev_llm = ''
-let w:VM_is_active = 0
+let g:VM_is_active = 0
 
 function MyMode() abort
-  if !w:VM_is_active && mode() == s:prev_llm
+  if !g:VM_is_active && mode() == s:prev_llm
     return lightline#mode()
   endif
-  if !w:VM_is_active
+  if !g:VM_is_active
     if mode() == 'n'
       set noshowcmd
     else

@@ -31,4 +31,4 @@ make -j8
 sudo make install
 
 # let's use neovim-qt instead
-sudo rm /usr/local/bin/gvim
+# sudo rm /usr/local/bin/gvim

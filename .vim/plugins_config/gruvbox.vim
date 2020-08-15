@@ -1,9 +1,14 @@
-function s:set_highlight(name, bg, fg, extra_opts) abort
+function s:set_highlight(name, bg, fg, extra_opts, ...) abort
+  let mod = a:0 ? a:1 : 0
   let bg_str = ''
   let fg_str = ''
   let opts_str = ''
   if !empty(a:bg)
     exe 'let bg = g:current_gruvbox_colors.' . a:bg
+    if mod
+      let bg[0] = '#' . printf('%x', '0x' . bg[0][1:] - 1)
+      let bg[1] = bg[1]-1
+    endif
     let bg_str = ' guibg=' . bg[0] . ' ctermbg=' . bg[1]
   endif
   if !empty(a:fg)
@@ -19,12 +24,8 @@ function s:set_highlight(name, bg, fg, extra_opts) abort
   exe 'highlight ' . a:name . fg_str . bg_str . opts_str
 endfunction
 
-let s:bg2 = g:current_gruvbox_colors.bg2
-let s:fg1 = g:current_gruvbox_colors.fg1
-
-" fg[1]-1: make sure StatusLineNC and StatusLine are not identical to avoid ^^^^^
-exe 'hi StatusLineNC cterm=reverse ctermfg=' . s:bg2[1] . ' ctermbg=' . string(s:fg1[1]-1) .
-      \ ' gui=reverse guifg=' . s:bg2[0] . ' guibg=' . s:fg1[0]
+" make sure StatusLineNC and StatusLine are not identical to avoid ^^^^^
+call s:set_highlight('StatusLineNC',     'fg1',           'bg2',         ['reverse'], -1)
 call s:set_highlight('CocHighlightText', 'bg2',           '',            '')
 call s:set_highlight('Todo',             'bright_red',    'dark0_hard',  ['bold'])
 call s:set_highlight('VertSplit',        'bg0',           'dark0_hard',  '')

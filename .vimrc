@@ -17,30 +17,31 @@ Plug 'yggdroot/indentline'                                                 " dis
 Plug 'antoinemadec/vim-indentcolor-filetype'                               " make notes more readable
 Plug 'mhinz/vim-startify'                                                  " start screen for vim
 Plug 'ryanoasis/vim-devicons'                                              " add icons to your plugins
-" completion
+Plug 'RRethy/vim-illuminate'                                               " highlight other uses of the current word under the cursor
+" IDE
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}         " completion, snippets etc
 Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all'}             " fuzzy search in a dir
 Plug 'junegunn/fzf.vim'                                                    " fuzzy search in a dir
-Plug 'antoinemadec/coc-fzf'
+Plug 'antoinemadec/coc-fzf'                                                " use fzf for coc lists
+Plug 'honza/vim-snippets'                                                  " snippets working with coc.nvim
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}                           " display buffer's classes/functions/vars based on ctags
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}                       " file explorer
+Plug 'puremourning/vimspector'                                             " multi language graphical debugger
 " languages
 Plug 'sheerun/vim-polyglot'                                                " a collection of language packs for vim
 Plug 'antoinemadec/vim-verilog-instance', {'for': 'verilog_systemverilog'} " verilog port instantiation from port declaration
 Plug 'vhda/verilog_systemverilog.vim', {'for': 'verilog_systemverilog'}    " vim syntax plugin for verilog and systemverilog
-" misc
+" movement
 Plug 'justinmk/vim-sneak'                                                  " jump to any location specified by two characters
-Plug 'andymass/vim-matchup'                                                " replacement for the vim plugin matchit.vim
-Plug 'antoinemadec/vim-highlight-groups'                                   " add words in highlight groups on the fly
-Plug 'RRethy/vim-illuminate'                                               " highlight other uses of the current word under the cursor
-Plug 'chamindra/marvim'                                                    " store/load macros easily
-Plug 'honza/vim-snippets'                                                  " snippets working with coc.nvim
 Plug 'junegunn/vim-easy-align'                                             " easy alignment of line fields
 Plug 'kana/vim-textobj-indent'                                             " add indent text object for motion like 'dii'
 Plug 'kana/vim-textobj-line'                                               " add line text object for motion like 'dil'
 Plug 'kana/vim-textobj-user'                                               " needed to add text object
-Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}                           " display buffer's classes/functions/vars based on ctags
-Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}                       " file explorer
-Plug 'skywind3000/asyncrun.vim'                                            " run asynchronous bash commands
 Plug 'mg979/vim-visual-multi'                                              " multiple cursors
+Plug 'andymass/vim-matchup'                                                " replacement for the vim plugin matchit.vim
+" misc
+Plug 'antoinemadec/vim-highlight-groups'                                   " add words in highlight groups on the fly
+Plug 'skywind3000/asyncrun.vim'                                            " run asynchronous bash commands
 Plug 'tpope/vim-commentary'                                                " comment stuff out
 Plug 'tpope/vim-fugitive'                                                  " git wrapper
 Plug 'tpope/vim-repeat'                                                    " remaps '.' in a way that plugins can tap into it

@@ -122,6 +122,7 @@ nnoremap <silent> <C-w>t        :tab split<CR>
 
 " function keys
 nnoremap <silent> <F1>          :call MappingHelp()<CR>
+nnoremap <silent> <F2>          :call Debugger()<CR>
 nnoremap <silent> <F3>          :NERDTreeToggle<CR>
 nnoremap <silent> <F4>          :TagbarToggle<CR>
 nnoremap <silent> <F5>          :exe "HighlightGroupsAddWord " . hg0 . " 1"<CR>

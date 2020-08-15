@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -e
+
+VIMSPECTOR_DIR="$(eval echo ~/bin/vimspector)"
+
+error(){
+  echo "ERROR: $1"
+  exit 1
+}
+
+[ "$(git rev-parse --show-toplevel)" = "$PWD" ] ||
+  error "you must be at the root of a git repo to run this script"
+
+# choose project
+projects="$(ls -1 $VIMSPECTOR_DIR | sed 's/\.[^.]*//' | sort -u)"
+project="$(echo "$projects" | fzf)"
+
+# copy .vimspector.json
+ln -sf $VIMSPECTOR_DIR/$project.json .vimspector.json
+script=$VIMSPECTOR_DIR/$project.sh
+
+# execute script if any
+[ -f $script ] && $script
+
+exit 0

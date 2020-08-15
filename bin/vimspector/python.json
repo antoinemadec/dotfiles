@@ -1,0 +1,25 @@
+{
+  "configurations": {
+    "python": {
+      "adapter": "debugpy",
+      "configuration": {
+        "request": "launch",
+        "type": "python",
+        "cwd": "${workspaceRoot}",
+        "program": "${program:${file\\}}",
+        "stopOnEntry#json": "${StopOnEntry:true}",
+        "console": "integratedTerminal",
+        "args#json": "${args:[]}",
+        "env#json": "${env:{\\}}",
+        "igored#json#s": "string not json"
+      },
+      "breakpoints": {
+        "exception": {
+          "raised": "N",
+          "uncaught": "",
+          "userUnhandled": ""
+        }
+      }
+    }
+  }
+}
