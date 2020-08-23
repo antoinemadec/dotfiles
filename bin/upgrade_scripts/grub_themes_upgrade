@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+
+set -e
+
+# GRUB_FILE=/etc/default/grub
+# GRUB_THEMES_DIR=/usr/share/grub/themes
+# sudo mkdir -p $GRUB_THEMES_DIR
+
+mkdir -p ~/src
+cd ~/src
+
+if !(git clone https://github.com/vinceliuice/grub2-themes)
+then
+  cd grub2-themes
+  git pull
+else
+  cd grub2-themes
+fi
+
+# sudo cp -rf breeze $GRUB_THEMES_DIR
+sudo ./install.sh --tela
+
+# tmp="$(tempfile)"
+# grep -v "GRUB_THEME" $GRUB_FILE > $tmp
+# echo "GRUB_THEME=\"$GRUB_THEMES_DIR/breeze/theme.txt\"" >> $tmp
+# sudo cp -f $tmp $GRUB_FILE
+
+# sudo grub-mkconfig -o /boot/grub/grub.cfg
