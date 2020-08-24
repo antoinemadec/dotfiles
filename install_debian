@@ -115,9 +115,9 @@ upgrade bat
 #--------------------------------------------------------------
 
 print_banner "gtk theme"
-sudo apt -y install lxappearance gtk-chtheme qt4-qtconfig
+sudo apt -y install lxappearance gtk-chtheme lightdm-gtk-greeter-settings
 cat << EOF
-lxappearance  : choose a theme
-gtk-chtheme   : choose same theme
-qtconfig      : dropdown menu setting to make qt take the GTK+ settings
+lxappearance                 : choose a theme
+gtk-chtheme                  : choose same theme
+lightdm-gtk-greeter-settings : change login screen to your liking
 EOF
