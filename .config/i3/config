@@ -283,6 +283,8 @@ exec --no-startup-id exec ~/.i3_startup.sh
 exec --no-startup-id exec nm-applet
 exec --no-startup-id exec blueman-applet
 exec --no-startup-id exec start-pulseaudio-x11
+exec --no-startup-id exec conky -c ~/.config/conky/time.lua
+exec --no-startup-id exec conky -c ~/.config/conky/process.lua
 exec_always --no-startup-id exec numlockx on
 exec_always --no-startup-id exec xset r rate 150 50
 #==============================================================
