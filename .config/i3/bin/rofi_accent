@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# give dmenu list of all characters with accent
+
+accents="é
+è
+ê
+à
+â
+î
+ô
+ù
+û"
+
+chosen=$( echo "$accents"| rofi -i -dmenu -p "accent")
+
+[ "$chosen" != "" ] || exit
+c=$(echo "$chosen" | sed "s/ .*//")
+s=$(echo "$chosen" | sed "s/.*; //" | awk '{print $1}')
+
+# copy icon in both primary and clipboard
+echo "$c" | tr -d '\n' | xclip -selection primary
+echo "$c" | tr -d '\n' | xclip -selection clipboard

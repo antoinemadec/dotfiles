@@ -13,5 +13,5 @@ else
   cd grub2-themes
 fi
 
-sudo update-alternatives --remove-all desktop-grub
+sudo update-alternatives --remove-all desktop-grub || true
 sudo ./install.sh --tela

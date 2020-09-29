@@ -200,6 +200,7 @@ bindsym $mod+Tab     exec "exec rofi -show window"
 bindsym $mod+Shift+s exec "exec rofi -show ssh"
 bindsym $mod+Shift+w  exec --no-startup-id ~/.config/i3/bin/rofi_workspace
 bindsym $mod+Shift+u  exec --no-startup-id ~/.config/i3/bin/rofi_unicode
+bindsym $mod+Shift+a  exec --no-startup-id ~/.config/i3/bin/rofi_accent
 # changing workspaces
 bindsym $mod+Control+Left  exec --no-startup-id ~/.config/i3/bin/change_workspace 0
 bindsym $mod+Control+Right  exec --no-startup-id ~/.config/i3/bin/change_workspace 1
