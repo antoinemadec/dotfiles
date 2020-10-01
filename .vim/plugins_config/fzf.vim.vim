@@ -6,6 +6,11 @@ let g:coc_fzf_opts = []
 command! -bang -nargs=* Ag
       \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%', '?'), <bang>0)
 
+command! -bang -nargs=* GGrep
+      \ call fzf#vim#grep(
+      \   'git grep --line-number -- '.shellescape(<q-args>), 0,
+      \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0], 'options': '--delimiter : --nth 3..'}), <bang>0)
+
 " Maps can receive mode argument. E.g.: Maps i
 function s:maps(mode, ...) abort
   let l:mode = empty(a:mode) ? "n" : a:mode
