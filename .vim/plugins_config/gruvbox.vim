@@ -41,6 +41,8 @@ hi link CocGitDiffChange GruvboxAquaSign
 hi link Sneak VM_Mono_hl
 hi link SneakLabel VM_Mono_hl
 
+let g:fzf_colors = extend({'gutter':  ['fg', 'GruvboxBg0']} ,g:fzf_colors)
+
 " 'light4':         #a89984
 " 'neutral_green':  #98971a
 " 'yellow':         #fabd2f
