@@ -29,7 +29,7 @@ sudo apt -y install software-properties-common
 sudo apt -y install arandr rofi scrot x11vnc feh jq compton numlockx gsimplecal
 sudo apt -y install pulseaudio pulseaudio-module-bluetooth pavucontrol bluez-firmware blueman
 sudo apt -y install flatpak xdg-desktop-portal-gtk xdg-desktop-portal gnome-software gnome-software-plugin-flatpak
-sudo apt -y install py3status acpi xclip imagemagick xbacklight
+sudo apt -y install py3status acpi xclip imagemagick xbacklight simple-scan
 sudo apt -y install tcllib
 sudo apt -y install libstdc++-9-doc
 sudo apt -y install default-jre
