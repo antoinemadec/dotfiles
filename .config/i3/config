@@ -268,7 +268,7 @@ assign [class="Sky"] 1:email
 # exec at startup
 #------------------------------
 exec --no-startup-id exec ~/.xrandr_default.sh
-exec --no-startup-id exec compton
+exec --no-startup-id exec picom
 exec --no-startup-id exec feh --bg-scale ~/.config/i3/wallpaper/default
 workspace 1 output HDMI1
 workspace 2 output HDMI1

@@ -113,6 +113,9 @@ upgrade lsp
 
 print_banner "bat"
 upgrade bat
+
+print_banner "picom"
+upgrade picom
 #--------------------------------------------------------------
 
 print_banner "gtk theme"
