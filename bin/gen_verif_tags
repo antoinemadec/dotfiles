@@ -42,12 +42,13 @@ done
 
 # don't tag SV ports until typedef detection is fixed
 uctags \
-  --languages=verilog,systemverilog,c++,c \
+  --languages=verilog,systemverilog,VHDL,c++,c \
   --kinds-systemverilog=-p \
   --extras=+q \
   --fields=+i \
   --exclude=.git \
   --exclude=.svn \
+  --exclude=.SYNC \
   --exclude="output*" \
   $excludes \
   -R $DIRS
