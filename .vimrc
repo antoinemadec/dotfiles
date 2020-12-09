@@ -105,6 +105,7 @@ else
   let &t_SI = ""
   let &t_EI = ""
   let &t_SH = ""
+  set guicursor=
 endif
 if $TERM_BRACKETED_PASTE != 'true'
   let &t_BE = ''
@@ -333,15 +334,15 @@ autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
 
 " gui/not gui specific options
 if has('gui_running')
-  set guifont=DejaVu\ Sans\ Mono\ 12
+  set guifont=DejaVu\ Sans\ Mono\ 10
   " simple gvim
   set guioptions-=m "remove menu bar
   set guioptions-=T "remove toolbar
   set guioptions-=r "remove right-hand scroll bar
   set guioptions-=L "remove left-hand scroll bar
   " shift insert
-  imap <silent> <S-Insert> <C-R>*
-  nmap <silent> <S-Insert> "*p
+  map  <silent>  <S-Insert>  "+p
+  imap <silent>  <S-Insert>  <Esc>"+pa
 endif
 
 " windows options
@@ -385,3 +386,7 @@ function! OpenHelpInCurrentWindow(topic)
 endfunction
 command -complete=help -nargs=* H call WindowDoFloat(1, 0.6) | call OpenHelpInCurrentWindow(<q-args>)
 command -complete=help -nargs=* Ht tab help <args>
+
+nmap <C-j> <C-]>
+nnoremap <silent> \dv :<C-u>DesignSyncDiff<CR>
+nnoremap <silent> \ds :<C-u>DesignSyncStatus<CR>
