@@ -300,13 +300,6 @@ function! GetCurrentBufferDir()
   endif
 endfunction
 
-" redirection of vim commands in clipboard
-command! -nargs=1 RediCmdToClipboard call RediCmdToClipboard(<f-args>)
-function! RediCmdToClipboard(cmd)
-  let a = 'redi @* | ' . a:cmd . ' | redi END'
-  execute a
-endfunction
-
 command! -nargs=0 RemoveTrailingSpace :let _s=@/ | :%s/\s\+$//e | :let @/=_s | :unlet _s
 
 " open scratch buffer
@@ -386,7 +379,3 @@ function! OpenHelpInCurrentWindow(topic)
 endfunction
 command -complete=help -nargs=* H call WindowDoFloat(1, 0.6) | call OpenHelpInCurrentWindow(<q-args>)
 command -complete=help -nargs=* Ht tab help <args>
-
-nmap <C-j> <C-]>
-nnoremap <silent> \dv :<C-u>DesignSyncDiff<CR>
-nnoremap <silent> \ds :<C-u>DesignSyncStatus<CR>
