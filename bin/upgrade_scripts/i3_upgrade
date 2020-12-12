@@ -13,9 +13,8 @@ else
   cd i3-gaps
 fi
 
-autoreconf --force --install
 rm -rf build
 mkdir -p build && cd build
-../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
-make
-sudo make install
+meson ..
+ninja
+sudo meson install
