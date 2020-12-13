@@ -8,8 +8,9 @@ case $- in
       *) return;;
 esac
 
-# pywal
-(cat ~/.cache/wal/sequences &)
+# color terminals depending on wallpaper
+[ -f ~/.pywal.sh ] && source ~/.pywal.sh
+[ "$PYWAL_ENABLED" == 1 ] && (cat ~/.cache/wal/sequences &)
 
 export SHELL=/bin/bash
 

@@ -37,7 +37,6 @@ class Py3status:
         self.img_idx = (self.img_idx + delta) % len(self.wallpaper_list)
         next_wallpaper = self.wallpaper_list[self.img_idx]
         next_wallpaper_path = os.path.join(self.wallpaper_dir, next_wallpaper)
-        self.py3.command_run("feh --bg-scale %s" % next_wallpaper_path)
-        self.output = next_wallpaper.split('.')[0]
         self.py3.command_run(os.path.join(
             self.wallpaper_dir, 'change_wallpaper.sh') + ' ' + next_wallpaper_path)
+        self.output = next_wallpaper.split('.')[0]

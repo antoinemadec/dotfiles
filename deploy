@@ -39,6 +39,7 @@ deploy_core .ctags
 deploy_core .emacs
 deploy_core .gitconfig
 deploy_core .screenrc
+deploy_core .pywal.sh
 deploy_core .tigrc
 deploy_core .tmux.conf
 deploy_core .toprc
