@@ -1,0 +1,11 @@
+/* vim:ft=css
+ */
+
+configuration {
+  lenvenshtein-sort: true;
+  matching: "fuzzy";
+  modi: "window,drun,run,ssh";
+  show-icons: true;
+  sorting-method: "fzf";
+  sort: true;
+}

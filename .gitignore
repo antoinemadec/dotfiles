@@ -6,4 +6,4 @@
 .vimperator/info
 .vim/tags
 __pycache__
-.config/i3/wallpaper/avg_val_top_left.txt
+.config/i3/wallpaper/avg_val_*.txt

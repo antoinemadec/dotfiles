@@ -32,6 +32,7 @@ deploy_core .config/flake8
 deploy_core .config/fontconfig
 deploy_core .config/htop
 deploy_core .config/i3
+deploy_core .config/rofi
 deploy_core .config/terminator
 deploy_core .config/termite
 deploy_core .ctags
