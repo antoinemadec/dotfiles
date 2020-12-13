@@ -1,7 +1,7 @@
 dofile(os.getenv('HOME') .. '/.config/conky/gruvbox.lua')
 
 conky.config = {
-    alignment = 'top_left',
+    alignment = 'top_right',
     background = false,
     border_width = 1,
     cpu_avg_samples = 2,
@@ -12,8 +12,8 @@ conky.config = {
     draw_shades = false,
     extra_newline = false,
     font = 'DejaVu Sans Mono:size=12',
-    gap_x = 60,
-    gap_y = 260,
+    gap_x = 30,
+    gap_y = 160,
     minimum_height = 5,
     minimum_width = 5,
     net_avg_samples = 2,

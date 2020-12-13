@@ -11,7 +11,7 @@ class Py3status:
     wallpaper_dir = os.path.expanduser('~/.config/i3/wallpaper')
     default_wallpaper = os.path.join(wallpaper_dir, "default")
     wallpaper_list = sorted([f for f in os.listdir(wallpaper_dir)
-                             if f not in ("default", "standardize_names", "get_average_val.sh", "avg_val_top_left.txt")])
+                             if f not in ("default", "standardize_names", "get_average_val.sh", "avg_val_top_right.txt")])
     img_idx = wallpaper_list.index(os.path.basename(os.path.realpath(default_wallpaper)))
     output = 'background'
     format = '{output}'
@@ -42,5 +42,5 @@ class Py3status:
         # check image luminosity and take action accordingly
         avg_script_path = os.path.join(self.wallpaper_dir, 'get_average_val.sh')
         self.py3.command_run(avg_script_path + ' ' + next_wallpaper_path)
-        self.py3.command_run('touch -m {}/.config/conky/time.lua'.format(self.home_dir))
         self.py3.command_run('touch -m {}/.config/conky/process.lua'.format(self.home_dir))
+        self.py3.command_run('touch -m {}/.config/conky/time.lua'.format(self.home_dir))

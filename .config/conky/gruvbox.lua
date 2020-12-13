@@ -78,7 +78,7 @@ end
 
 
 function gruvbox_replace_text(text)
-  local avg_bg_file = os.getenv('HOME') .. '/.config/i3/wallpaper/avg_val_top_left.txt'
+  local avg_bg_file = os.getenv('HOME') .. '/.config/i3/wallpaper/avg_val_top_right.txt'
   if file_exists(avg_bg_file) then
     avg = lines_from(avg_bg_file)
     avg_nb = tonumber(avg[1])

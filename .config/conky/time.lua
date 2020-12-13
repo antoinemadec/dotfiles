@@ -1,7 +1,7 @@
 dofile(os.getenv('HOME') .. '/.config/conky/gruvbox.lua')
 
 conky.config = {
-    alignment = 'top_left',
+    alignment = 'top_right',
     background = false,
     border_width = 1,
     cpu_avg_samples = 2,
@@ -12,8 +12,8 @@ conky.config = {
     draw_shades = false,
     extra_newline = false,
     font = 'DejaVu Sans Mono:size=12',
-    gap_x = 60,
-    gap_y = 60,
+    gap_x = -100,
+    gap_y = 20,
     minimum_height = 150,
     minimum_width = 5,
     net_avg_samples = 1,
@@ -32,13 +32,13 @@ conky.config = {
     stippled_borders = 0,
     update_interval = 1.0,
     uppercase = false,
-    use_spacer = true,
+    use_spacer = 'none',
     use_xft = true,
     xftalpha = 0.1,
 }
 
 text = [[
-${voffset 10}${gruvbox fg0}${font GE Inspira:pixelsize=120}${time %I:%M}${font}${voffset -84}${offset 10}${gruvbox neutral_green}${font GE Inspira:pixelsize=40}${time %d} ${voffset -15}${gruvbox neutral_yellow}${font GE Inspira:pixelsize=22}${time  %B} ${time %Y}${gruvbox neutral_red}${font}${voffset 24}${font GE Inspira:pixelsize=45}${offset -185}${time %A}${font}
+${voffset 40}${gruvbox fg0}${font GE Inspira:pixelsize=70}${time %I:%M}${font}${voffset -45}${offset 10}${gruvbox neutral_green}${font GE Inspira:pixelsize=30}${time %d} ${voffset -5}${gruvbox neutral_yellow}${font GE Inspira:pixelsize=20}${time  %B} ${time %Y}${gruvbox neutral_red}${font}${voffset 24}${offset -205}${font GE Inspira:pixelsize=30}${time %A}${font}
 ]]
 
 conky.text = gruvbox_replace_text(text)
