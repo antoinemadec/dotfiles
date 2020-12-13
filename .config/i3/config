@@ -269,7 +269,7 @@ assign [class="Sky"] 1:email
 #------------------------------
 exec --no-startup-id exec ~/.xrandr_default.sh
 exec --no-startup-id exec picom
-exec --no-startup-id exec feh --bg-scale ~/.config/i3/wallpaper/default
+exec --no-startup-id exec ~/.config/i3/wallpaper/change_wallpaper.sh default 1
 workspace 1 output HDMI1
 workspace 2 output HDMI1
 workspace 3 output HDMI1
@@ -284,8 +284,6 @@ exec --no-startup-id exec ~/.i3_startup.sh
 exec --no-startup-id exec nm-applet
 exec --no-startup-id exec blueman-applet
 exec --no-startup-id exec start-pulseaudio-x11
-exec --no-startup-id exec conky -c ~/.config/conky/process.lua
-exec --no-startup-id exec conky -c ~/.config/conky/time.lua
 exec_always --no-startup-id exec numlockx on
 exec_always --no-startup-id exec xset r rate 150 50
 #==============================================================

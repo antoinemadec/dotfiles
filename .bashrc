@@ -8,6 +8,9 @@ case $- in
       *) return;;
 esac
 
+# pywal
+(cat ~/.cache/wal/sequences &)
+
 export SHELL=/bin/bash
 
 # don't put duplicate lines in the history.
