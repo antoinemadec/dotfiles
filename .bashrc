@@ -50,13 +50,12 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 # less/man colors
 export LESS=-R
-export LESS_TERMCAP_md=$'\E[38;5;214m' # begin blink
-export LESS_TERMCAP_us=$'\E[38;5;203m' # begin underline
-export LESS_TERMCAP_mb=$'\E[38;5;108m' # begin bold
-export LESS_TERMCAP_so=$'\E[48;5;66m'  # begin reverse video
-export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
-export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
-export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
+export LESS_TERMCAP_md=$'\e[01;31m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;44;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[01;32m'
 
 # some more ls aliases
 alias ll='ls -alF'
