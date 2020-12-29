@@ -19,7 +19,8 @@ Plug 'mhinz/vim-startify'                                                  " sta
 Plug 'ryanoasis/vim-devicons'                                              " add icons to your plugins
 Plug 'RRethy/vim-illuminate'                                               " highlight other uses of the current word under the cursor
 " IDE
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}         " completion, snippets etc
+Plug 'neoclide/coc.nvim', {'branch': 'master',
+      \ 'do': 'yarn install --frozen-lockfile'}                            " completion, snippets etc
 Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all'}             " fuzzy search in a dir
 Plug 'junegunn/fzf.vim'                                                    " fuzzy search in a dir
 Plug 'antoinemadec/coc-fzf'                                                " use fzf for coc lists
