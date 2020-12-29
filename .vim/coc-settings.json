@@ -10,7 +10,7 @@
   "git.removedSign.hlGroup": "CocGitDiffDelete",
   "git.topRemovedSign.hlGroup": "CocGitDiffDelete",
   "git.changeRemovedSign.hlGroup": "CocGitDiffChange",
-  "python.terminal.launchArgs": ["-m",  "IPython", "--no-autoindent"],
+  "python.pythonPath": "python3",
   "suggest.completionItemKindLabels": {
     "keyword": "\uf1de",
     "variable": "\ue79b",
