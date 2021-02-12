@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# before running this script:
+#   /usr/sbin/usermod -aG sudo <username>
+#   sudo apt install git
+#   git clone http://github.com/antoinemadec/dotfiles
+#   ./deploy
+
+set -e
+sudo -nv || { echo "Use sudo in this terminal before running the script"; exit 1; }
+
+print_banner() {
+  cat << EOF
+
+#--------------------------------------------------------------
+# $1
+#--------------------------------------------------------------
+EOF
+}
+
+print_banner "update system"
+sudo pacman -Syyuu
+
+print_banner "fonts"
+sudo pacman --noconfirm -S noto-fonts-emoji
+upgrade nerd_fonts
+
+print_banner "python packages"
+sudo pip3 install setuptools
+sudo pip3 install pynvim
+sudo pip3 install neovim-remote
+
+print_banner "pacman packages"
+# misc
+sudo pacman --noconfirm -S alacritty libreoffice tig the_silver_searcher
+# vim
+sudo pacman --noconfirm -S nodejs yarn
+sudo pacman --noconfirm -S xclip bat
+sudo pacman --noconfirm -S bash-language-server ccls luarocks ctags
+sudo pacman --noconfirm -S neovim neovim-qt
+# i3
+sudo pacman --noconfirm -S gsimplecal gnome-calculator pinta
+sudo pacman --noconfirm -S py3status i3status feh rofi jq picom arandr scrot
+sudo pacman --noconfirm -S i3-gaps
