@@ -5,7 +5,7 @@ let g:coc_fzf_preview = 'right:50%'
 let g:coc_fzf_opts = []
 
 command! -bang -nargs=* Ag
-      \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%', '?'), <bang>0)
+      \ call fzf#vim#ag(<q-args>, '--follow', fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%', '?'), <bang>0)
 
 command! -bang -nargs=* GGrep
       \ call fzf#vim#grep(

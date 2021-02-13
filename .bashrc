@@ -237,18 +237,8 @@ export TERM_BRACKETED_PASTE=true  # can be modified in .bashrc.local
 export FZF_DEFAULT_OPTS='--layout=reverse --info=inline'
 if (type ag &> /dev/null) && (type fzf &> /dev/null)
 then
-  export FZF_DEFAULT_COMMAND='ag -g ""'
+  export FZF_DEFAULT_COMMAND='ag --follow -g ""'
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-  # vim grep
-  g() {
-    local ag_opts
-    local file
-    file="$(ag --nobreak --noheading . $1 | fzf -0 -1 | awk -F: '{print $1 " +" $2}')"
-    if [[ -n $file ]]
-    then
-      vim $file
-    fi
-  }
 fi
 
 # expand $VAR when VAR is a directory
