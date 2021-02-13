@@ -26,7 +26,6 @@ Plug 'junegunn/fzf.vim'                                                    " fuz
 Plug 'antoinemadec/coc-fzf'                                                " use fzf for coc lists
 Plug 'honza/vim-snippets'                                                  " snippets working with coc.nvim
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}                           " display buffer's classes/functions/vars based on ctags
-Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}                       " file explorer
 Plug 'puremourning/vimspector'                                             " multi language graphical debugger
 " languages
 Plug 'sheerun/vim-polyglot'                                                " a collection of language packs for vim
