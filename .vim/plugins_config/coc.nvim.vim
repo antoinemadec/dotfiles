@@ -169,17 +169,14 @@ omap <silent> ag <Plug>(coc-git-chunk-outer)
 xmap <silent> ag <Plug>(coc-git-chunk-outer)
 
 let g:coc_global_extensions = [
-      \ 'coc-css',
       \ 'coc-git',
       \ 'coc-highlight',
-      \ 'coc-html',
       \ 'coc-json',
       \ 'coc-lua',
       \ 'coc-marketplace',
       \ 'coc-omni',
       \ 'coc-omnisharp',
       \ 'coc-pairs',
-      \ 'coc-prettier',
       \ 'coc-pyright',
       \ 'coc-snippets',
       \ 'coc-tsserver',
