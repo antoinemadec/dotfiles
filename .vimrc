@@ -30,7 +30,7 @@ Plug 'puremourning/vimspector'                                             " mul
 " languages
 Plug 'sheerun/vim-polyglot'                                                " a collection of language packs for vim
 Plug 'antoinemadec/vim-verilog-instance', {'for': 'verilog_systemverilog'} " verilog port instantiation from port declaration
-Plug 'vhda/verilog_systemverilog.vim', {'for': 'verilog_systemverilog'}    " vim syntax plugin for verilog and systemverilog
+Plug 'vhda/verilog_systemverilog.vim'                                      " vim syntax plugin for verilog and systemverilog
 " movement
 Plug 'justinmk/vim-sneak'                                                  " jump to any location specified by two characters
 Plug 'junegunn/vim-easy-align'                                             " easy alignment of line fields
