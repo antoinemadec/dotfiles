@@ -18,6 +18,7 @@ if [[ "$PYWAL_ENABLED" == 1 ]]; then
   wal -e -i $image --saturate 0.9
 else
   feh --bg-scale $image
+  mkdir -p ~/.cache/wal
   echo '' > ~/.cache/wal/colors-rofi-light.rasi
 fi
 ) &
