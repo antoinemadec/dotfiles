@@ -35,7 +35,6 @@ deploy_core .config/i3
 deploy_core .config/rofi
 deploy_core .config/terminator
 deploy_core .config/termite
-deploy_core .ctags
 deploy_core .emacs
 deploy_core .gitconfig
 deploy_core .screenrc

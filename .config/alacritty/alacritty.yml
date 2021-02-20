@@ -22,7 +22,7 @@ font:
     family: monospace
   italic:
     family: monospace
-  size: 11.0
+  size: 7.0
 
 draw_bold_text_with_bright_colors: true
 

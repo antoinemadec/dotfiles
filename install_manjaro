@@ -1,8 +1,6 @@
 #!/bin/bash
 
 # before running this script:
-#   /usr/sbin/usermod -aG sudo <username>
-#   sudo apt install git
 #   git clone http://github.com/antoinemadec/dotfiles
 #   ./deploy
 
@@ -19,7 +17,7 @@ EOF
 }
 
 print_banner "update system"
-sudo pacman -Syyuu
+sudo pacman --noconfirm -Syyuu
 
 print_banner "fonts"
 sudo pacman --noconfirm -S noto-fonts-emoji
