@@ -36,8 +36,8 @@ sudo pacman --noconfirm -S baobab
 sudo pacman --noconfirm -S nodejs yarn
 sudo pacman --noconfirm -S xclip bat
 sudo pacman --noconfirm -S bash-language-server ccls luarocks ctags autopep8
+sudo pamac  --no-confirm build neovim-git
 sudo pacman --noconfirm -S neovim-qt
-sudo pamac  --no-confirm build neovim-nightly-bin
 
 # i3
 sudo pacman --noconfirm -S gsimplecal gnome-calculator pinta
