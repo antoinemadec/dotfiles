@@ -11,7 +11,7 @@
 let g:polyglot_disabled = ['v', 'python-compiler']
 call plug#begin('~/.vim/plugins')
 " style
-Plug 'gruvbox-community/gruvbox'                                           " colorscheme
+Plug 'lifepillar/vim-gruvbox8'
 Plug 'itchyny/lightline.vim'                                               " status line
 Plug 'yggdroot/indentline'                                                 " display thin vertical lines at each indentation level
 Plug 'antoinemadec/vim-indentcolor-filetype'                               " make notes more readable
@@ -25,7 +25,7 @@ Plug 'junegunn/fzf.vim'                                                    " fuz
 Plug 'antoinemadec/coc-fzf'                                                " use fzf for coc lists
 Plug 'honza/vim-snippets'                                                  " snippets working with coc.nvim
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}                           " display buffer's classes/functions/vars based on ctags
-Plug 'puremourning/vimspector'                                             " multi language graphical debugger
+" Plug 'puremourning/vimspector'                                             " multi language graphical debugger
 " languages
 Plug 'sheerun/vim-polyglot'                                                " a collection of language packs for vim
 Plug 'antoinemadec/vim-verilog-instance', {'for': 'verilog_systemverilog'} " verilog port instantiation from port declaration
@@ -129,8 +129,7 @@ else
   let hg1 = 6
 endif
 set background=dark
-let g:gruvbox_contrast_dark = 'soft'
-colorscheme gruvbox
+colorscheme gruvbox8_soft
 set fillchars=vert:│,fold:+
 
 "--------------------------------------------------------------

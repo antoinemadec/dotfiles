@@ -7,18 +7,8 @@ else
   autocmd InsertLeave * call lightline#update()
 endif
 
-autocmd VimEnter * call s:SetupLightlineColors()
-function s:SetupLightlineColors() abort
-  let l:palette = lightline#palette()
-  let l:color = l:palette.normal.left[1]
-  let l:palette.inactive.right = [l:color]
-  let l:palette.inactive.middle = [l:color]
-  let l:palette.inactive.left = [l:color]
-  call lightline#colorscheme()
-endfunction
-
 let g:lightline = {
-  \ 'colorscheme': 'gruvbox',
+  \ 'colorscheme': 'my_gruvbox',
   \ 'active': {
   \   'left': [['foldinfo', 'mymode', 'paste'],
   \             ['readonly', 'myrelativepath', 'mymodified'],
