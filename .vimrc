@@ -39,6 +39,7 @@ Plug 'kana/vim-textobj-user'                                               " nee
 Plug 'mg979/vim-visual-multi'                                              " multiple cursors
 Plug 'andymass/vim-matchup'                                                " replacement for the vim plugin matchit.vim
 " misc
+Plug 'liuchengxu/vim-which-key'                                            " space mappings
 Plug 'antoinemadec/vim-highlight-groups'                                   " add words in highlight groups on the fly
 Plug 'skywind3000/asyncrun.vim'                                            " run asynchronous bash commands
 Plug 'tpope/vim-commentary'                                                " comment stuff out

@@ -70,14 +70,14 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
+nmap \rn <Plug>(coc-rename)
 
 " format the whole file
-nmap <leader>P <Plug>(coc-format)
+nmap \P <Plug>(coc-format)
 
 " Formatting selected code.
-xmap <leader>p  <Plug>(coc-format-selected)
-nmap <leader>p  <Plug>(coc-format-selected)
+xmap \p  <Plug>(coc-format-selected)
+nmap \p  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -88,14 +88,14 @@ augroup mygroup
 augroup end
 
 " Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+" Example: `\aap` for current paragraph
+xmap \a  <Plug>(coc-codeaction-selected)
+nmap \a  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
+nmap \ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap \qf  <Plug>(coc-fix-current)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -127,22 +127,10 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " provide custom statusline: lightline.vim, vim-airline.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" Mappings using CoCList:
-nnoremap <silent> <space><space> :<C-u>CocFzfList<CR>
-nnoremap <silent> <space>a       :<C-u>CocFzfList diagnostics<CR>
-nnoremap <silent> <space>b       :<C-u>CocFzfList diagnostics --current-buf<CR>
-nnoremap <silent> <space>c       :<C-u>CocFzfList commands<CR>
-nnoremap <silent> <space>e       :<C-u>CocFzfList extensions<CR>
-nnoremap <silent> <space>l       :<C-u>CocFzfList location<CR>
-nnoremap <silent> <space>o       :<C-u>CocFzfList outline<CR>
-nnoremap <silent> <space>s       :<C-u>CocFzfList symbols<CR>
-nnoremap <silent> <space>y       :<C-u>CocFzfList yank<CR>
-nnoremap <silent> <space>p       :<C-u>CocFzfListResume<CR>
-
-" Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" " Do default action for next item.
+" nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" " Do default action for previous item.
+" nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 
 
 "--------------------------------------------------------------
@@ -161,8 +149,6 @@ endfunction
 
 nmap <silent> [g <Plug>(coc-git-prevchunk)
 nmap <silent> ]g <Plug>(coc-git-nextchunk)
-nmap <silent> <leader>cs <Plug>(coc-git-chunkinfo)
-nmap <silent> <leader>cc <Plug>(coc-git-commit)
 omap <silent> ig <Plug>(coc-git-chunk-inner)
 xmap <silent> ig <Plug>(coc-git-chunk-inner)
 omap <silent> ag <Plug>(coc-git-chunk-outer)
@@ -187,12 +173,12 @@ let g:coc_global_extensions = [
 autocmd User CocTerminalOpen norm L
 
 " run file
-nnoremap <silent> <leader>r :RunCurrentBuffer<CR>
-nnoremap <silent> <leader>t :RunAndTimeCurrentBuffer<CR>
-autocmd FileType java   nnoremap <buffer> <silent> <leader>r :RunJavaCurrentBuffer<CR>
+nnoremap <silent> \r :RunCurrentBuffer<CR>
+nnoremap <silent> \t :RunAndTimeCurrentBuffer<CR>
+autocmd FileType java   nnoremap <buffer> <silent> \r :RunJavaCurrentBuffer<CR>
 " run selection in REPL
-autocmd FileType python vnoremap <buffer> <silent> <leader>r <Esc>
+autocmd FileType python vnoremap <buffer> <silent> \r <Esc>
       \ :<C-U>call CocActionAsync('runCommand', 'python.execSelectionInTerminal')<CR>
 " run file in REPL
-autocmd FileType python nnoremap <buffer> <silent> <leader>R :<C-U>normal ggVG<CR><Esc>
+autocmd FileType python nnoremap <buffer> <silent> \R :<C-U>normal ggVG<CR><Esc>
       \ :<C-U>call CocActionAsync('runCommand', 'python.execSelectionInTerminal')<CR>

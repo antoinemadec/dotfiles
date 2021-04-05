@@ -57,12 +57,24 @@ function MoveToNextTab()
   exe "b".l:cur_buf
 endfunc
 
+function DirSplit(cmd)
+  exe a:cmd . ' ' . GetCurrentBufferDir()
+endfunction
+
+function TermSplit(cmd)
+  exe 'cd ' . GetCurrentBufferDir()
+  exe a:cmd
+  cd -
+  startinsert
+endfunction
+
 
 "--------------------------------------------------------------
 " mappings
 "--------------------------------------------------------------
-" copy/paste with mouse select
-vmap <LeftRelease> "*ygv
+" leader
+let g:mapleader = "\<Space>"
+let g:maplocalleader = ','
 
 " window movement
 if has('terminal') || has('nvim')
@@ -121,64 +133,94 @@ nnoremap <silent> <C-w><C-t>    :tab split<CR>
 nnoremap <silent> <C-w>t        :tab split<CR>
 
 " function keys
-nnoremap <silent> <F1>          :call MappingHelp()<CR>
-nnoremap <silent> <F2>          :call Debugger()<CR>
-nnoremap <silent> <F3>          :ToggleIndent<CR>
-nnoremap <silent> <F4>          :TagbarToggle<CR>
-nnoremap <silent> <F5>          :exe "HighlightGroupsAddWord " . hg0 . " 1"<CR>
-nnoremap <silent> <leader><F5>  :exe "HighlightGroupsClearGroup " . hg0 . " 1"<CR>
-nnoremap <silent> <F6>          :exe "HighlightGroupsAddWord " . hg1 . " 1"<CR>
-nnoremap <silent> <leader><F6>  :exe "HighlightGroupsClearGroup " . hg1 . " 1"<CR>
-nnoremap <silent> <F7>          :call ToggleTrailingSpace()<CR>
-noremap  <silent> <F8>          :call asyncrun#quickfix_toggle(8)<CR>
-nnoremap <silent> <F9>          :set spell!<CR>
-inoremap <silent> <F9>    <C-o> :set spell!<CR>
-nnoremap <silent> <F10>         :ToggleCompletion<CR>
-inoremap <silent> <F10>   <C-o> :ToggleCompletion<CR>
+nnoremap <silent> <F1>        :call MappingHelp()<CR>
+nnoremap <silent> <F2>        :call Debugger()<CR>
+nnoremap <silent> <F3>        :ToggleIndent<CR>
+nnoremap <silent> <F4>        :TagbarToggle<CR>
+nnoremap <silent> <F5>        :exe "HighlightGroupsAddWord " . hg0 . " 1"<CR>
+nnoremap <silent> \<F5>       :exe "HighlightGroupsClearGroup " . hg0 . " 1"<CR>
+nnoremap <silent> <F6>        :exe "HighlightGroupsAddWord " . hg1 . " 1"<CR>
+nnoremap <silent> \<F6>       :exe "HighlightGroupsClearGroup " . hg1 . " 1"<CR>
+nnoremap <silent> <F7>        :call ToggleTrailingSpace()<CR>
+noremap  <silent> <F8>        :call asyncrun#quickfix_toggle(8)<CR>
+nnoremap <silent> <F9>        :set spell!<CR>
+inoremap <silent> <F9>  <C-o> :set spell!<CR>
+nnoremap <silent> <F10>       :ToggleCompletion<CR>
+inoremap <silent> <F10> <C-o> :ToggleCompletion<CR>
 set pastetoggle=<F12>
 
-" leader (inspired by Janus)
-if has('terminal') || has('nvim')
-  tnoremap <script> <leader>be  <C-\><C-N>:Buffers<CR>
-  tnoremap <leader>cd           vim_server_cmd "cd $PWD" -i<CR>
-  if  has('nvim')
-    tnoremap <leader>ew         nvr .<CR>
-    tnoremap <leader>es         nvr -o .<CR>
-    tnoremap <leader>ev         nvr -O .<CR>
-    tnoremap <leader>et         nvr -p .<CR>
-  elseif has('terminal')
-    tnoremap vvim               vim_server_open
-    tnoremap <leader>ew         vim_server_open .<CR>
-    tnoremap <leader>es         vim_server_open . -o<CR>
-    tnoremap <leader>ev         vim_server_open . -O<CR>
-    tnoremap <leader>et         vim_server_open . -p<CR>
-  endif
-endif
-nnoremap <script> <leader>be    :Buffers<CR>
-nnoremap <silent> <leader>ew    :e `=GetCurrentBufferDir()`<CR>
-nnoremap <silent> <leader>es    :sp `=GetCurrentBufferDir()`<CR>
-nnoremap <silent> <leader>ev    :vsp `=GetCurrentBufferDir()`<CR>
-nnoremap <silent> <leader>et    :tabe `=GetCurrentBufferDir()`<CR>
-nnoremap <silent> <leader>cd    :cd `=GetCurrentBufferDir()`<CR>
-nnoremap <silent> <leader>/     :BLines<CR>
-nnoremap <silent> <leader>;     :Commands<CR>
-nnoremap <silent> <leader>f     :Files<CR>
-nnoremap <silent> <leader>gf    :GitFiles<CR>
-nnoremap <silent> <leader>ag    :Ag<CR>
-nnoremap <silent> <leader>gg    :GGrep<CR>
-nnoremap <silent> <leader>s     :call ToggleGstatus()<CR>
-nnoremap <silent> <leader>cv    :Gdiffsplit<CR>
-nnoremap <silent> <leader>cn    :Gblame<CR>
-if has('terminal') || has('nvim')
-  nnoremap <leader>tw :cd `=GetCurrentBufferDir()`<CR>:T<CR><C-\><C-n>:cd -<CR>i
-  nnoremap <leader>ts :cd `=GetCurrentBufferDir()`<CR>:TS<CR><C-\><C-n>:cd -<CR>i
-  nnoremap <leader>tv :cd `=GetCurrentBufferDir()`<CR>:TV<CR><C-\><C-n>:cd -<CR>i
-  nnoremap <leader>tt :cd `=GetCurrentBufferDir()`<CR>:TT<CR><C-\><C-n>:cd -<CR>i
-endif
+" space
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+let g:which_key_map = {}
+" -- top-level mappings
+let g:which_key_map['c'] = [ ':cd `=GetCurrentBufferDir()`', 'cd current dir']
+let g:which_key_map['/'] = [ ':BLines', 'search in file']
+let g:which_key_map[';'] = [ ':Commands', 'commands']
+" -- find file
+let g:which_key_map['f'] = {
+      \ 'name' : '+find_file',
+      \ 'f'    : [':Files',    'all files'],
+      \ 'b'    : [':Buffers',  'buffers'],
+      \ 'g'    : [':GitFiles', 'git files'],
+      \}
+" -- find word
+let g:which_key_map['w'] = {
+      \ 'name' : '+find_word',
+      \ 'w'    : [':Ag',    'all words'],
+      \ 'g'    : [':GGrep', 'git grep'],
+      \}
+" -- split file
+let g:which_key_map['s'] = {
+      \ 'name' : '+split_file',
+      \ 's' : ['<C-w>s', 'horizontal'],
+      \ 'v' : ['<C-w>v', 'vertical'],
+      \ 't' : ['<C-w>t', 'tab split'],
+      \ }
+" -- split dir
+let g:which_key_map['d'] = {
+      \ 'name' : '+split_dir',
+      \ 'w' : ['DirSplit("e")',    'current window'],
+      \ 's' : ['DirSplit("sp")',   'horizontal'],
+      \ 'v' : ['DirSplit("vsp")',  'vertical'],
+      \ 't' : ['DirSplit("tabe")', 'tab split'],
+      \ }
+" -- terminal
+let g:which_key_map['t'] = {
+      \ 'name' : '+terminal',
+      \ 'w' : ['TermSplit("T")',  'current window'],
+      \ 's' : ['TermSplit("TS")', 'horizontal'],
+      \ 'v' : ['TermSplit("TV")', 'vertical'],
+      \ 't' : ['TermSplit("TT")', 'tab split'],
+      \ }
+" -- git
+let g:which_key_map['g'] = {
+      \ 'name' : '+git',
+      \ 's' : ['ToggleGstatus()',           'git status'],
+      \ 'd' : [':Gdiffsplit',               'git diff'],
+      \ 'b' : [':Gblame',                   'git blame'],
+      \ 'i' : ['<Plug>(coc-git-chunkinfo)', 'chunk info'],
+      \ 'c' : [':Commits',                  'list git commits'],
+      \}
+" -- lsp
+let g:which_key_map['l'] = {
+      \ 'name' : '+lsp',
+      \ 'l'    : [':CocFzfList',                           'lists'],
+      \ 'd'    : [':CocFzfList diagnostics',               'all diagnostics'],
+      \ 'b'    : [':CocFzfList diagnostics --current-buf', 'buffer diagnostics'],
+      \ 'c'    : [':CocFzfList commands',                  'commands'],
+      \ 'e'    : [':CocFzfList extensions',                'extensions'],
+      \ 'o'    : [':CocFzfList outline',                   'outline'],
+      \ 's'    : [':CocFzfList symbols',                   'symbols'],
+      \ 't'    : [':Tags',                                 'tags'],
+      \ 'y'    : [':CocFzfList yank',                      'yank'],
+      \ 'p'    : [':CocFzfListResume',                     'previous list'],
+      \}
+call which_key#register('<Space>', "g:which_key_map")
 
 " misc
-" -- cscope: find functions calling this function
-map <C-\> :cs find 3 <C-R>=expand("<cword>")<CR><CR>
+" -- copy/paste with mouse select
+vmap <LeftRelease> "*ygv
 " -- add '.' support in visual mode
 vnoremap <silent> . :<C-w>let cidx = col(".")<CR> :'<,'>call DotAtColumnIndex(cidx)<CR>
 " -- search for visually selected text
@@ -197,3 +239,7 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 nmap dO :%diffget<CR>:diffupdate<CR>
 nmap dP :%diffput<CR>:diffupdate<CR>
+if has('terminal') || has('nvim')
+  tnoremap \cd vim_server_cmd "cd $PWD" -i<CR>
+endif
+
