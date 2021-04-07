@@ -242,4 +242,6 @@ nmap dP :%diffput<CR>:diffupdate<CR>
 if has('terminal') || has('nvim')
   tnoremap \cd vim_server_cmd "cd $PWD" -i<CR>
 endif
-
+if has('terminal') && !has('nvim')
+  tnoremap vvim vim_server_open
+endif
