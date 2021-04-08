@@ -154,7 +154,6 @@ nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 let g:which_key_map = {}
 " -- top-level mappings
-let g:which_key_map['c'] = [ ':cd `=GetCurrentBufferDir()`', 'cd current dir']
 let g:which_key_map['/'] = [ ':BLines', 'search in file']
 let g:which_key_map[';'] = [ ':Commands', 'commands']
 " -- find file
@@ -184,6 +183,13 @@ let g:which_key_map['d'] = {
       \ 's' : ['DirSplit("sp")',   'horizontal'],
       \ 'v' : ['DirSplit("vsp")',  'vertical'],
       \ 't' : ['DirSplit("tabe")', 'tab split'],
+      \ }
+" -- cd in buffer's dir
+let g:which_key_map['c'] = {
+      \ 'name' : '+cd_current',
+      \ 'c' : [ ':cd `=GetCurrentBufferDir()`', 'global cd'],
+      \ 'w' : [ ':lcd `=GetCurrentBufferDir()`', 'window cd'],
+      \ 't' : [ ':tcd `=GetCurrentBufferDir()`', 'tab cd'],
       \ }
 " -- terminal
 let g:which_key_map['t'] = {
