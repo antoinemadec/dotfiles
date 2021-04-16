@@ -1,14 +1,21 @@
 #!/bin/bash
 
-cl_dir=~/.screenlayout
-cl_file=$cl_dir/current_layout.txt
+set -e
 
-current_layout="$(cat $cl_file)"
-current_layout=$(( (current_layout+1) % 3 ))
-cmd="$(ls $cl_dir/*sh -1 | head -n$((current_layout + 1)) | tail -n1)"
+sl_dir=~/.screenlayout
+sl_file=$sl_dir/current_layout.txt
+layout_nb="$(ls -1 $sl_dir/*sh | wc -l)"
+layout_idx="$(cat $sl_file)"
+
+layout_idx=$(( (layout_idx+1) % $layout_nb ))
+cmd="$(ls $sl_dir/*sh -1 | head -n$((layout_idx + 1)) | tail -n1)"
 name="$(basename $cmd | sed 's/\..*//')"
 
 $cmd
-notify-send --icon=/usr/share/icons/gnome/256x256/devices/video-display.png 'layout' $(echo $name)
+notify-send \
+  --hint=string:x-dunst-stack-tag:i3_layout \
+  --expire-time=10000 \
+  --icon=/usr/share/icons/gnome/256x256/devices/video-display.png \
+  'layout' $(echo $name)
 
-echo $current_layout > $cl_file
+echo $layout_idx > $sl_file
