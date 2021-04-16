@@ -9,4 +9,6 @@ configuration {
   sorting-method: "fzf";
   sort: true;
 }
+
+@theme "gruvbox-dark-hard"
 @import "~/.cache/wal/colors-rofi-light"
