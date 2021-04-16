@@ -8,7 +8,7 @@ else
 endif
 
 let g:lightline = {
-  \ 'colorscheme': 'my_gruvbox',
+  \ 'colorscheme': 'gruvbox_material',
   \ 'active': {
   \   'left': [['foldinfo', 'mymode', 'paste'],
   \             ['readonly', 'myrelativepath', 'mymodified'],
@@ -55,8 +55,6 @@ let g:lightline = {
   \   'readonly': 'lightline#tab#readonly',
   \   'tabnum': 'lightline#tab#tabnum'
   \ },
-  \ 'separator': { 'left': '', 'right': '' },
-  \ 'subseparator': { 'left': '', 'right': '' },
   \ }
 
 let s:prev_llm = ''

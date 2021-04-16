@@ -1,5 +1,5 @@
 let g:fzf_layout = {'window': { 'width': 0.9, 'height': 0.8, 'border': 'sharp' } }
-let g:fzf_colors = extend({'border':  ['fg', 'Comment']} ,g:fzf_colors)
+" let g:fzf_colors = extend({'border':  ['fg', 'Comment']} ,g:fzf_colors)
 let g:fzf_commands_expect = 'alt-enter'
 let g:coc_fzf_preview = 'right:50%'
 let g:coc_fzf_opts = []

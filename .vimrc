@@ -11,7 +11,7 @@
 let g:polyglot_disabled = ['v', 'python-compiler']
 call plug#begin('~/.vim/plugins')
 " style
-Plug 'lifepillar/vim-gruvbox8'
+Plug 'sainnhe/gruvbox-material'
 Plug 'itchyny/lightline.vim'                                               " status line
 Plug 'yggdroot/indentline'                                                 " display thin vertical lines at each indentation level
 Plug 'antoinemadec/vim-indentcolor-filetype'                               " make notes more readable
@@ -129,7 +129,10 @@ else
   let hg1 = 6
 endif
 set background=dark
-colorscheme gruvbox8_soft
+let g:gruvbox_material_background = 'soft'
+let g:gruvbox_material_better_performance = 1
+let g:gruvbox_material_palette = 'mix'
+colorscheme gruvbox-material
 set fillchars=vert:│,fold:+
 
 "--------------------------------------------------------------

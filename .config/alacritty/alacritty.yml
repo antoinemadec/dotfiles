@@ -26,34 +26,26 @@ font:
 
 draw_bold_text_with_bright_colors: true
 
-# Colors (Gruvbox dark)
+# gruvbox_material#get_palette('soft', 'mix')
 colors:
-  # Default colors
   primary:
-    # hard contrast: background: '#1d2021'
-    # medium constrast: background: "#282828"
-    # soft contrast: background: '#32302f'
-    background: '#32302f'
-    foreground: "#ebdbb2"
-
-  # Normal colors
+    background: '0x32302f' # bg0
+    foreground: '0xe2cca9' # fg1
   normal:
-    black: "#282828"
-    red: "#cc241d"
-    green: "#98971a"
-    yellow: "#d79921"
-    blue: "#458588"
-    magenta: "#b16286"
-    cyan: "#689d6a"
-    white: "#a89984"
-
-  # Bright colors
+    black:      '0x7c6f64' # grey0
+    red:        '0xf2594b' # red
+    green:      '0xb0b846' # green
+    yellow:     '0xe9b143' # yellow
+    blue:       '0x80aa9e' # blue
+    magenta:    '0xd3869b' # purple
+    cyan:       '0x8bba7f' # aqua
+    white:      '0xe2cca9' # fg1
   bright:
-    black: "#928374"
-    red: "#fb4934"
-    green: "#b8bb26"
-    yellow: "#fabd2f"
-    blue: "#83a598"
-    magenta: "#d3869b"
-    cyan: "#8ec07c"
-    white: "#ebdbb2"
+    black:      '0x7c6f64' # grey0
+    red:        '0xf2594b' # red
+    green:      '0xb0b846' # green
+    yellow:     '0xe9b143' # yellow
+    blue:       '0x80aa9e' # blue
+    magenta:    '0xd3869b' # purple
+    cyan:       '0x8bba7f' # aqua
+    white:      '0xe2cca9' # fg1
