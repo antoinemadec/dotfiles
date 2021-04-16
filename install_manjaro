@@ -33,11 +33,12 @@ print_banner "pacman packages"
 # misc
 sudo pacman --noconfirm -S alacritty libreoffice tig the_silver_searcher
 sudo pacman --noconfirm -S baobab libnotify dunst
+sudo pamac build --no-confirm tzupdate
 # vim
 sudo pacman --noconfirm -S nodejs npm yarn
 sudo pacman --noconfirm -S xclip bat
 sudo pacman --noconfirm -S bash-language-server ccls luarocks ctags autopep8
-sudo pamac  --no-confirm build neovim-nightly-bin
+sudo pamac  build --no-confirm neovim-nightly-bin
 sudo pacman --noconfirm -S neovim-qt
 
 # i3
