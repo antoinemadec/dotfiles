@@ -10,5 +10,5 @@ configuration {
   sort: true;
 }
 
-@theme "gruvbox-dark-hard"
+@theme "gruvbox-dark-soft"
 @import "~/.cache/wal/colors-rofi-light"

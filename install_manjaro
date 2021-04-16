@@ -43,5 +43,6 @@ sudo pacman --noconfirm -S neovim-qt
 
 # i3
 sudo pacman --noconfirm -S gsimplecal gnome-calculator pinta
+sudo pamac  build --no-confirm rofi-power-menu
 sudo pacman --noconfirm -S py3status i3status feh rofi jq picom arandr scrot i3lock
 sudo pacman --noconfirm -S i3-gaps

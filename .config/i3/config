@@ -114,8 +114,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will save all your vim buffers.' -b 'Yes, exit i3' 'vim_save_close_all; systemctl -i poweroff'"
-
+bindsym $mod+Shift+e exec "rofi -show menu -modi 'menu:rofi-power-menu --choices=shutdown/reboot/logout'" 
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -142,13 +141,14 @@ bindsym $mod+r mode "resize"
 #------------------------------
 # colors
 #------------------------------
+set $black    #45403d
 set $bg       #504945
-set $white    #ffffff
-set $gray     #bdae93
 set $darkgray #7c6f64
-set $blue     #458588
-set $aqua     #83a598
-set $red      #fb4934
+set $gray     #928374
+set $white    #e2cca9
+set $aqua     #80aa9e
+set $darkblue #404946
+set $red      #f2594b
 
 bar {
   position top
@@ -156,9 +156,9 @@ bar {
     background $bg
     separator  $gray
     #                  border  bg        text
-    focused_workspace  $bg  $blue     $white
-    active_workspace   $bg  $aqua     $white
-    inactive_workspace $bg  $darkgray $white
+    focused_workspace  $gray   $darkblue $white
+    active_workspace   $gray   $black    $white
+    inactive_workspace $bg     $darkgray $white
   }
   separator_symbol "│"
   # Using custom i3status.conf
@@ -169,10 +169,10 @@ bar {
 # exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # class                 border backgr    text   indicator child_border
-client.focused          $bg    $blue     $white $red      $gray
-client.focused_inactive $bg    $blue     $white $red      $bg
-client.unfocused        $bg    $darkgray $white $red      $bg
-client.urgent           $red   $red      $white $red      $red
+client.focused          $bg    $darkblue $white $aqua     $gray
+client.focused_inactive $bg    $black    $white $aqua     $bg
+client.unfocused        $bg    $darkgray $white $aqua     $bg
+client.urgent           $red   $red      $white $aqua     $red
 
 #------------------------------
 # i3-gaps
@@ -222,7 +222,7 @@ bindsym $mod+m [class="Thunar"] scratchpad show; [class="Thunar"] move position 
 bindsym $mod+Shift+l exec "PATH=~/.config/i3/bin/i3lock/i3lock-color:$PATH ~/.config/i3/bin/i3lock/i3lock-fancy/lock -f Lato-Hairline"
 # terminals
 bindsym $mod+Return exec [ -f ~/remote_machine.txt ] && exec alacritty -e "ssh -X $(cat ~/remote_machine.txt)" \
-  || i3-nagbar -t warning -m 'Please populate ~/remote_machine.txt'
+  || notify-send 'i3' 'please populate ~/remote_machine.txt'
 bindsym $mod+Shift+Return exec --no-startup-id exec alacritty
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
