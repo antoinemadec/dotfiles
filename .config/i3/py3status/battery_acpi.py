@@ -11,7 +11,7 @@ class Py3status:
     button_prev = 4
 
     def battery_acpi(self):
-        arr = self.py3.command_output('acpi').split(',')
+        arr = self.py3.command_output('acpi').split("\n")[0].split(',')
         if arr[0].find("Discharging") != -1:
             icon = "🔋"
         else:
