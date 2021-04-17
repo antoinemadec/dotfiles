@@ -206,6 +206,7 @@ let g:which_key_map['g'] = {
       \ 'd' : [':Gdiffsplit',               'git diff'],
       \ 'b' : [':Gblame',                   'git blame'],
       \ 'i' : ['<Plug>(coc-git-chunkinfo)', 'chunk info'],
+      \ 'u' : [':CocCommand git.chunkUndo', 'chunk undo'],
       \ 'c' : [':Commits',                  'list git commits'],
       \}
 " -- lsp
