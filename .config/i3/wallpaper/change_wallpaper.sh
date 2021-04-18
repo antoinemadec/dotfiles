@@ -17,7 +17,7 @@ if [[ "$PYWAL_ENABLED" == 1 ]]; then
   # change wallpaper and term colorscheme
   wal -e -i $image --saturate 0.9
 else
-  feh --bg-scale $image
+  feh --bg-scale $image &> /dev/null
   mkdir -p ~/.cache/wal
   echo '' > ~/.cache/wal/colors-rofi-light.rasi
 fi

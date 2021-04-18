@@ -13,12 +13,12 @@ class Py3status:
     wallpaper_list = sorted([f for f in os.listdir(wallpaper_dir)
                              if f not in ("default", "standardize_names","get_average_val.sh", "change_wallpaper.sh", "avg_val_top_right.txt")])
     img_idx = wallpaper_list.index(os.path.basename(os.path.realpath(default_wallpaper)))
-    output = 'background'
+    output = 'wallpaper'
     format = '{output}'
     button_next = 5
     button_prev = 4
 
-    def background(self):
+    def wallpaper(self):
         return {
             'full_text': self.py3.safe_format(self.format, {'output': self.output}),
             'cached_until': self.py3.time_in(self.cache_timeout)
@@ -31,7 +31,7 @@ class Py3status:
             delta = 1
         else:
             target = os.path.join(self.wallpaper_dir, self.wallpaper_list[self.img_idx])
-            self.output = 'background'
+            self.output = 'wallpaper'
             self.py3.command_run("ln -sf %s %s" % (target, self.default_wallpaper))
             return
         self.img_idx = (self.img_idx + delta) % len(self.wallpaper_list)
