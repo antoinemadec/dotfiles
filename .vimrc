@@ -162,6 +162,8 @@ function ToggleTrailingSpace()
 endfunction
 call ToggleTrailingSpace()
 
+hi Todo ctermfg=167 guifg=#f2594b gui=reverse,bold cterm=reverse,bold
+
 autocmd BufWinEnter * call MatchPattern('trailingspace',
       \ 'CustomHighlight_TrailingSpace',  '\s\+$', 11)
 autocmd InsertEnter * call MatchPattern('trailingspace',
