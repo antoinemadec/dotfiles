@@ -208,7 +208,7 @@ for file in ~/bin/source/*
 do
   [ -f $file ] && source $file
 done
-type __git_ps1 &>/dev/null || source ~/bin/source_conditional/git_ps1
+type __git_ps1 &>/dev/null || source /usr/share/git/git-prompt.sh &> /dev/null || source ~/bin/source_conditional/git_ps1
 
 # path
 # -- custom bins
