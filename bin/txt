@@ -37,7 +37,7 @@ then
   touch $name
   echo '# vim: ft=indentcolor spell' > "$name"
   echo '' >> "$name"
-  [ "$novim" = 1 ] || vim "$name"
+  [ "$novim" = 1 ] || $EDITOR "$name"
 else
   echo "ERROR: $name already exists"
   exit 1
