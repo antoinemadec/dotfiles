@@ -101,8 +101,10 @@ function! MyCocInfo()
   return winwidth(0) > 100 ? trim(get(g:, 'coc_status', '')) : ''
 endfunction
 
+autocmd CursorHold,CursorHoldI * let b:stl_current_tag = exists('g:tagbar_stl_' . &ft) ? tagbar#currenttagtype('[%s]', '') . tagbar#currenttag(' %s', '') : ''
+
 function! MyCocFunc()
-  return winwidth(0) > 100 ? get(b:, 'coc_current_function', '') : ''
+  return winwidth(0) > 100 ? (exists('g:tagbar_stl_' . &ft) ? get(b:, 'stl_current_tag', '') : get(b:, 'coc_current_function', '')) : ''
 endfunction
 
 let s:error_sign = get(g:, 'coc_status_error_sign', has('mac') ? '❌ ' : 'E')

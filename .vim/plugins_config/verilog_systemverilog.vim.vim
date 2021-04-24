@@ -11,16 +11,16 @@ let g:tagbar_type_verilog_systemverilog = {
         \ 'i:instances:1:1',
         \ 'm:modules:0:1',
         \ 't:tasks:0:1',
-        \ 'A:assertions:1:1',
+        \ 'A:assertions:1:0',
         \ 'C:classes:0:1',
         \ 'V:covergroups:0:1',
         \ 'I:interfaces:0:1',
-        \ 'L:clocking blocks:1:1',
-        \ 'M:modport:1:1',
+        \ 'L:clocking blocks:1:0',
+        \ 'M:modport:1:0',
         \ 'K:packages:0:1',
         \ 'P:programs:0:1',
-        \ 'R:properties:0:1',
-        \ 'T:typedefs:1:1'
+        \ 'R:properties:0:0',
+        \ 'T:typedefs:1:0'
     \ ],
     \ 'sro'         : '.',
     \ 'kind2scope'  : {
