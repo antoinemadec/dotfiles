@@ -101,7 +101,18 @@ function! MyCocInfo()
   return winwidth(0) > 100 ? trim(get(g:, 'coc_status', '')) : ''
 endfunction
 
-autocmd CursorHold,CursorHoldI * let b:stl_current_tag = exists('g:tagbar_stl_' . &ft) ? tagbar#currenttagtype('[%s]', '') . tagbar#currenttag(' %s', '') : ''
+autocmd CursorHold,CursorHoldI * call s:update_current_tag()
+
+function s:update_current_tag()
+  if !exists('g:tagbar_stl_' . &ft)
+    return
+  endif
+  let b:stl_current_tag =  tagbar#currenttagtype('[%s]', '') . tagbar#currenttag(' %s', '')
+  if b:stl_current_tag != get(b:, 'stl_current_tag_prev', '')
+    let b:stl_current_tag_prev = b:stl_current_tag
+    call lightline#update()
+  endif
+endfunction
 
 function! MyCocFunc()
   return winwidth(0) > 100 ? (exists('g:tagbar_stl_' . &ft) ? get(b:, 'stl_current_tag', '') : get(b:, 'coc_current_function', '')) : ''
