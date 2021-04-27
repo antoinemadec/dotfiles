@@ -91,6 +91,7 @@ set ignorecase smartcase       " pattern with at least one uppercase character: 
 set cscopetag                  " cstag performs the equivalent of tjump when searching through tags file
 set cscopetagorder=1           " tag files searched before cscopte database
 set cscoperelative             " basename of cscope.out is be used as the prefix
+set tags+=../tags;             " get tags even if the current file is a symbolic/hard link
 set completeopt+=menuone,longest
 " complete preview popup
 if !has('nvim')
