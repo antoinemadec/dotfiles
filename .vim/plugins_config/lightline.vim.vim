@@ -129,14 +129,12 @@ endfunction
 function! MyRelativePath()
   if &buftype == 'quickfix' && exists('w:quickfix_title')
     return '%t [%{g:asyncrun_status}] %{w:quickfix_title}'
-  else
+  elseif exists('b:fugitive_type')
     let l:path = expand('%<%f')
     let l:sub = substitute(l:path, "^fugitive:.*/", "fugitive:", "")
-    if l:sub != l:path
-      return l:sub
-    else
+    return l:sub
+  else
       return '%<%f'
-    endif
   endif
 endfunction
 
@@ -161,7 +159,7 @@ endfunction
 
 function! MyModified()
   if &buftype != 'quickfix' && &buftype != 'terminal'
-    return &modified ? '+' : &modifiable ? '' : '-'
+    return &modified ? '+' : ''
   else
     return ''
   endif
