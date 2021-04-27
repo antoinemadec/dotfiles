@@ -8,7 +8,7 @@
 "--------------------------------------------------------------
 " plugins
 "--------------------------------------------------------------
-let g:polyglot_disabled = ['v', 'python-compiler']
+let g:polyglot_disabled = ['v', 'python-compiler', 'autoindent']
 call plug#begin('~/.vim/plugins')
 " style
 Plug 'sainnhe/gruvbox-material'                                " colorscheme
