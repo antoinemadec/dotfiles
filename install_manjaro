@@ -30,10 +30,13 @@ sudo pip3 install neovim-remote
 sudo pip3 install rope
 
 print_banner "pacman packages"
+
 # misc
 sudo pacman --noconfirm -S alacritty libreoffice tig the_silver_searcher
 sudo pacman --noconfirm -S baobab libnotify dunst
+sudo pacman --noconfirm -S rust
 sudo pamac build --no-confirm tzupdate
+
 # vim
 sudo pacman --noconfirm -S nodejs npm yarn
 sudo pacman --noconfirm -S xclip bat

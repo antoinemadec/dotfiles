@@ -172,6 +172,7 @@ let g:coc_global_extensions = [
       \ 'coc-omnisharp',
       \ 'coc-pairs',
       \ 'coc-pyright',
+      \ 'coc-rust-analyzer',
       \ 'coc-snippets',
       \ 'coc-tsserver',
       \ 'coc-vimlsp',
@@ -179,6 +180,9 @@ let g:coc_global_extensions = [
       \]
 
 autocmd User CocTerminalOpen norm L
+
+highlight link CocRustTypeHint     CocHintVirtualText
+highlight link CocRustChainingHint CocHintVirtualText
 
 " run file
 nnoremap <silent> \r :RunCurrentBuffer<CR>
