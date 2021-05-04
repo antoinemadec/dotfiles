@@ -40,9 +40,8 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+" notify coc.nvim to format on enter
+inoremap <silent><expr> <cr> pumvisible() ? "\<C-y>"
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[d` and `]d` to navigate diagnostics
@@ -163,6 +162,7 @@ omap <silent> ag <Plug>(coc-git-chunk-outer)
 xmap <silent> ag <Plug>(coc-git-chunk-outer)
 
 let g:coc_global_extensions = [
+      \ 'coc-clangd',
       \ 'coc-git',
       \ 'coc-highlight',
       \ 'coc-json',
@@ -173,13 +173,12 @@ let g:coc_global_extensions = [
       \ 'coc-pairs',
       \ 'coc-pyright',
       \ 'coc-rust-analyzer',
+      \ 'coc-sh',
       \ 'coc-snippets',
       \ 'coc-tsserver',
       \ 'coc-vimlsp',
       \ 'coc-yank'
       \]
-
-autocmd User CocTerminalOpen norm L
 
 highlight link CocRustTypeHint     CocHintVirtualText
 highlight link CocRustChainingHint CocHintVirtualText
@@ -188,9 +187,3 @@ highlight link CocRustChainingHint CocHintVirtualText
 nnoremap <silent> \r :RunCurrentBuffer<CR>
 nnoremap <silent> \t :RunAndTimeCurrentBuffer<CR>
 autocmd FileType java   nnoremap <buffer> <silent> \r :RunJavaCurrentBuffer<CR>
-" run selection in REPL
-autocmd FileType python vnoremap <buffer> <silent> \r <Esc>
-      \ :<C-U>call CocActionAsync('runCommand', 'python.execSelectionInTerminal')<CR>
-" run file in REPL
-autocmd FileType python nnoremap <buffer> <silent> \R :<C-U>normal ggVG<CR><Esc>
-      \ :<C-U>call CocActionAsync('runCommand', 'python.execSelectionInTerminal')<CR>
