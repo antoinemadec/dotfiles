@@ -95,9 +95,11 @@ xmap \a  <Plug>(coc-codeaction-selected)
 nmap \a  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current buffer.
-nmap \ac  <Plug>(coc-codeaction)
+nmap \ac  <Plug>(coc-codeaction-cursor)
 " Apply AutoFix to problem on the current line.
 nmap \qf  <Plug>(coc-fix-current)
+" Do command from codeLens of current line.
+nmap \l   <Plug>(coc-codelens-action)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.

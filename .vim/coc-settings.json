@@ -2,7 +2,11 @@
   "coc.preferences.extensionUpdateCheck": "never",
   "coc.preferences.maxFileSize": "1MB",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-  "coc.source.omni.filetypes": ["verilog_systemverilog"],
+  "coc.source.omni.filetypes": [
+    "verilog_systemverilog"
+  ],
+  "codeLens.enable": true,
+  "codeLens.separator": "🔍",
   "highlight.document.enable": false,
   "diagnostic.warningSign": ">>",
   "git.changedSign.hlGroup": "CocGitDiffChange",
@@ -41,7 +45,16 @@
   },
   "git.addGBlameToVirtualText": false,
   "snippets.extends": {
-    "verilog_systemverilog": ["verilog", "systemverilog"]
+    "verilog_systemverilog": [
+      "verilog",
+      "systemverilog"
+    ]
   },
-  "pairs.enableCharacters": ["(", "[", "{", "'", "\""],
+  "pairs.enableCharacters": [
+    "(",
+    "[",
+    "{",
+    "'",
+    "\""
+  ]
 }

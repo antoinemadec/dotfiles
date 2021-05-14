@@ -212,16 +212,17 @@ let g:which_key_map['g'] = {
 " -- lsp
 let g:which_key_map['l'] = {
       \ 'name' : '+lsp',
-      \ 'l'    : [':CocFzfList',                           'lists'],
-      \ 'd'    : [':CocFzfList diagnostics',               'all diagnostics'],
+      \ 'a'    : [':CocFzfList actions',                   'actions'],
       \ 'b'    : [':CocFzfList diagnostics --current-buf', 'buffer diagnostics'],
       \ 'c'    : [':CocFzfList commands',                  'commands'],
+      \ 'd'    : [':CocFzfList diagnostics',               'all diagnostics'],
       \ 'e'    : [':CocFzfList extensions',                'extensions'],
+      \ 'l'    : [':CocFzfList',                           'lists'],
       \ 'o'    : [':CocFzfList outline',                   'outline'],
+      \ 'p'    : [':CocFzfListResume',                     'previous list'],
       \ 's'    : [':CocFzfList symbols',                   'symbols'],
       \ 't'    : [':Tags',                                 'tags'],
       \ 'y'    : [':CocFzfList yank',                      'yank'],
-      \ 'p'    : [':CocFzfListResume',                     'previous list'],
       \}
 call which_key#register('<Space>', "g:which_key_map")
 
