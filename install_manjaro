@@ -28,14 +28,15 @@ sudo pip3 install setuptools
 sudo pip3 install pynvim
 sudo pip3 install neovim-remote
 sudo pip3 install rope
+sudo pip3 install demucs # music source separation
 
 print_banner "pacman packages"
 
 # misc
 sudo pacman --noconfirm -S alacritty libreoffice tig the_silver_searcher
-sudo pacman --noconfirm -S baobab libnotify dunst
+sudo pacman --noconfirm -S baobab libnotify dunst audacity
 sudo pacman --noconfirm -S rust
-sudo pamac build --no-confirm tzupdate
+sudo pamac build --no-confirm tzupdate google-chrome
 
 # vim
 sudo pacman --noconfirm -S nodejs npm yarn
