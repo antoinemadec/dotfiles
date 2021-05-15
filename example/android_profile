@@ -1,0 +1,59 @@
+alias ls='ls -h --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# less/man colors
+export LESS=-R
+export LESS_TERMCAP_md=$'\e[01;31m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;44;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[01;32m'
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+#--------------------------------------------------------------
+# prompt
+#--------------------------------------------------------------
+export COLOR_BLACK="\033[0;30m"
+export COLOR_DARKGRAY="\033[1;30m"
+export COLOR_RED="\033[0;31m"
+export COLOR_LIGHT_RED="\033[1;31m"
+export COLOR_GREEN="\033[0;32m"
+export COLOR_LIGHT_GREEN="\033[1;32m"
+export COLOR_BROWN="\033[0;33m"
+export COLOR_YELLOW="\033[1;33m"
+export COLOR_BLUE="\033[0;34m"
+export COLOR_LIGHT_BLUE="\033[1;34m"
+export COLOR_PURPLE="\033[0;35m"
+export COLOR_LIGHT_PURPLE="\033[1;35m"
+export COLOR_CYAN="\033[0;36m"
+export COLOR_LIGHT_CYAN="\033[1;36m"
+export COLOR_GRAY="\033[0;37m"
+export COLOR_WHITE="\033[1;37m"
+export COLOR_NEUTRAL="\033[0m"
+
+fancy_prompt () {
+  local return_code="$?"
+  local hostname="$(hostname)"
+  [ "$hostname" == "localhost" ] && hostname="android"
+  if [ "$return_code" = 0 ]
+  then
+      local arrow="${COLOR_LIGHT_GREEN}"
+  else
+      local arrow="${COLOR_RED}"
+  fi
+  local arrow+=">"
+  echo -e "${COLOR_RED}${USER}${COLOR_NEUTRAL}@${COLOR_LIGHT_BLUE}${hostname}${COLOR_NEUTRAL}:${COLOR_YELLOW}${PWD} ${COLOR_NEUTRAL}\n$arrow${COLOR_NEUTRAL} "
+}
+
+export PS1="\`fancy_prompt\`"
+#--------------------------------------------------------------
