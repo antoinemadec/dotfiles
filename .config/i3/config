@@ -224,6 +224,9 @@ bindsym $mod+Shift+l exec "PATH=~/.config/i3/bin/i3lock/i3lock-color:$PATH ~/.co
 bindsym $mod+Return exec [ -f ~/remote_machine.txt ] && exec alacritty -e "ssh -X $(cat ~/remote_machine.txt)" \
   || notify-send 'i3' 'please populate ~/remote_machine.txt'
 bindsym $mod+Shift+Return exec --no-startup-id exec alacritty
+# fix bluetooth play/pause button bug
+bindsym XF86AudioPlay exec --no-startup-id xdotool key --clearmodifiers XF86AudioPlay
+bindsym XF86AudioPause exec --no-startup-id xdotool key --clearmodifiers XF86AudioPlay
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
