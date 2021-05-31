@@ -163,9 +163,6 @@ PROMPT_COMMAND="fancy_prompt ; $PROMPT_COMMAND"
 #--------------------------------------------------------------
 # custom aliases
 #--------------------------------------------------------------
-# tmux in 256 colors
-alias tmux='tmux -2'
-
 # Some more alias to avoid making mistakes:
 alias rm='rm -i'
 alias cp='cp -i'
@@ -228,6 +225,13 @@ tput ritm && export TERM_ITALICS=true
 export TERM_COLORS="$(tput colors)"
 export TERM_FANCY_CURSOR=true     # can be modified in .bashrc.local
 export TERM_BRACKETED_PASTE=true  # can be modified in .bashrc.local
+
+# tmux
+TMUX_SESSION=""
+if [[ -n "${TMUX+set}" ]]; then
+  TMUX_SESSION="$(tmux display-message -p "#S")"
+fi
+export TMUX_SESSION
 
 # local aliases, modifications etc
 [ -f ~/.bashrc.local ] && source ~/.bashrc.local

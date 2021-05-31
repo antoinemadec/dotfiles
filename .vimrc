@@ -92,6 +92,7 @@ set cscopetag                  " cstag performs the equivalent of tjump when sea
 set cscopetagorder=1           " tag files searched before cscopte database
 set cscoperelative             " basename of cscope.out is be used as the prefix
 set tags+=../tags;             " get tags even if the current file is a symbolic/hard link
+set sessionoptions+=localoptions,globals " all options and mappings
 set completeopt+=menuone,longest
 " complete preview popup
 if !has('nvim')
