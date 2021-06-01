@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+
+if ! tmux ls &> /dev/null; then
+  tmux start-server
+fi
+
+session="$(tmux ls | sed 's/:.*//' | fzf)"
+tmux attach-session -t "$session"

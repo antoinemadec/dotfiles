@@ -19,11 +19,14 @@ let g:startify_lists = [
       \ ]
 let g:startify_change_to_dir = 0
 
-autocmd VimEnter * call s:start_tmux_session()
+autocmd VimEnter * call s:resurrect_tmux_session()
 
-function s:start_tmux_session() abort
+function s:resurrect_tmux_session() abort
   if !empty($TMUX_SESSION)
-    exe printf("SLoad %s", $TMUX_SESSION)
-    echom printf("TMUX session: %s", $TMUX_SESSION)
+    let output = system('tmux show-environment vim_has_been_resurrected')
+    if v:shell_error != 0
+      exe printf("SLoad %s", $TMUX_SESSION)
+    endif
+    call system('tmux set-environment vim_has_been_resurrected 1')
   endif
 endfunction
