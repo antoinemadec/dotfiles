@@ -68,6 +68,16 @@ function TermSplit(cmd)
   startinsert
 endfunction
 
+function s:map_arrows_and_hjkl(map_str) abort
+  exe a:map_str
+  let map_str = a:map_str
+  let map_str = substitute(map_str, 'Left', 'h', "")
+  let map_str = substitute(map_str, 'Right', 'l', "")
+  let map_str = substitute(map_str, 'Down', 'j', "")
+  let map_str = substitute(map_str, 'Up', 'k', "")
+  exe map_str
+endfunction
+
 
 "--------------------------------------------------------------
 " mappings
@@ -76,59 +86,65 @@ endfunction
 let g:mapleader = "\<Space>"
 let g:maplocalleader = ','
 
+" insert movement
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+
 " window movement
 if has('terminal') || has('nvim')
   tnoremap <expr> <Esc><Esc> (&filetype == "fzf") ? "<Esc>" : "<C-\><C-n>"
   if has('nvim')
-    tnoremap <A-Left>     <C-\><C-N><C-w>h
-    tnoremap <A-Down>     <C-\><C-N><C-w>j
-    tnoremap <A-Up>       <C-\><C-N><C-w>k
-    tnoremap <A-Right>    <C-\><C-N><C-w>l
-    tnoremap <A-S-Left>   <C-\><C-N><C-w>H
-    tnoremap <A-S-Down>   <C-\><C-N><C-w>J
-    tnoremap <A-S-Up>     <C-\><C-N><C-w>K
-    tnoremap <A-S-Right>  <C-\><C-N><C-w>L
+    call s:map_arrows_and_hjkl('tnoremap <A-Left>     <C-\><C-N><C-w>h')
+    call s:map_arrows_and_hjkl('tnoremap <A-Down>     <C-\><C-N><C-w>j')
+    call s:map_arrows_and_hjkl('tnoremap <A-Up>       <C-\><C-N><C-w>k')
+    call s:map_arrows_and_hjkl('tnoremap <A-Right>    <C-\><C-N><C-w>l')
+    call s:map_arrows_and_hjkl('tnoremap <A-S-Left>   <C-\><C-N><C-w>H')
+    call s:map_arrows_and_hjkl('tnoremap <A-S-Down>   <C-\><C-N><C-w>J')
+    call s:map_arrows_and_hjkl('tnoremap <A-S-Up>     <C-\><C-N><C-w>K')
+    call s:map_arrows_and_hjkl('tnoremap <A-S-Right>  <C-\><C-N><C-w>L')
   else
-    tnoremap <A-Left>     <C-w>h
-    tnoremap <A-Down>     <C-w>j
-    tnoremap <A-Up>       <C-w>k
-    tnoremap <A-Right>    <C-w>l
-    tnoremap <A-S-Left>   <C-w>H
-    tnoremap <A-S-Down>   <C-w>J
-    tnoremap <A-S-Up>     <C-w>K
-    tnoremap <A-S-Right>  <C-w>L
+    call s:map_arrows_and_hjkl('tnoremap <A-Left>     <C-w>h')
+    call s:map_arrows_and_hjkl('tnoremap <A-Down>     <C-w>j')
+    call s:map_arrows_and_hjkl('tnoremap <A-Up>       <C-w>k')
+    call s:map_arrows_and_hjkl('tnoremap <A-Right>    <C-w>l')
+    call s:map_arrows_and_hjkl('tnoremap <A-S-Left>   <C-w>H')
+    call s:map_arrows_and_hjkl('tnoremap <A-S-Down>   <C-w>J')
+    call s:map_arrows_and_hjkl('tnoremap <A-S-Up>     <C-w>K')
+    call s:map_arrows_and_hjkl('tnoremap <A-S-Right>  <C-w>L')
   endif
 endif
-inoremap <silent> <A-Left>      <C-\><C-N><C-w>h
-inoremap <silent> <A-Down>      <C-\><C-N><C-w>j
-inoremap <silent> <A-Up>        <C-\><C-N><C-w>k
-inoremap <silent> <A-Right>     <C-\><C-N><C-w>l
-inoremap <silent> <A-S-Left>    <C-\><C-N><C-w>H
-inoremap <silent> <A-S-Down>    <C-\><C-N><C-w>J
-inoremap <silent> <A-S-Up>      <C-\><C-N><C-w>K
-inoremap <silent> <A-S-Right>   <C-\><C-N><C-w>L
-nnoremap <silent> <A-Left>      <C-w>h
-nnoremap <silent> <A-Down>      <C-w>j
-nnoremap <silent> <A-Up>        <C-w>k
-nnoremap <silent> <A-Right>     <C-w>l
-nnoremap <silent> <A-S-Left>    <C-w>H
-nnoremap <silent> <A-S-Down>    <C-w>J
-nnoremap <silent> <A-S-Up>      <C-w>K
-nnoremap <silent> <A-S-Right>   <C-w>L
-nnoremap <silent> <C-Down>      <C-e>
-nnoremap <silent> <C-Up>        <C-y>
+call s:map_arrows_and_hjkl('inoremap <silent> <A-Left>      <C-\><C-N><C-w>h')
+call s:map_arrows_and_hjkl('inoremap <silent> <A-Down>      <C-\><C-N><C-w>j')
+call s:map_arrows_and_hjkl('inoremap <silent> <A-Up>        <C-\><C-N><C-w>k')
+call s:map_arrows_and_hjkl('inoremap <silent> <A-Right>     <C-\><C-N><C-w>l')
+call s:map_arrows_and_hjkl('inoremap <silent> <A-S-Left>    <C-\><C-N><C-w>H')
+call s:map_arrows_and_hjkl('inoremap <silent> <A-S-Down>    <C-\><C-N><C-w>J')
+call s:map_arrows_and_hjkl('inoremap <silent> <A-S-Up>      <C-\><C-N><C-w>K')
+call s:map_arrows_and_hjkl('inoremap <silent> <A-S-Right>   <C-\><C-N><C-w>L')
+call s:map_arrows_and_hjkl('nnoremap <silent> <A-Left>      <C-w>h')
+call s:map_arrows_and_hjkl('nnoremap <silent> <A-Down>      <C-w>j')
+call s:map_arrows_and_hjkl('nnoremap <silent> <A-Up>        <C-w>k')
+call s:map_arrows_and_hjkl('nnoremap <silent> <A-Right>     <C-w>l')
+call s:map_arrows_and_hjkl('nnoremap <silent> <A-S-Left>    <C-w>H')
+call s:map_arrows_and_hjkl('nnoremap <silent> <A-S-Down>    <C-w>J')
+call s:map_arrows_and_hjkl('nnoremap <silent> <A-S-Up>      <C-w>K')
+call s:map_arrows_and_hjkl('nnoremap <silent> <A-S-Right>   <C-w>L')
+call s:map_arrows_and_hjkl('nnoremap <silent> <C-Down>      <C-e>')
+call s:map_arrows_and_hjkl('nnoremap <silent> <C-Up>        <C-y>')
 
 " tab movement
 if has('terminal') || has('nvim')
-  tnoremap <C-A-Left>           <C-\><C-n>gT
-  tnoremap <C-A-Right>          <C-\><C-n>gt
-  tnoremap <C-A-S-Left>         <C-\><C-n>:call MoveToPrevTab()<CR>
-  tnoremap <C-A-S-Right>        <C-\><C-n>:call MoveToNextTab()<CR>
+  call s:map_arrows_and_hjkl('tnoremap <C-A-Left>           <C-\><C-n>gT')
+  call s:map_arrows_and_hjkl('tnoremap <C-A-Right>          <C-\><C-n>gt')
+  call s:map_arrows_and_hjkl('tnoremap <C-A-S-Left>         <C-\><C-n>:call MoveToPrevTab()<CR>')
+  call s:map_arrows_and_hjkl('tnoremap <C-A-S-Right>        <C-\><C-n>:call MoveToNextTab()<CR>')
 endif
-nnoremap <silent> <C-A-Left>    gT
-nnoremap <silent> <C-A-Right>   gt
-nnoremap <silent> <C-A-S-Left>  :call MoveToPrevTab()<CR>
-nnoremap <silent> <C-A-S-Right> :call MoveToNextTab()<CR>
+call s:map_arrows_and_hjkl('nnoremap <silent> <C-A-Left>    gT')
+call s:map_arrows_and_hjkl('nnoremap <silent> <C-A-Right>   gt')
+call s:map_arrows_and_hjkl('nnoremap <silent> <C-A-S-Left>  :call MoveToPrevTab()<CR>')
+call s:map_arrows_and_hjkl('nnoremap <silent> <C-A-S-Right> :call MoveToNextTab()<CR>')
 nnoremap <silent> <C-w><C-t>    :tab split<CR>
 nnoremap <silent> <C-w>t        :tab split<CR>
 
