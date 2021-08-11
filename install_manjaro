@@ -39,7 +39,8 @@ sudo pacman --noconfirm -S rust
 sudo pamac build --no-confirm tzupdate google-chrome deezer
 
 # tmux
-sudo pacman --noconfirm -S tmux tmux-bash-completion-git
+sudo pacman --noconfirm -S tmux
+sudo pamac build --no-confirm tmux-bash-completion-git
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # vim
