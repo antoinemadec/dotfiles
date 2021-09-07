@@ -286,7 +286,7 @@ endif
 
 function MatchUpdate(id_str, hl, pattern, priority) abort
   call MatchDelete(a:id_str)
-  if &filetype == 'which_key'
+  if &filetype != 'which_key'
     call MatchAdd(a:id_str, a:hl, a:pattern, a:priority)
   endif
 endfunction
