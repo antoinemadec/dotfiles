@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+
+set -e
+
+CPU_USAGE_THRES=70
+
+DUMP_DIR="$(dirname $0)/dumps"
+DUMP_DIR_MAX_SIZE_IN_MB=100
+TOP_FILE="$DUMP_DIR/top.out"
+
+
+#--------------------------------------------------------------
+# functions
+#--------------------------------------------------------------
+error() {
+  echo "ERROR: $@"
+  exit 1
+}
+
+
+dump_top() {
+  top -b -n1 > $TOP_FILE
+}
+
+
+get_cpu_stat() {
+  local stat="$1" # us, sy, ni, id, wa, hi, si or st
+  head $TOP_FILE | grep '%Cpu' | sed -e "s/ $stat.*//" -e 's/.* //' -e 's/\..*//'
+}
+
+
+get_cpu_usage() {
+  local idle_pct
+  local cpu_usage_pct
+  idle_pct="$(get_cpu_stat 'id')"
+  cpu_usage_pct="$((100 - idle_pct))"
+  echo $cpu_usage_pct
+}
+
+
+copy_top_file () {
+  local cpu_usage
+  local wait_pct
+  local date_dir
+  local dump_dir_size_in_MB
+
+  cpu_usage="$(get_cpu_usage)"
+  wait_pct="$(get_cpu_stat 'wa')"
+
+
+  dump_dir_size_in_MB="$(du -m $DUMP_DIR | tail -n1 | cut -f 1)"
+  if [ "$dump_dir_size_in_MB" -ge "$DUMP_DIR_MAX_SIZE_IN_MB" ]; then
+    error "$DUMP_DIR size is $DUMP_DIR_MAX_SIZE_IN_MB MB"
+  fi
+
+  date_dir="$DUMP_DIR/$(date +%Y_%m_%d__%H_%M_%S)"
+  mkdir $date_dir || error "could not create $date_dir"
+  mv $TOP_FILE $date_dir
+  pushd $date_dir > /dev/null
+  echo "usage=$cpu_usage% (wait=$wait_pct%): $date_dir"
+  echo "$cpu_usage" > cpu_usage.txt
+  top_extract
+  popd > /dev/null
+}
+
+
+top_extract() {
+  grep codium top.out > codium.log || true
+  grep xmsim top.out > xmsim.log || true
+  grep node top.out > node.log || true
+}
+
+
+#--------------------------------------------------------------
+# execution
+#--------------------------------------------------------------
+mkdir -p $DUMP_DIR
+cpu_usage_max=-1
+
+while true; do
+  dump_top
+  cpu_usage="$(get_cpu_usage)"
+  if (( (cpu_usage > CPU_USAGE_THRES) || (cpu_usage > cpu_usage_max) )) ; then
+    ((cpu_usage > cpu_usage_max)) && cpu_usage_max="$cpu_usage"
+    copy_top_file
+  fi
+  sleep 20
+done
+
