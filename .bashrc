@@ -97,8 +97,8 @@ then
   export COLOR_LIGHT_RED="\[\033[1;31m\]"
   export COLOR_GREEN="\[\033[0;32m\]"
   export COLOR_LIGHT_GREEN="\[\033[1;32m\]"
-  export COLOR_BROWN="\[\033[0;33m\]"
-  export COLOR_YELLOW="\[\033[1;33m\]"
+  export COLOR_YELLOW="\[\033[0;33m\]"
+  export COLOR_LIGHT_YELLOW="\[\033[1;33m\]"
   export COLOR_BLUE="\[\033[0;34m\]"
   export COLOR_LIGHT_BLUE="\[\033[1;34m\]"
   export COLOR_PURPLE="\[\033[0;35m\]"
@@ -126,7 +126,7 @@ fancy_prompt () {
   local return_code="$?"
   if [ "$return_code" = 0 ]
   then
-      local arrow="${COLOR_LIGHT_GREEN}"
+      local arrow="${COLOR_GREEN}"
   else
       local arrow="${COLOR_RED}"
   fi
@@ -143,7 +143,7 @@ fancy_prompt () {
     GIT_PS1_SHOWSTASHSTATE=true
     GIT_PS1_SHOWUPSTREAM="auto"
     GIT_PS1_DESCRIBE_STYLE="branch"
-    local git=$(__git_ps1 "${COLOR_NEUTRAL}on ${COLOR_LIGHT_CYAN}%s" 2> /dev/null)
+    local git=$(__git_ps1 "${COLOR_NEUTRAL}on ${COLOR_CYAN}%s" 2> /dev/null)
     [ "$GIT_PS1_SHOWDIRTYSTATE" = "" ] && [ "$git" != "" ] && git+=" ${COLOR_GRAY}(no-ds)"
   fi
   local python_virtual_env=""
@@ -152,9 +152,9 @@ fancy_prompt () {
 }
 
 if [[ "${DISPLAY#$HOST}" != ":0.0" &&  "${DISPLAY}" != ":0" ]]; then
-    HILIT=${COLOR_LIGHT_BLUE}   # remote machine
+    HILIT=${COLOR_BLUE}   # remote machine
 else
-    HILIT=${COLOR_LIGHT_GREEN}  # local machine
+    HILIT=${COLOR_GREEN}  # local machine
 fi
 
 PROMPT_COMMAND="fancy_prompt ; $PROMPT_COMMAND"
