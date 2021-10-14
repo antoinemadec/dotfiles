@@ -220,7 +220,7 @@ let g:which_key_map['g'] = {
       \ 'name' : '+git',
       \ 's' : ['ToggleGstatus()',           'git status'],
       \ 'd' : [':Gdiffsplit',               'git diff'],
-      \ 'b' : [':Gblame',                   'git blame'],
+      \ 'b' : [':Git blame',                'git blame'],
       \ 'i' : ['<Plug>(coc-git-chunkinfo)', 'chunk info'],
       \ 'u' : [':CocCommand git.chunkUndo', 'chunk undo'],
       \ 'c' : [':Commits',                  'list git commits'],
