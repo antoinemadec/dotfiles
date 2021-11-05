@@ -168,7 +168,7 @@ let g:coc_global_extensions = [
       \ 'coc-git',
       \ 'coc-highlight',
       \ 'coc-json',
-      \ 'coc-lua',
+      \ 'coc-sumneko-lua',
       \ 'coc-marketplace',
       \ 'coc-omni',
       \ 'coc-omnisharp',
