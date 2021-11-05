@@ -50,6 +50,7 @@
       "systemverilog"
     ]
   },
+  "sumneko-lua.enableNvimLuaDev": true,
   "pairs.enableCharacters": [
     "(",
     "[",
