@@ -12,8 +12,14 @@ require('packer').startup(function()
   use 'RRethy/vim-illuminate'                                   -- highlight other uses of the current word under the cursor
 
   -- IDE
-  use {'neoclide/coc.nvim', branch = 'release'}                -- completion, snippets etc
-  use 'junegunn/fzf' -- fuzzy search in a dir
+  use {
+    'neoclide/coc.nvim',                                        -- completion, snippets etc
+    branch = 'release'
+  }
+  use {
+    'junegunn/fzf',                                             -- fuzzy search in a dir
+    run = './install --all'
+  }
   use 'junegunn/fzf.vim'                                        -- fuzzy search in a dir
   use 'antoinemadec/coc-fzf'                                    -- use fzf for coc lists
   use 'honza/vim-snippets'                                      -- snippets working with coc.nvim
@@ -49,21 +55,22 @@ require('packer').startup(function()
 end)
 
 vim.cmd([[
-source ~/.vim/plugins_config/asyncrun.vim.vim
-source ~/.vim/plugins_config/coc.nvim.vim
-source ~/.vim/plugins_config/fzf.vim.vim
-source ~/.vim/plugins_config/gruvbox-material.vim
-source ~/.vim/plugins_config/indentline.vim
-source ~/.vim/plugins_config/lightline.vim.vim
-source ~/.vim/plugins_config/tagbar.vim
-source ~/.vim/plugins_config/verilog_systemverilog.vim.vim
-source ~/.vim/plugins_config/vim-devicons.vim
-source ~/.vim/plugins_config/vim-fugitive.vim
-source ~/.vim/plugins_config/vim-illuminate.vim
-source ~/.vim/plugins_config/vim-matchup.vim
-source ~/.vim/plugins_config/vim-polyglot.vim
-source ~/.vim/plugins_config/vim-sneak.vim
-source ~/.vim/plugins_config/vim-startify.vim
-source ~/.vim/plugins_config/vim-surround.vim
-source ~/.vim/plugins_config/vim-visual-multi.vim
+  set rtp+=~/.local/share/nvim/site/pack/packer/start/vim-snippets
+  source ~/.vim/plugins_config/asyncrun.vim.vim
+  source ~/.vim/plugins_config/coc.nvim.vim
+  source ~/.vim/plugins_config/fzf.vim.vim
+  source ~/.vim/plugins_config/gruvbox-material.vim
+  source ~/.vim/plugins_config/indentline.vim
+  source ~/.vim/plugins_config/lightline.vim.vim
+  source ~/.vim/plugins_config/tagbar.vim
+  source ~/.vim/plugins_config/verilog_systemverilog.vim.vim
+  source ~/.vim/plugins_config/vim-devicons.vim
+  source ~/.vim/plugins_config/vim-fugitive.vim
+  source ~/.vim/plugins_config/vim-illuminate.vim
+  source ~/.vim/plugins_config/vim-matchup.vim
+  source ~/.vim/plugins_config/vim-polyglot.vim
+  source ~/.vim/plugins_config/vim-sneak.vim
+  source ~/.vim/plugins_config/vim-startify.vim
+  source ~/.vim/plugins_config/vim-surround.vim
+  source ~/.vim/plugins_config/vim-visual-multi.vim
 ]])

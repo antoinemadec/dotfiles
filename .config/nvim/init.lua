@@ -31,7 +31,6 @@ endif
 set background=dark
 let g:gruvbox_material_background = 'soft'
 let g:gruvbox_material_better_performance = 1
-set rtp+=~/.local/share/nvim/site/pack/packer/start/gruvbox-material/after
 let g:gruvbox_material_palette = 'mix'
 colorscheme gruvbox-material
 set fillchars=vert:│,fold:+
@@ -69,103 +68,16 @@ autocmd WinEnter,VimEnter * call MatchUpdate('todo',
       \ 'CustomHighlight_Warning', 'TBD\|TODO\|FIXME', 11)
 
 "--------------------------------------------------------------
-" folding
-"--------------------------------------------------------------
-set foldmethod=indent
-set nofoldenable
-set foldnestmax=9
-set foldlevelstart=9
-nmap <silent> zi :call ToggleFoldEnable()<CR>
-nmap <silent> zm :call NormalFoldCmd("zm")<CR>
-nmap <silent> zM :call NormalFoldCmd("zM")<CR>
-nmap <silent> zr :call NormalFoldCmd("zr")<CR>
-nmap <silent> zR :call NormalFoldCmd("zR")<CR>
-nmap <silent> zc :call NormalFoldCmd("zc")<CR>
-nmap <silent> zC :call NormalFoldCmd("zC")<CR>
-nmap <silent> zo :call NormalFoldCmd("zo")<CR>
-nmap <silent> zO :call NormalFoldCmd("zO")<CR>
-
-function NormalFoldCmd(cmd)
-  if &foldenable == 0
-    call ToggleFoldEnable()
-  endif
-  execute "unmap " .  a:cmd
-  execute "normal " . a:cmd
-  call lightline#update()
-  execute "nmap <silent> " . a:cmd . " :call NormalFoldCmd(\"" . a:cmd . "\")<CR>"
-endfunction
-
-function! ToggleFoldEnable()
-  let cur_foldlevel = &foldlevel
-  set foldenable!
-  if &foldenable
-    " get max foldlevel and set foldcolumn accordingly,
-    " min foldcolumn = 6
-    execute "normal zR"
-    let &foldcolumn = &foldlevel + 1
-    if &foldcolumn < 6
-      let &foldcolumn = 6
-    endif
-    " set back previous foldlevel, make sure it is in
-    " [0:max(foldlevel)]
-    if cur_foldlevel > &foldlevel
-      let cur_foldlevel = &foldlevel
-    endif
-    let &foldlevel = cur_foldlevel
-  else
-    set foldcolumn=0
-  endif
-  call lightline#update()
-endfunction
-
-"--------------------------------------------------------------
-" language specific
-"--------------------------------------------------------------
-" SystemVerilog
-autocmd FileType verilog_systemverilog setlocal commentstring=//%s
-let g:uvm_tags_is_on = 0
-let g:uvm_tags_path = "~/.vim/tags/UVM_CDNS-1.2"
-command! ToggleUVMTags call ToggleUVMTags()
-function ToggleUVMTags()
-  if g:uvm_tags_is_on
-    exe 'set tags-=' . g:uvm_tags_path
-  else
-    exe 'set tags+=' . g:uvm_tags_path
-  endif
-  let g:uvm_tags_is_on = !g:uvm_tags_is_on
-  echo "UVM tags = " . g:uvm_tags_is_on
-endfunction
-
-" c cpp c++
-autocmd FileType c,cpp setlocal shiftwidth=4 tabstop=4
-if filereadable("cscope.out")
-  cs add cscope.out
-elseif $CSCOPE_DB != ""
-  cs add $CSCOPE_DB
-endif
-
-" c#
-autocmd FileType cs setlocal shiftwidth=4 tabstop=4
-
-" java
-autocmd FileType java setlocal shiftwidth=4 tabstop=4
-
-"--------------------------------------------------------------
 " terminal
 "--------------------------------------------------------------
-  command! T terminal
-  command! TS split | terminal
-  command! TV vsplit | terminal
-  command! TT tabe | terminal
+command! T terminal
+command! TS split | terminal
+command! TV vsplit | terminal
+command! TT tabe | terminal
 
 "--------------------------------------------------------------
 " misc
 "--------------------------------------------------------------
-" start vim server
-if exists('*remote_startserver') && has('clientserver') && v:servername == ''
-  call remote_startserver('vim_server_' . getpid())
-endif
-
 function MatchUpdate(id_str, hl, pattern, priority) abort
   call MatchDelete(a:id_str)
   if &filetype != 'which_key'

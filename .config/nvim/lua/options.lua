@@ -24,3 +24,5 @@ vim.opt.cscoperelative = true                   -- basename of cscope.out is be 
 vim.opt.tags           = vim.opt.tags           + {'../tags;'}             -- get tags even if the current file is a symbolic/hard link
 vim.opt.sessionoptions = vim.opt.sessionoptions + {'localoptions,globals'} -- all options and mappings
 vim.opt.completeopt    = vim.opt.completeopt    + {'menuone,longest'}
+vim.opt.foldmethod     = 'indent'
+vim.opt.foldenable     = false

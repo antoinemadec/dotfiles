@@ -10,14 +10,13 @@ endif
 let g:lightline = {
   \ 'colorscheme': 'gruvbox_material',
   \ 'active': {
-  \   'left': [['foldinfo', 'mymode', 'paste'],
+  \   'left': [['mymode', 'paste'],
   \             ['readonly', 'myrelativepath', 'mymodified'],
   \             ['version_control'],
   \             ['mycocstatuserror', 'mycocstatuswarning', 'mycocinfo', 'mycocfunc']],
   \   'right': [['lineinfo'],
   \              ['percentwin'],
-  \              ['spell', 'filetype'],
-  \              ['detecttrailingspace']]
+  \              ['spell', 'filetype']]
   \ },
   \ 'inactive' : {
   \   'left': [['filename', 'mymodified']],
@@ -34,16 +33,12 @@ let g:lightline = {
   \ },
   \ 'component_expand': {
   \   'myrelativepath': 'MyRelativePath',
-  \   'foldinfo': 'MyFoldInfo',
   \   'mycocstatuserror': 'MyCocStatusError',
-  \   'mycocstatuswarning': 'MyCocStatusWarning',
-  \   'detecttrailingspace': 'MyDetectTrailingSpace'
+  \   'mycocstatuswarning': 'MyCocStatusWarning'
   \ },
   \ 'component_type': {
-  \   'foldinfo': 'middle',
   \   'mycocstatuserror': 'error',
-  \   'mycocstatuswarning': 'warning',
-  \   'detecttrailingspace': 'warning'
+  \   'mycocstatuswarning': 'warning'
   \ },
   \ 'tab' : {
   \   'active': ['mytabname', 'modified'],
@@ -217,28 +212,4 @@ endfunction
 
 function! MyVersionControl()
   return exists("b:lightline_version_control") ? b:lightline_version_control : ''
-endfunction
-
-function! MyFoldInfo()
-  if &foldenable && &foldcolumn >= 6
-    return "lvl" . &foldlevel . repeat(" ", &foldcolumn - 6)
-  else
-    return ""
-  endif
-endfunction
-
-function! MyDetectTrailingSpace()
-  if winwidth(0) > 100 && &ft != 'help' && &ft != 'startify' && &buftype != 'terminal' && mode() == 'n'
-    let save_cursor = getpos('.')
-    call cursor(1,1)
-    let search_result = search("  *$", "c")
-    call setpos('.', save_cursor)
-    if &list
-      return search_result ? "t.space" : ""
-    else
-      return "tab & ts hidden"
-    endif
-  else
-    return ""
-  endif
 endfunction
