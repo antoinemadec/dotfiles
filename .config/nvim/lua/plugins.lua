@@ -4,11 +4,14 @@ require('packer').startup(function()
 
   -- style
   use 'sainnhe/gruvbox-material'                                -- colorscheme
-  use 'itchyny/lightline.vim'                                   -- status line
+  use {
+    'nvim-lualine/lualine.nvim',                                -- status line
+    requires = {'kyazdani42/nvim-web-devicons', opt = true},
+    config = function() require('config.lualine') end
+  }
   use 'yggdroot/indentline'                                     -- display thin vertical lines at each indentation level
   use 'antoinemadec/vim-indentcolor-filetype'                   -- make notes more readable
   use 'mhinz/vim-startify'                                      -- start screen for vim
-  use 'ryanoasis/vim-devicons'                                  -- add icons to your plugins
   use 'RRethy/vim-illuminate'                                   -- highlight other uses of the current word under the cursor
 
   -- IDE
@@ -61,10 +64,8 @@ vim.cmd([[
   source ~/.vim/plugins_config/fzf.vim.vim
   source ~/.vim/plugins_config/gruvbox-material.vim
   source ~/.vim/plugins_config/indentline.vim
-  source ~/.vim/plugins_config/lightline.vim.vim
   source ~/.vim/plugins_config/tagbar.vim
   source ~/.vim/plugins_config/verilog_systemverilog.vim.vim
-  source ~/.vim/plugins_config/vim-devicons.vim
   source ~/.vim/plugins_config/vim-fugitive.vim
   source ~/.vim/plugins_config/vim-illuminate.vim
   source ~/.vim/plugins_config/vim-matchup.vim
