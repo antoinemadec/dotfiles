@@ -1,4 +1,4 @@
-require('packer').startup(function()
+require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
@@ -37,9 +37,6 @@ require('packer').startup(function()
   -- movement
   use 'justinmk/vim-sneak'                                      -- jump to any location specified by two characters
   use 'junegunn/vim-easy-align'                                 -- easy alignment of line fields
-  use 'kana/vim-textobj-indent'                                 -- add indent text object for motion like 'dii'
-  use 'kana/vim-textobj-line'                                   -- add line text object for motion like 'dil'
-  use 'kana/vim-textobj-user'                                   -- needed to add text object
   use 'mg979/vim-visual-multi'                                  -- multiple cursors
   use 'andymass/vim-matchup'                                    -- replacement for the vim plugin matchit.vim
 

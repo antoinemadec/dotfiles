@@ -215,21 +215,6 @@ _G.packer_plugins = {
     path = "/home/antoine/.local/share/nvim/site/pack/packer/start/vim-surround",
     url = "https://github.com/tpope/vim-surround"
   },
-  ["vim-textobj-indent"] = {
-    loaded = true,
-    path = "/home/antoine/.local/share/nvim/site/pack/packer/start/vim-textobj-indent",
-    url = "https://github.com/kana/vim-textobj-indent"
-  },
-  ["vim-textobj-line"] = {
-    loaded = true,
-    path = "/home/antoine/.local/share/nvim/site/pack/packer/start/vim-textobj-line",
-    url = "https://github.com/kana/vim-textobj-line"
-  },
-  ["vim-textobj-user"] = {
-    loaded = true,
-    path = "/home/antoine/.local/share/nvim/site/pack/packer/start/vim-textobj-user",
-    url = "https://github.com/kana/vim-textobj-user"
-  },
   ["vim-verilog-instance"] = {
     loaded = true,
     path = "/home/antoine/.local/share/nvim/site/pack/packer/start/vim-verilog-instance",
