@@ -31,6 +31,6 @@ mkdir -p ${cmd}_profile
 cd ${cmd}_profile
 
 eval $cmd $file --startuptime profile.txt
-grep packer profile.txt | sed 's/^\S* *//' | sort -nr > packer.txt
+grep sourcing profile.txt | sed 's/^\S* *//' | sort -nr > sourcing.txt
 
-eval $cmd profile.txt packer.txt -o
+eval $cmd profile.txt sourcing.txt -o

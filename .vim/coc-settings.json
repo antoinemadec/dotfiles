@@ -51,6 +51,7 @@
     ]
   },
   "sumneko-lua.enableNvimLuaDev": true,
+  "Lua.window.statusBar": false,
   "pairs.enableCharacters": [
     "(",
     "[",

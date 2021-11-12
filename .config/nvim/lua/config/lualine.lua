@@ -4,6 +4,21 @@ local palette = vim.fn['gruvbox_material#get_palette'](background, configuration
 
 
 -- statusline
+vim.cmd([[
+autocmd CursorHold,CursorHoldI * call UpdateCurrentTag()
+
+function UpdateCurrentTag()
+  if !exists('g:tagbar_stl_' . &ft)
+    return
+  endif
+  let b:stl_current_tag =  tagbar#currenttagtype('[%s]', '') . tagbar#currenttag(' %s', '')
+endfunction
+]])
+
+local function get_function_name()
+  return vim.b.coc_current_function or vim.b.stl_current_tag or ''
+end
+
 require'lualine'.setup {
   options = {
     icons_enabled = true,
@@ -24,7 +39,14 @@ require'lualine'.setup {
           removed  = {fg = palette.red[1]},
         },
       },
-      'g:coc_status',
+      {
+        'g:coc_status',
+        color = {bg = palette.bg_visual_blue[1]}
+      },
+      {
+        get_function_name,
+        color = {bg = palette.bg_visual_blue[1]}
+      },
       {
         'diagnostics',
         sources = {'nvim_lsp', 'coc'},
