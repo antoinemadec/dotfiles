@@ -50,7 +50,10 @@ require('packer').startup(function(use)
   use 'andymass/vim-matchup'                                    -- replacement for the vim plugin matchit.vim
 
   -- misc
-  use 'liuchengxu/vim-which-key'                                -- space mappings
+  use {
+    'folke/which-key.nvim',                                     -- space mappings
+    config = function() require('config.which_key') end
+  }
   use 'antoinemadec/vim-highlight-groups'                       -- add words in highlight groups on the fly
   use 'skywind3000/asyncrun.vim'                                -- run asynchronous bash commands
   use 'tpope/vim-commentary'                                    -- comment stuff out
