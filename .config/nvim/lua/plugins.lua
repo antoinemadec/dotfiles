@@ -1,3 +1,9 @@
+if not _G.plugins then
+  _G.plugins = {}
+end
+
+
+-- plugins
 require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
@@ -9,7 +15,10 @@ require('packer').startup(function(use)
     requires = {'kyazdani42/nvim-web-devicons', opt = true},
     config = function() require('config.lualine') end
   }
-  use 'yggdroot/indentline'                                     -- display thin vertical lines at each indentation level
+  use {
+    'lukas-reineke/indent-blankline.nvim',                      -- display thin vertical lines at each indentation level
+    config = function() require('config.indent_blankline') end
+  }
   use 'antoinemadec/vim-indentcolor-filetype'                   -- make notes more readable
   use 'mhinz/vim-startify'                                      -- start screen for vim
   use 'RRethy/vim-illuminate'                                   -- highlight other uses of the current word under the cursor
@@ -48,19 +57,20 @@ require('packer').startup(function(use)
   use 'tpope/vim-fugitive'                                      -- git wrapper
   use 'tpope/vim-repeat'                                        -- remaps '.' in a way that plugins can tap into it
   use 'tpope/vim-sensible'                                      -- vim defaults that everyone can agree on
-  use 'tpope/vim-speeddating'                                   -- use ctrl-a/ctrl-x to increment dates, times, and more
   use 'tpope/vim-surround'                                      -- delete, change and add surroundings in pairs
   use 'tpope/vim-abolish'                                       -- work with variations of a word
   use 'antoinemadec/FixCursorHold.nvim'                         -- fix CursorHold perf bug
 end)
 
-vim.cmd([[
+
+-- plugin config
+if not _G.plugins.config_is_sourced then
+  vim.cmd([[
   set rtp+=~/.local/share/nvim/site/pack/packer/start/vim-snippets
   source ~/.vim/plugins_config/asyncrun.vim.vim
   source ~/.vim/plugins_config/coc.nvim.vim
   source ~/.vim/plugins_config/fzf.vim.vim
   source ~/.vim/plugins_config/gruvbox-material.vim
-  source ~/.vim/plugins_config/indentline.vim
   source ~/.vim/plugins_config/tagbar.vim
   source ~/.vim/plugins_config/verilog_systemverilog.vim.vim
   source ~/.vim/plugins_config/vim-fugitive.vim
@@ -71,4 +81,15 @@ vim.cmd([[
   source ~/.vim/plugins_config/vim-startify.vim
   source ~/.vim/plugins_config/vim-surround.vim
   source ~/.vim/plugins_config/vim-visual-multi.vim
+]])
+  _G.plugins.config_is_sourced = true
+end
+
+
+-- auto compile
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+  augroup end
 ]])
