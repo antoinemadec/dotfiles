@@ -34,12 +34,10 @@ function ToggleTrailingSpace()
 endfunction
 call ToggleTrailingSpace()
 
-autocmd BufWinEnter * call MatchUpdate('trailingspace',
+autocmd BufWinEnter,InsertLeave * call MatchUpdate('trailingspace',
       \ 'CustomHighlight_TrailingSpace',  '\s\+$', 11)
 autocmd InsertEnter * call MatchUpdate('trailingspace',
       \ 'CustomHighlight_TrailingSpace', '\s\+\%#\@<!$', 11)
-autocmd InsertLeave * call MatchUpdate('trailingspace',
-      \ 'CustomHighlight_TrailingSpace',  '\s\+$', 11)
 
 " highlight non breakable space
 set listchars=nbsp:?
@@ -177,9 +175,7 @@ endfunc
 
 function MatchUpdate(id_str, hl, pattern, priority) abort
   call MatchDelete(a:id_str)
-  if &filetype != 'which_key'
-    call MatchAdd(a:id_str, a:hl, a:pattern, a:priority)
-  endif
+  call MatchAdd(a:id_str, a:hl, a:pattern, a:priority)
 endfunction
 
 function! GetCurrentBufferDir()
@@ -231,5 +227,5 @@ if has('gui_running')
 endif
 
 " help
-command -complete=help -nargs=* Ht tab help <args>
+command -complete=help -nargs=* H tab help <args>
 ]])
