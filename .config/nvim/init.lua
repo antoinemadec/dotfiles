@@ -1,5 +1,5 @@
 require('utils')
 require('plugins')
 require('options')
-require('misc')
 require('mappings')
+require('misc_vim')

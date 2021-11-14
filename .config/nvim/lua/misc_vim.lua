@@ -105,8 +105,76 @@ function! IndTxtObj(inner)
 endfunction
 
 "--------------------------------------------------------------
+" plugin
+"--------------------------------------------------------------
+set rtp+=~/.local/share/nvim/site/pack/packer/start/vim-snippets
+source ~/.vim/plugins_config/asyncrun.vim.vim
+source ~/.vim/plugins_config/coc.nvim.vim
+source ~/.vim/plugins_config/fzf.vim.vim
+source ~/.vim/plugins_config/gruvbox-material.vim
+source ~/.vim/plugins_config/tagbar.vim
+source ~/.vim/plugins_config/verilog_systemverilog.vim.vim
+source ~/.vim/plugins_config/vim-fugitive.vim
+source ~/.vim/plugins_config/vim-illuminate.vim
+source ~/.vim/plugins_config/vim-matchup.vim
+source ~/.vim/plugins_config/vim-polyglot.vim
+source ~/.vim/plugins_config/vim-sneak.vim
+source ~/.vim/plugins_config/vim-startify.vim
+source ~/.vim/plugins_config/vim-surround.vim
+source ~/.vim/plugins_config/vim-visual-multi.vim
+
+augroup packer_user_config
+  autocmd!
+  autocmd BufWritePost plugins.lua source <afile> | PackerSync
+augroup end
+
+"--------------------------------------------------------------
 " misc
 "--------------------------------------------------------------
+function MoveToPrevTab()
+  "there is only one window
+  if tabpagenr('$') == 1 && winnr('$') == 1
+    return
+  endif
+  "preparing new window
+  let l:tab_old_idx = tabpagenr()
+  let l:cur_buf = bufnr('%')
+  if tabpagenr() != 1
+    close!
+    if tabpagenr() == l:tab_old_idx
+      tabprev
+    endif
+    sp
+  else
+    close!
+    exe "0tabnew"
+  endif
+  "opening current buffer in new window
+  exe "b".l:cur_buf
+endfunc
+
+function MoveToNextTab()
+  "there is only one window
+  if tabpagenr('$') == 1 && winnr('$') == 1
+    return
+  endif
+  "preparing new window
+  let l:tab_nr = tabpagenr('$')
+  let l:cur_buf = bufnr('%')
+  if tabpagenr() < tab_nr
+    close!
+    if l:tab_nr == tabpagenr('$')
+      tabnext
+    endif
+    sp
+  else
+    close!
+    tabnew
+  endif
+  "opening current buffer in new window
+  exe "b".l:cur_buf
+endfunc
+
 function MatchUpdate(id_str, hl, pattern, priority) abort
   call MatchDelete(a:id_str)
   if &filetype != 'which_key'

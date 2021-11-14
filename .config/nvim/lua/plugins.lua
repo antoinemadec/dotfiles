@@ -1,8 +1,3 @@
-if not _G.plugins then
-  _G.plugins = {}
-end
-
-
 -- plugins
 require('packer').startup(function(use)
   -- Packer can manage itself
@@ -52,6 +47,8 @@ require('packer').startup(function(use)
   -- misc
   use {
     'folke/which-key.nvim',                                     -- space mappings
+    opt=true,
+    keys="<space>",
     config = function() require('config.which_key') end
   }
   use 'antoinemadec/vim-highlight-groups'                       -- add words in highlight groups on the fly
@@ -64,35 +61,3 @@ require('packer').startup(function(use)
   use 'tpope/vim-abolish'                                       -- work with variations of a word
   use 'antoinemadec/FixCursorHold.nvim'                         -- fix CursorHold perf bug
 end)
-
-
--- plugin config
-if not _G.plugins.config_is_sourced then
-  vim.cmd([[
-  set rtp+=~/.local/share/nvim/site/pack/packer/start/vim-snippets
-  source ~/.vim/plugins_config/asyncrun.vim.vim
-  source ~/.vim/plugins_config/coc.nvim.vim
-  source ~/.vim/plugins_config/fzf.vim.vim
-  source ~/.vim/plugins_config/gruvbox-material.vim
-  source ~/.vim/plugins_config/tagbar.vim
-  source ~/.vim/plugins_config/verilog_systemverilog.vim.vim
-  source ~/.vim/plugins_config/vim-fugitive.vim
-  source ~/.vim/plugins_config/vim-illuminate.vim
-  source ~/.vim/plugins_config/vim-matchup.vim
-  source ~/.vim/plugins_config/vim-polyglot.vim
-  source ~/.vim/plugins_config/vim-sneak.vim
-  source ~/.vim/plugins_config/vim-startify.vim
-  source ~/.vim/plugins_config/vim-surround.vim
-  source ~/.vim/plugins_config/vim-visual-multi.vim
-]])
-  _G.plugins.config_is_sourced = true
-end
-
-
--- auto compile
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]])
