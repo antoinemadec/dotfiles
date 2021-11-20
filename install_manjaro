@@ -49,6 +49,7 @@ sudo pacman --noconfirm -S xclip bat
 sudo pacman --noconfirm -S luarocks ctags autopep8
 sudo pamac  build --no-confirm neovim-nightly-bin
 sudo pacman --noconfirm -S neovim-qt
+sudo pamac build --no-confirm nvim-packer-git
 
 # i3
 sudo pacman --noconfirm -S gsimplecal gnome-calculator pinta

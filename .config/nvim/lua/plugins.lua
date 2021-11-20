@@ -2,6 +2,7 @@
 require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
+  use {'lewis6991/impatient.nvim', config = function() require('impatient') end}
 
   -- style
   use 'sainnhe/gruvbox-material'                                -- colorscheme
@@ -42,13 +43,16 @@ require('packer').startup(function(use)
   use 'justinmk/vim-sneak'                                      -- jump to any location specified by two characters
   use 'junegunn/vim-easy-align'                                 -- easy alignment of line fields
   use 'mg979/vim-visual-multi'                                  -- multiple cursors
-  use 'andymass/vim-matchup'                                    -- replacement for the vim plugin matchit.vim
+  use {
+    'andymass/vim-matchup',                                     -- replacement for the vim plugin matchit.vim
+    keys = '%'
+  }
 
   -- misc
   use {
     'folke/which-key.nvim',                                     -- space mappings
-    opt=true,
-    keys="<space>",
+    opt = true,
+    keys = {"<space>", 'g', '"'},
     config = function() require('config.which_key') end
   }
   use 'antoinemadec/vim-highlight-groups'                       -- add words in highlight groups on the fly
