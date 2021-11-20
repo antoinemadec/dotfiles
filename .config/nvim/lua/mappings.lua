@@ -1,5 +1,6 @@
 -- functions
 local default_opts = {noremap=true, silent=true}
+local plug_opts = {noremap=false, silent=true}
 
 local function t(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -20,6 +21,31 @@ end
 
 function _G.smart_term_escape()
   return vim.o.filetype == 'fzf' and t'<Esc>' or t'<C-\\>' .. t'<C-n>'
+end
+
+function _G.mapping_func_key_help()
+  if vim.b.help_scratch_open then
+    vim.cmd('q')
+  else
+    local help_array = string.split([[
+HELP FUNCTION KEYS
+<F1>      *Help*            toggle
+<F2>      *Debugger*
+<F3>      *Indent*          toggle
+<F4>      *Tagbar*          toggle
+<F5>      *Highlight_0*     add
+\<F5>     *Highlight_0*     remove
+<F6>      *Highlight_1*     add
+\<F6>     *Highlight_1*     remove
+<F7>      *TrailingSpace*   toggle
+<F8>      *Quickfix*        toggle
+<F9>      *Spell*           toggle
+<F10>     *Completion*      toggle]], "\n")
+    vim.cmd('Scratch' .. #help_array)
+    vim.api.nvim_put(help_array, '', false, false)
+    vim.bo.filetype = 'help'
+    vim.b.help_scratch_open = true
+  end
 end
 
 
@@ -50,26 +76,38 @@ for _,mode in pairs({'n', 'i', 't'}) do
   -- tab movement
   nvim_set_keymap_arrow_and_hjkl(mode, '<C-A-Left>',    esc_chars .. 'gT',                        default_opts)
   nvim_set_keymap_arrow_and_hjkl(mode, '<C-A-Right>',   esc_chars .. 'gt',                        default_opts)
-  nvim_set_keymap_arrow_and_hjkl(mode, '<C-A-S-Left>',  esc_chars .. ':call MoveToPrevTab()<CR>', default_opts)
-  nvim_set_keymap_arrow_and_hjkl(mode, '<C-A-S-Right>', esc_chars .. ':call MoveToNextTab()<CR>', default_opts)
+  nvim_set_keymap_arrow_and_hjkl(mode, '<C-A-S-Left>',  esc_chars .. ':call MoveToPrevTab()<cr>', default_opts)
+  nvim_set_keymap_arrow_and_hjkl(mode, '<C-A-S-Right>', esc_chars .. ':call MoveToNextTab()<cr>', default_opts)
 end
 
 -- tab split
-vim.api.nvim_set_keymap('n', '<C-w><C-t>', ':tab split<CR>', default_opts)
-vim.api.nvim_set_keymap('n', '<C-w>t',     ':tab split<CR>', default_opts)
+vim.api.nvim_set_keymap('n', '<C-w><C-t>', ':tab split<cr>', default_opts)
+vim.api.nvim_set_keymap('n', '<C-w>t',     ':tab split<cr>', default_opts)
 
 -- function keys
-vim.api.nvim_set_keymap('n', '<F1>',   ':call MappingHelp()<CR>',                            default_opts)
-vim.api.nvim_set_keymap('n', '<F2>',   ':call Debugger()<CR>',                               default_opts)
-vim.api.nvim_set_keymap('n', '<F3>',   ':ToggleIndent<CR>',                                  default_opts)
-vim.api.nvim_set_keymap('n', '<F4>',   ':TagbarToggle<CR>',                                  default_opts)
-vim.api.nvim_set_keymap('n', '<F5>',   ':exe "HighlightGroupsAddWord " . hg0 . " 1"<CR>',    default_opts)
-vim.api.nvim_set_keymap('n', '\\<F5>', ':exe "HighlightGroupsClearGroup " . hg0 . " 1"<CR>', default_opts)
-vim.api.nvim_set_keymap('n', '<F6>',   ':exe "HighlightGroupsAddWord " . hg1 . " 1"<CR>',    default_opts)
-vim.api.nvim_set_keymap('n', '\\<F6>', ':exe "HighlightGroupsClearGroup " . hg1 . " 1"<CR>', default_opts)
-vim.api.nvim_set_keymap('n', '<F7>',   ':call ToggleTrailingSpace()<CR>',                    default_opts)
-vim.api.nvim_set_keymap('n', '<F8>',   ':call asyncrun#quickfix_toggle(8)<CR>',              default_opts)
-vim.api.nvim_set_keymap('n', '<F9>',   ':set spell!<CR>',                                    default_opts)
-vim.api.nvim_set_keymap('i', '<F9>',   '<C-o> :set spell!<CR>',                              default_opts)
-vim.api.nvim_set_keymap('n', '<F10>',  ':ToggleCompletion<CR>',                              default_opts)
-vim.api.nvim_set_keymap('i', '<F10>',  '<C-o> :ToggleCompletion<CR>',                        default_opts)
+vim.api.nvim_set_keymap('n', '<F1>',   ':call v:lua.mapping_func_key_help()<cr>',            default_opts)
+vim.api.nvim_set_keymap('n', '<F2>',   ':call Debugger()<cr>',                               default_opts)
+vim.api.nvim_set_keymap('n', '<F3>',   ':ToggleIndent<cr>',                                  default_opts)
+vim.api.nvim_set_keymap('n', '<F4>',   ':TagbarToggle<cr>',                                  default_opts)
+vim.api.nvim_set_keymap('n', '<F5>',   ':exe "HighlightGroupsAddWord " . hg0 . " 1"<cr>',    default_opts)
+vim.api.nvim_set_keymap('n', '\\<F5>', ':exe "HighlightGroupsClearGroup " . hg0 . " 1"<cr>', default_opts)
+vim.api.nvim_set_keymap('n', '<F6>',   ':exe "HighlightGroupsAddWord " . hg1 . " 1"<cr>',    default_opts)
+vim.api.nvim_set_keymap('n', '\\<F6>', ':exe "HighlightGroupsClearGroup " . hg1 . " 1"<cr>', default_opts)
+vim.api.nvim_set_keymap('n', '<F7>',   ':call ToggleTrailingSpace()<cr>',                    default_opts)
+vim.api.nvim_set_keymap('n', '<F8>',   ':call asyncrun#quickfix_toggle(8)<cr>',              default_opts)
+vim.api.nvim_set_keymap('n', '<F9>',   ':set spell!<cr>',                                    default_opts)
+vim.api.nvim_set_keymap('i', '<F9>',   '<C-o> :set spell!<cr>',                              default_opts)
+vim.api.nvim_set_keymap('n', '<F10>',  ':ToggleCompletion<cr>',                              default_opts)
+vim.api.nvim_set_keymap('i', '<F10>',  '<C-o> :ToggleCompletion<cr>',                        default_opts)
+
+-- misc
+---- copy/paste with mouse select
+vim.api.nvim_set_keymap('v', '<LeftRelease>', '"*ygv', default_opts)
+---- add '.' support in visual mode
+vim.api.nvim_set_keymap('v', '.', ":<C-w>let cidx = col('.')<cr> :'<,'>call DotAtColumnIndex(cidx)<cr>", default_opts)
+---- TODO: search for visually selected text
+vim.api.nvim_set_keymap('x', 'ga', '<Plug>(EasyAlign)', plug_opts)
+vim.api.nvim_set_keymap('n', 'ga', '<Plug>(EasyAlign)', plug_opts)
+vim.api.nvim_set_keymap('n', 'dO', ':1,$+1diffget<cr>:diffupdate<cr>', default_opts)
+vim.api.nvim_set_keymap('n', 'dP', ':wincmd w<cr>:1,$+1diffget<cr>:wincmd w<cr>:diffupdate<cr>', default_opts)
+vim.api.nvim_set_keymap('t', '\\cd', 'vim_server_cmd "cd $PWD" -i<cr>', default_opts)
