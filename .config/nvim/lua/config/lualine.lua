@@ -19,6 +19,11 @@ local function get_function_name()
   return vim.b.coc_current_function or vim.b.stl_current_tag or ''
 end
 
+local function location_or_selected_lines()
+  local v_diff = vim.fn.line('.') - vim.fn.line('v')
+  return v_diff ~= 0 and math.abs(v_diff)+1 or '%3l:%-2v'
+end
+
 require'lualine'.setup {
   options = {
     icons_enabled = true,
@@ -64,7 +69,7 @@ require'lualine'.setup {
     }},
     lualine_x = {'filetype'},
     lualine_y = {'progress'},
-    lualine_z = {'location'}
+    lualine_z = {location_or_selected_lines}
   },
   inactive_sections = {
     lualine_a = {},
