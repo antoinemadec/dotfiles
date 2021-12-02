@@ -1,6 +1,7 @@
 local background = vim.opt.background:get()
 local configuration = vim.fn['gruvbox_material#get_configuration']()
 local palette = vim.fn['gruvbox_material#get_palette'](background, configuration.palette)
+local ts_parsers = require "nvim-treesitter.parsers"
 
 
 -- statusline
@@ -22,6 +23,10 @@ end
 local function location_or_selected_lines()
   local v_diff = vim.fn.line('.') - vim.fn.line('v')
   return v_diff ~= 0 and math.abs(v_diff)+1 or '%3l:%-2v'
+end
+
+local function treesitter_status()
+  return ts_parsers.has_parser() and "🌳" or ""
 end
 
 require'lualine'.setup {
@@ -67,7 +72,7 @@ require'lualine'.setup {
         'filename',
         path = 1 -- relative path
     }},
-    lualine_x = {'filetype'},
+    lualine_x = {treesitter_status, 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {location_or_selected_lines}
   },

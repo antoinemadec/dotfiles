@@ -42,9 +42,15 @@ require('packer').startup(function(use)
   -- use 'puremourning/vimspector'                                 -- multi language graphical debugger
 
   -- languages
-  use 'sheerun/vim-polyglot'                                    -- a collection of language packs for vim
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    requires = {'nvim-treesitter/playground', opt = true},
+    config = function() require('config.treesitter') end
+  }
   use 'antoinemadec/vim-verilog-instance'                       -- verilog port instantiation from port declaration
   use 'vhda/verilog_systemverilog.vim'                          -- vim syntax plugin for verilog and systemverilog
+  use 'MTDL9/vim-log-highlighting'                              -- syntax for log files
 
   -- movement
   use 'justinmk/vim-sneak'                                      -- jump to any location specified by two characters
