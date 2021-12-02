@@ -79,6 +79,8 @@ for _,mode in pairs({'n', 'i', 't'}) do
   nvim_set_keymap_arrow_and_hjkl(mode, '<C-A-S-Left>',  esc_chars .. ':call MoveToPrevTab()<cr>', default_opts)
   nvim_set_keymap_arrow_and_hjkl(mode, '<C-A-S-Right>', esc_chars .. ':call MoveToNextTab()<cr>', default_opts)
 end
+nvim_set_keymap_arrow_and_hjkl('n', '<C-Down>' ,'<C-e>', default_opts)
+nvim_set_keymap_arrow_and_hjkl('n', '<C-Up>'   ,'<C-y>', default_opts)
 
 -- tab split
 vim.api.nvim_set_keymap('n', '<C-w><C-t>', ':tab split<cr>', default_opts)
