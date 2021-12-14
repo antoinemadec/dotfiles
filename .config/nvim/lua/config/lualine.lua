@@ -21,8 +21,12 @@ local function get_function_name()
 end
 
 local function location_or_selected_lines()
-  local v_diff = vim.fn.line('.') - vim.fn.line('v')
-  return v_diff ~= 0 and math.abs(v_diff)+1 or '%3l:%-2v'
+  local pos_l = vim.fn.getpos('.')
+  local pos_v = vim.fn.getpos('v')
+  local d_line = math.abs(pos_l[2] - pos_v[2]) + 1
+  local d_col = math.abs(pos_l[3] - pos_v[3]) + 1
+  local s = string.format("<%0d,%0d>", d_line, d_col)
+  return (d_line ~= 1 or d_col ~= 1) and s or '%3l:%-2v'
 end
 
 local function treesitter_status()
