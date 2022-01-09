@@ -25,6 +25,11 @@ require('packer').startup(function(use)
   use 'antoinemadec/vim-indentcolor-filetype'                   -- make notes more readable
   use 'mhinz/vim-startify'                                      -- start screen for vim
   use 'RRethy/vim-illuminate'                                   -- highlight other uses of the current word under the cursor
+  use {
+    'rcarriga/nvim-notify',                                     -- fancy notification manager for NeoVim
+    config = function() vim.notify = require('notify') end
+  }
+  use 'stevearc/dressing.nvim'                                  -- fancy vim.ui.select and input
 
   -- IDE
   use {
