@@ -33,6 +33,7 @@ deploy_core .config/flake8
 deploy_core .config/fontconfig
 deploy_core .config/htop
 deploy_core .config/i3
+deploy_core .config/nvim
 deploy_core .config/rofi
 deploy_core .config/terminator
 deploy_core .config/termite
@@ -44,8 +45,6 @@ deploy_core .tigrc
 deploy_core .tmux.conf
 deploy_core .toprc
 deploy_core .vim
-deploy_core .vim   .config/nvim
 deploy_core .vimrc
-deploy_core .vimrc .config/nvim/init.vim
 deploy_core .vnc/passwd
 deploy_core .Xresources

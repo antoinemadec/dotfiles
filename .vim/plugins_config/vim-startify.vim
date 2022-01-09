@@ -1,18 +1,17 @@
 let g:startify_custom_header = [
-      \ '    __      ___',
-      \ '    \ \    / (_)',
-      \ '     \ \  / / _ _ __ ___',
-      \ '      \ \/ / | |  _ ` _ \',
-      \ '       \  /  | | | | | | |',
-      \ '        \/   |_|_| |_| |_|',
+      \ '   ███    ██ ███████  ██████  ██    ██ ██ ███    ███',
+      \ '   ████   ██ ██      ██    ██ ██    ██ ██ ████  ████',
+      \ '   ██ ██  ██ █████   ██    ██ ██    ██ ██ ██ ████ ██',
+      \ '   ██  ██ ██ ██      ██    ██  ██  ██  ██ ██  ██  ██',
+      \ '   ██   ████ ███████  ██████    ████   ██ ██      ██',
       \]
-let g:startify_commands = [':Files',
-      \ ':Scratch tab',
-      \ ':PlugClean' ,
-      \ ':PlugInstall | CocInstall',
-      \ ':PlugUpdate  | CocUpdate']
+let g:startify_commands = [
+      \ {'s': ['scratch buffer', ':Scratch tab']},
+      \ {'c': ['plugin clean', ':PackerClean']},
+      \ {'u': ['plugin update', 'call StartifyPluginUpdate()']},
+      \ ]
 let g:startify_lists = [
-      \ { 'type': 'commands',  'indices': ['f', 's', 'c', 'i', 'u'] },
+      \ { 'type': 'commands'},
       \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
       \ { 'type': 'sessions',  'header': ['   Sessions']       },
       \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
@@ -29,4 +28,9 @@ function s:resurrect_tmux_session() abort
     endif
     call system('tmux set-environment vim_has_been_resurrected 1')
   endif
+endfunction
+
+function StartifyPluginUpdate() abort
+  PackerSync
+  CocUpdate
 endfunction
