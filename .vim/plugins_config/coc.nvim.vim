@@ -40,10 +40,6 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-" notify coc.nvim to format on enter
-inoremap <silent><expr> <cr> pumvisible() ? "\<C-y>"
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
 " Use `[d` and `]d` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [d <Plug>(coc-diagnostic-prev)
@@ -145,8 +141,6 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 "--------------------------------------------------------------
 " personal config
 "--------------------------------------------------------------
-autocmd FileType verilog_systemverilog let b:coc_pairs_disabled = ["'"]
-
 command! ToggleCompletion call ToggleCompletion()
 function ToggleCompletion()
   if g:coc_enabled
@@ -163,7 +157,6 @@ let g:coc_global_extensions = [
       \ 'coc-sumneko-lua',
       \ 'coc-marketplace',
       \ 'coc-omni',
-      \ 'coc-pairs',
       \ 'coc-pyright',
       \ 'coc-rust-analyzer',
       \ 'coc-sh',

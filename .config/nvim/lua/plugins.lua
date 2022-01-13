@@ -44,10 +44,15 @@ require('packer').startup(function(use)
   use 'antoinemadec/coc-fzf'                                    -- use fzf for coc lists
   use 'honza/vim-snippets'                                      -- snippets working with coc.nvim
   use 'preservim/tagbar'                                        -- display buffer's classes/functions/vars based on ctags
-  use {
+  use 'tpope/vim-fugitive'                                      -- git wrapper
+  use {                                                         -- git signs/features
     'lewis6991/gitsigns.nvim',
     requires = {'nvim-lua/plenary.nvim'},
     config = function() require('config.gitsigns') end
+  }
+  use {                                                         -- autopair
+    'windwp/nvim-autopairs',
+    config = function() require('config.nvim-autopairs') end
   }
 
   -- languages
@@ -80,7 +85,6 @@ require('packer').startup(function(use)
   use 'antoinemadec/vim-highlight-groups'                       -- add words in highlight groups on the fly
   use 'skywind3000/asyncrun.vim'                                -- run asynchronous bash commands
   use 'tpope/vim-commentary'                                    -- comment stuff out
-  use 'tpope/vim-fugitive'                                      -- git wrapper
   use 'tpope/vim-repeat'                                        -- remaps '.' in a way that plugins can tap into it
   use 'tpope/vim-sensible'                                      -- vim defaults that everyone can agree on
   use 'tpope/vim-surround'                                      -- delete, change and add surroundings in pairs
