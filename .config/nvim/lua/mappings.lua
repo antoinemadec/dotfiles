@@ -102,6 +102,12 @@ vim.api.nvim_set_keymap('i', '<F9>',   '<C-o> :set spell!<cr>',                 
 vim.api.nvim_set_keymap('n', '<F10>',  ':ToggleCompletion<cr>',                              default_opts)
 vim.api.nvim_set_keymap('i', '<F10>',  '<C-o> :ToggleCompletion<cr>',                        default_opts)
 
+-- git
+ vim.api.nvim_set_keymap('n', ']g',  ':Gitsigns next_hunk<CR>', default_opts)
+ vim.api.nvim_set_keymap('n', '[g',  ':Gitsigns prev_hunk<CR>', default_opts)
+ vim.api.nvim_set_keymap('o', 'ig', ':<C-U>Gitsigns select_hunk<CR>', default_opts)
+ vim.api.nvim_set_keymap('x', 'ig', ':<C-U>Gitsigns select_hunk<CR>', default_opts)
+
 -- misc
 ---- copy/paste with mouse select
 vim.api.nvim_set_keymap('v', '<LeftRelease>', '"*ygv', default_opts)

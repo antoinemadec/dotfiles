@@ -156,22 +156,13 @@ function ToggleCompletion()
   endif
 endfunction
 
-nmap <silent> [g <Plug>(coc-git-prevchunk)
-nmap <silent> ]g <Plug>(coc-git-nextchunk)
-omap <silent> ig <Plug>(coc-git-chunk-inner)
-xmap <silent> ig <Plug>(coc-git-chunk-inner)
-omap <silent> ag <Plug>(coc-git-chunk-outer)
-xmap <silent> ag <Plug>(coc-git-chunk-outer)
-
 let g:coc_global_extensions = [
       \ 'coc-clangd',
-      \ 'coc-git',
       \ 'coc-highlight',
       \ 'coc-json',
       \ 'coc-sumneko-lua',
       \ 'coc-marketplace',
       \ 'coc-omni',
-      \ 'coc-omnisharp',
       \ 'coc-pairs',
       \ 'coc-pyright',
       \ 'coc-rust-analyzer',

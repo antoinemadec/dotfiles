@@ -44,7 +44,11 @@ require('packer').startup(function(use)
   use 'antoinemadec/coc-fzf'                                    -- use fzf for coc lists
   use 'honza/vim-snippets'                                      -- snippets working with coc.nvim
   use 'preservim/tagbar'                                        -- display buffer's classes/functions/vars based on ctags
-  -- use 'puremourning/vimspector'                                 -- multi language graphical debugger
+  use {
+    'lewis6991/gitsigns.nvim',
+    requires = {'nvim-lua/plenary.nvim'},
+    config = function() require('config.gitsigns') end
+  }
 
   -- languages
   use {

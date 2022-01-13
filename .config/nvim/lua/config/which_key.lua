@@ -63,12 +63,12 @@ wk.register(
     -- git
     ['g'] = {
       name = 'git',
-      s = {'<cmd>call ToggleGstatus()<cr>',           'git status'},
-      d = {'<cmd>Gdiffsplit<cr>',               'git diff'},
-      b = {'<cmd>Git blame<cr>',                'git blame'},
-      i = {'<Plug>(coc-git-chunkinfo)', 'chunk info'},
-      u = {'<cmd>CocCommand git.chunkUndo<cr>', 'chunk undo'},
-      c = {'<cmd>Commits<cr>',                  'list git commits'},
+      s = {'<cmd>call ToggleGstatus()<cr>',  'git status'},
+      d = {'<cmd>Gdiffsplit<cr>',            'git diff'},
+      b = {'<cmd>Git blame<cr>',             'git blame'},
+      i = {'<cmd>Gitsigns preview_hunk<cr>', 'chunk info'},
+      u = {'<cmd>Gitsigns reset_hunk<cr>',   'chunk undo'},
+      c = {'<cmd>Commits<cr>',               'list git commits'},
     },
     -- lsp
     ['l'] = {
