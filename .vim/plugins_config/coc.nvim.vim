@@ -64,9 +64,6 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
 " Symbol renaming.
 nmap \rn <Plug>(coc-rename)
 
@@ -152,7 +149,6 @@ endfunction
 
 let g:coc_global_extensions = [
       \ 'coc-clangd',
-      \ 'coc-highlight',
       \ 'coc-json',
       \ 'coc-sumneko-lua',
       \ 'coc-marketplace',

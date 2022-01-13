@@ -89,6 +89,10 @@ require('packer').startup(function(use)
   use 'tpope/vim-sensible'                                      -- vim defaults that everyone can agree on
   use 'tpope/vim-surround'                                      -- delete, change and add surroundings in pairs
   use 'tpope/vim-abolish'                                       -- work with variations of a word
+  use {                                                         -- color highlighter
+    'norcalli/nvim-colorizer.lua',
+    config = function() require('colorizer').setup() end
+  }
   use 'antoinemadec/FixCursorHold.nvim'                         -- fix CursorHold perf bug
 
   -- automatically set up your configuration after cloning packer.nvim
