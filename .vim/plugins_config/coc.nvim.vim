@@ -162,9 +162,6 @@ let g:coc_global_extensions = [
       \ 'coc-yank'
       \]
 
-highlight link CocRustTypeHint     CocHintVirtualText
-highlight link CocRustChainingHint CocHintVirtualText
-
 " run file
 nnoremap <silent> \r :RunCurrentBuffer<CR>
 nnoremap <silent> \t :RunAndTimeCurrentBuffer<CR>
