@@ -118,7 +118,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "rofi -show menu -modi 'menu:rofi-power-menu --choices=shutdown/reboot/logout'" 
+bindsym $mod+Shift+e  exec --no-startup-id ~/.config/i3/bin/rofi_power_menu
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -226,8 +226,6 @@ exec --no-startup-id exec alacritty -t vim_todo -e bash -ic "nvim ~/org/todo_*.t
 bindsym $mod+t [title="vim_todo"] scratchpad show
 exec --no-startup-id exec Thunar&
 bindsym $mod+m [class="Thunar"] scratchpad show; [class="Thunar"] move position center
-# locker
-bindsym Pause exec i3lock-fancy-dualmonitor
 # terminals
 bindsym $mod+Return exec [ -f ~/remote_machine.txt ] && exec alacritty -e "ssh -X $(cat ~/remote_machine.txt)" \
   || notify-send 'i3' 'please populate ~/remote_machine.txt'

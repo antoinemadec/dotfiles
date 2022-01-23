@@ -1,3 +1,0 @@
-[submodule "bin/ghost-text-vim"]
-	path = bin/ghost-text-vim
-	url = https://github.com/falstro/ghost-text-vim
