@@ -19,3 +19,9 @@ function _G.string.split (inputstr, sep)
   end
   return t
 end
+
+local clock = os.clock
+function _G.sleep(n)
+  local t0 = clock()
+  while clock() - t0 <= n do end
+end
