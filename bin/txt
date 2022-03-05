@@ -35,7 +35,7 @@ name+='.txt'
 if [ ! -e "$name" ]
 then
   touch $name
-  echo '# vim: ft=indentcolor spell' > "$name"
+  echo '# vim: ft=indentcolor' > "$name"
   echo '' >> "$name"
   [ "$novim" = 1 ] || $EDITOR "$name"
 else
