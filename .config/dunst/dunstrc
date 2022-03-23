@@ -24,6 +24,11 @@
     icon_position = left
     icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
     stack_duplicates = false
+    mouse_left_click = close_current
+    mouse_middle_click = open_url, close_current
+    mouse_right_click = close_all
+    browser = /usr/bin/google-chrome-stable
+    dmenu = /usr/bin/rofi -dmenu -p dunst
 
 [frame]
     width = 1
