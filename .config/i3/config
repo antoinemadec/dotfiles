@@ -200,6 +200,7 @@ bindsym $mod+c  exec --no-startup-id gnome-calculator
 # use rofi instead of dmenu,
 # add equivalent of "alt+Tab functionality"
 bindsym $mod+d       exec "PATH=~/bin:~/bin_local:$PATH rofi -show drun"
+bindsym $mod+Shift+d exec "PATH=~/bin:~/bin_local:$PATH rofi -show drun -run-command 'gksu {cmd}'"
 bindsym $mod+Tab     exec "exec rofi -show window"
 bindsym $mod+Shift+s exec "exec rofi -show ssh"
 bindsym $mod+Shift+w  exec --no-startup-id ~/.config/i3/bin/rofi_workspace
