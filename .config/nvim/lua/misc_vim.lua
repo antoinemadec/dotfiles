@@ -115,7 +115,6 @@ source ~/.vim/plugins_config/verilog_systemverilog.vim.vim
 source ~/.vim/plugins_config/vim-fugitive.vim
 source ~/.vim/plugins_config/vim-illuminate.vim
 source ~/.vim/plugins_config/vim-matchup.vim
-source ~/.vim/plugins_config/vim-polyglot.vim
 source ~/.vim/plugins_config/vim-sneak.vim
 source ~/.vim/plugins_config/vim-startify.vim
 source ~/.vim/plugins_config/vim-surround.vim

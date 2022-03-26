@@ -2,7 +2,6 @@ let g:VM_theme = 'iceblue'
 let g:VM_silent_exit = 1
 let g:VM_highlight_matches = ''
 let g:VM_set_statusline = 0
-let g:VM_custom_motions  = {'<Left>': 'h', '<Down>': 'j', '<Up>': 'k', '<Right>': 'l'}
 
 autocmd User visual_multi_mappings  imap <buffer><expr> <CR> pumvisible() ? "\<C-Y>" : "\<Plug>(VM-I-Return)"
 
