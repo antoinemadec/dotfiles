@@ -223,10 +223,8 @@ bindsym $mod+Shift+Prior move workspace to output right
 # scratchpad
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
-exec --no-startup-id exec alacritty -t vim_todo -e bash -ic "nvim ~/org/todo_*.txt -p"
-bindsym $mod+t [title="vim_todo"] scratchpad show
-exec --no-startup-id exec Thunar&
-bindsym $mod+m [class="Thunar"] scratchpad show; [class="Thunar"] move position center
+bindsym $mod+t exec --no-startup-id ~/.config/i3/bin/scratchpad "vim_todo" --toggle
+bindsym $mod+m exec --no-startup-id ~/.config/i3/bin/scratchpad "Thunar" --toggle
 # terminals
 bindsym $mod+Return exec [ -f ~/remote_machine.txt ] && exec alacritty -e "ssh -X $(cat ~/remote_machine.txt)" \
   || notify-send 'i3' 'please populate ~/remote_machine.txt'
@@ -258,15 +256,15 @@ for_window [class="Evince"] floating enable
 for_window [class="Xpdf"] floating enable
 for_window [title="Figure*"] floating enable
 for_window [class="Gnome-calculator"] floating enable
+for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move down 20 px
+for_window [class="Pavucontrol"] floating enable
+# workspace name finishing by ^
+for_window [workspace="\^$"] floating enable
 # scratchpad
 for_window [title="vim_todo"] floating enable
 for_window [title="vim_todo"] move scratchpad
 for_window [class="Thunar"] floating enable
 for_window [class="Thunar" window_type=normal] move scratchpad
-for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move down 20 px
-for_window [class="Pavucontrol"] floating enable
-# workspace name finishing by ^
-for_window [workspace="\^$"] floating enable
 
 #------------------------------
 # assign program to workspace
@@ -280,16 +278,8 @@ assign [class="Sky"] 1:email
 exec --no-startup-id exec ~/.xrandr_default.sh
 exec --no-startup-id exec picom
 exec --no-startup-id exec ~/.config/i3/wallpaper/change_wallpaper.sh default 1
-workspace 1 output HDMI1
-workspace 2 output HDMI1
-workspace 3 output HDMI1
-workspace 4 output HDMI1
-workspace 5 output HDMI1
-workspace 6 output HDMI1
-workspace 7 output HDMI1
-workspace 8 output HDMI1
-workspace 9 output HDMI1
-workspace 10 output HDMI1
+exec --no-startup-id exec ~/.config/i3/bin/scratchpad "vim_todo" --exec
+exec --no-startup-id exec ~/.config/i3/bin/scratchpad "Thunar" --exec
 exec --no-startup-id exec ~/.i3_startup.sh
 exec --no-startup-id exec nm-applet
 exec --no-startup-id exec blueman-applet

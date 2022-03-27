@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+program="$1"
+action="$2"
+
+p_cnt="$(ps ux | grep "$program" | grep -v "scratchpad\|grep" | wc -l)"
+
+case $program in
+  "vim_todo")
+    cmd='alacritty -t vim_todo -e bash -ic "nvim ~/org/todo_*.txt -p"'
+    toggle='[title="vim_todo"] scratchpad show'
+    ;;
+  "Thunar")
+    cmd='Thunar&'
+    toggle='[class="Thunar"] scratchpad show; [class="Thunar"] move position center'
+esac
+
+if [ "$p_cnt" -lt 1 ] || [ "$action" == "--exec" ]; then
+  i3-msg "exec --no-startup-id $cmd"
+else
+  i3-msg "$toggle"
+fi
