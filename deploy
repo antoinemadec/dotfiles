@@ -26,7 +26,6 @@ deploy_core bin
 deploy_core .config/alacritty
 deploy_core .config/compton.conf
 deploy_core .config/compton.conf .config/picom.conf
-deploy_core .config/conky
 deploy_core .config/dunst
 deploy_core .config/emoji
 deploy_core .config/flake8
@@ -36,7 +35,6 @@ deploy_core .config/i3
 deploy_core .config/nvim
 deploy_core .config/rofi
 deploy_core .config/terminator
-deploy_core .config/termite
 deploy_core .emacs
 deploy_core .gitconfig
 deploy_core .screenrc
