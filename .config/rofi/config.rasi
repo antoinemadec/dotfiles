@@ -11,4 +11,3 @@ configuration {
 }
 
 @theme "gruvbox-dark-soft"
-@import "~/.cache/wal/colors-rofi-light"

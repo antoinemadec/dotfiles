@@ -8,10 +8,6 @@ case $- in
       *) return;;
 esac
 
-# color terminals depending on wallpaper
-[ -f ~/.pywal.sh ] && source ~/.pywal.sh
-[ "$PYWAL_ENABLED" == 1 ] && (cat ~/.cache/wal/sequences &)
-
 export SHELL=/bin/bash
 
 # don't put duplicate lines in the history.
