@@ -93,18 +93,8 @@ inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 
 " window movement
-if has('terminal') || has('nvim')
+if has('terminal')
   tnoremap <expr> <Esc><Esc> (&filetype == "fzf") ? "<Esc>" : "<C-\><C-n>"
-  if has('nvim')
-    call s:map_arrows_and_hjkl('tnoremap <A-Left>     <C-\><C-N><C-w>h')
-    call s:map_arrows_and_hjkl('tnoremap <A-Down>     <C-\><C-N><C-w>j')
-    call s:map_arrows_and_hjkl('tnoremap <A-Up>       <C-\><C-N><C-w>k')
-    call s:map_arrows_and_hjkl('tnoremap <A-Right>    <C-\><C-N><C-w>l')
-    call s:map_arrows_and_hjkl('tnoremap <A-S-Left>   <C-\><C-N><C-w>H')
-    call s:map_arrows_and_hjkl('tnoremap <A-S-Down>   <C-\><C-N><C-w>J')
-    call s:map_arrows_and_hjkl('tnoremap <A-S-Up>     <C-\><C-N><C-w>K')
-    call s:map_arrows_and_hjkl('tnoremap <A-S-Right>  <C-\><C-N><C-w>L')
-  else
     call s:map_arrows_and_hjkl('tnoremap <A-Left>     <C-w>h')
     call s:map_arrows_and_hjkl('tnoremap <A-Down>     <C-w>j')
     call s:map_arrows_and_hjkl('tnoremap <A-Up>       <C-w>k')
@@ -113,7 +103,6 @@ if has('terminal') || has('nvim')
     call s:map_arrows_and_hjkl('tnoremap <A-S-Down>   <C-w>J')
     call s:map_arrows_and_hjkl('tnoremap <A-S-Up>     <C-w>K')
     call s:map_arrows_and_hjkl('tnoremap <A-S-Right>  <C-w>L')
-  endif
 endif
 call s:map_arrows_and_hjkl('inoremap <silent> <A-Left>      <C-\><C-N><C-w>h')
 call s:map_arrows_and_hjkl('inoremap <silent> <A-Down>      <C-\><C-N><C-w>j')
@@ -135,7 +124,7 @@ call s:map_arrows_and_hjkl('nnoremap <silent> <C-Down>      <C-e>')
 call s:map_arrows_and_hjkl('nnoremap <silent> <C-Up>        <C-y>')
 
 " tab movement
-if has('terminal') || has('nvim')
+if has('terminal')
   call s:map_arrows_and_hjkl('tnoremap <C-A-Left>           <C-\><C-n>gT')
   call s:map_arrows_and_hjkl('tnoremap <C-A-Right>          <C-\><C-n>gt')
   call s:map_arrows_and_hjkl('tnoremap <C-A-S-Left>         <C-\><C-n>:call MoveToPrevTab()<CR>')
@@ -164,6 +153,14 @@ inoremap <silent> <F9>  <C-o> :set spell!<CR>
 nnoremap <silent> <F10>       :ToggleCompletion<CR>
 inoremap <silent> <F10> <C-o> :ToggleCompletion<CR>
 set pastetoggle=<F12>
+
+" git
+nmap <silent> [g <Plug>(coc-git-prevchunk)
+nmap <silent> ]g <Plug>(coc-git-nextchunk)
+omap <silent> ig <Plug>(coc-git-chunk-inner)
+xmap <silent> ig <Plug>(coc-git-chunk-inner)
+omap <silent> ag <Plug>(coc-git-chunk-outer)
+xmap <silent> ag <Plug>(coc-git-chunk-outer)
 
 " space
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
@@ -263,9 +260,9 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 nmap dO :%diffget<CR>:diffupdate<CR>
 nmap dP :%diffput<CR>:diffupdate<CR>
-if has('terminal') || has('nvim')
+if has('terminal')
   tnoremap \cd vim_server_cmd "cd $PWD" -i<CR>
 endif
-if has('terminal') && !has('nvim')
+if has('terminal')
   tnoremap vvim vim_server_open
 endif

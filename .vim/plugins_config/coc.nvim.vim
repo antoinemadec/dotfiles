@@ -150,13 +150,13 @@ endfunction
 let g:coc_global_extensions = [
       \ 'coc-clangd',
       \ 'coc-json',
-      \ 'coc-sumneko-lua',
       \ 'coc-marketplace',
       \ 'coc-omni',
       \ 'coc-pyright',
       \ 'coc-rust-analyzer',
       \ 'coc-sh',
       \ 'coc-snippets',
+      \ 'coc-sumneko-lua',
       \ 'coc-tsserver',
       \ 'coc-vimlsp',
       \ 'coc-yank'

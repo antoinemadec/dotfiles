@@ -1,1 +1,0 @@
-I€kuprintf("DEBUG: =g:macro_debug_cnt\n");fflush(stdout);€kd€kd0:let g:macro_debug_cnt+=1

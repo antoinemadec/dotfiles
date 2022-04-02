@@ -171,7 +171,7 @@ function! MyModified()
   endif
 endfunction
 
-if has('job') || has('nvim')
+if has('job')
   autocmd BufEnter,BufWinEnter,BufWritePost * call s:UpdateRevStatus()
 else
   autocmd BufWinEnter,BufWritePost * call s:UpdateRevStatus()
@@ -180,8 +180,6 @@ function! s:UpdateRevStatus()
   let l:vc_cmd = expand('~/.vim/script/version_control_status ' . expand('%:p')) . ' ' . bufnr("%")
   if has('job')
     let l:job = job_start(l:vc_cmd, {'out_cb': function('s:UpdateRevStatusOutCb'), 'exit_cb': function('s:UpdateRevStatusExitCb')})
-  elseif has('nvim')
-    let l:job = jobstart(l:vc_cmd, {'on_stdout': function('s:UpdateRevStatusOutCb'), 'on_exit': function('s:UpdateRevStatusExitCb')})
   else
     let stdout_list = split(system(l:vc_cmd))
     if v:shell_error
@@ -195,7 +193,7 @@ endfunction
 
 function! s:UpdateRevStatusOutCb(ch, stdout, ...)
   let stdl = type(a:stdout) == 3 ? a:stdout : split(a:stdout)
-  let stdout_list = has('nvim') ? split(stdl[0]) : stdl
+  let stdout_list = stdl
   if len(stdout_list) == 3
     let bufnr  = stdout_list[0]
     let status = join(stdout_list[1:2])

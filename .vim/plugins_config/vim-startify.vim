@@ -1,13 +1,23 @@
-let g:startify_custom_header = [
-      \ '   ███    ██ ███████  ██████  ██    ██ ██ ███    ███',
-      \ '   ████   ██ ██      ██    ██ ██    ██ ██ ████  ████',
-      \ '   ██ ██  ██ █████   ██    ██ ██    ██ ██ ██ ████ ██',
-      \ '   ██  ██ ██ ██      ██    ██  ██  ██  ██ ██  ██  ██',
-      \ '   ██   ████ ███████  ██████    ████   ██ ██      ██',
-      \]
+if has('nvim')
+  let g:startify_custom_header = [
+        \ '   ███    ██ ███████  ██████  ██    ██ ██ ███    ███',
+        \ '   ████   ██ ██      ██    ██ ██    ██ ██ ████  ████',
+        \ '   ██ ██  ██ █████   ██    ██ ██    ██ ██ ██ ████ ██',
+        \ '   ██  ██ ██ ██      ██    ██  ██  ██  ██ ██  ██  ██',
+        \ '   ██   ████ ███████  ██████    ████   ██ ██      ██',
+        \]
+else
+  let g:startify_custom_header = [
+        \ '   ██    ██ ██ ███    ███',
+        \ '   ██    ██ ██ ████  ████',
+        \ '   ██    ██ ██ ██ ████ ██',
+        \ '    ██  ██  ██ ██  ██  ██',
+        \ '     ████   ██ ██      ██',
+        \]
+endif
 let g:startify_commands = [
       \ {'s': ['scratch buffer', ':Scratch tab']},
-      \ {'c': ['plugin clean', ':PackerClean']},
+      \ {'c': ['plugin clean', 'call StartifyPluginClean']},
       \ {'u': ['plugin update', 'call StartifyPluginUpdate()']},
       \ ]
 let g:startify_lists = [
@@ -30,7 +40,20 @@ function s:resurrect_tmux_session() abort
   endif
 endfunction
 
+function StartifyPluginClean() abort
+  if has('nvim')
+    PackerClean
+  else
+    PlugClean
+  endif
+endfunction
+
 function StartifyPluginUpdate() abort
-  PackerSync
+  if has('nvim')
+    PackerSync
+  else
+    PlugUpgrade
+    PlugUpdate
+  endif
   CocUpdate
 endfunction

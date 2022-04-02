@@ -20,6 +20,9 @@ Plug 'ryanoasis/vim-devicons'                                  " add icons to yo
 Plug 'RRethy/vim-illuminate'                                   " highlight other uses of the current word under the cursor
 " IDE
 Plug 'neoclide/coc.nvim', {'branch': 'release'}                " completion, snippets etc
+Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
 Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all'} " fuzzy search in a dir
 Plug 'junegunn/fzf.vim'                                        " fuzzy search in a dir
 Plug 'antoinemadec/coc-fzf'                                    " use fzf for coc lists
@@ -46,7 +49,6 @@ Plug 'tpope/vim-commentary'                                    " comment stuff o
 Plug 'tpope/vim-fugitive'                                      " git wrapper
 Plug 'tpope/vim-repeat'                                        " remaps '.' in a way that plugins can tap into it
 Plug 'tpope/vim-sensible'                                      " vim defaults that everyone can agree on
-Plug 'tpope/vim-speeddating'                                   " use ctrl-a/ctrl-x to increment dates, times, and more
 Plug 'tpope/vim-surround'                                      " delete, change and add surroundings in pairs
 Plug 'tpope/vim-abolish'                                       " work with variations of a word
 Plug 'antoinemadec/FixCursorHold.nvim'                         " fix CursorHold perf bug
@@ -78,10 +80,6 @@ augroup CursorLine
     au WinLeave * setlocal nocursorline
 augroup END
 set number relativenumber    " show the line number relative to the line with the cursor
-if has('nvim')
-  au TermOpen * setlocal nonumber norelativenumber
-  set inccommand=nosplit
-endif
 set title                      " change terminal title
 set timeoutlen=500             " time in milliseconds to wait for a mapped sequence to complete
 set ttimeoutlen=50             " ms waited for a key code/sequence to complete. Allow faster insert to normal mode
@@ -95,10 +93,6 @@ set tags+=../tags;             " get tags even if the current file is a symbolic
 set sessionoptions+=localoptions,globals " all options and mappings
 set completeopt+=menuone,longest
 " complete preview popup
-if !has('nvim')
-  set completeopt+=popup
-  set completepopup+=border:off,highlight:PmenuThumb
-endif
 set t_ut=                      " do not use term color for clearing
 if $TERM_FANCY_CURSOR == 'true'
   let &t_SI = "\e[6 q"         " allow thin cursor in insert mode
@@ -269,11 +263,6 @@ if has('terminal')
   command! TS call term_start(&shell, {"term_kill": "term", "term_finish": "close"})
   command! TV call term_start(&shell, {"term_kill": "term", "term_finish": "close", "vertical": 1})
   command! TT tab call term_start(&shell, {"term_kill": "term", "term_finish": "close"})
-elseif has('nvim')
-  command! T terminal
-  command! TS split | terminal
-  command! TV vsplit | terminal
-  command! TT tabe | terminal
 endif
 
 "--------------------------------------------------------------
@@ -344,39 +333,5 @@ if has('win32') && filereadable($HOME.'\.vim\windows.vim')
   source ~/.vim/windows.vim
 endif
 
-" make current window float or create float with empty buffer
-function WindowDoFloat(...) abort
-  let create       = a:0 >= 1 ? a:1 : 0
-  let width_ratio  = a:0 >= 2 ? a:2 : 0.9
-  let height_ratio = a:0 >= 3 ? a:3 : 0.6
-  let width = float2nr(&columns * width_ratio)
-  let height = float2nr(&lines * height_ratio)
-  let config = { 'relative': 'editor',
-        \ 'row': (&lines - height) / 2,
-        \ 'col': (&columns - width) / 2,
-        \ 'width': width,
-        \ 'height': height,
-        \ 'style': 'minimal'
-        \}
-  if create
-    let is_already_floating = nvim_win_get_config(0).relative != ''
-    if !is_already_floating
-      let buf = nvim_create_buf(v:false, v:false)
-      call nvim_open_win(buf, v:true, config)
-    endif
-  else
-    call nvim_win_set_config(0, config)
-  endif
-endfunction
-
 " help
-function! OpenHelpInCurrentWindow(topic)
-  view $VIMRUNTIME/doc/help.txt
-  setl filetype=help
-  setl buftype=help
-  setl nomodifiable
-  setl nobuflisted
-  exe 'keepjumps help ' . a:topic
-endfunction
-command -complete=help -nargs=* H call WindowDoFloat(1, 0.6) | call OpenHelpInCurrentWindow(<q-args>)
-command -complete=help -nargs=* Ht tab help <args>
+command -complete=help -nargs=* H tab help <args>
