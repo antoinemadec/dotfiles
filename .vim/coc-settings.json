@@ -7,13 +7,7 @@
   ],
   "codeLens.enable": true,
   "codeLens.separator": "🔍",
-  "highlight.document.enable": false,
   "diagnostic.warningSign": ">>",
-  "git.changedSign.hlGroup": "CocGitDiffChange",
-  "git.addedSign.hlGroup": "CocGitDiffAdd",
-  "git.removedSign.hlGroup": "CocGitDiffDelete",
-  "git.topRemovedSign.hlGroup": "CocGitDiffDelete",
-  "git.changeRemovedSign.hlGroup": "CocGitDiffChange",
   "python.pythonPath": "python3",
   "suggest.completionItemKindLabels": {
     "keyword": "\uf1de",
@@ -43,7 +37,6 @@
     "typeParameter": "\uf728",
     "default": "\uf29c"
   },
-  "git.addGBlameToVirtualText": false,
   "snippets.extends": {
     "verilog_systemverilog": [
       "verilog",
@@ -52,6 +45,12 @@
   },
   "sumneko-lua.enableNvimLuaDev": true,
   "Lua.window.statusBar": false,
+  "git.addGBlameToVirtualText": false,
+  "git.addedSign.hlGroup": "CocGitDiffAdd",
+  "git.changeRemovedSign.hlGroup": "CocGitDiffChange",
+  "git.changedSign.hlGroup": "CocGitDiffChange",
+  "git.removedSign.hlGroup": "CocGitDiffDelete",
+  "git.topRemovedSign.hlGroup": "CocGitDiffDelete",
   "pairs.enableCharacters": [
     "(",
     "[",
@@ -59,5 +58,6 @@
     "'",
     "\""
   ],
-  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/13.0.0/clangd_13.0.0/bin/clangd"
+  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/13.0.0/clangd_13.0.0/bin/clangd",
+  "Lua.telemetry.enable": false
 }

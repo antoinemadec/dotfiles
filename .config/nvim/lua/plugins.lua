@@ -100,3 +100,29 @@ require('packer').startup(function(use)
     require('packer').sync()
   end
 end)
+
+
+vim.cmd([[
+"--------------------------------------------------------------
+" plugin
+"--------------------------------------------------------------
+set rtp+=~/.local/share/nvim/site/pack/packer/start/vim-snippets
+source ~/.vim/plugins_config/asyncrun.vim.vim
+source ~/.vim/plugins_config/coc.nvim.vim
+source ~/.vim/plugins_config/fzf.vim.vim
+source ~/.vim/plugins_config/gruvbox-material.vim
+source ~/.vim/plugins_config/tagbar.vim
+source ~/.vim/plugins_config/verilog_systemverilog.vim.vim
+source ~/.vim/plugins_config/vim-fugitive.vim
+source ~/.vim/plugins_config/vim-illuminate.vim
+source ~/.vim/plugins_config/vim-matchup.vim
+source ~/.vim/plugins_config/vim-sneak.vim
+source ~/.vim/plugins_config/vim-startify.vim
+source ~/.vim/plugins_config/vim-surround.vim
+source ~/.vim/plugins_config/vim-visual-multi.vim
+
+augroup packer_user_config
+  autocmd!
+  autocmd BufWritePost plugins.lua source <afile> | PackerSync
+augroup end
+]])

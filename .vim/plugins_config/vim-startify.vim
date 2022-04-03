@@ -17,7 +17,7 @@ else
 endif
 let g:startify_commands = [
       \ {'s': ['scratch buffer', ':Scratch tab']},
-      \ {'c': ['plugin clean', 'call StartifyPluginClean']},
+      \ {'c': ['plugin clean', 'call StartifyPluginClean()']},
       \ {'u': ['plugin update', 'call StartifyPluginUpdate()']},
       \ ]
 let g:startify_lists = [
