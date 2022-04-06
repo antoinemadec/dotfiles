@@ -42,5 +42,4 @@ deploy_core .tmux.conf
 deploy_core .toprc
 deploy_core .vim
 deploy_core .vimrc
-deploy_core .vnc/passwd
 deploy_core .Xresources
