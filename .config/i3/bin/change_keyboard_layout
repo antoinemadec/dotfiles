@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+
+layout_list="us fr"
+
+current_layout="$(setxkbmap -v 10 | grep layout | sed 's/.* //')"
+
+select_layout=false
+for l in $layout_list $layout_list; do
+  if $select_layout; then
+    setxkbmap -layout $l
+
+    notify-send \
+      --hint=string:x-dunst-stack-tag:i3_layout \
+      --expire-time=10000 \
+      --icon=/usr/share/icons/gnome/256x256/apps/preferences-desktop-keyboard-shortcuts.png \
+      'keyboard layout' "$l"
+
+    break
+  fi
+  [ "$l" == "$current_layout" ] && select_layout=true
+done

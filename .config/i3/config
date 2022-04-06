@@ -238,6 +238,7 @@ bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 20 # increase s
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 20 # decrease screen brightness
 # change layout
 bindsym $mod+o exec --no-startup-id exec ~/.config/i3/bin/change_layout
+bindsym $mod+Shift+o exec --no-startup-id exec ~/.config/i3/bin/change_keyboard_layout
 # print screen
 bindsym --release Print  exec --no-startup-id scrot -e 'mv $f /tmp/ && pinta /tmp/$f'
 # print screen - select window or rectangle
