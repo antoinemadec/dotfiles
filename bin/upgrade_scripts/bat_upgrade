@@ -11,7 +11,7 @@ deb_file="$(curl -s https://api.github.com/repos/sharkdp/bat/releases/latest |
 
 echo $deb_file
 
-wget https://github.com/sharkdp/bat/releases/latest/download/$deb_file
+wget https://github.com/sharkdp/bat/releases/latest/download/$deb_file --no-check-certificate
 
 sudo apt install $dir/$deb_file
 

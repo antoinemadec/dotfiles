@@ -23,13 +23,6 @@ print_banner "fonts"
 sudo pacman --noconfirm -S noto-fonts-emoji
 upgrade nerd_fonts
 
-print_banner "python packages"
-sudo pip3 install setuptools
-sudo pip3 install pynvim
-sudo pip3 install neovim-remote
-sudo pip3 install rope
-sudo pip3 install demucs # music source separation
-
 print_banner "pacman packages"
 
 # misc
@@ -54,3 +47,11 @@ sudo pacman --noconfirm -S neovim-qt
 sudo pacman --noconfirm -S gsimplecal gnome-calculator pinta
 sudo pacman --noconfirm -S py3status i3status feh rofi jq picom arandr scrot i3lock
 sudo pacman --noconfirm -S i3-gaps
+
+print_banner "python packages"
+sudo pip3 install setuptools
+sudo pip3 install pynvim
+sudo pip3 install neovim-remote
+sudo pip3 install rope
+sudo pip3 install demucs # music source separation
+

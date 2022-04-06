@@ -7,7 +7,7 @@ FONTS="DejaVuSansMono FiraCode Inconsolata SourceCodePro"
 for font in $FONTS; do
   dir=$(mktemp -d)
   cd $dir
-  wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/$font.zip
+  wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/$font.zip --no-check-certificate
   unzip *.zip
   rm *.zip
 
