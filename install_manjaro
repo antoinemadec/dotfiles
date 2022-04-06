@@ -35,7 +35,7 @@ print_banner "pacman packages"
 # misc
 sudo pacman --noconfirm -S alacritty libreoffice tig the_silver_searcher
 sudo pacman --noconfirm -S baobab libnotify dunst audacity xdotool lshw
-sudo pacman --noconfirm -S rust rust-src
+sudo pacman --noconfirm -S rust rust-src python-pip gksu
 sudo pamac build --no-confirm tzupdate google-chrome deezer
 
 # tmux
