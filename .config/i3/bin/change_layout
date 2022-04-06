@@ -1,21 +1,34 @@
 #!/bin/bash
 
 set -e
+set -o pipefail
+
+
+error() {
+  send_msg "$1"
+  exit 1
+}
+
+send_msg() {
+  local msg="$1"
+  notify-send \
+    --hint=string:x-dunst-stack-tag:i3_layout \
+    --expire-time=10000 \
+    --icon=/usr/share/icons/gnome/256x256/devices/video-display.png \
+    'layout' "$msg"
+}
+
 
 sl_dir=~/.screenlayout
 sl_file=$sl_dir/current_layout.txt
-layout_nb="$(ls -1 $sl_dir/*sh | wc -l)"
-layout_idx="$(cat $sl_file)"
+layout_nb="$(ls -1 $sl_dir/*sh | wc -l)" || error "$sl_dir/*.sh does not exist"
+layout_idx="$(cat $sl_file)" || echo 0 > $sl_file
 
 layout_idx=$(( (layout_idx+1) % $layout_nb ))
 cmd="$(ls $sl_dir/*sh -1 | head -n$((layout_idx + 1)) | tail -n1)"
 name="$(basename $cmd | sed 's/\..*//')"
 
 $cmd
-notify-send \
-  --hint=string:x-dunst-stack-tag:i3_layout \
-  --expire-time=10000 \
-  --icon=/usr/share/icons/gnome/256x256/devices/video-display.png \
-  'layout' $(echo $name)
+send_msg "$name"
 
 echo $layout_idx > $sl_file
