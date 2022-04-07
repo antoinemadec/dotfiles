@@ -1,6 +1,5 @@
 #!/usr/bin/env sh
 
-
 lock="🔒 lock screen"
 logout="🚪 log out"
 reboot="➰ reboot"
@@ -13,7 +12,7 @@ $shut_down" | rofi -dmenu -p "power menu")"
 
 case "$choice" in
   "$lock")
-    i3lock -i /home/antoine/.config/i3/wallpaper/warm_poly.png
+    i3lock -i ~/.config/i3/wallpaper/warm_poly.png -t
     ;;
   "$logout")
     loginctl terminate-session $XDG_SESSION_ID
