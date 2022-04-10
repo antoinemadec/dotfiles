@@ -5,6 +5,7 @@
   "coc.source.omni.filetypes": [
     "verilog_systemverilog"
   ],
+  "semanticTokens.filetypes": ["*"],
   "codeLens.enable": true,
   "codeLens.separator": "🔍",
   "diagnostic.warningSign": ">>",
@@ -45,6 +46,7 @@
   },
   "sumneko-lua.enableNvimLuaDev": true,
   "Lua.window.statusBar": false,
+  "Lua.telemetry.enable": false,
   "git.addGBlameToVirtualText": false,
   "git.addedSign.hlGroup": "CocGitDiffAdd",
   "git.changeRemovedSign.hlGroup": "CocGitDiffChange",
@@ -59,5 +61,5 @@
     "\""
   ],
   "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/14.0.0/clangd_14.0.0/bin/clangd",
-  "Lua.telemetry.enable": false
+  "clangd.inlayHints.enable": false
 }
