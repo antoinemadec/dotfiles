@@ -8,6 +8,7 @@ configuration {
   show-icons: true;
   sorting-method: "fzf";
   sort: true;
+  dpi: 120;
 }
 
 @theme "gruvbox-dark-soft"
