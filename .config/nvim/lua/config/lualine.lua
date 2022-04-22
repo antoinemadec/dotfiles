@@ -12,7 +12,19 @@ function UpdateCurrentTag()
   if !exists('g:tagbar_stl_' . &ft)
     return
   endif
+  if exists('g:tagbar_stl_disable') && g:tagbar_stl_disable
+    let b:stl_current_tag = '[off]'
+    return
+  endif
   let b:stl_current_tag =  tagbar#currenttagtype('[%s]', '') . tagbar#currenttag(' %s', '')
+endfunction
+
+command! ToggleTagbarStl call ToggleTagbarStl()
+function ToggleTagbarStl()
+  let g:tagbar_stl_disable = exists('g:tagbar_stl_disable') ? !g:tagbar_stl_disable : 1
+  if g:tagbar_stl_disable
+    call tagbar#StopAutoUpdate() 
+  endif
 endfunction
 ]])
 
