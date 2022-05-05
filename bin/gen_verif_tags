@@ -41,9 +41,11 @@ do
 done
 
 # don't tag SV ports until typedef detection is fixed
+# don't tag SV instance to avoid having 2 matches when instance name matches modules name
 uctags \
   --languages=verilog,systemverilog,VHDL,c++,c \
   --kinds-systemverilog=-p \
+  --kinds-systemverilog=-i \
   --extras=+q \
   --fields=+i \
   --exclude=.git \
