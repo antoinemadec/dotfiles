@@ -1,6 +1,11 @@
 local remap = vim.api.nvim_set_keymap
 local t = _G.MUtils.t
 local npairs = require('nvim-autopairs')
+local Rule = require('nvim-autopairs.rule')
+local cond = require('nvim-autopairs.conds')
+
+
+-- CR handling with coc.nvim
 npairs.setup({map_cr=false})
 
 _G.MUtils.completion_confirm=function()
@@ -12,3 +17,11 @@ _G.MUtils.completion_confirm=function()
 end
 
 remap('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})
+
+
+-- custom rules
+npairs.remove_rule('`')
+npairs.add_rule(
+Rule('`','`')
+:with_pair(cond.not_filetypes({"verilog_systemverilog"}))
+)
