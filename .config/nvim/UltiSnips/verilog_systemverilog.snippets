@@ -29,7 +29,7 @@ snippet uvm_info "UVM info" b
 endsnippet
 
 snippet uvm_infof "UVM info with format" b
-`uvm_info(get_type_name(), $sformatf("${1}", ${2}), UVM_LOW)
+`uvm_info(get_type_name(), \$sformatf("${1}", ${2}), UVM_LOW)
 endsnippet
 
 snippet uvm_error "UVM error" b
@@ -37,7 +37,7 @@ snippet uvm_error "UVM error" b
 endsnippet
 
 snippet uvm_errorf "UVM error with format" b
-`uvm_error(get_type_name(), $sformatf("${1}", ${2}))
+`uvm_error(get_type_name(), \$sformatf("${1}", ${2}))
 endsnippet
 
 snippet uvm_fatal "UVM fatal" b
@@ -45,5 +45,5 @@ snippet uvm_fatal "UVM fatal" b
 endsnippet
 
 snippet uvm_fatalf "UVM fatal with format" b
-`uvm_fatal(get_type_name(), $sformatf("${1}", ${2}))
+`uvm_fatal(get_type_name(), \$sformatf("${1}", ${2}))
 endsnippet
