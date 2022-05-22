@@ -44,6 +44,7 @@
       "systemverilog"
     ]
   },
+  "snippets.ultisnips.directories": ["~/.config/nvim/ultisnips"],
   "sumneko-lua.enableNvimLuaDev": true,
   "Lua.window.statusBar": false,
   "Lua.telemetry.enable": false,
