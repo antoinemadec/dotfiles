@@ -45,11 +45,6 @@ require('packer').startup(function(use)
     },
     config = function() require('config.telescope') end
   }
-  use { -- fuzzy search in a dir
-    'junegunn/fzf',
-    run = './install --all'
-  }
-  use 'junegunn/fzf.vim' -- fuzzy search in a dir
   use 'honza/vim-snippets' -- snippets working with coc.nvim
   use 'preservim/tagbar' -- display buffer's classes/functions/vars based on ctags
   use 'tpope/vim-fugitive' -- git wrapper
@@ -116,7 +111,6 @@ vim.cmd([[
 set rtp+=~/.local/share/nvim/site/pack/packer/start/vim-snippets
 source ~/.vim/plugins_config/asyncrun.vim.vim
 source ~/.vim/plugins_config/coc.nvim.vim
-source ~/.vim/plugins_config/fzf.vim.vim
 source ~/.vim/plugins_config/gruvbox-material.vim
 source ~/.vim/plugins_config/tagbar.vim
 source ~/.vim/plugins_config/verilog_systemverilog.vim.vim
