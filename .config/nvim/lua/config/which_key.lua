@@ -15,20 +15,22 @@ local wk = require("which-key")
 wk.register(
   {
     -- top-level mappings
-    ['/'] = {'<cmd>BLines<cr>', 'search in file'},
-    [';'] = {'<cmd>Commands<cr>', 'commands'},
+    ['/'] = {'<cmd>Telescope current_buffer_fuzzy_find<cr>', 'search in file'},
+    [';'] = {'<cmd>Telescope commands<cr>',                  'commands'},
+    ['h'] = {'<cmd>Telescope help_tags<cr>',                 'vim help'},
+    ['r'] = {'<cmd>Telescope resume<cr>',                    'resume Telescope'},
     -- find file
     ['f'] = {
       name = 'find_file',
-      f    = {'<cmd>Files<cr>',    'all files'},
-      b    = {'<cmd>Buffers<cr>',  'buffers'},
-      g    = {'<cmd>GitFiles<cr>', 'git files'},
+      f    = {'<cmd>Telescope find_files<cr>', 'all files'},
+      b    = {'<cmd>Telescope buffers<cr>',    'buffers'},
+      g    = {'<cmd>Telescope git_files<cr>',  'git files'},
     },
     -- find word
     ['w'] = {
       name = 'find_word',
-      w    = {'<cmd>Ag<cr>',    'all words'},
-      g    = {'<cmd>GGrep<cr>', 'git grep'},
+      w    = {'<cmd>Telescope live_grep<cr>', 'all words'},
+      g    = {'<cmd>Telescope git_grep<cr>',  'git grep'},
     },
     -- split file
     ['s'] = {
@@ -68,21 +70,18 @@ wk.register(
       b = {'<cmd>Git blame<cr>',             'git blame'},
       i = {'<cmd>Gitsigns preview_hunk<cr>', 'chunk info'},
       u = {'<cmd>Gitsigns reset_hunk<cr>',   'chunk undo'},
-      c = {'<cmd>Commits<cr>',               'list git commits'},
+      c = {'<cmd>Telescope git_commits<cr>', 'git commits'},
     },
     -- lsp
     ['l'] = {
       name = 'lsp',
-      a    = {'<cmd>CocFzfList actions<cr>',                   'actions'},
-      b    = {'<cmd>CocFzfList diagnostics --current-buf<cr>', 'buffer diagnostics'},
-      c    = {'<cmd>CocFzfList commands<cr>',                  'commands'},
-      d    = {'<cmd>CocFzfList diagnostics<cr>',               'all diagnostics'},
-      e    = {'<cmd>CocFzfList extensions<cr>',                'extensions'},
-      l    = {'<cmd>CocFzfList<cr>',                           'lists'},
-      o    = {'<cmd>CocFzfList outline<cr>',                   'outline'},
-      p    = {'<cmd>CocFzfListResume<cr>',                     'previous list'},
-      s    = {'<cmd>CocFzfList symbols<cr>',                   'symbols'},
-      t    = {'<cmd>Tags<cr>',                                 'tags'},
-      y    = {'<cmd>CocFzfList yank<cr>',                      'yank'},
+      a    = {'<cmd>Telescope coc code_actions theme=cursor<cr>', 'actions'},
+      b    = {'<cmd>Telescope coc diagnostics<cr>',               'buffer diagnostics'},
+      c    = {'<cmd>Telescope coc commands<cr>',                  'commands'},
+      d    = {'<cmd>Telescope coc workspace_diagnostics<cr>',     'all diagnostics'},
+      l    = {'<cmd>Telescope coc<cr>',                           'lists'},
+      s    = {'<cmd>Telescope coc workspace_symbols<cr>',         'symbols'},
+      t    = {'<cmd>Telescope tags<cr>',                          'tags'},
+      y    = {'<cmd>CocList yank<cr>',                            'yank'},
     },
   }, { prefix = "<leader>" })
