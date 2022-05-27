@@ -5,7 +5,7 @@ local conf = require("telescope.config").values
 local make_entry = require "telescope.make_entry"
 local flatten = vim.tbl_flatten
 
-local git_cmd = { 'git', 'grep', '--line-number', '--column'}
+local git_cmd = { 'git', 'grep', '--line-number', '--column', '-I' }
 
 local escape_chars = function(string)
   return string.gsub(string, "[%(|%)|\\|%[|%]|%-|%{%}|%?|%+|%*|%^|%$|%.]", {
@@ -33,7 +33,7 @@ local git_live_grep = function(opts)
     if not prompt or prompt == "" then
       return nil
     end
-    return flatten {git_cmd, '--', prompt}
+    return flatten { git_cmd, '--', prompt }
   end, make_entry.gen_from_vimgrep())
 
   pickers.new(opts, {
