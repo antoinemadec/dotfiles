@@ -1,5 +1,5 @@
 local gb_cfg = vim.fn['gruvbox_material#get_configuration']()
-local palette = vim.fn['gruvbox_material#get_palette'](gb_cfg.background, gb_cfg.palette, {dummy=0})
+local palette = vim.fn['gruvbox_material#get_palette'](gb_cfg.background, gb_cfg.foreground, {dummy=0})
 local ts_parsers = require "nvim-treesitter.parsers"
 
 
