@@ -1,6 +1,5 @@
-local background = vim.opt.background:get()
-local configuration = vim.fn['gruvbox_material#get_configuration']()
-local palette = vim.fn['gruvbox_material#get_palette'](background, configuration.palette)
+local gb_cfg = vim.fn['gruvbox_material#get_configuration']()
+local palette = vim.fn['gruvbox_material#get_palette'](gb_cfg.background, gb_cfg.palette, {dummy=0})
 local ts_parsers = require "nvim-treesitter.parsers"
 
 
@@ -23,7 +22,7 @@ command! ToggleTagbarStl call ToggleTagbarStl()
 function ToggleTagbarStl()
   let g:tagbar_stl_disable = exists('g:tagbar_stl_disable') ? !g:tagbar_stl_disable : 1
   if g:tagbar_stl_disable
-    call tagbar#StopAutoUpdate() 
+    call tagbar#StopAutoUpdate()
   endif
 endfunction
 ]])
