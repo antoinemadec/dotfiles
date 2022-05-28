@@ -73,10 +73,7 @@ require('packer').startup(function(use)
   use 'justinmk/vim-sneak' -- jump to any location specified by two characters
   use 'junegunn/vim-easy-align' -- easy alignment of line fields
   use 'mg979/vim-visual-multi' -- multiple cursors
-  use { -- replacement for the vim plugin matchit.vim
-    'andymass/vim-matchup',
-    keys = '%'
-  }
+  use 'andymass/vim-matchup' -- replacement for the vim plugin matchit.vim
 
   -- misc
   use { -- space mappings
