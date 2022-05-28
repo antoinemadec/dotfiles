@@ -30,7 +30,7 @@ wk.register(
     ['w'] = {
       name = 'find_word',
       w    = {'<cmd>Telescope live_grep<cr>',          'all words'},
-      g    = {'<cmd>Telescope git_grep live_grep<cr>', 'git grep'},
+      g    = {'<cmd>Telescope git_browse live_grep<cr>', 'git grep'},
     },
     -- split file
     ['s'] = {
@@ -65,12 +65,12 @@ wk.register(
     -- git
     ['g'] = {
       name = 'git',
-      s = {'<cmd>call ToggleGstatus()<cr>',  'git status'},
-      d = {'<cmd>Gdiffsplit<cr>',            'git diff'},
-      b = {'<cmd>Git blame<cr>',             'git blame'},
-      i = {'<cmd>Gitsigns preview_hunk<cr>', 'chunk info'},
-      u = {'<cmd>Gitsigns reset_hunk<cr>',   'chunk undo'},
-      c = {'<cmd>Telescope git_commits<cr>', 'git commits'},
+      s = {'<cmd>call ToggleGstatus()<cr>',             'git status'},
+      d = {'<cmd>Gdiffsplit<cr>',                       'git diff'},
+      b = {'<cmd>Git blame<cr>',                        'git blame'},
+      i = {'<cmd>Gitsigns preview_hunk<cr>',            'chunk info'},
+      u = {'<cmd>Gitsigns reset_hunk<cr>',              'chunk undo'},
+      c = {'<cmd>Telescope git_browse commit_msgs<cr>', 'git commits'},
     },
     -- lsp
     ['l'] = {

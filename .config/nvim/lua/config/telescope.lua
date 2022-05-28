@@ -16,4 +16,4 @@ let g:coc_enable_locationlist = 0
 autocmd User CocLocationsChange Telescope coc locations
 ]])
 require('telescope').load_extension('notify')
-require('telescope').load_extension('git_grep')
+require('telescope').load_extension('git_browse')
