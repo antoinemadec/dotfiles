@@ -5,7 +5,7 @@ local conf = require("telescope.config").values
 local make_entry = require "telescope.make_entry"
 local flatten = vim.tbl_flatten
 
-local git_cmd = { 'git', 'grep', '--line-number', '--column', '-I' }
+local git_cmd = { 'git', 'grep', '--line-number', '--column', '-I', '--ignore-case' }
 
 local escape_chars = function(string)
   return string.gsub(string, "[%(|%)|\\|%[|%]|%-|%{%}|%?|%+|%*|%^|%$|%.]", {
