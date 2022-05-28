@@ -27,6 +27,7 @@ print_banner "pacman packages"
 
 # misc
 sudo pacman --noconfirm -S alacritty libreoffice tig the_silver_searcher
+sudo pacman --noconfirm -S ripgrep fd btop
 sudo pacman --noconfirm -S baobab libnotify dunst audacity xdotool lshw
 sudo pacman --noconfirm -S rust rust-src python-pip gksu
 sudo pamac build --no-confirm tzupdate google-chrome deezer
@@ -67,5 +68,16 @@ Section "InputClass"
         Option "TappingButtonMap" "lrm"
         Option "NaturalScrolling" "on"
         Option "ScrollMethod" "twofinger"
+EndSection
+EOF
+
+print_banner "fix intel Graphics"
+sudo mkdir -p /etc/X11/xorg.conf.d
+sudo touch /etc/X11/xorg.conf.d/20-intel.conf
+sudo tee <<'EOF' /etc/X11/xorg.conf.d/20-intel.conf 1> /dev/null
+Section "Device"
+  Identifier "Intel Graphics"
+  Driver "intel"
+  Option "DRI" "2"
 EndSection
 EOF
