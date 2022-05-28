@@ -45,18 +45,20 @@ function ToggleTrailingSpace()
 endfunction
 call ToggleTrailingSpace()
 
-autocmd BufWinEnter,InsertLeave * call MatchUpdate('trailingspace',
-      \ 'CustomHighlight_TrailingSpace',  '\s\+$', 11)
-autocmd InsertEnter * call MatchUpdate('trailingspace',
-      \ 'CustomHighlight_TrailingSpace', '\s\+\%#\@<!$', 11)
+if has('nvim')
+  autocmd BufWinEnter,InsertLeave,TermLeave * call MatchUpdate('trailingspace', 'CustomHighlight_TrailingSpace', '\s\+$',        11, v:false)
+  autocmd InsertEnter,TermEnter             * call MatchUpdate('trailingspace', 'CustomHighlight_TrailingSpace', '\s\+\%#\@<!$', 11, v:false)
+else
+  autocmd BufWinEnter,InsertLeave * call MatchUpdate('trailingspace', 'CustomHighlight_TrailingSpace', '\s\+$',        11, v:false)
+  autocmd InsertEnter             * call MatchUpdate('trailingspace', 'CustomHighlight_TrailingSpace', '\s\+\%#\@<!$', 11, v:false)
+endif
 
 " highlight non breakable space
 set listchars=nbsp:?
 
 " always highlight TBD TODO and FIXME no matter the filetype
 highlight link CustomHighlight_Warning Todo
-autocmd WinEnter,VimEnter * call MatchUpdate('todo',
-      \ 'CustomHighlight_Warning', 'TBD\|TODO\|FIXME', 11)
+autocmd WinEnter,VimEnter * call MatchUpdate('todo', 'CustomHighlight_Warning', 'TBD\|TODO\|FIXME', 11, v:true)
 
 " highlight current line
 augroup CursorLine
@@ -167,9 +169,11 @@ function MoveToNextTab()
   exe "b".l:cur_buf
 endfunc
 
-function MatchUpdate(id_str, hl, pattern, priority) abort
+function MatchUpdate(id_str, hl, pattern, priority, enable_buf) abort
   call MatchDelete(a:id_str)
-  call MatchAdd(a:id_str, a:hl, a:pattern, a:priority)
+  if empty(&buftype) || a:enable_buf
+    call MatchAdd(a:id_str, a:hl, a:pattern, a:priority)
+  endif
 endfunction
 
 function! GetCurrentBufferDir()
