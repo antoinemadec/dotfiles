@@ -17,6 +17,7 @@ wk.register(
     -- top-level mappings
     ['/'] = {'<cmd>Telescope current_buffer_fuzzy_find<cr>', 'search in file'},
     [';'] = {'<cmd>Telescope commands<cr>',                  'commands'},
+    ['y'] = {'<cmd>Telescope neoclip<cr>',                   'clipboard manager'},
     ['h'] = {'<cmd>Telescope help_tags<cr>',                 'vim help'},
     ['r'] = {'<cmd>Telescope resume<cr>',                    'resume Telescope'},
     -- find file
