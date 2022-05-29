@@ -42,7 +42,8 @@ require('packer').startup(function(use)
       'nvim-lua/plenary.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
       'fannheyward/telescope-coc.nvim',
-      "AckslD/nvim-neoclip.lua",
+      'antoinemadec/telescope-git-browse.nvim',
+      'AckslD/nvim-neoclip.lua',
     },
     config = function() require('config.telescope') end
   }
