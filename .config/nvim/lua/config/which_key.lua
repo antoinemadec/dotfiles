@@ -82,7 +82,7 @@ wk.register(
       d    = {'<cmd>Telescope coc workspace_diagnostics<cr>',     'all diagnostics'},
       l    = {'<cmd>Telescope coc<cr>',                           'lists'},
       s    = {'<cmd>Telescope coc workspace_symbols<cr>',         'symbols'},
-      t    = {'<cmd>Telescope tags<cr>',                          'tags'},
+      t    = {'<cmd>Telescope git_browse live_tags<cr>',          'tags'},
       y    = {'<cmd>CocList yank<cr>',                            'yank'},
     },
   }, { prefix = "<leader>" })
