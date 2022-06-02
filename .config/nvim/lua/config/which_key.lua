@@ -23,9 +23,9 @@ wk.register(
     -- find file
     ['f'] = {
       name = 'find_file',
-      f    = {'<cmd>Telescope find_files follow=true<cr>', 'all files'},
-      b    = {'<cmd>Telescope buffers<cr>',                'buffers'},
-      g    = {'<cmd>Telescope git_files<cr>',              'git files'},
+      f    = {'<cmd>Telescope find_files follow=true<cr>',         'all files'},
+      b    = {'<cmd>Telescope buffers<cr>',                        'buffers'},
+      g    = {'<cmd>Telescope git_files show_untracked=false<cr>', 'git files'},
     },
     -- find word
     ['w'] = {
