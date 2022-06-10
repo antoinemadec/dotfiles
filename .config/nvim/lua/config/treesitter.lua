@@ -1,3 +1,6 @@
+require 'nvim-treesitter.install'.command_extra_args = {
+  cc = { "-std=c99" }
+}
 require 'nvim-treesitter.configs'.setup {
   ensure_installed = { 'lua', 'cpp', 'python', 'bash', 'rust', 'vim' },
   highlight = {
