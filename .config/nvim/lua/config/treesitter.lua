@@ -12,4 +12,4 @@ require 'nvim-treesitter.configs'.setup {
 
 -- LSP semantic highlights, only use "Comment" to see undef code
 vim.g.coc_default_semantic_highlight_groups = 0
-vim.highlight.link('CocSemComment', 'TSComment', true)
+vim.api.nvim_set_hl(0, 'CocSemComment', { link = 'TSComment' })
