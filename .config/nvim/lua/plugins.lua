@@ -9,7 +9,7 @@ end
 require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
-  use { 'lewis6991/impatient.nvim', config = function() require('impatient') end }
+  use 'lewis6991/impatient.nvim'
 
   -- style
   use 'sainnhe/gruvbox-material' -- colorscheme
