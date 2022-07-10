@@ -18,8 +18,6 @@ Plug 'ryanoasis/vim-devicons'                                  " add icons to yo
 Plug 'RRethy/vim-illuminate'                                   " highlight other uses of the current word under the cursor
 " IDE
 Plug 'neoclide/coc.nvim', {'branch': 'release'}                " completion, snippets etc
-Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}   " vim only coc extension
-Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'} " vim only coc extension
 Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all'} " fuzzy search in a dir
 Plug 'junegunn/fzf.vim'                                        " fuzzy search in a dir
 Plug 'antoinemadec/coc-fzf'                                    " use fzf for coc lists
