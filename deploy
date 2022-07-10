@@ -35,6 +35,7 @@ deploy_core .config/i3
 deploy_core .config/nvim
 deploy_core .config/rofi
 deploy_core .emacs
+deploy_core .fzf.bash
 deploy_core .gitconfig
 deploy_core .screenrc
 deploy_core .tigrc
