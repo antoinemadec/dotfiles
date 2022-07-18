@@ -156,7 +156,6 @@ let g:coc_global_extensions = [
       \ 'coc-clangd',
       \ 'coc-json',
       \ 'coc-marketplace',
-      \ 'coc-omni',
       \ 'coc-pyright',
       \ 'coc-rust-analyzer',
       \ 'coc-sh',
