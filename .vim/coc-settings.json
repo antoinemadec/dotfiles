@@ -2,9 +2,6 @@
   "coc.preferences.extensionUpdateCheck": "never",
   "coc.preferences.maxFileSize": "1MB",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-  "coc.source.omni.filetypes": [
-    "verilog_systemverilog"
-  ],
   "semanticTokens.filetypes": ["*"],
   "codeLens.enable": true,
   "codeLens.separator": "🔍",
@@ -47,19 +44,12 @@
   "sumneko-lua.enableNvimLuaDev": true,
   "Lua.window.statusBar": false,
   "Lua.telemetry.enable": false,
-  "git.addGBlameToVirtualText": false,
-  "git.addedSign.hlGroup": "CocGitDiffAdd",
-  "git.changeRemovedSign.hlGroup": "CocGitDiffChange",
-  "git.changedSign.hlGroup": "CocGitDiffChange",
-  "git.removedSign.hlGroup": "CocGitDiffDelete",
-  "git.topRemovedSign.hlGroup": "CocGitDiffDelete",
-  "pairs.enableCharacters": [
-    "(",
-    "[",
-    "{",
-    "'",
-    "\""
-  ],
   "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/14.0.0/clangd_14.0.0/bin/clangd",
-  "clangd.inlayHints.enable": false
+  "clangd.inlayHints.enable": false,
+  "Lua.diagnostics.globals": [
+    "packer_bootstrap"
+  ],
+  "Lua.diagnostics.disable": [
+    "missing-parameter"
+  ]
 }
