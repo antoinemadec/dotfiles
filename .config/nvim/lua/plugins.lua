@@ -81,7 +81,7 @@ require('packer').startup(function(use)
   use { -- space mappings
     'folke/which-key.nvim',
     opt = true,
-    keys = { "<space>", 'g', '"' },
+    keys = { "<space>" },
     config = function() require('config.which_key') end
   }
   use 'antoinemadec/vim-highlight-groups' -- add words in highlight groups on the fly
