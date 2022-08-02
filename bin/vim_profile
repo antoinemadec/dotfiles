@@ -31,6 +31,6 @@ mkdir -p ${cmd}_profile
 cd ${cmd}_profile
 
 eval $cmd $file --startuptime profile.txt
-grep sourcing profile.txt | sed 's/^\S* *//' | sort -nr > sourcing.txt
+grep '\(sourcing\)\|\(require\)' profile.txt | sed 's/^\S* *//' | sort -nr > sourcing.txt
 
 eval $cmd profile.txt sourcing.txt -o
