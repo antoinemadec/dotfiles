@@ -1,20 +1,11 @@
-" TextEdit might fail if hidden is not set.
-set hidden
-
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
-
-" Give more space for displaying messages.
-" set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 " set updatetime=300
 let g:cursorhold_updatetime = 100
-
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
 
 set signcolumn=auto
 
@@ -24,11 +15,17 @@ set signcolumn=auto
 inoremap <silent><expr> <TAB>
       \ (g:coc_enabled == 0) ? "\<TAB>" :
       \ coc#pum#visible() ? coc#pum#next(1):
-      \ <SID>check_back_space() ? "\<Tab>" :
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-function! s:check_back_space() abort
+" nvim's CR mapping is done in config/nvim-autopairs.lua
+if !has('nvim')
+  inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+        \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+endif
+
+function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
@@ -38,11 +35,6 @@ if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
 else
   inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-" nvim's CR mapping is done in config/nvim-autopairs.lua
-if !has('nvim')
-  inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 endif
 
 " Use `[d` and `]d` to navigate diagnostics
@@ -57,15 +49,13 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call ShowDocumentation()<CR>
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
   else
-    execute '!' . &keywordprg . " " . expand('<cword>')
+    call feedkeys('K', 'in')
   endif
 endfunction
 
@@ -93,10 +83,11 @@ xmap \a  <Plug>(coc-codeaction-selected)
 nmap \a  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current buffer.
-nmap \ac  <Plug>(coc-codeaction-cursor)
+nmap \ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap \qf  <Plug>(coc-fix-current)
-" Do command from codeLens of current line.
+
+" Run the Code Lens action on the current line.
 nmap \l   <Plug>(coc-codelens-action)
 
 " Map function and class text objects
@@ -126,13 +117,13 @@ nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
+command! -nargs=0 Format :call CocActionAsync('format')
 
 " Add `:Fold` command to fold current buffer.
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
