@@ -42,7 +42,7 @@ endif
 
 " nvim's CR mapping is done in config/nvim-autopairs.lua
 if !has('nvim')
-  inoremap <silent><expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+  inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 endif
 
 " Use `[d` and `]d` to navigate diagnostics

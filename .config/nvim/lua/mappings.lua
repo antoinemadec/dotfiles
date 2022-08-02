@@ -1,5 +1,6 @@
 -- functions
 local default_opts = {noremap=true, silent=true}
+local map_opts = {noremap=false, silent=true}
 local plug_opts = {noremap=false, silent=true}
 local remap = vim.api.nvim_set_keymap
 local remap_arrow_hjkl = _G.MUtils.remap_arrow_hjkl
@@ -44,8 +45,8 @@ remap('t', '<Esc><Esc>', 'v:lua.MUtils.smart_term_escape()', {expr = true, norem
 
 -- insert movement
 remap('i', '<C-h>', '<Left>',  default_opts)
-remap('i', '<C-j>', '<Down>',  default_opts)
-remap('i', '<C-k>', '<Up>',    default_opts)
+remap('i', '<C-j>', '<Down>',  map_opts)
+remap('i', '<C-k>', '<Up>',    map_opts)
 remap('i', '<C-l>', '<Right>', default_opts)
 
 for _,mode in pairs({'n', 'i', 't'}) do
