@@ -1,6 +1,8 @@
 #!/bin/bash
 
-f="secured.tar.gz"
+dest_file="$1"
+[ "$dest_file" != "" ] || dest_file="secured.tar.gz"
+shift 1
 
-[ -f "$f" ] && { echo "ERROR: $f already exist."; exit 1; }
-tar -czf - "$@" | openssl enc -e -aes256 -md sha256 -out $f
+[ -f "$dest_file" ] && { echo "ERROR: $dest_file already exist."; exit 1; }
+tar -czf - "$@" | openssl enc -e -aes256 -md sha256 -out $dest_file
