@@ -15,7 +15,7 @@ require('packer').startup(function(use)
   use 'sainnhe/gruvbox-material' -- colorscheme
   use { -- status line
     'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    requires = { 'kyazdani42/nvim-web-devicons' },
     config = function() require('config.lualine') end
   }
   use { -- display thin vertical lines at each indentation level

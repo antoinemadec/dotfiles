@@ -45,7 +45,7 @@
   "sumneko-lua.enableNvimLuaDev": true,
   "Lua.window.statusBar": false,
   "Lua.telemetry.enable": false,
-  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/14.0.0/clangd_14.0.0/bin/clangd",
+  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/14.0.3/clangd_14.0.3/bin/clangd",
   "clangd.inlayHints.enable": false,
   "Lua.diagnostics.globals": [
     "packer_bootstrap"
