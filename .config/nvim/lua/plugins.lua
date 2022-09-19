@@ -67,6 +67,10 @@ require('packer').startup(function(use)
     requires = { 'nvim-treesitter/playground', opt = true },
     config = function() require('config.treesitter') end
   }
+  use {
+    'nvim-treesitter/nvim-treesitter-context',
+    config = function() require('config.treesitter_context') end
+  }
   use 'antoinemadec/vim-verilog-instance' -- verilog port instantiation from port declaration
   use 'vhda/verilog_systemverilog.vim' -- vim syntax plugin for verilog and systemverilog
   use 'MTDL9/vim-log-highlighting' -- syntax for log files
