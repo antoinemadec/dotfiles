@@ -98,7 +98,6 @@ require('packer').startup(function(use)
     'norcalli/nvim-colorizer.lua',
     config = function() require('colorizer').setup() end
   }
-  use 'antoinemadec/FixCursorHold.nvim' -- fix CursorHold perf bug
 
   -- automatically set up your configuration after cloning packer.nvim
   if packer_bootstrap then
