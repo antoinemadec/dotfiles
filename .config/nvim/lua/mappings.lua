@@ -2,12 +2,28 @@
 local default_opts = {noremap=true, silent=true}
 local map_opts = {noremap=false, silent=true}
 local plug_opts = {noremap=false, silent=true}
-local remap = vim.api.nvim_set_keymap
-local remap_arrow_hjkl = _G.MUtils.remap_arrow_hjkl
+local remap = vim.keymap.set
 local t = _G.MUtils.t
 
-function _G.MUtils.smart_term_escape()
-  return vim.o.filetype == 'fzf' and t'<Esc>' or t'<C-\\>' .. t'<C-n>'
+local function remap_arrow_hjkl(mode, lhs, rhs, opt)
+  local arrow_hjkl_table = {Left='h', Down='j', Up='k', Right='l'}
+  -- arrow mapping
+  remap(mode, lhs, rhs, opt)
+  -- hjkl mapping
+  for arrow,hjkl in pairs(arrow_hjkl_table) do
+    if string.find(lhs, arrow) then
+      remap(mode, string.gsub(lhs, arrow, hjkl), rhs, opt)
+      return
+    end
+  end
+end
+
+local function smart_term_escape()
+  return vim.o.filetype == 'fzf' and '<Esc>' or '<C-\\>' .. '<C-n>'
+end
+
+local function smart_line_motion(k)
+  return vim.v.count > 1 and "m'" .. vim.v.count .. k or k
 end
 
 function _G.MUtils.mapping_func_key_help()
@@ -40,8 +56,12 @@ end
 vim.g.mapleader = t'<Space>'
 vim.g.maplocalleader = ','
 
+-- add multiple line movement to the jump list
+vim.keymap.set('n', 'j', function() return smart_line_motion('j') end, {expr = true, noremap = true})
+vim.keymap.set('n', 'k', function() return smart_line_motion('k') end, {expr = true, noremap = true})
+
 -- terminal escape
-remap('t', '<Esc><Esc>', 'v:lua.MUtils.smart_term_escape()', {expr = true, noremap = true})
+remap('t', '<Esc><Esc>', function() return smart_term_escape() end, {expr = true, noremap = true})
 
 -- insert movement
 remap('i', '<C-h>', '<Left>',  default_opts)
