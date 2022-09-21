@@ -90,7 +90,10 @@ require('packer').startup(function(use)
   }
   use 'antoinemadec/vim-highlight-groups' -- add words in highlight groups on the fly
   use 'skywind3000/asyncrun.vim' -- run asynchronous bash commands
-  use 'tpope/vim-commentary' -- comment stuff out
+  use { -- comment stuff out
+      'numToStr/Comment.nvim',
+      config = function() require('Comment').setup() end
+  }
   use 'tpope/vim-repeat' -- remaps '.' in a way that plugins can tap into it
   use 'tpope/vim-surround' -- delete, change and add surroundings in pairs
   use 'tpope/vim-abolish' -- work with variations of a word
