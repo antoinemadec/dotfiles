@@ -274,7 +274,6 @@ assign [class="Sky"] 1:email
 # exec at startup
 #------------------------------
 exec --no-startup-id exec ~/.xrandr_default.sh
-exec --no-startup-id exec picom
 exec --no-startup-id exec ~/.config/i3/wallpaper/change_wallpaper.sh default 1
 exec --no-startup-id exec ~/.config/i3/bin/scratchpad "vim_todo" --exec
 exec --no-startup-id exec ~/.config/i3/bin/scratchpad "Thunar" --exec
