@@ -21,6 +21,9 @@ require 'nvim-treesitter.configs'.setup {
       node_decremental = "grm",
     },
   },
+  matchup = {
+    enable = true,
+  }
 }
 
 -- LSP semantic highlights, only use "Comment" to see undef code
