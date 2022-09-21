@@ -120,8 +120,6 @@ remap('x', 'ig', ':<C-U>Gitsigns select_hunk<CR>', default_opts)
 -- misc
 ---- copy/paste with mouse select
 remap('v', '<LeftRelease>', '"*ygv', default_opts)
----- add '.' support in visual mode
-remap('v', '.', ":<C-w>let cidx = col('.')<cr> :'<,'>call DotAtColumnIndex(cidx)<cr>", default_opts)
 ---- TODO: search for visually selected text
 remap('x', 'ga', '<Plug>(EasyAlign)', plug_opts)
 remap('n', 'ga', '<Plug>(EasyAlign)', plug_opts)

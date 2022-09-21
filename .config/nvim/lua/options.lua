@@ -1,3 +1,5 @@
+vim.opt.scrolloff      = 1                      -- minimal number of screen lines to keep above and below the cursor
+vim.opt.sidescrolloff  = 5                      -- minimal number of screen columns to keep to the left/right of the cursor
 vim.opt.cb             = 'unnamed,unnamedplus'  -- use * and + registers for yank
 vim.opt.mouse          = 'a'                    -- allow to resize and copy/paste without selecting text outside of the window
 vim.opt.backup         = false                  -- don't keep a backup file
