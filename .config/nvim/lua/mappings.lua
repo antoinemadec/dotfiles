@@ -85,8 +85,8 @@ for _, mode in pairs({ 'n', 'i', 't' }) do
   -- tab movement
   remap_arrow_hjkl(mode, '<C-A-Left>', esc_chars .. 'gT', default_opts)
   remap_arrow_hjkl(mode, '<C-A-Right>', esc_chars .. 'gt', default_opts)
-  remap_arrow_hjkl(mode, '<C-A-S-Left>', esc_chars .. ':call MoveToPrevTab()<cr>', default_opts)
-  remap_arrow_hjkl(mode, '<C-A-S-Right>', esc_chars .. ':call MoveToNextTab()<cr>', default_opts)
+  remap_arrow_hjkl(mode, '<C-A-S-Left>', function() _G.move_win_to_tab("prev") end, default_opts)
+  remap_arrow_hjkl(mode, '<C-A-S-Right>', function() _G.move_win_to_tab("next") end, default_opts)
 end
 remap_arrow_hjkl('n', '<C-Down>', '<C-e>', default_opts)
 remap_arrow_hjkl('n', '<C-Up>', '<C-y>', default_opts)

@@ -1,3 +1,6 @@
+" open quickfix window automatically
+let g:asyncrun_open = 8
+
 command! -nargs=* -complete=shellcmd Run AsyncRun <args>
 command! -nargs=0 RunCurrentBuffer :w | execute("Run " . expand('%:p'))
 command! -nargs=0 RunAndTimeCurrentBuffer :w | execute("Run time(" . expand('%:p') . ")")

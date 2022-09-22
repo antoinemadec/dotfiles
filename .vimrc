@@ -130,3 +130,67 @@ function ToggleUVMTags()
   let g:uvm_tags_is_on = !g:uvm_tags_is_on
   echo "UVM tags = " . g:uvm_tags_is_on
 endfunction
+
+function MoveToPrevTab()
+  "there is only one window
+  if tabpagenr('$') == 1 && winnr('$') == 1
+    return
+  endif
+  "preparing new window
+  let l:tab_old_idx = tabpagenr()
+  let l:cur_buf = bufnr('%')
+  if tabpagenr() != 1
+    close!
+    if tabpagenr() == l:tab_old_idx
+      tabprev
+    endif
+    sp
+  else
+    close!
+    exe "0tabnew"
+  endif
+  "opening current buffer in new window
+  exe "b".l:cur_buf
+endfunc
+
+function MoveToNextTab()
+  "there is only one window
+  if tabpagenr('$') == 1 && winnr('$') == 1
+    return
+  endif
+  "preparing new window
+  let l:tab_nr = tabpagenr('$')
+  let l:cur_buf = bufnr('%')
+  if tabpagenr() < tab_nr
+    close!
+    if l:tab_nr == tabpagenr('$')
+      tabnext
+    endif
+    sp
+  else
+    close!
+    tabnew
+  endif
+  "opening current buffer in new window
+  exe "b".l:cur_buf
+endfunc
+
+" repeat last change at a column index
+function! DotAtColumnIndex(cidx)
+  let a = a:cidx - 1
+  execute "normal " . a . "l."
+endfunction
+
+" gui/not gui specific options
+if has('gui_running')
+  set guifont=DejaVu\ Sans\ Mono\ 10
+  " simple gvim
+  set guioptions-=m "remove menu bar
+  set guioptions-=T "remove toolbar
+  set guioptions-=r "remove right-hand scroll bar
+  set guioptions-=L "remove left-hand scroll bar
+  " shift insert
+  map  <silent>  <S-Insert>  "+p
+  imap <silent>  <S-Insert>  <Esc>"+pa
+endif
+
