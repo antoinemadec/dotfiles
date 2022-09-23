@@ -1,3 +1,18 @@
+-- appearance
+if tonumber(os.getenv("TERM_COLORS")) >= 256 then
+  vim.o.termguicolors = true
+  vim.g.hg0 = 13
+  vim.g.hg1 = 17
+else
+  vim.g.hg0 = 4
+  vim.g.hg1 = 6
+end
+vim.g.gruvbox_material_background = 'soft'
+vim.g.gruvbox_material_better_performance = 1
+vim.g.gruvbox_material_palette = 'mix'
+vim.cmd("colorscheme gruvbox-material")
+
+-- other options
 vim.opt.scrolloff      = 1                      -- minimal number of screen lines to keep above and below the cursor
 vim.opt.sidescrolloff  = 5                      -- minimal number of screen columns to keep to the left/right of the cursor
 vim.opt.cb             = 'unnamed,unnamedplus'  -- use * and + registers for yank

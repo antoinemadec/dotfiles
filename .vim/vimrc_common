@@ -1,35 +1,4 @@
 "--------------------------------------------------------------
-" appearance
-"--------------------------------------------------------------
-if has('termguicolors') && $TERM_COLORS >= 256
-  set termguicolors
-  let hg0 = 13
-  let hg1 = 17
-else
-  set t_Co=256 " vim uses 256 colors
-  let hg0 = 4
-  let hg1 = 6
-endif
-set background=dark
-let g:gruvbox_material_background = 'soft'
-let g:gruvbox_material_better_performance = 1
-let g:gruvbox_material_palette = 'mix'
-colorscheme gruvbox-material
-set fillchars=vert:│,fold:+
-
-"--------------------------------------------------------------
-" Vim plugins config
-"--------------------------------------------------------------
-if !has('nvim')
-  for plugin in keys(g:plugs)
-    let s:plugin_config = $HOME . '/.vim/plugins_config/' . plugin .'.vim'
-    if filereadable(s:plugin_config)
-      execute 'source ' . s:plugin_config
-    endif
-  endfor
-endif
-
-"--------------------------------------------------------------
 " highlighting
 "--------------------------------------------------------------
 function ToggleTrailingSpace()

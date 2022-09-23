@@ -3,7 +3,7 @@ require 'nvim-treesitter.install'.command_extra_args = {
 }
 
 require 'nvim-treesitter.configs'.setup {
-  ensure_installed = { 'lua', 'cpp', 'python', 'bash', 'rust', 'vim' },
+  ensure_installed = { 'lua', 'cpp', 'python', 'bash', 'rust', 'vim', 'query' },
   highlight = {
     enable = true,
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.

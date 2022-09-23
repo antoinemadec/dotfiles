@@ -94,6 +94,34 @@ if $TERM_BRACKETED_PASTE != 'true'
 endif
 
 "--------------------------------------------------------------
+" appearance
+"--------------------------------------------------------------
+if has('termguicolors') && $TERM_COLORS >= 256
+  set termguicolors
+  let hg0 = 13
+  let hg1 = 17
+else
+  set t_Co=256 " vim uses 256 colors
+  let hg0 = 4
+  let hg1 = 6
+endif
+set background=dark
+let g:gruvbox_material_background = 'soft'
+let g:gruvbox_material_better_performance = 1
+let g:gruvbox_material_palette = 'mix'
+colorscheme gruvbox-material
+
+"--------------------------------------------------------------
+" plugins
+"--------------------------------------------------------------
+for plugin in keys(g:plugs)
+  let s:plugin_config = $HOME . '/.vim/plugins_config/' . plugin .'.vim'
+  if filereadable(s:plugin_config)
+    execute 'source ' . s:plugin_config
+  endif
+endfor
+
+"--------------------------------------------------------------
 " common with neovim
 "--------------------------------------------------------------
 source ~/.vim/vimrc_common
@@ -180,17 +208,3 @@ function! DotAtColumnIndex(cidx)
   let a = a:cidx - 1
   execute "normal " . a . "l."
 endfunction
-
-" gui/not gui specific options
-if has('gui_running')
-  set guifont=DejaVu\ Sans\ Mono\ 10
-  " simple gvim
-  set guioptions-=m "remove menu bar
-  set guioptions-=T "remove toolbar
-  set guioptions-=r "remove right-hand scroll bar
-  set guioptions-=L "remove left-hand scroll bar
-  " shift insert
-  map  <silent>  <S-Insert>  "+p
-  imap <silent>  <S-Insert>  <Esc>"+pa
-endif
-
