@@ -82,11 +82,12 @@ for _, mode in pairs({ 'n', 'i', 't' }) do
   remap_arrow_hjkl(mode, '<A-S-Down>', esc_chars .. '<C-w>J', default_opts)
   remap_arrow_hjkl(mode, '<A-S-Up>', esc_chars .. '<C-w>K', default_opts)
   remap_arrow_hjkl(mode, '<A-S-Right>', esc_chars .. '<C-w>L', default_opts)
+  remap_arrow_hjkl(mode, '<A-q>', function () _G.WUtils.quad_win_split() end, default_opts)
   -- tab movement
   remap_arrow_hjkl(mode, '<C-A-Left>', esc_chars .. 'gT', default_opts)
   remap_arrow_hjkl(mode, '<C-A-Right>', esc_chars .. 'gt', default_opts)
-  remap_arrow_hjkl(mode, '<C-A-S-Left>', function() _G.move_win_to_tab("prev") end, default_opts)
-  remap_arrow_hjkl(mode, '<C-A-S-Right>', function() _G.move_win_to_tab("next") end, default_opts)
+  remap_arrow_hjkl(mode, '<C-A-S-Left>', function() _G.WUtils.move_win_to_tab("prev") end, default_opts)
+  remap_arrow_hjkl(mode, '<C-A-S-Right>', function() _G.WUtils.move_win_to_tab("next") end, default_opts)
 end
 remap_arrow_hjkl('n', '<C-Down>', '<C-e>', default_opts)
 remap_arrow_hjkl('n', '<C-Up>', '<C-y>', default_opts)
