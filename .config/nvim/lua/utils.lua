@@ -36,20 +36,54 @@ end
 -- ------------------------------------------------------------
 _G.WUtils = {}
 
-function _G.WUtils.save_win_opts()
+function _G.WUtils.save_win_opts(win)
   local win_opts = {}
   for opt, dict in pairs(a.nvim_get_all_options_info()) do
     if dict['scope'] == 'win' then
-      win_opts[opt] = a.nvim_win_get_option(0, opt)
+      win_opts[opt] = a.nvim_win_get_option(win, opt)
     end
   end
   return win_opts
 end
 
-function _G.WUtils.restore_win_opts(win_opts)
+function _G.WUtils.restore_win_opts(win, win_opts)
   for opt, val in pairs(win_opts) do
-    a.nvim_win_set_option(0, opt, val)
+    pcall(a.nvim_win_set_option, win, opt, val)
   end
+end
+
+function _G.WUtils.move_win(src_win, dst_win)
+  local src_win_cursor = a.nvim_win_get_cursor(src_win)
+  local src_win_opts = _G.WUtils.save_win_opts(src_win)
+  local src_buf = a.nvim_win_get_buf(src_win)
+
+  _G.WUtils.restore_win_opts(dst_win, src_win_opts)
+  a.nvim_win_set_buf(dst_win, src_buf) -- opening a buffer messes up the window opts
+  _G.WUtils.restore_win_opts(dst_win, src_win_opts)
+  a.nvim_win_set_cursor(dst_win, src_win_cursor)
+
+  a.nvim_win_close(src_win, true)
+end
+
+function _G.WUtils.swap_win(src_win, dst_win)
+  local src_win_cursor = a.nvim_win_get_cursor(src_win)
+  local src_win_opts = _G.WUtils.save_win_opts(src_win)
+  local src_buf = a.nvim_win_get_buf(src_win)
+  local dst_win_cursor = a.nvim_win_get_cursor(dst_win)
+  local dst_win_opts = _G.WUtils.save_win_opts(dst_win)
+  local dst_buf = a.nvim_win_get_buf(dst_win)
+
+  -- src -> dst
+  _G.WUtils.restore_win_opts(dst_win, src_win_opts)
+  a.nvim_win_set_buf(dst_win, src_buf) -- opening a buffer messes up the window opts
+  _G.WUtils.restore_win_opts(dst_win, src_win_opts)
+  a.nvim_win_set_cursor(dst_win, src_win_cursor)
+
+  -- dst -> src
+  _G.WUtils.restore_win_opts(src_win, dst_win_opts)
+  a.nvim_win_set_buf(src_win, dst_buf) -- opening a buffer messes up the window opts
+  _G.WUtils.restore_win_opts(src_win, dst_win_opts)
+  a.nvim_win_set_cursor(src_win, dst_win_cursor)
 end
 
 ---@param dest string #String "next" or "prev"
@@ -59,17 +93,13 @@ function _G.WUtils.move_win_to_tab(dest)
   local wins = a.nvim_tabpage_list_wins(0)
   local src_tab = a.nvim_tabpage_get_number(0)
   local src_win = a.nvim_get_current_win()
-  local src_buf = a.nvim_get_current_buf()
-  local src_cursor = a.nvim_win_get_cursor(0)
   local first_last_cond = src_tab == (is_next and #tabs or 1)
   local go_tab_cmd = is_next and "tabnext" or "tabprev"
-  local new_tab_cmd = is_next and "tabnew" or "0tabnew"
+  local new_tab_cmd = is_next and "tab split" or "0tab split"
 
   if #wins == 1 and first_last_cond then
     return
   end
-
-  local src_win_opts = _G.WUtils.save_win_opts()
 
   local vim_cmds = {}
   if first_last_cond then
@@ -80,38 +110,59 @@ function _G.WUtils.move_win_to_tab(dest)
   end
   vim.cmd(table.concat(vim_cmds, " | "))
 
-  -- TODO: try to move the window instead (see CTRL-W_L)
-  _G.WUtils.restore_win_opts(src_win_opts)
-  a.nvim_win_set_buf(0, src_buf) -- opening a buffer messes up the window opts
-  _G.WUtils.restore_win_opts(src_win_opts)
-  a.nvim_win_set_cursor(0, src_cursor)
-
-  a.nvim_win_close(src_win, true)
+  _G.WUtils.move_win(src_win, 0)
 end
 
-function _G.WUtils.quad_win_split()
+-- cycle 4 windows
+--    a(1) | b(2) | c(3) | d(4)
+-- into
+--    a(1) | b(2)
+--    c(3) | d(4)
+-- into
+--    a(1) | c(2)
+--    b(3) | d(4)
+function _G.WUtils.quad_win_cycle()
   local windows = a.nvim_tabpage_list_wins(0)
-
   if #windows ~= 4 then
     vim.notify("windows number is different from 4")
     return
   end
 
-  for _, win_handle in ipairs(windows) do
-    a.nvim_set_current_win(win_handle)
-    vim.cmd("wincmd L")
+  if not vim.t.quad_win_cycle_idx or vim.t.quad_win_cycle_idx > 2 then
+    vim.t.quad_win_cycle_idx = 0
   end
 
-  a.nvim_set_current_win(windows[3])
-  vim.cmd("sbuffer " .. a.nvim_win_get_buf(windows[1]))
-  a.nvim_win_close(windows[1], true)
+  local cur_win = a.nvim_get_current_win()
 
-  a.nvim_set_current_win(windows[4])
-  vim.cmd("sbuffer " .. a.nvim_win_get_buf(windows[2]))
-  a.nvim_win_close(windows[2], true)
+  if vim.t.quad_win_cycle_idx == 0 then
+    for _, win_handle in ipairs(windows) do
+      a.nvim_set_current_win(win_handle)
+      vim.cmd("wincmd J")
+    end
+    for _, i in ipairs({1,3}) do
+      a.nvim_set_current_win(windows[i+1])
+      vim.cmd("vsplit")
+      _G.WUtils.move_win(windows[i], 0)
+      if windows[i] == cur_win then
+        cur_win = a.nvim_get_current_win()
+      end
+    end
+  end
 
-  windows = a.nvim_tabpage_list_wins(0)
-  a.nvim_set_current_win(windows[1])
+  if vim.t.quad_win_cycle_idx >= 1 then
+    _G.WUtils.swap_win(windows[2], windows[3])
+  end
+
+  if vim.t.quad_win_cycle_idx == 2 then
+    windows = a.nvim_tabpage_list_wins(0)
+    for _, win_handle in ipairs(windows) do
+      a.nvim_set_current_win(win_handle)
+      vim.cmd("wincmd L")
+    end
+  end
+
+  a.nvim_set_current_win(cur_win)
+  vim.t.quad_win_cycle_idx = vim.t.quad_win_cycle_idx + 1
 end
 
 -- ------------------------------------------------------------
