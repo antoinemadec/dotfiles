@@ -27,7 +27,7 @@ do
   esac
 done
 
-server="$NVIM_LISTEN_ADDRESS"
+server="$NVIM"
 program="nvr"
 if [[ "$server" = "" ]]; then
   server="$VIM_SERVERNAME"
