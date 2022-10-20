@@ -28,7 +28,11 @@ endfunction
 ]])
 
 local function get_function_name()
-  return vim.b.coc_current_function or vim.b.stl_current_tag or ''
+  if vim.b.coc_current_function ~= "" then
+    return vim.b.coc_current_function
+  else
+    return vim.b.stl_current_tag or ''
+  end
 end
 
 local function location_or_selected_lines()
