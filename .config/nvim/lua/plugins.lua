@@ -93,7 +93,7 @@ require('packer').startup(function(use)
   use 'skywind3000/asyncrun.vim' -- run asynchronous bash commands
   use { -- comment stuff out
     'numToStr/Comment.nvim',
-    config = function() require('Comment').setup() end
+    config = function() require('config.comment') end
   }
   use 'tpope/vim-repeat' -- remaps '.' in a way that plugins can tap into it
   use 'tpope/vim-surround' -- delete, change and add surroundings in pairs
