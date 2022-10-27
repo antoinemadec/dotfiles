@@ -73,7 +73,10 @@ require('packer').startup(function(use)
     config = function() require('config.treesitter_context') end
   }
   use 'antoinemadec/vim-verilog-instance' -- verilog port instantiation from port declaration
-  use 'vhda/verilog_systemverilog.vim' -- vim syntax plugin for verilog and systemverilog
+  use { -- vim syntax plugin for verilog and systemverilog
+    'vhda/verilog_systemverilog.vim',
+    config = function() require('config.verilog_systemverilog') end
+  }
   use 'MTDL9/vim-log-highlighting' -- syntax for log files
 
   -- movement
