@@ -5,7 +5,8 @@ set -e
 tmp_dir="$(mktemp -d temp_XXXXXXXX)"
 
 for e in "$@"; do
-  d="$tmp_dir/$(dirname "$e")"
+  e_abs="$(realpath "$e")"
+  d="$tmp_dir/$(dirname "$e_abs")"
   mkdir -p "$d"
   mv "$e" $d
 done
