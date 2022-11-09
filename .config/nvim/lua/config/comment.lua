@@ -42,12 +42,7 @@ require('Comment').setup({
   post_hook = nil,
 })
 
-local api = require('Comment.api')
-vim.keymap.set(
-  'n', 'gc', api.call('toggle.linewise', 'g@'),
-  { expr = true }
-)
-vim.keymap.set(
-  'n', 'gcc', api.call('toggle.linewise.current', 'g@$'),
-  { expr = true }
-)
+-- enable line-comment only ('gb' is taken by vim-verilog-instance)
+vim.keymap.set('n', 'gcc', '<Plug>(comment_toggle_linewise_current)')
+vim.keymap.set('n', 'gc', '<Plug>(comment_toggle_linewise)')
+vim.keymap.set('x', 'gc', '<Plug>(comment_toggle_linewise_visual)')
