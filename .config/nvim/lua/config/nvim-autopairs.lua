@@ -23,4 +23,4 @@ remap('i', '<CR>', 'v:lua.MUtils.completion_confirm()', { expr = true, noremap =
 npairs.remove_rule('`')
 npairs.add_rule(Rule('`', '`', "-verilog_systemverilog"))
 npairs.remove_rule("'")
-npairs.add_rule(Rule("'", "'", "-verilog_systemverilog"))
+npairs.add_rule(Rule("'", "'", {"-verilog_systemverilog", "-indentcolor"}))
