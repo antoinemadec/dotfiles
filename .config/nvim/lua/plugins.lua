@@ -49,6 +49,15 @@ require('packer').startup(function(use)
     config = function() require('config.telescope') end
   }
   use 'honza/vim-snippets' -- snippets working with coc.nvim
+  use { -- package manager
+    'williamboman/mason.nvim',
+    config = function() require("mason").setup() end
+  }
+  use { -- debugger
+    "rcarriga/nvim-dap-ui",
+    requires = {"mfussenegger/nvim-dap"},
+    config = function() require("config.nvim-dap") end
+  }
   use 'preservim/tagbar' -- display buffer's classes/functions/vars based on ctags
   use 'tpope/vim-fugitive' -- git wrapper
   use { -- git signs/features
