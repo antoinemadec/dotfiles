@@ -85,4 +85,14 @@ wk.register(
       t    = {'<cmd>Telescope git_browse live_tags<cr>',          'tags'},
       y    = {'<cmd>CocList yank<cr>',                            'yank'},
     },
+    -- DAP
+    ['b'] = {
+      name = 'debug',
+      B = {'<cmd>lua require"dap".set_breakpoint(vim.fn.input("Breakpoint condition: "))<cr>',        'breakpoint condition'},
+      b = {'<cmd>lua require"dap".toggle_breakpoint()<cr>',                                           'breakpoint'},
+      e = {'<cmd>lua require"dapui".eval()<cr>',                                                      'eval'},
+      l = {'<cmd>lua require"dap".run_last()<cr>',                                                    'run last'},
+      p = {'<cmd>lua require"dap".set_breakpoint(nil, nil, vim.fn.input("Log point message: "))<cr>', 'log point message'},
+      r = {'<cmd>lua require"dap".continue()<cr>',                                                    'run'},
+    },
   }, { prefix = "<leader>" })

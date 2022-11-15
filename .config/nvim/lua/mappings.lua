@@ -98,7 +98,7 @@ remap('n', '<C-w>t', ':tab split<cr>', default_opts)
 
 -- function keys
 remap('n', '<F1>', ':call v:lua.MUtils.mapping_func_key_help()<cr>', default_opts)
-remap('n', '<F2>', ':call Debugger()<cr>', default_opts)
+remap('n', '<F2>', function() require("dapui").toggle() end, default_opts)
 remap('n', '<F3>', ':ToggleIndent<cr>', default_opts)
 remap('n', '<F4>', ':TagbarToggle<cr>', default_opts)
 remap('n', '<F5>', ':exe "HighlightGroupsAddWord " . hg0 . " 1"<cr>', default_opts)
@@ -119,9 +119,7 @@ remap('o', 'ig', ':<C-U>Gitsigns select_hunk<CR>', default_opts)
 remap('x', 'ig', ':<C-U>Gitsigns select_hunk<CR>', default_opts)
 
 -- misc
----- copy/paste with mouse select
-remap('v', '<LeftRelease>', '"*ygv', default_opts)
----- TODO: search for visually selected text
+remap('v', '<LeftRelease>', '"*ygv', default_opts) -- copy/paste with mouse select
 remap('x', 'ga', '<Plug>(EasyAlign)', plug_opts)
 remap('n', 'ga', '<Plug>(EasyAlign)', plug_opts)
 remap('n', 'dO', ':1,$+1diffget<cr>:diffupdate<cr>', default_opts)

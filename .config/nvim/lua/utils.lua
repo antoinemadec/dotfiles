@@ -1,8 +1,8 @@
 local a = vim.api
 
--- ------------------------------------------------------------
+---------------------------------------------------------------
 -- general
--- ------------------------------------------------------------
+---------------------------------------------------------------
 function _G.put(...)
   local objects = {}
   for i = 1, select('#', ...) do
@@ -25,15 +25,29 @@ function _G.string.split(inputstr, sep)
   return t
 end
 
+function _G.table.shallowcopy(orig)
+    local orig_type = type(orig)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in pairs(orig) do
+            copy[orig_key] = orig_value
+        end
+    else -- number, string, boolean, etc
+        copy = orig
+    end
+    return copy
+end
+
 local clock = os.clock
 function _G.sleep(n)
   local t0 = clock()
   while clock() - t0 <= n do end
 end
 
--- ------------------------------------------------------------
+---------------------------------------------------------------
 -- window
--- ------------------------------------------------------------
+---------------------------------------------------------------
 _G.WUtils = {}
 
 function _G.WUtils.save_win_opts(win)
@@ -165,11 +179,34 @@ function _G.WUtils.quad_win_cycle()
   vim.t.quad_win_cycle_idx = vim.t.quad_win_cycle_idx + 1
 end
 
--- ------------------------------------------------------------
+---------------------------------------------------------------
 -- mappings
--- ------------------------------------------------------------
+---------------------------------------------------------------
 _G.MUtils = {}
 
 function _G.MUtils.t(str)
   return a.nvim_replace_termcodes(str, true, true, true)
+end
+
+---------------------------------------------------------------
+-- DAP
+---------------------------------------------------------------
+_G.DUtils = {}
+
+function _G.DUtils.input_args()
+  local dap_args = {}
+  while true do
+    local str = vim.fn.input(string.format("args: (%s) ", table.concat(dap_args, ' ')), '', 'file')
+    if str ~= "" then
+      table.insert(dap_args, str)
+    else
+      break
+    end
+  end
+  return dap_args
+end
+
+function _G.DUtils.notify_args(dap_args)
+  vim.notify(string.format("args: %s", table.concat(dap_args, ' ')),
+    'info', { title = "DAP" })
 end
