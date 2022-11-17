@@ -51,7 +51,8 @@ require('packer').startup(function(use)
   use 'honza/vim-snippets' -- snippets working with coc.nvim
   use { -- package manager
     'williamboman/mason.nvim',
-    config = function() require("mason").setup() end
+    requires = { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
+    config = function() require('config.mason') end
   }
   use { -- debugger
     "rcarriga/nvim-dap-ui",

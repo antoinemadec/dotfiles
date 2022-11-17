@@ -51,6 +51,7 @@ endfunction
 function StartifyPluginUpdate() abort
   if has('nvim')
     PackerSync
+    MasonToolsUpdate
   else
     PlugUpgrade
     PlugUpdate
