@@ -21,6 +21,12 @@ require('neoclip').setup({
   },
 })
 
+vim.g.coc_enable_locationlist = 0
+vim.api.nvim_create_autocmd("User", {
+  pattern = "CocLocationsChange",
+  command = "Telescope coc locations"
+})
+
 require('telescope').setup{
   defaults = {
     dynamic_preview_title = true,
@@ -35,10 +41,6 @@ require('telescope').setup{
 
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('coc')
-vim.cmd([[
-let g:coc_enable_locationlist = 0
-autocmd User CocLocationsChange Telescope coc locations
-]])
 require('telescope').load_extension('notify')
 require('telescope').load_extension('git_browse')
 require('telescope').load_extension('neoclip')

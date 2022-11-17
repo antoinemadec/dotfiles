@@ -140,9 +140,11 @@ source ~/.vim/plugins_config/vim-sneak.vim
 source ~/.vim/plugins_config/vim-startify.vim
 source ~/.vim/plugins_config/vim-surround.vim
 source ~/.vim/plugins_config/vim-visual-multi.vim
-
-augroup packer_user_config
-  autocmd!
-  autocmd BufWritePost plugins.lua source <afile> | PackerSync
-augroup end
 ]])
+
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+  group = vim.api.nvim_create_augroup("packer_user_config", {}),
+  pattern = "plugins.lua",
+  command = "source <afile> | PackerSync"
+})
