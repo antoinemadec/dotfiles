@@ -1,8 +1,5 @@
 #!/bin/bash
 
-set -e
-set -o pipefail
-
 
 error() {
   send_msg "$1"
@@ -28,7 +25,13 @@ layout_idx=$(( (layout_idx+1) % $layout_nb ))
 cmd="$(ls $sl_dir/*sh -1 | head -n$((layout_idx + 1)) | tail -n1)"
 name="$(basename $cmd | sed 's/\..*//')"
 
-$cmd
-send_msg "$name"
+success=1
+$cmd || success=0
+echo $success
+if [ "$success" == 1 ]; then
+  send_msg "$name"
+else
+  send_msg "⛔ $name"
+fi
 
 echo $layout_idx > $sl_file

@@ -247,12 +247,6 @@ bindsym --release Shift+Print  exec --no-startup-id scrot -s -e 'mv $f /tmp/ && 
 #------------------------------
 # enable/disable floating windows
 #------------------------------
-for_window [class="rdesktop"] floating disable
-for_window [title="Terminator Preferences"] floating enable
-for_window [class="XTerm"] floating enable
-for_window [class="Evince"] floating enable
-for_window [class="Xpdf"] floating enable
-for_window [title="Figure*"] floating enable
 for_window [class="Gnome-calculator"] floating enable
 for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move down 20 px
 for_window [class="Pavucontrol"] floating enable
@@ -263,12 +257,6 @@ for_window [title="vim_todo"] floating enable
 for_window [title="vim_todo"] move scratchpad
 for_window [class="Thunar"] floating enable
 for_window [class="Thunar" window_type=normal] move scratchpad
-
-#------------------------------
-# assign program to workspace
-#------------------------------
-assign [class="Evolution"] 1:email
-assign [class="Sky"] 1:email
 
 #------------------------------
 # exec at startup
