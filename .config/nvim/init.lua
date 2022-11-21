@@ -3,11 +3,11 @@ if impatient_ok then
   impatient.enable_profile()
 end
 
-require('utils')
-require('plugins')
+require('avim.utils')
+require('avim.plugins')
 if (packer_bootstrap) then
   return
 end
-require('options')
-require('mappings')
-require('misc_vim')
+require('avim.options')
+require('avim.mappings')
+require('avim.misc_vim')

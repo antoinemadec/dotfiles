@@ -29,7 +29,7 @@ endfunction
 
 local function get_function_name()
   local info
-  if vim.b.coc_current_function ~= "" then
+  if vim.b.coc_current_function and vim.b.coc_current_function ~= "" then
     info = vim.b.coc_current_function
   else
     info = vim.b.stl_current_tag

@@ -66,7 +66,7 @@ wk.register(
     -- git
     ['g'] = {
       name = 'git',
-      s = {'<cmd>call ToggleGstatus()<cr>',             'git status'},
+      s = {function() ToggleGstatus() end,              'git status'},
       d = {'<cmd>Gdiffsplit<cr>',                       'git diff'},
       b = {'<cmd>Git blame<cr>',                        'git blame'},
       i = {'<cmd>Gitsigns preview_hunk<cr>',            'chunk info'},
