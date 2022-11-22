@@ -247,7 +247,7 @@ bindsym --release Shift+Print  exec --no-startup-id scrot -s -e 'mv $f /tmp/ && 
 #------------------------------
 # enable/disable floating windows
 #------------------------------
-for_window [class="Gnome-calculator"] floating enable
+for_window [class="gnome-calculator"] floating enable
 for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move down 20 px
 for_window [class="Pavucontrol"] floating enable
 # workspace name finishing by ^
