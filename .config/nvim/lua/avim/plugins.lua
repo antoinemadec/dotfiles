@@ -145,8 +145,9 @@ require('packer').startup(function(use)
 
   -- movement
   use { -- jump to any location specified by two characters
-    'justinmk/vim-sneak',
-    config = function() require('avim.config.sneak') end
+    'ggandor/leap.nvim',
+    requires = {'ggandor/flit.nvim'},
+    config = function() require('avim.config.leap') end
   }
   use 'junegunn/vim-easy-align' -- easy alignment of line fields
   use { -- multiple cursors
