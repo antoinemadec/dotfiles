@@ -67,10 +67,10 @@ require('packer').startup(function(use)
       },
       {
         'AckslD/nvim-neoclip.lua',
-        config = function() require('telescope').load_extension('neoclip') end
+        config = require('avim.config.telescope').neoclip_config
       },
     },
-    config = function() require('avim.config.telescope') end,
+    config = require('avim.config.telescope').config
   }
   use { -- snippets working with coc.nvim
     'honza/vim-snippets',
@@ -192,6 +192,11 @@ require('packer').startup(function(use)
   end
 end)
 
+vim.g.coc_enable_locationlist = 0
+vim.api.nvim_create_autocmd("User", {
+  pattern = "CocLocationsChange",
+  command = "Telescope coc locations"
+})
 
 vim.api.nvim_create_autocmd("BufWritePost", {
   group = vim.api.nvim_create_augroup("packer_user_config", {}),
