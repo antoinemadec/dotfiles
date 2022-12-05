@@ -1,9 +1,22 @@
-vim.g.verilog_disable_indent_lst = "eos"
-vim.g.verilog_instance_skip_last_coma = 1
+local M = {}
 
-vim.g.tagbar_type_verilog_systemverilog = {
-  ctagstype = 'SystemVerilog',
-  kinds = { 'b:blocks:0:1',
+function M.setup()
+  vim.filetype.add({
+    extension = {
+      v = 'verilog_systemverilog',
+      svh = 'verilog_systemverilog',
+      sv = 'verilog_systemverilog',
+    }
+  })
+end
+
+function M.config()
+  vim.g.verilog_disable_indent_lst = "eos"
+  vim.g.verilog_instance_skip_last_coma = 1
+
+  vim.g.tagbar_type_verilog_systemverilog = {
+    ctagstype = 'SystemVerilog',
+    kinds = { 'b:blocks:0:1',
     'c:constants:1:0',
     'e:events:1:0',
     'f:functions:0:1',
@@ -35,3 +48,6 @@ vim.g.tagbar_type_verilog_systemverilog = {
     R = 'property'
   }
 }
+end
+
+return M

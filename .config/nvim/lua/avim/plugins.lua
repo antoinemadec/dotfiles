@@ -84,10 +84,10 @@ require('packer').startup(function(use)
   use { -- debugger
     "rcarriga/nvim-dap-ui",
     opt = true,
-    module = 'dap',
+    module = {'dap', 'dap-ui'},
     requires = {
       "mfussenegger/nvim-dap",
-      module = 'dap-ui'
+      module = {'dap', 'dap-ui'},
     },
     config = function() require('avim.config.nvim-dap') end
   }
@@ -129,17 +129,8 @@ require('packer').startup(function(use)
     'vhda/verilog_systemverilog.vim',
     opt = true,
     ft = 'verilog_systemverilog',
-    setup = function()
-      vim.filetype.add({
-        extension = {
-          v = 'verilog_systemverilog',
-          svh = 'verilog_systemverilog',
-          sv = 'verilog_systemverilog',
-        }
-      })
-
-    end,
-    config = function() require('avim.config.verilog_systemverilog') end
+    setup = require('avim.config.verilog_systemverilog').setup,
+    config = require('avim.config.verilog_systemverilog').config
   }
   use 'MTDL9/vim-log-highlighting' -- syntax for log files
 
