@@ -48,29 +48,18 @@ require('packer').startup(function(use)
   }
   use {
     'nvim-telescope/telescope.nvim',
-    opt = true,
     cmd = "Telescope",
     requires = {
       'nvim-lua/plenary.nvim',
       {
         'nvim-telescope/telescope-fzf-native.nvim',
         run = 'make',
-        config = function() require('telescope').load_extension('fzf') end
       },
-      {
-        'fannheyward/telescope-coc.nvim',
-        config = function() require('telescope').load_extension('coc') end
-      },
-      {
-        'antoinemadec/telescope-git-browse.nvim',
-        config = function() require('telescope').load_extension('git_browse') end
-      },
-      {
-        'AckslD/nvim-neoclip.lua',
-        config = require('avim.config.telescope').neoclip_config
-      },
+      'fannheyward/telescope-coc.nvim',
+      'antoinemadec/telescope-git-browse.nvim',
+      'AckslD/nvim-neoclip.lua',
     },
-    config = require('avim.config.telescope').config
+    config = function() require('avim.config.telescope') end
   }
   use { -- snippets working with coc.nvim
     'honza/vim-snippets',
@@ -84,10 +73,10 @@ require('packer').startup(function(use)
   use { -- debugger
     "rcarriga/nvim-dap-ui",
     opt = true,
-    module = {'dap', 'dap-ui'},
+    module = { 'dap', 'dap-ui' },
     requires = {
       "mfussenegger/nvim-dap",
-      module = {'dap', 'dap-ui'},
+      module = { 'dap', 'dap-ui' },
     },
     config = function() require('avim.config.nvim-dap') end
   }
@@ -137,7 +126,7 @@ require('packer').startup(function(use)
   -- movement
   use { -- jump to any location specified by two characters
     'ggandor/leap.nvim',
-    requires = {'ggandor/flit.nvim'},
+    requires = { 'ggandor/flit.nvim' },
     config = function() require('avim.config.leap') end
   }
   use 'junegunn/vim-easy-align' -- easy alignment of line fields
