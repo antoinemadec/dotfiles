@@ -226,7 +226,7 @@ bindsym $mod+minus scratchpad show
 bindsym $mod+t exec --no-startup-id ~/.config/i3/bin/scratchpad "vim_todo" --toggle
 bindsym $mod+m exec --no-startup-id ~/.config/i3/bin/scratchpad "Thunar" --toggle
 # terminals
-bindsym $mod+Return exec [ -f ~/remote_machine.txt ] && exec alacritty -e "ssh -X $(cat ~/remote_machine.txt)" \
+bindsym $mod+Return exec [ -f ~/remote_machine.txt ] && exec alacritty -e ssh -X $(cat ~/remote_machine.txt) \
   || notify-send 'i3' 'please populate ~/remote_machine.txt'
 bindsym $mod+Shift+Return exec --no-startup-id exec alacritty
 # Pulse Audio controls
