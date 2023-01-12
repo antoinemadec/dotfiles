@@ -121,8 +121,8 @@ remap('x', 'ig', ':<C-U>Gitsigns select_hunk<CR>', default_opts)
 -- tags: select when multiple matches
 remap('n', '<C-LeftMouse>', 'g<C-]>', default_opts)
 remap('n', '<C-]>', 'g<C-]>', default_opts)
-remap('n', '<C-w>]', '<C-w>g]', default_opts)
-remap('n', '<C-w><C-]>', '<C-w>g]', default_opts)
+remap('n', '<C-w>]', '<C-w>g<C-]>', default_opts)
+remap('n', '<C-w><C-]>', '<C-w>g<C-]>', default_opts)
 
 -- misc
 remap('v', '<LeftRelease>', '"*ygv', default_opts) -- copy/paste with mouse select
