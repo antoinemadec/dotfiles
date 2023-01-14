@@ -30,8 +30,9 @@ wk.register(
     -- find word
     ['w'] = {
       name = 'find_word',
-      w    = {'<cmd>Telescope live_grep<cr>',          'all words'},
-      g    = {'<cmd>Telescope git_browse live_grep<cr>', 'git grep'},
+      w    = {'<cmd>Telescope live_grep<cr>',              'all words'},
+      g    = {'<cmd>Telescope git_browse live_grep<cr>',   'git grep'},
+      c    = {'<cmd>Telescope git_browse grep_string<cr>', 'current word git grep'},
     },
     -- split file
     ['s'] = {
