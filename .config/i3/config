@@ -216,10 +216,10 @@ bindsym $mod+Control+Shift+h     exec --no-startup-id ~/.config/i3/bin/change_wo
 bindsym $mod+Control+Shift+Right exec --no-startup-id ~/.config/i3/bin/change_workspace 1 1
 bindsym $mod+Control+Shift+l     exec --no-startup-id ~/.config/i3/bin/change_workspace 1 1
 # output
-bindsym $mod+Next focus output left
-bindsym $mod+Prior focus output right
-bindsym $mod+Shift+Next move workspace to output left
-bindsym $mod+Shift+Prior move workspace to output right
+bindsym $mod+Prior focus output left
+bindsym $mod+Next focus output right
+bindsym $mod+Shift+Prior move workspace to output left
+bindsym $mod+Shift+Next move workspace to output right
 # scratchpad
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
