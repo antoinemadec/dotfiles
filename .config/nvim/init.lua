@@ -1,13 +1,9 @@
-local impatient_ok, impatient = pcall(require, "impatient")
-if impatient_ok then
-  impatient.enable_profile()
+if tonumber(os.getenv("TERM_COLORS")) >= 256 then
+  vim.o.termguicolors = true
 end
 
 require('avim.utils')
 require('avim.plugins')
-if (packer_bootstrap) then
-  return
-end
 require('avim.options')
 require('avim.mappings')
 require('avim.misc_vim')

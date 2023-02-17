@@ -1,7 +1,4 @@
 -- appearance
-if tonumber(os.getenv("TERM_COLORS")) >= 256 then
-  vim.o.termguicolors = true
-end
 vim.g.hg0 = 13
 vim.g.hg1 = 17
 vim.g.gruvbox_material_background = 'soft'

@@ -28,12 +28,12 @@ vim.g.startify_lists = {
 }
 
 function _G.StartifyPluginClean()
-  vim.cmd('PackerClean')
+  vim.cmd('Lazy clean')
 end
 
 function _G.StartifyPluginUpdate()
   vim.cmd([[
-  PackerSync
+  Lazy! sync
   MasonToolsUpdate
   CocUpdate
   ]])
