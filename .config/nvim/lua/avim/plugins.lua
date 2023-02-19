@@ -93,6 +93,7 @@ require("lazy").setup({
   },
   { -- package manager
     'williamboman/mason.nvim',
+    cmd = { 'Mason', 'MasonInstall', 'MasonLog', 'MasonToolsInstall', 'MasonToolsUpdate', 'MasonUninstall', 'MasonUninstallAll' },
     dependencies = { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
     config = function() require('avim.config.mason') end
   },
