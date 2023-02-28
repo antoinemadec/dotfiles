@@ -46,6 +46,7 @@ uctags \
   --languages=verilog,systemverilog,VHDL,c++,c \
   --kinds-systemverilog=-p \
   --kinds-systemverilog=-i \
+  --kinds-systemverilog=-b \
   --extras=+q \
   --fields=+i \
   --exclude=.git \

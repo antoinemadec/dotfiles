@@ -17,8 +17,6 @@ function M.config()
   vim.g.tagbar_type_verilog_systemverilog = {
     ctagstype = 'SystemVerilog',
     kinds = { 'b:blocks:0:1',
-    'c:constants:1:0',
-    'e:events:1:0',
     'f:functions:0:1',
     'i:instances:1:1',
     'm:modules:0:1',
