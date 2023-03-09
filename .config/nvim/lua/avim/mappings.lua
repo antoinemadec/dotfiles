@@ -128,6 +128,8 @@ remap('n', '<C-w><C-]>', '<C-w>g<C-]>', default_opts)
 remap('v', '<LeftRelease>', '"*ygv', default_opts) -- copy/paste with mouse select
 remap('x', 'ga', '<Plug>(EasyAlign)', plug_opts)
 remap('n', 'ga', '<Plug>(EasyAlign)', plug_opts)
+remap('n', '<C-S-Up>', '<Plug>(VM-Add-Cursor-Up)', plug_opts)
+remap('n', '<C-S-Down>', '<Plug>(VM-Add-Cursor-Down)', plug_opts)
 remap('n', 'dO', ':1,$+1diffget<cr>:diffupdate<cr>', default_opts)
 remap('n', 'dP', ':wincmd w<cr>:1,$+1diffget<cr>:wincmd w<cr>:diffupdate<cr>', default_opts)
 remap('t', '\\cd', 'vim_server_cmd "cd $PWD" -i<cr>', default_opts)
