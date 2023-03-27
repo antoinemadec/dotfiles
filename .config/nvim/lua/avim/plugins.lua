@@ -77,6 +77,10 @@ require("lazy").setup({
     config = function() require('avim.config.coc_nvim') end
   },
   {
+    'github/copilot.vim',
+    init = function() require('avim.config.copilot') end
+  },
+  {
     'nvim-telescope/telescope.nvim',
     cmd = "Telescope",
     dependencies = {
