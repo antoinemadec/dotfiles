@@ -47,6 +47,7 @@ require("lazy").setup({
   },
   { -- status line
     'nvim-lualine/lualine.nvim',
+    event = "VeryLazy",
     dependencies = { 'kyazdani42/nvim-web-devicons' },
     config = function() require('avim.config.lualine') end
   },
@@ -61,23 +62,30 @@ require("lazy").setup({
   },
   { -- highlight current word under the cursor
     'RRethy/vim-illuminate',
+    event = "VeryLazy",
     config = function() require('avim.config.illuminate') end
   },
   { -- fancy notification manager for NeoVim
     'rcarriga/nvim-notify',
+    event = "VeryLazy",
     config = function() vim.notify = require('notify') end
   },
-  'stevearc/dressing.nvim', -- fancy vim.ui.select and input
+  { -- fancy vim.ui.select and input
+    'stevearc/dressing.nvim',
+    event = "VeryLazy",
+  },
 
   -- IDE
   { -- completion, snippets etc
     'neoclide/coc.nvim',
+    event = "VeryLazy",
     dependencies = 'honza/vim-snippets',
     branch = 'release',
     config = function() require('avim.config.coc_nvim') end
   },
   {
     'github/copilot.vim',
+    event = "VeryLazy",
     init = function() require('avim.config.copilot') end
   },
   {
@@ -111,19 +119,23 @@ require("lazy").setup({
   },
   { -- display buffer's classes/functions/vars based on ctags
     'preservim/tagbar',
+    event = "VeryLazy",
     config = function() require('avim.config.tagbar') end
   },
   { -- git wrapper
     'tpope/vim-fugitive',
+    event = "VeryLazy",
     config = function() require('avim.config.fugitive') end
   },
   { -- git signs/features
     'lewis6991/gitsigns.nvim',
+    event = "VeryLazy",
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function() require('avim.config.gitsigns') end
   },
   { -- autopair
     'windwp/nvim-autopairs',
+    event = "VeryLazy",
     config = function() require('avim.config.nvim-autopairs') end
   },
 
@@ -139,9 +151,13 @@ require("lazy").setup({
   },
   {
     'nvim-treesitter/nvim-treesitter-context',
+    event = "VeryLazy",
     config = function() require('avim.config.treesitter_context') end
   },
-  'antoinemadec/vim-verilog-instance', -- verilog port instantiation from port declaration
+  { -- verilog port instantiation from port declaration
+    'antoinemadec/vim-verilog-instance',
+    event = "VeryLazy",
+  },
   { -- vim syntax plugin for verilog and systemverilog
     'vhda/verilog_systemverilog.vim',
     lazy = true,
@@ -154,16 +170,22 @@ require("lazy").setup({
   -- movement
   { -- jump to any location specified by two characters
     'ggandor/leap.nvim',
+    event = "VeryLazy",
     dependencies = { 'ggandor/flit.nvim' },
     config = function() require('avim.config.leap') end
   },
-  'junegunn/vim-easy-align', -- easy alignment of line fields
+  { -- easy alignment of line fields
+    'junegunn/vim-easy-align',
+    event = "VeryLazy",
+  },
   { -- multiple cursors
     'mg979/vim-visual-multi',
+    event = "VeryLazy",
     config = function() require('avim.config.vim_visual_multi') end
   },
   {
     'andymass/vim-matchup',
+    event = "VeryLazy",
     config = function() require('avim.config.matchup') end
   },
 
@@ -177,20 +199,24 @@ require("lazy").setup({
   'antoinemadec/vim-highlight-groups', -- add words in highlight groups on the fly
   { -- run asynchronous bash commands
     'skywind3000/asyncrun.vim',
+    event = "VeryLazy",
     config = function() require('avim.config.asyncrun') end
   },
   { -- comment stuff out
     'numToStr/Comment.nvim',
+    event = "VeryLazy",
     config = function() require('avim.config.comment') end
   },
   'tpope/vim-repeat', -- remaps '.' in a way that plugins can tap into it
   { -- delete, change and add surroundings in pairs
     'tpope/vim-surround',
+    event = "VeryLazy",
     config = function() require('avim.config.surround') end
   },
   'tpope/vim-abolish', -- work with variations of a word
   { -- color highlighter
     'norcalli/nvim-colorizer.lua',
+    event = "VeryLazy",
     config = function() require('colorizer').setup() end
   },
 }, lazy_opts)
