@@ -169,10 +169,11 @@ require("lazy").setup({
 
   -- movement
   { -- jump to any location specified by two characters
-    'ggandor/leap.nvim',
+    'folke/flash.nvim',
     event = "VeryLazy",
-    dependencies = { 'ggandor/flit.nvim' },
-    config = function() require('avim.config.leap') end
+    ---@type Flash.Config
+    opts = require('avim.config.flash').opts,
+    keys = require('avim.config.flash').keys,
   },
   { -- easy alignment of line fields
     'junegunn/vim-easy-align',
