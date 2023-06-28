@@ -1,55 +1,3 @@
-" environement variables used:
-"   TERM_COLORS           : enable termguicolors if >= 256
-"   TERM_FANCY_CURSOR     : enable thin insert cursor if 'true'
-"   TERM_BRACKETED_PASTE  : disable bracketed paste if not 'true'
-
-"--------------------------------------------------------------
-" plugins
-"--------------------------------------------------------------
-let g:polyglot_disabled = ['v', 'python-compiler', 'autoindent']
-call plug#begin('~/.vim/plugins')
-" style
-Plug 'sainnhe/gruvbox-material'                                " colorscheme
-Plug 'itchyny/lightline.vim'                                   " status line
-Plug 'yggdroot/indentline'                                     " display thin vertical lines at each indentation level
-Plug 'antoinemadec/vim-indentcolor-filetype'                   " make notes more readable
-Plug 'mhinz/vim-startify'                                      " start screen for vim
-Plug 'ryanoasis/vim-devicons'                                  " add icons to your plugins
-Plug 'RRethy/vim-illuminate'                                   " highlight other uses of the current word under the cursor
-" IDE
-Plug 'neoclide/coc.nvim', {'branch': 'release'}                " completion, snippets etc
-Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all'} " fuzzy search in a dir
-Plug 'junegunn/fzf.vim'                                        " fuzzy search in a dir
-Plug 'antoinemadec/coc-fzf'                                    " use fzf for coc lists
-Plug 'honza/vim-snippets'                                      " snippets working with coc.nvim
-Plug 'preservim/tagbar'                                        " display buffer's classes/functions/vars based on ctags
-" Plug 'puremourning/vimspector'                                 " multi language graphical debugger
-" languages
-Plug 'sheerun/vim-polyglot'                                    " a collection of language packs for vim
-Plug 'antoinemadec/vim-verilog-instance'                       " verilog port instantiation from port declaration
-Plug 'vhda/verilog_systemverilog.vim'                          " vim syntax plugin for verilog and systemverilog
-" movement
-Plug 'justinmk/vim-sneak'                                      " jump to any location specified by two characters
-Plug 'junegunn/vim-easy-align'                                 " easy alignment of line fields
-Plug 'mg979/vim-visual-multi'                                  " multiple cursors
-Plug 'andymass/vim-matchup'                                    " replacement for the vim plugin matchit.vim
-" misc
-Plug 'liuchengxu/vim-which-key'                                " space mappings
-Plug 'antoinemadec/vim-highlight-groups'                       " add words in highlight groups on the fly
-Plug 'skywind3000/asyncrun.vim'                                " run asynchronous bash commands
-Plug 'tpope/vim-commentary'                                    " comment stuff out
-Plug 'tpope/vim-fugitive'                                      " git wrapper
-Plug 'tpope/vim-repeat'                                        " remaps '.' in a way that plugins can tap into it
-Plug 'tpope/vim-sensible'                                      " vim defaults that everyone can agree on
-Plug 'tpope/vim-surround'                                      " delete, change and add surroundings in pairs
-Plug 'tpope/vim-abolish'                                       " work with variations of a word
-Plug 'antoinemadec/FixCursorHold.nvim'                         " fix CursorHold perf bug
-call plug#end()
-
-if empty(glob("~/.vim/plugins"))
-  PlugInstall
-endif
-
 "--------------------------------------------------------------
 " vim options
 "--------------------------------------------------------------
@@ -63,6 +11,7 @@ set hlsearch                   " highlight search
 set expandtab                  " tab expand to space
 set tabstop=2                  " number of spaces that a <Tab> in the file counts for
 set shiftwidth=2               " number of spaces to use for each step of (auto)indent
+set autoindent
 set isfname-=,                 " don't try to match certain characters in filename
 set isfname-==                 " don't try to match certain characters in filename
 set number relativenumber      " show the line number relative to the line with the cursor
@@ -96,115 +45,12 @@ endif
 "--------------------------------------------------------------
 " appearance
 "--------------------------------------------------------------
+syntax on
+
 if has('termguicolors') && $TERM_COLORS >= 256
   set termguicolors
-  let hg0 = 13
-  let hg1 = 17
 else
   set t_Co=256 " vim uses 256 colors
-  let hg0 = 4
-  let hg1 = 6
 endif
 set background=dark
-let g:gruvbox_material_background = 'soft'
-let g:gruvbox_material_better_performance = 1
-let g:gruvbox_material_palette = 'mix'
-colorscheme gruvbox-material
-
-"--------------------------------------------------------------
-" plugins
-"--------------------------------------------------------------
-for plugin in keys(g:plugs)
-  let s:plugin_config = $HOME . '/.vim/plugins_config/' . plugin .'.vim'
-  if filereadable(s:plugin_config)
-    execute 'source ' . s:plugin_config
-  endif
-endfor
-
-"--------------------------------------------------------------
-" common with neovim
-"--------------------------------------------------------------
-source ~/.vim/vimrc_common
-
-"--------------------------------------------------------------
-" mappings
-"--------------------------------------------------------------
-source ~/.vim/my_mappings.vim
-
-"--------------------------------------------------------------
-" misc
-"--------------------------------------------------------------
-" start vim server
-if exists('*remote_startserver') && has('clientserver') && v:servername == ''
-  call remote_startserver('vim_server_' . getpid())
-endif
-
-" windows options
-if has('win32') && filereadable($HOME.'\.vim\windows.vim')
-  source ~/.vim/windows.vim
-endif
-
-" SystemVerilog
-autocmd FileType verilog_systemverilog setlocal commentstring=//%s
-let g:uvm_tags_is_on = 0
-let g:uvm_tags_path = "~/.vim/tags/UVM_CDNS-1.2"
-command! ToggleUVMTags call ToggleUVMTags()
-function ToggleUVMTags()
-  if g:uvm_tags_is_on
-    exe 'set tags-=' . g:uvm_tags_path
-  else
-    exe 'set tags+=' . g:uvm_tags_path
-  endif
-  let g:uvm_tags_is_on = !g:uvm_tags_is_on
-  echo "UVM tags = " . g:uvm_tags_is_on
-endfunction
-
-function MoveToPrevTab()
-  "there is only one window
-  if tabpagenr('$') == 1 && winnr('$') == 1
-    return
-  endif
-  "preparing new window
-  let l:tab_old_idx = tabpagenr()
-  let l:cur_buf = bufnr('%')
-  if tabpagenr() != 1
-    close!
-    if tabpagenr() == l:tab_old_idx
-      tabprev
-    endif
-    sp
-  else
-    close!
-    exe "0tabnew"
-  endif
-  "opening current buffer in new window
-  exe "b".l:cur_buf
-endfunc
-
-function MoveToNextTab()
-  "there is only one window
-  if tabpagenr('$') == 1 && winnr('$') == 1
-    return
-  endif
-  "preparing new window
-  let l:tab_nr = tabpagenr('$')
-  let l:cur_buf = bufnr('%')
-  if tabpagenr() < tab_nr
-    close!
-    if l:tab_nr == tabpagenr('$')
-      tabnext
-    endif
-    sp
-  else
-    close!
-    tabnew
-  endif
-  "opening current buffer in new window
-  exe "b".l:cur_buf
-endfunc
-
-" repeat last change at a column index
-function! DotAtColumnIndex(cidx)
-  let a = a:cidx - 1
-  execute "normal " . a . "l."
-endfunction
+colorscheme desert
