@@ -53,6 +53,7 @@ require("lazy").setup({
   },
   { -- display thin vertical lines at each indentation level
     'lukas-reineke/indent-blankline.nvim',
+    main = "ibl",
     config = function() require('avim.config.indent_blankline') end
   },
   'antoinemadec/vim-indentcolor-filetype', -- make notes more readable
