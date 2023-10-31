@@ -31,11 +31,13 @@ highlight link CustomHighlight_Warning Todo
 autocmd WinEnter,VimEnter * call MatchUpdate('todo', 'CustomHighlight_Warning', 'TBD\|TODO\|FIXME', 11, v:true)
 
 " highlight current line
-augroup CursorLine
-    au!
-    au VimEnter,WinEnter,BufEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline
-augroup END
+if !exists("g:man_mode") || g:man_mode == 0
+  augroup CursorLine
+      au!
+      au VimEnter,WinEnter,BufEnter * setlocal cursorline
+      au WinLeave * setlocal nocursorline
+  augroup END
+end
 
 "--------------------------------------------------------------
 " terminal

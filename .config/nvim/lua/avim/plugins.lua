@@ -49,6 +49,7 @@ require("lazy").setup({
     'nvim-lualine/lualine.nvim',
     event = "VeryLazy",
     dependencies = { 'kyazdani42/nvim-web-devicons' },
+    cond = not vim.g.man_mode,
     config = function() require('avim.config.lualine') end
   },
   { -- display thin vertical lines at each indentation level

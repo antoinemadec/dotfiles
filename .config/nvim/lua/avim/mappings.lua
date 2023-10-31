@@ -29,6 +29,26 @@ local function smart_line_motion(key)
   return vim.v.count > 1 and "m'" .. vim.v.count .. key or key
 end
 
+local function navigation_bar()
+  if vim.bo.filetype == 'man' or vim.t.man_toc_win then
+    if vim.t.man_toc_win then
+      vim.api.nvim_win_close(vim.t.man_toc_win, true)
+      vim.t.man_toc_win = nil
+    else
+      require'man'.show_toc()
+      vim.cmd("wincmd L")
+      vim.cmd("vertical resize 40")
+      vim.wo.winfixwidth = true
+      vim.wo.number = false
+      vim.wo.relativenumber = false
+      vim.t.man_toc_win = vim.api.nvim_get_current_win()
+      vim.cmd("wincmd p")
+    end
+  else
+    vim.cmd("TagbarToggle")
+  end
+end
+
 function _G.MUtils.mapping_func_key_help()
   if vim.b.help_scratch_open then
     vim.cmd('q')
@@ -100,7 +120,7 @@ remap('n', '<C-w>t', ':tab split<cr>', default_opts)
 remap('n', '<F1>', ':call v:lua.MUtils.mapping_func_key_help()<cr>', default_opts)
 remap('n', '<F2>', function() require("dapui").toggle() end, default_opts)
 remap('n', '<F3>', ':ToggleIndent<cr>', default_opts)
-remap('n', '<F4>', ':TagbarToggle<cr>', default_opts)
+remap('n', '<F4>', function() navigation_bar() end, default_opts)
 remap('n', '<F5>', ':exe "HighlightGroupsAddWord " . hg0 . " 1"<cr>', default_opts)
 remap('n', '\\<F5>', ':exe "HighlightGroupsClearGroup " . hg0 . " 1"<cr>', default_opts)
 remap('n', '<F6>', ':exe "HighlightGroupsAddWord " . hg1 . " 1"<cr>', default_opts)
