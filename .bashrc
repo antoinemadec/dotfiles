@@ -117,7 +117,7 @@ fi
 test_git_ps1_speed() {
   (
   local status="true"
-  local t=$( (time GIT_PS1_SHOWDIRTYSTATE=true __git_ps1) 2>&1 | grep real | sed -e 's/.*m//' -e 's/s//' -e 's/\.//' )
+  local t=$( (time GIT_PS1_SHOWDIRTYSTATE=true __git_ps1) 2>&1 | tail -n3 | grep real | sed -e 's/.*m//' -e 's/s//' -e 's/\.//' )
   [ "$t" -gt 200 ] && status="false"
   echo "$GIT_REPO $status" > $FANCY_PROMPT_GIT_FILE
   )& disown %-
