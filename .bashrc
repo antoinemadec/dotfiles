@@ -199,8 +199,8 @@ export VISUAL=nvim
 export EDITOR="$VISUAL"
 export GIT_EDITOR="$VISUAL"
 
-# remote nvim
-alias vvim='nvr'
+# use remote nvim when in nvim terminal
+[ "$NVIM" != "" ] && alias nvim="nvim_server_open"
 
 # source files
 for file in ~/bin/source/*

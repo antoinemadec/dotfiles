@@ -2,9 +2,9 @@
 
 usage(){
 cat <<EOF
-usage: $(basename $0) FILE (arg)
+usage: $(basename $0) FILES (arg)
 
-open FILE in VIM_SERVERNAME's, with (arg) in:
+open FILES in \$NVIM server, with (arg) in:
   -h    : get this help
   -o    : open FILE in new split window instead   (default opens in focused window)
   -O    : open FILE in new vertical split window  (default opens in focused window)
@@ -34,12 +34,7 @@ do
   esac
 done
 
-# windows bash: uses path like /c/Program Files/...
-# windows gvim: uses path like /Program Files/...
-# since windows bash Vim calls windows Gvim:
-[ "$WINDOWS_OS" = 1 ] && file="${file:2}"
 for file in $files
 do
-  vim --servername $VIM_SERVERNAME --remote-send "<C-\><C-N>:$cmd $file <CR>"
+  nvim --server $NVIM --remote-send "<C-\><C-N>:$cmd $file <CR>"
 done
-vim --servername $VIM_SERVERNAME --remote-send "<CR>"

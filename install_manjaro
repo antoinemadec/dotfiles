@@ -52,7 +52,6 @@ sudo pacman --noconfirm -S i3-gaps
 print_banner "python packages"
 sudo pip3 install setuptools
 sudo pip3 install pynvim
-sudo pip3 install neovim-remote
 sudo pip3 install rope
 sudo pip3 install demucs # music source separation
 

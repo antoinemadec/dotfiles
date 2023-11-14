@@ -13,7 +13,6 @@ else
   cd neovim
 fi
 
-sudo pip3 install neovim-remote --upgrade
 sudo pip3 install pynvim --upgrade
 sudo npm install -g neovim
 

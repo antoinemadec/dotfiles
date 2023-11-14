@@ -4,7 +4,7 @@ usage(){
 cat <<EOF
 usage: $(basename $0) VIM_CMD (arg)
 
-run VIM_CMD in VIM_SERVERNAME's focused window's
+run VIM_CMD in \$NVIM server focused window's
   -h    : get this help
   -i    : put focused window back in insert mode
 EOF
@@ -27,11 +27,4 @@ do
   esac
 done
 
-server="$NVIM"
-program="nvr"
-if [[ "$server" = "" ]]; then
-  server="$VIM_SERVERNAME"
-  program="vim"
-fi
-
-$program --servername $server --remote-send "<C-\><C-N>:$VIM_CMD<CR>$back_in_insert"
+nvim --server $NVIM --remote-send "<C-\><C-N>:$VIM_CMD<CR>$back_in_insert"
