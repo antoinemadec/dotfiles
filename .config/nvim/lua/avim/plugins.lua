@@ -144,7 +144,7 @@ require("lazy").setup({
   -- languages
   {
     'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
+    build = ':TSUpdate',
     config = function() require('avim.config.treesitter') end
   },
   {
