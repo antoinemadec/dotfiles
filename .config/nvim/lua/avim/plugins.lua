@@ -48,7 +48,7 @@ require("lazy").setup({
   { -- status line
     'nvim-lualine/lualine.nvim',
     event = "VeryLazy",
-    dependencies = { 'kyazdani42/nvim-web-devicons' },
+    dependencies = { 'kyazdani42/nvim-web-devicons', 'nvim-lua/lsp-status.nvim' },
     cond = not vim.g.man_mode,
     config = function() require('avim.config.lualine') end
   },
@@ -78,12 +78,22 @@ require("lazy").setup({
   },
 
   -- IDE
-  { -- completion, snippets etc
-    'neoclide/coc.nvim',
-    event = "VeryLazy",
-    dependencies = 'honza/vim-snippets',
-    branch = 'release',
-    config = function() require('avim.config.coc_nvim') end
+  {
+    -- LSP
+    'williamboman/mason.nvim', -- package manager
+    dependencies = {
+      "williamboman/mason-lspconfig.nvim",   -- bridges gaps between mason and nvim-lspconfig
+      "neovim/nvim-lspconfig",               -- configs for nvim lsp client
+      "hrsh7th/nvim-cmp",                    -- autocompletion plugin
+      "hrsh7th/cmp-nvim-lsp-signature-help", -- display function signature
+      'hrsh7th/cmp-buffer',                  -- buffer source for nvim-cmp
+      'hrsh7th/cmp-path',                    -- path source for nvim-cmp
+      "hrsh7th/cmp-nvim-lsp",                -- LSP source for nvim-cmp
+      "saadparwaiz1/cmp_luasnip",            -- snippets source for nvim-cmp
+      "L3MON4D3/LuaSnip",                    -- snippets plugin
+      "rafamadriz/friendly-snippets",        -- snippet collection
+    },
+    config = function() require('avim.config.lsp') end
   },
   {
     'github/copilot.vim',
@@ -99,17 +109,10 @@ require("lazy").setup({
         'nvim-telescope/telescope-fzf-native.nvim',
         build = 'make',
       },
-      'fannheyward/telescope-coc.nvim',
       'antoinemadec/telescope-git-browse.nvim',
       'AckslD/nvim-neoclip.lua',
     },
     config = function() require('avim.config.telescope') end
-  },
-  { -- package manager
-    'williamboman/mason.nvim',
-    cmd = { 'Mason', 'MasonInstall', 'MasonLog', 'MasonToolsInstall', 'MasonToolsUpdate', 'MasonUninstall', 'MasonUninstallAll' },
-    dependencies = { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
-    config = function() require('avim.config.mason') end
   },
   { -- debugger
     "rcarriga/nvim-dap-ui",
@@ -223,9 +226,3 @@ require("lazy").setup({
     config = function() require('colorizer').setup() end
   },
 }, lazy_opts)
-
-vim.g.coc_enable_locationlist = 0
-vim.api.nvim_create_autocmd("User", {
-  pattern = "CocLocationsChange",
-  command = "Telescope coc locations"
-})

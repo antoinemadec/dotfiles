@@ -34,7 +34,6 @@ end
 function _G.StartifyPluginUpdate()
   vim.cmd([[
   Lazy! sync
-  MasonToolsUpdate
-  CocUpdate
+  MasonUpdate
   ]])
 end

@@ -67,7 +67,7 @@ wk.register(
     -- git
     ['g'] = {
       name = 'git',
-      s = {function() ToggleGstatus() end,              'git status'},
+      s = {ToggleGstatus,                               'git status'},
       d = {'<cmd>Gdiffsplit<cr>',                       'git diff'},
       b = {'<cmd>Git blame<cr>',                        'git blame'},
       i = {'<cmd>Gitsigns preview_hunk<cr>',            'chunk info'},
@@ -77,14 +77,10 @@ wk.register(
     -- lsp
     ['l'] = {
       name = 'lsp',
-      a    = {'<cmd>Telescope coc code_actions theme=cursor<cr>', 'actions'},
-      b    = {'<cmd>Telescope coc diagnostics<cr>',               'buffer diagnostics'},
-      c    = {'<cmd>Telescope coc commands<cr>',                  'commands'},
-      d    = {'<cmd>Telescope coc workspace_diagnostics<cr>',     'all diagnostics'},
-      l    = {'<cmd>Telescope coc<cr>',                           'lists'},
-      s    = {'<cmd>Telescope coc workspace_symbols<cr>',         'symbols'},
+      d    = {'<cmd>Telescope diagnostics<cr>',                   'all diagnostics'},
+      s    = {'<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', 'symbols'},
       t    = {'<cmd>Telescope git_browse live_tags<cr>',          'tags'},
-      y    = {'<cmd>CocList yank<cr>',                            'yank'},
+      v    = {ToggleLspVirtualText,                               'toggle virtual text'},
     },
     -- DAP
     ['b'] = {
