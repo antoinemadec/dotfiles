@@ -179,7 +179,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<C-s>', vim.lsp.buf.signature_help, opts)
     -- vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', '\\rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '\\ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set({ 'n', 'v' }, '\\ac', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', 'gr', require'telescope.builtin'.lsp_references, opts)
     vim.keymap.set('n', '\\f', function()
       vim.lsp.buf.format { async = true }
