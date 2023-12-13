@@ -1,15 +1,16 @@
 _G.lsp_servers = {
-  'clangd',
   'bashls',
+  'clangd',
   'lua_ls',
-  'rust_analyzer',
   'pyright',
-  'tsserver'
+  'rust_analyzer',
+  'tsserver',
+  'verible',
 }
 
 -- add mason bin dir in the PATH to find LSP bin even in Mason is not loaded yet
-  local mason_bin_path = vim.fn.stdpath("data") .. "/mason/bin"
-  vim.env.PATH = mason_bin_path .. ":" .. vim.env.PATH
+local mason_bin_path = vim.fn.stdpath("data") .. "/mason/bin"
+vim.env.PATH = mason_bin_path .. ":" .. vim.env.PATH
 
 -- lspconfig
 local lspconfig = require('lspconfig')
@@ -50,6 +51,7 @@ for _, lsp in ipairs(_G.lsp_servers) do
     on_attach = on_attach,
     capabilities = capabilities,
     settings = get_lsp_settings(lsp),
+    filetypes = lsp == 'verible' and { 'verilog_systemverilog' } or nil,
   }
 end
 
