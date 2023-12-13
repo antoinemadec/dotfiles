@@ -7,6 +7,10 @@ _G.lsp_servers = {
   'tsserver'
 }
 
+-- add mason bin dir in the PATH to find LSP bin even in Mason is not loaded yet
+  local mason_bin_path = vim.fn.stdpath("data") .. "/mason/bin"
+  vim.env.PATH = mason_bin_path .. ":" .. vim.env.PATH
+
 -- lspconfig
 local lspconfig = require('lspconfig')
 local lsp_status = require('lsp-status')
