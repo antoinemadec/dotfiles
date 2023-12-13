@@ -77,10 +77,13 @@ wk.register(
     -- lsp
     ['l'] = {
       name = 'lsp',
-      d    = {'<cmd>Telescope diagnostics<cr>',                   'all diagnostics'},
-      s    = {'<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', 'symbols'},
-      t    = {'<cmd>Telescope git_browse live_tags<cr>',          'tags'},
-      v    = {ToggleLspVirtualText,                               'toggle virtual text'},
+      d    = {'<cmd>Telescope diagnostics<cr>',                         'all diagnostics'},
+      s    = {'<cmd>Telescope lsp_dynamic_workspace_symbols<cr>',       'symbols'},
+      t    = {'<cmd>Telescope git_browse live_tags<cr>',                'tags'},
+      v    = {ToggleLspVirtualText,                                     'toggle virtual text'},
+      wa   = {vim.lsp.buf.add_workspace_folder,                         'add workspace folder'},
+      wr   = {vim.lsp.buf.remove_workspace_folder,                      'remove workspace folder'},
+      wl   = {function() put(vim.lsp.buf.list_workspace_folders()) end, 'list workspace folders'},
     },
     -- DAP
     ['b'] = {

@@ -78,13 +78,14 @@ require("lazy").setup({
   },
 
   -- IDE
-  {
-    -- LSP
-    'williamboman/mason.nvim', -- package manager
+  { -- lsp
+    "neovim/nvim-lspconfig", -- configs for nvim lsp client
+    config = function() require('avim.config.lsp') end
+  },
+  { -- completion
+    "hrsh7th/nvim-cmp",
+    event = "VeryLazy",
     dependencies = {
-      "williamboman/mason-lspconfig.nvim",   -- bridges gaps between mason and nvim-lspconfig
-      "neovim/nvim-lspconfig",               -- configs for nvim lsp client
-      "hrsh7th/nvim-cmp",                    -- autocompletion plugin
       "hrsh7th/cmp-nvim-lsp-signature-help", -- display function signature
       'hrsh7th/cmp-buffer',                  -- buffer source for nvim-cmp
       'hrsh7th/cmp-path',                    -- path source for nvim-cmp
@@ -93,7 +94,16 @@ require("lazy").setup({
       "L3MON4D3/LuaSnip",                    -- snippets plugin
       "rafamadriz/friendly-snippets",        -- snippet collection
     },
-    config = function() require('avim.config.lsp') end
+    config = function() require('avim.config.completion') end
+  },
+  { -- package manager
+    'williamboman/mason.nvim',
+    event = "VeryLazy",
+    dependencies = {
+      "williamboman/mason-lspconfig.nvim",   -- bridges gaps between mason and nvim-lspconfig
+      "neovim/nvim-lspconfig",               -- configs for nvim lsp client
+    },
+    config = function() require('avim.config.mason') end
   },
   {
     'github/copilot.vim',
@@ -140,7 +150,7 @@ require("lazy").setup({
   },
   { -- autopair
     'windwp/nvim-autopairs',
-    event = "VeryLazy",
+    event = "InsertEnter",
     config = function() require('avim.config.nvim-autopairs') end
   },
 
@@ -219,7 +229,10 @@ require("lazy").setup({
     event = "VeryLazy",
     config = function() require('avim.config.surround') end
   },
-  'tpope/vim-abolish', -- work with variations of a word
+  { -- work with variations of a word
+    'tpope/vim-abolish',
+    event = "VeryLazy",
+  },
   { -- color highlighter
     'norcalli/nvim-colorizer.lua',
     event = "VeryLazy",
