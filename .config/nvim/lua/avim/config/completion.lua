@@ -94,3 +94,5 @@ cmp.setup {
     { name = 'buffer' },
   },
 }
+
+vim.api.nvim_set_hl(0, 'CmpItemMenu', { link = 'Grey', default = false })
