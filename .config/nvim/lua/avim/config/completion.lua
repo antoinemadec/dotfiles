@@ -1,6 +1,7 @@
 -- luasnip
 local luasnip = require 'luasnip'
 require('luasnip.loaders.from_vscode').lazy_load()
+luasnip.filetype_extend("verilog_systemverilog", { "systemverilog" })
 
 -- nvim-cmp
 local cmp = require 'cmp'
