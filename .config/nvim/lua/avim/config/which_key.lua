@@ -19,7 +19,6 @@ wk.register(
     [';'] = {'<cmd>Telescope commands<cr>',                  'commands'},
     ['y'] = {'<cmd>Telescope neoclip<cr>',                   'clipboard manager'},
     ['h'] = {'<cmd>Telescope help_tags<cr>',                 'vim help'},
-    ['r'] = {'<cmd>Telescope resume<cr>',                    'resume Telescope'},
     -- find file
     ['f'] = {
       name = 'find_file',

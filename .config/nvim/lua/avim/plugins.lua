@@ -102,6 +102,7 @@ require("lazy").setup({
     dependencies = {
       "williamboman/mason-lspconfig.nvim",   -- bridges gaps between mason and nvim-lspconfig
       "neovim/nvim-lspconfig",               -- configs for nvim lsp client
+      'nvim-lua/lsp-status.nvim',            -- lsp statusline
     },
     config = function() require('avim.config.mason') end
   },

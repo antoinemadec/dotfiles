@@ -49,7 +49,14 @@ local function navigation_bar()
   end
 end
 
-function _G.MUtils.mapping_func_key_help()
+local function toggle_diff()
+  local current_win = vim.api.nvim_get_current_win()
+  local command = vim.o.diff and "diffoff" or "diffthis"
+  vim.cmd("windo " .. command)
+  vim.api.nvim_set_current_win(current_win)
+end
+
+local function mapping_func_key_help()
   if vim.b.help_scratch_open then
     vim.cmd('q')
   else
@@ -66,7 +73,7 @@ HELP FUNCTION KEYS
 <F7>      *TrailingSpace*   toggle
 <F8>      *Quickfix*        toggle
 <F9>      *Spell*           toggle
-<F10>     *Completion*      toggle]], "\n")
+<F10>     *Diff*            toggle]], "\n")
     vim.cmd('Scratch' .. #help_array)
     vim.api.nvim_put(help_array, '', false, false)
     vim.bo.filetype = 'help'
@@ -117,10 +124,10 @@ remap('n', '<C-w><C-t>', ':tab split<cr>', default_opts)
 remap('n', '<C-w>t', ':tab split<cr>', default_opts)
 
 -- function keys
-remap('n', '<F1>', ':call v:lua.MUtils.mapping_func_key_help()<cr>', default_opts)
+remap('n', '<F1>', mapping_func_key_help, default_opts)
 remap('n', '<F2>', function() require("dapui").toggle() end, default_opts)
 remap('n', '<F3>', ':ToggleIndent<cr>', default_opts)
-remap('n', '<F4>', function() navigation_bar() end, default_opts)
+remap('n', '<F4>', navigation_bar, default_opts)
 remap('n', '<F5>', ':exe "HighlightGroupsAddWord " . hg0 . " 1"<cr>', default_opts)
 remap('n', '\\<F5>', ':exe "HighlightGroupsClearGroup " . hg0 . " 1"<cr>', default_opts)
 remap('n', '<F6>', ':exe "HighlightGroupsAddWord " . hg1 . " 1"<cr>', default_opts)
@@ -129,8 +136,7 @@ remap('n', '<F7>', ':call ToggleTrailingSpace()<cr>', default_opts)
 remap('n', '<F8>', ':call asyncrun#quickfix_toggle(8)<cr>', default_opts)
 remap('n', '<F9>', ':set spell!<cr>', default_opts)
 remap('i', '<F9>', '<C-o> :set spell!<cr>', default_opts)
-remap('n', '<F10>', ':ToggleCompletion<cr>', default_opts)
-remap('i', '<F10>', '<C-o> :ToggleCompletion<cr>', default_opts)
+remap('n', '<F10>', toggle_diff, default_opts)
 
 -- git
 remap('n', ']g', ':Gitsigns next_hunk<CR>', default_opts)
