@@ -45,22 +45,14 @@ bindsym $mod+Shift+q kill
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
-bindsym $mod+Left  focus left
 bindsym $mod+h     focus left
-bindsym $mod+Down  focus down
 bindsym $mod+j     focus down
-bindsym $mod+Up    focus up
 bindsym $mod+k     focus up
-bindsym $mod+Right focus right
 bindsym $mod+l     focus right
 
-bindsym $mod+Shift+Left  move left
 bindsym $mod+Shift+h     move left
-bindsym $mod+Shift+Down  move down
 bindsym $mod+Shift+j     move down
-bindsym $mod+Shift+Up    move up
 bindsym $mod+Shift+k     move up
-bindsym $mod+Shift+Right move right
 bindsym $mod+Shift+l     move right
 
 # split in horizontal orientation
@@ -207,19 +199,19 @@ bindsym $mod+Shift+w  exec --no-startup-id ~/.config/i3/bin/rofi_workspace
 bindsym $mod+Shift+u  exec --no-startup-id ~/.config/i3/bin/rofi_unicode
 bindsym $mod+Shift+a  exec --no-startup-id ~/.config/i3/bin/rofi_accent
 # changing workspaces
-bindsym $mod+Control+Left        exec --no-startup-id ~/.config/i3/bin/change_workspace 0
 bindsym $mod+Control+h           exec --no-startup-id ~/.config/i3/bin/change_workspace 0
-bindsym $mod+Control+Right       exec --no-startup-id ~/.config/i3/bin/change_workspace 1
 bindsym $mod+Control+l           exec --no-startup-id ~/.config/i3/bin/change_workspace 1
-bindsym $mod+Control+Shift+Left  exec --no-startup-id ~/.config/i3/bin/change_workspace 0 1
 bindsym $mod+Control+Shift+h     exec --no-startup-id ~/.config/i3/bin/change_workspace 0 1
-bindsym $mod+Control+Shift+Right exec --no-startup-id ~/.config/i3/bin/change_workspace 1 1
 bindsym $mod+Control+Shift+l     exec --no-startup-id ~/.config/i3/bin/change_workspace 1 1
 # output
-bindsym $mod+Prior focus output left
-bindsym $mod+Next focus output right
-bindsym $mod+Shift+Prior move workspace to output left
-bindsym $mod+Shift+Next move workspace to output right
+bindsym $mod+Left focus output left
+bindsym $mod+Down focus output down
+bindsym $mod+Up focus output up
+bindsym $mod+Right focus output right
+bindsym $mod+Shift+Left move workspace to output left
+bindsym $mod+Shift+Down move workspace to output down
+bindsym $mod+Shift+Up move workspace to output up
+bindsym $mod+Shift+Right move workspace to output right
 # scratchpad
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
