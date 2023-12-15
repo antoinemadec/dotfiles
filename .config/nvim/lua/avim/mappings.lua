@@ -57,27 +57,25 @@ local function toggle_diff()
 end
 
 local function mapping_func_key_help()
-  if vim.b.help_scratch_open then
-    vim.cmd('q')
+  local notify = require('notify')
+  local opts = { title = "Function Keys", timeout = false, }
+  local level = nil
+  if vim.g.mapping_func_key_help then
+    vim.g.mapping_func_key_help = false
+    notify.dismiss()
   else
-    local help_array = string.split([[
-HELP FUNCTION KEYS
-<F1>      *Help*            toggle
-<F2>      *Debugger*
-<F3>      *Indent*          toggle
-<F4>      *Tagbar*          toggle
-<F5>      *Highlight_0*     add
-\<F5>     *Highlight_0*     remove
-<F6>      *Highlight_1*     add
-\<F6>     *Highlight_1*     remove
-<F7>      *TrailingSpace*   toggle
-<F8>      *Quickfix*        toggle
-<F9>      *Spell*           toggle
-<F10>     *Diff*            toggle]], "\n")
-    vim.cmd('Scratch' .. #help_array)
-    vim.api.nvim_put(help_array, '', false, false)
-    vim.bo.filetype = 'help'
-    vim.b.help_scratch_open = true
+    vim.g.mapping_func_key_help = true
+    notify.notify([[
+<F1>      Help            toggle
+<F2>      Debugger
+<F3>      Indent          toggle
+<F4>      Tagbar          toggle
+<F5>      Highlight_0     add
+<F6>      Highlight_1     add
+<F7>      TrailingSpace   toggle
+<F8>      Quickfix        toggle
+<F9>      Spell           toggle
+<F10>     Diff            toggle]],level, opts)
   end
 end
 
