@@ -11,7 +11,36 @@ local function term_split(cmd)
     ]])
 end
 
+local function ui_cycle_number()
+  if vim.o.relativenumber then
+    vim.o.relativenumber = false
+    vim.o.number = true
+  elseif vim.o.number then
+    vim.o.number = false
+  else
+    vim.o.relativenumber = true
+  end
+end
+
+local function ui_toggle_trailing_space()
+  vim.api.nvim_call_function('ToggleTrailingSpace', {})
+  if vim.o.list then
+    vim.notify("display trailing spaces", nil, {title = "UI"})
+  else
+    vim.notify("don't display trailing spaces", nil, {title = "UI"})
+  end
+end
+
 local wk = require("which-key")
+
+wk.setup({
+  icons = {
+    breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
+    separator = "➜", -- symbol used between a key and it's label
+    group = "", -- symbol prepended to a group
+  },
+})
+
 wk.register(
   {
     -- top-level mappings
@@ -19,30 +48,36 @@ wk.register(
     [';'] = {'<cmd>Telescope commands<cr>',                  'commands'},
     ['y'] = {'<cmd>Telescope neoclip<cr>',                   'clipboard manager'},
     ['h'] = {'<cmd>Telescope help_tags<cr>',                 'vim help'},
+    -- nvim UI
+    ['u'] = {
+      name = 'change UI',
+      n    = {ui_cycle_number,          'cycle trough relative, norelative, nonumber'},
+      t    = {ui_toggle_trailing_space, 'toggle trailing space display'},
+    },
     -- find file
     ['f'] = {
-      name = 'find_file',
+      name = 'find file',
       f    = {'<cmd>Telescope find_files follow=true<cr>',         'all files'},
       b    = {'<cmd>Telescope buffers<cr>',                        'buffers'},
       g    = {'<cmd>Telescope git_files show_untracked=false<cr>', 'git files'},
     },
     -- find word
     ['w'] = {
-      name = 'find_word',
+      name = 'find word',
       w    = {'<cmd>Telescope live_grep<cr>',              'all words'},
       g    = {'<cmd>Telescope git_browse live_grep<cr>',   'git grep'},
       c    = {'<cmd>Telescope git_browse grep_string<cr>', 'current word git grep'},
     },
     -- split file
     ['s'] = {
-      name = 'split_file',
+      name = 'split file',
       s = {'<C-w>s', 'horizontal'},
       v = {'<C-w>v', 'vertical'},
       t = {'<cmd>tab split<cr>', 'tab split'},
     },
     -- split dir
     ['d'] = {
-      name = 'split_dir',
+      name = 'split dir',
       w = {function() dir_split("e") end,    'current window'},
       s = {function() dir_split("sp") end,   'horizontal'},
       v = {function() dir_split("vsp") end,  'vertical'},
@@ -50,7 +85,7 @@ wk.register(
     },
     -- cd in buffer's dir
     ['c'] = {
-      name = 'cd_current',
+      name = 'cd buffer dir',
       c = { '<cmd>cd `=GetCurrentBufferDir()`<cr>', 'global cd'},
       w = { '<cmd>lcd `=GetCurrentBufferDir()`<cr>', 'window cd'},
       t = { '<cmd>tcd `=GetCurrentBufferDir()`<cr>', 'tab cd'},

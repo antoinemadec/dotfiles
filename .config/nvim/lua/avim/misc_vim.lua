@@ -15,13 +15,8 @@ function ToggleTrailingSpace()
 endfunction
 call ToggleTrailingSpace()
 
-if has('nvim')
-  autocmd BufWinEnter,InsertLeave,TermLeave * call MatchUpdate('trailingspace', 'CustomHighlight_TrailingSpace', '\s\+$',        11, v:false)
-  autocmd InsertEnter,TermEnter             * call MatchUpdate('trailingspace', 'CustomHighlight_TrailingSpace', '\s\+\%#\@<!$', 11, v:false)
-else
-  autocmd BufWinEnter,InsertLeave * call MatchUpdate('trailingspace', 'CustomHighlight_TrailingSpace', '\s\+$',        11, v:false)
-  autocmd InsertEnter             * call MatchUpdate('trailingspace', 'CustomHighlight_TrailingSpace', '\s\+\%#\@<!$', 11, v:false)
-endif
+autocmd BufWinEnter,InsertLeave,TermLeave * call MatchUpdate('trailingspace', 'CustomHighlight_TrailingSpace', '\s\+$',        11, v:false)
+autocmd InsertEnter,TermEnter             * call MatchUpdate('trailingspace', 'CustomHighlight_TrailingSpace', '\s\+\%#\@<!$', 11, v:false)
 
 " highlight non breakable space
 set listchars=nbsp:?
@@ -42,18 +37,11 @@ end
 "--------------------------------------------------------------
 " terminal
 "--------------------------------------------------------------
-if has('terminal')
-  command! T  call term_start(&shell, {"term_kill": "term", "term_finish": "close", "curwin": 1})
-  command! TS call term_start(&shell, {"term_kill": "term", "term_finish": "close"})
-  command! TV call term_start(&shell, {"term_kill": "term", "term_finish": "close", "vertical": 1})
-  command! TT tab call term_start(&shell, {"term_kill": "term", "term_finish": "close"})
-elseif has('nvim')
-  command! T terminal
-  command! TS split | terminal
-  command! TV vsplit | terminal
-  command! TT tabe | terminal
-  au TermOpen * setlocal nonumber norelativenumber
-endif
+command! T terminal
+command! TS split | terminal
+command! TV vsplit | terminal
+command! TT tabe | terminal
+au TermOpen * setlocal nonumber norelativenumber
 
 "--------------------------------------------------------------
 " text ojects

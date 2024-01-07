@@ -72,7 +72,6 @@ local function mapping_func_key_help()
 <F4>      Tagbar          toggle
 <F5>      Highlight_0     add
 <F6>      Highlight_1     add
-<F7>      TrailingSpace   toggle
 <F8>      Quickfix        toggle
 <F9>      Spell           toggle
 <F10>     Diff            toggle]],level, opts)
@@ -130,7 +129,6 @@ remap('n', '<F5>', ':exe "HighlightGroupsAddWord " . hg0 . " 1"<cr>', default_op
 remap('n', '\\<F5>', ':exe "HighlightGroupsClearGroup " . hg0 . " 1"<cr>', default_opts)
 remap('n', '<F6>', ':exe "HighlightGroupsAddWord " . hg1 . " 1"<cr>', default_opts)
 remap('n', '\\<F6>', ':exe "HighlightGroupsClearGroup " . hg1 . " 1"<cr>', default_opts)
-remap('n', '<F7>', ':call ToggleTrailingSpace()<cr>', default_opts)
 remap('n', '<F8>', ':call asyncrun#quickfix_toggle(8)<cr>', default_opts)
 remap('n', '<F9>', ':set spell!<cr>', default_opts)
 remap('i', '<F9>', '<C-o> :set spell!<cr>', default_opts)
