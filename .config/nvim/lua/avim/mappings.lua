@@ -147,6 +147,8 @@ remap('n', '<C-w>]', '<C-w>g<C-]>', default_opts)
 remap('n', '<C-w><C-]>', '<C-w>g<C-]>', default_opts)
 
 -- misc
+remap('n', '\\r', ':RunCurrentBuffer<cr>', default_opts)
+remap('n', '\\t', ':RunAndTimeCurrentBuffer<cr>', default_opts)
 remap('v', '<LeftRelease>', '"*ygv', default_opts) -- copy/paste with mouse select
 remap('x', 'ga', '<Plug>(EasyAlign)', plug_opts)
 remap('n', 'ga', '<Plug>(EasyAlign)', plug_opts)
