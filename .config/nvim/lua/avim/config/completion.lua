@@ -91,7 +91,7 @@ cmp.setup {
   }),
   formatting = {
     format = function(entry, vim_item)
-      vim_item.kind = (cmp_kinds[vim_item.kind] or vim_item.kind) .. string.sub(vim_item.kind, 1, 3)
+      vim_item.kind = (cmp_kinds[vim_item.kind] or vim_item.kind) .. string.lower(string.sub(vim_item.kind, 1, 3))
       vim_item.menu = ({
         luasnip = "snip",
         nvim_lsp = "lsp",
