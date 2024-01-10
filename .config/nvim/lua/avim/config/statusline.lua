@@ -150,3 +150,14 @@ function Tabline()
 end
 
 vim.cmd([[set tabline=%!v:lua.Tabline()]])
+
+
+-- winbar
+vim.api.nvim_create_autocmd({"FileType"}, {
+  pattern = {"oil"},
+  callback = function()
+    pcall(vim.api.nvim_set_option_value, "winbar",
+    '%#Grey#' .. (require'oil'.get_current_dir() or vim.fn.expand('%:b')),
+    { scope = "local" })
+  end
+})

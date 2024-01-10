@@ -1,9 +1,19 @@
-local function dir_split(cmd)
-  vim.cmd(cmd .. ' ' .. vim.fn.GetCurrentBufferDir())
+local function get_buffer_dir()
+  if vim.b.oil_ready then
+    return require("oil").get_current_dir()
+  elseif vim.fn.expand('%') == "" or vim.bo.buftype == 'terminal' then
+    return "."
+  else
+    return vim.fn.expand('%:h')
+  end
+end
+
+local function cmd_on_buffer_dir(cmd)
+  vim.cmd(cmd .. ' ' .. get_buffer_dir())
 end
 
 local function term_split(cmd)
-  vim.cmd("cd " .. vim.fn.GetCurrentBufferDir())
+  vim.cmd("cd " .. get_buffer_dir())
   vim.cmd(cmd)
   vim.cmd([[
     cd -
@@ -78,17 +88,17 @@ wk.register(
     -- split dir
     ['d'] = {
       name = 'split dir',
-      w = {function() dir_split("e") end,    'current window'},
-      s = {function() dir_split("sp") end,   'horizontal'},
-      v = {function() dir_split("vsp") end,  'vertical'},
-      t = {function() dir_split("tabe") end, 'tab split'},
+      w = {function() cmd_on_buffer_dir("e") end,    'current window'},
+      s = {function() cmd_on_buffer_dir("sp") end,   'horizontal'},
+      v = {function() cmd_on_buffer_dir("vsp") end,  'vertical'},
+      t = {function() cmd_on_buffer_dir("tabe") end, 'tab split'},
     },
     -- cd in buffer's dir
     ['c'] = {
       name = 'cd buffer dir',
-      c = { '<cmd>cd `=GetCurrentBufferDir()`<cr>', 'global cd'},
-      w = { '<cmd>lcd `=GetCurrentBufferDir()`<cr>', 'window cd'},
-      t = { '<cmd>tcd `=GetCurrentBufferDir()`<cr>', 'tab cd'},
+      c = { function() cmd_on_buffer_dir('cd') end,  'global cd'},
+      w = { function() cmd_on_buffer_dir('lcd') end, 'window cd'},
+      t = { function() cmd_on_buffer_dir('tcd') end, 'tab cd'},
     },
     -- terminal
     ['t'] = {

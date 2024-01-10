@@ -92,16 +92,6 @@ function MatchUpdate(id_str, hl, pattern, priority, enable_buf) abort
   endif
 endfunction
 
-function! GetCurrentBufferDir()
-  if exists("b:netrw_browser_active")
-    return b:netrw_curdir
-  elseif expand('%') == "" || &buftype ==# 'terminal'
-    return "."
-  else
-    return expand('%:h')
-  endif
-endfunction
-
 command! -nargs=0 RemoveTrailingSpace :let _s=@/ | :%s/\s\+$//e | :let @/=_s | :unlet _s
 
 " open scratch buffer

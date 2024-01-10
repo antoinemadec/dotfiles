@@ -50,7 +50,7 @@ require("lazy").setup({
     event = "VeryLazy",
     dependencies = { 'kyazdani42/nvim-web-devicons', 'nvim-lua/lsp-status.nvim' },
     cond = not vim.g.man_mode,
-    config = function() require('avim.config.lualine') end
+    config = function() require('avim.config.statusline') end
   },
   { -- display thin vertical lines at each indentation level
     'lukas-reineke/indent-blankline.nvim',
@@ -214,6 +214,10 @@ require("lazy").setup({
     config = function() require('avim.config.which_key') end
   },
   'antoinemadec/vim-highlight-groups', -- add words in highlight groups on the fly
+  { -- file explorer
+    'stevearc/oil.nvim',
+    config = function() require('avim.config.oil') end
+  },
   { -- run asynchronous bash commands
     'skywind3000/asyncrun.vim',
     event = "VeryLazy",
