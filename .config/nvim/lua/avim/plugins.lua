@@ -48,12 +48,13 @@ require("lazy").setup({
   { -- status line
     'nvim-lualine/lualine.nvim',
     event = "VeryLazy",
-    dependencies = { 'kyazdani42/nvim-web-devicons', 'nvim-lua/lsp-status.nvim' },
-    cond = not vim.g.man_mode,
+    dependencies = { 'kyazdani42/nvim-web-devicons', 'nvim-lua/lsp-status.nvim', 'nvim-treesitter/nvim-treesitter' },
+    cond = not (vim.g.man_mode or vim.g.light_mode),
     config = function() require('avim.config.statusline') end
   },
   { -- display thin vertical lines at each indentation level
     'lukas-reineke/indent-blankline.nvim',
+    cond = not vim.g.light_mode,
     main = "ibl",
     config = function() require('avim.config.indent_blankline') end
   },
@@ -64,6 +65,7 @@ require("lazy").setup({
   },
   { -- highlight current word under the cursor
     'RRethy/vim-illuminate',
+    cond = not vim.g.light_mode,
     event = "VeryLazy",
     config = function() require('avim.config.illuminate') end
   },
@@ -158,15 +160,18 @@ require("lazy").setup({
   -- languages
   {
     'nvim-treesitter/nvim-treesitter',
+    cond = not vim.g.light_mode,
     build = ':TSUpdate',
     config = function() require('avim.config.treesitter') end
   },
   {
     'nvim-treesitter/playground',
+    cond = not vim.g.light_mode,
     cmd = { 'TSPlaygroundToggle', 'TSCaptureUnderCursor' }
   },
   {
     'nvim-treesitter/nvim-treesitter-context',
+    cond = not vim.g.light_mode,
     event = "VeryLazy",
     config = function() require('avim.config.treesitter_context') end
   },

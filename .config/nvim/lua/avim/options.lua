@@ -34,9 +34,9 @@ vim.opt.timeoutlen     = 500                                                 -- 
 vim.opt.ttimeoutlen    = 50                                                  -- ms waited for a key code/sequence to complete. Allow faster insert to normal mode
 vim.opt.undofile       = true                                                -- when on, vim automatically saves undo history to an undo file
 vim.opt.wildmode       = 'longest:full,full'                                 -- wildchar completion mode
+vim.opt.cmdheight      = 0                                                   -- height of the command bar
 
--- man_mode: no status line and no command line
+-- man_mode: no status line
 if vim.g.man_mode then
   vim.opt.laststatus = 0
 end
-vim.opt.cmdheight = 0

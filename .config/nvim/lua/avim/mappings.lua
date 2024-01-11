@@ -137,8 +137,8 @@ remap('i', '<F9>', '<C-o> :set spell!<cr>', default_opts)
 remap('n', '<F10>', toggle_diff, default_opts)
 
 -- git
-remap('n', ']g', ':Gitsigns next_hunk<CR>', default_opts)
-remap('n', '[g', ':Gitsigns prev_hunk<CR>', default_opts)
+remap('n', ']g', ':silent Gitsigns next_hunk<CR>', default_opts)
+remap('n', '[g', ':silent Gitsigns prev_hunk<CR>', default_opts)
 remap('o', 'ig', ':<C-U>Gitsigns select_hunk<CR>', default_opts)
 remap('x', 'ig', ':<C-U>Gitsigns select_hunk<CR>', default_opts)
 
