@@ -98,7 +98,7 @@ require 'lualine'.setup {
       path = 1 -- relative path
     } },
     lualine_x = { treesitter_status, 'filetype' },
-    lualine_y = { 'progress' },
+    lualine_y = { 'searchcount', 'progress' },
     lualine_z = { location_or_selected_lines }
   },
   inactive_sections = {
