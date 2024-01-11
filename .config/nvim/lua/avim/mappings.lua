@@ -31,21 +31,23 @@ end
 
 local function navigation_bar()
   if vim.bo.filetype == 'man' or vim.t.man_toc_win then
-    if vim.t.man_toc_win then
-      vim.api.nvim_win_close(vim.t.man_toc_win, true)
-      vim.t.man_toc_win = nil
-    else
-      require'man'.show_toc()
-      vim.cmd("wincmd L")
-      vim.cmd("vertical resize 40")
-      vim.wo.winfixwidth = true
-      vim.wo.number = false
-      vim.wo.relativenumber = false
-      vim.t.man_toc_win = vim.api.nvim_get_current_win()
-      vim.cmd("wincmd p")
-    end
+    _G.WUtils.toggle_side_bar("toc_win", function () require'man'.show_toc() end)
+  elseif vim.bo.filetype == 'help' or vim.t.help_toc_win then
+    _G.WUtils.toggle_side_bar("toc_win", function () vim.cmd("normal gO") end)
   else
     vim.cmd("TagbarToggle")
+  end
+end
+
+local function next_location(direction)
+  if vim.t.toc_win then
+    if direction == 1 then
+      vim.cmd("lnext")
+    else
+      vim.cmd("lprev")
+    end
+  else
+    vim.fn['tagbar#jumpToNearbyTag'](direction, "nearest", "s")
   end
 end
 
@@ -147,6 +149,9 @@ remap('n', '<C-w>]', '<C-w>g<C-]>', default_opts)
 remap('n', '<C-w><C-]>', '<C-w>g<C-]>', default_opts)
 
 -- misc
+vim.keymap.set('n', ']t', function() next_location(1) end, {silent=true})
+vim.keymap.set('n', '[t', function() next_location(-1) end, {silent=true})
+
 remap('n', '\\r', ':RunCurrentBuffer<cr>', default_opts)
 remap('n', '\\t', ':RunAndTimeCurrentBuffer<cr>', default_opts)
 remap('v', '<LeftRelease>', '"*ygv', default_opts) -- copy/paste with mouse select

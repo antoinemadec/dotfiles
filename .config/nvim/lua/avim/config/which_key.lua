@@ -41,6 +41,14 @@ local function ui_toggle_trailing_space()
   end
 end
 
+local function ui_toggle_cmdheight()
+  if vim.o.cmdheight == 0 then
+    vim.o.cmdheight = 1
+  else
+    vim.o.cmdheight = 0
+  end
+end
+
 local wk = require("which-key")
 
 wk.setup({
@@ -61,6 +69,7 @@ wk.register(
     -- nvim UI
     ['u'] = {
       name = 'change UI',
+      c    = {ui_toggle_cmdheight,      'toggle cmdline height'},
       n    = {ui_cycle_number,          'cycle trough relative, norelative, nonumber'},
       t    = {ui_toggle_trailing_space, 'toggle trailing space display'},
     },

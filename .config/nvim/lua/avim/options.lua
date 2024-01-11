@@ -38,5 +38,5 @@ vim.opt.wildmode       = 'longest:full,full'                                 -- 
 -- man_mode: no status line and no command line
 if vim.g.man_mode then
   vim.opt.laststatus = 0
-  vim.opt.cmdheight = 0
 end
+vim.opt.cmdheight = 0

@@ -179,6 +179,22 @@ function _G.WUtils.quad_win_cycle()
   vim.t.quad_win_cycle_idx = vim.t.quad_win_cycle_idx + 1
 end
 
+function _G.WUtils.toggle_side_bar(win_name, create_win_func)
+  if vim.t[win_name] then
+    vim.api.nvim_win_close(vim.t[win_name], true)
+    vim.t[win_name] = nil
+  else
+    create_win_func()
+    vim.cmd("wincmd L")
+    vim.cmd("vertical resize 40")
+    vim.wo.winfixwidth = true
+    vim.wo.number = false
+    vim.wo.relativenumber = false
+    vim.t[win_name] = vim.api.nvim_get_current_win()
+    vim.cmd("wincmd p")
+  end
+end
+
 ---------------------------------------------------------------
 -- mappings
 ---------------------------------------------------------------
