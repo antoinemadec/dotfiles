@@ -32,6 +32,15 @@ local function ui_cycle_number()
   end
 end
 
+local function ui_toggle_large_file_cutoff()
+  if vim.g.large_file_cutoff ~= 0 then
+    vim.g.large_file_cutoff_bak = vim.g.large_file_cutoff
+    vim.g.large_file_cutoff = 0
+  else
+    vim.g.large_file_cutoff = vim.g.large_file_cutoff_bak
+  end
+end
+
 local function ui_toggle_trailing_space()
   vim.api.nvim_call_function('ToggleTrailingSpace', {})
   if vim.o.list then
@@ -69,9 +78,10 @@ wk.register(
     -- nvim UI
     ['u'] = {
       name = 'change UI',
-      c    = {ui_toggle_cmdheight,      'toggle cmdline height'},
-      n    = {ui_cycle_number,          'cycle trough relative, norelative, nonumber'},
-      t    = {ui_toggle_trailing_space, 'toggle trailing space display'},
+      c    = {ui_toggle_cmdheight,         'toggle cmdline height'},
+      n    = {ui_cycle_number,             'cycle trough relative, norelative, nonumber'},
+      l    = {ui_toggle_large_file_cutoff, 'toggle large file cutoff'},
+      t    = {ui_toggle_trailing_space,    'toggle trailing space display'},
     },
     -- find file
     ['f'] = {
