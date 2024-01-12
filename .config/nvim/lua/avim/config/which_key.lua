@@ -23,11 +23,13 @@ end
 
 local function ui_cycle_number()
   if vim.o.relativenumber then
-    vim.o.relativenumber = false
     vim.o.number = true
+    vim.o.relativenumber = false
   elseif vim.o.number then
     vim.o.number = false
+    vim.o.relativenumber = false
   else
+    vim.o.number = true
     vim.o.relativenumber = true
   end
 end
@@ -130,12 +132,14 @@ wk.register(
     -- git
     ['g'] = {
       name = 'git',
-      s = {ToggleGstatus,                               'git status'},
-      d = {'<cmd>Gdiffsplit<cr>',                       'git diff'},
-      b = {'<cmd>Git blame<cr>',                        'git blame'},
-      i = {'<cmd>Gitsigns preview_hunk<cr>',            'chunk info'},
-      u = {'<cmd>Gitsigns reset_hunk<cr>',              'chunk undo'},
-      c = {'<cmd>Telescope git_browse commit_msgs<cr>', 'git commits'},
+      s = {ToggleGstatus,                                 'git status'},
+      d = {'<cmd>Gdiffsplit<cr>',                         'git diff'},
+      b = {'<cmd>Git blame<cr>',                          'git blame'},
+      i = {'<cmd>Gitsigns preview_hunk<cr>',              'chunk info'},
+      u = {'<cmd>Gitsigns reset_hunk<cr>',                'chunk undo'},
+      cc = {'<cmd>Telescope git_browse commit_msgs<cr>',  'git commits'},
+      cb = {'<cmd>Telescope git_browse bcommit_msgs<cr>', 'git commits current buf only'},
+      cd = {'<cmd>Telescope git_browse ccommit_msgs<cr>', 'git commits current dir only'},
     },
     -- lsp
     ['l'] = {
