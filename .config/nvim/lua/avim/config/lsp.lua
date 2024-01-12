@@ -18,6 +18,7 @@ local lsp_status = require('lsp-status')
 
 local function on_attach(client, _)
   lsp_status.on_attach(client)
+  vim.bo.tagfunc=nil -- don't overwrite ctags mappings/functions with LSP
 end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
