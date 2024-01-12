@@ -7,37 +7,42 @@ local lsp_status = require'lsp-status'
 lsp_status.register_progress()
 
 -- statusline
-vim.cmd([[
-autocmd CursorHold,CursorHoldI * call UpdateCurrentTag()
+local function is_large_file()
+  return vim.api.nvim_buf_line_count(vim.api.nvim_get_current_buf()) > vim.g.large_file_cutoff
+end
 
-function UpdateCurrentTag()
-  if !exists('g:tagbar_stl_' . &ft)
-    return
-  endif
-  if exists('g:tagbar_stl_disable') && g:tagbar_stl_disable
-    let b:stl_current_tag = '[off]'
-    return
-  endif
-  let b:stl_current_tag =  tagbar#currenttagtype('[%s]', '') . tagbar#currenttag(' %s', '')
-endfunction
+local function tagbar_stl_is_enabled()
+  return vim.g['tagbar_stl_' .. vim.bo.filetype] ~= nil
+end
 
-command! ToggleTagbarStl call ToggleTagbarStl()
-function ToggleTagbarStl()
-  let g:tagbar_stl_disable = exists('g:tagbar_stl_disable') ? !g:tagbar_stl_disable : 1
-  if g:tagbar_stl_disable
-    call tagbar#StopAutoUpdate()
-  endif
-endfunction
-]])
+local function update_current_tag()
+  if (not tagbar_stl_is_enabled()) or is_large_file() then
+    vim.b.stl_current_tag = ""
+    return
+  end
+  local tag_type = vim.fn['tagbar#currenttagtype']('[%s]', '')
+  local tag_name = vim.fn['tagbar#currenttag'](' %s', '')
+  vim.b.stl_current_tag =  tag_type .. tag_name
+end
+
+vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
+  pattern = "*",
+  callback = update_current_tag
+})
+
+vim.api.nvim_create_autocmd("BufLeave", {
+  pattern = "*",
+  callback = function() pcall(vim.fn['tagbar#StopAutoUpdate']) end,
+})
 
 local function get_function_name()
-  local info
-  if vim.b.lsp_current_function and vim.b.lsp_current_function ~= nil then
-    info = vim.b.lsp_current_function
-  else
+  local info = ''
+  if tagbar_stl_is_enabled() then
     info = vim.b.stl_current_tag
+  elseif vim.b.lsp_current_function and vim.b.lsp_current_function ~= nil then
+    info = vim.b.lsp_current_function
   end
-  return info or ''
+  return info
 end
 
 local function location_or_selected_lines()
@@ -49,8 +54,13 @@ local function location_or_selected_lines()
   return (d_line ~= 1 or d_col ~= 1) and s or '%3l:%-2v'
 end
 
+local function large_file()
+  return is_large_file() and "🛑"  or ""
+end
+
 local function treesitter_status()
-  return ts_parsers.has_parser() and "🌳" or ""
+  local buf = vim.api.nvim_get_current_buf()
+  return vim.treesitter.highlighter.active[buf] and "🌳" or ""
 end
 
 require 'lualine'.setup {
@@ -97,7 +107,7 @@ require 'lualine'.setup {
       'filename',
       path = 1 -- relative path
     } },
-    lualine_x = { treesitter_status, 'filetype' },
+    lualine_x = { large_file, treesitter_status, 'filetype' },
     lualine_y = { 'searchcount', 'progress' },
     lualine_z = { location_or_selected_lines }
   },

@@ -2,10 +2,15 @@ require 'nvim-treesitter.install'.command_extra_args = {
   cc = { "-std=c99" }
 }
 
+local function disable(lang, bufnr)
+  return vim.api.nvim_buf_line_count(bufnr) > vim.g.large_file_cutoff
+end
+
 require 'nvim-treesitter.configs'.setup {
   ensure_installed = { 'lua', 'cpp', 'python', 'bash', 'rust', 'vim', 'vimdoc', 'query' },
   highlight = {
     enable = true,
+    disable = disable,
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
     -- Using this option may slow down your editor, and you may see some duplicate highlights.
@@ -14,6 +19,7 @@ require 'nvim-treesitter.configs'.setup {
   },
   incremental_selection = {
     enable = true,
+    disable = disable,
     keymaps = {
       init_selection = '<CR>',
       scope_incremental = '<CR>',
@@ -23,9 +29,6 @@ require 'nvim-treesitter.configs'.setup {
   },
   matchup = {
     enable = true,
-  }
+    disable = disable,
+  },
 }
-
--- LSP semantic highlights, only use "Comment" to see undef code
-vim.g.coc_default_semantic_highlight_groups = 0
-vim.api.nvim_set_hl(0, 'CocSemComment', { link = 'TSComment' })

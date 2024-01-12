@@ -202,9 +202,6 @@ export GIT_EDITOR="$VISUAL"
 # use remote nvim when in nvim terminal
 [ "$NVIM" != "" ] && alias nvim="nvim_server_open"
 
-# lightweight nvim for big files
-alias lvim='nvim --cmd "let g:light_mode=1"'
-
 # source files
 for file in ~/bin/source/*
 do

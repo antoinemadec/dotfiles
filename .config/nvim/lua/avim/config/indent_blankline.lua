@@ -5,3 +5,11 @@ require("ibl").setup {
     filetypes = {'startify', 'which_key', 'packer', 'mason'},
   },
 }
+
+local hooks = require "ibl.hooks"
+hooks.register(
+hooks.type.ACTIVE,
+function(bufnr)
+  return vim.api.nvim_buf_line_count(bufnr) < vim.g.large_file_cutoff
+end
+)
