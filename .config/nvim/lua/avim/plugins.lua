@@ -200,11 +200,6 @@ require("lazy").setup({
     event = "VeryLazy",
     config = function() require('avim.config.vim_visual_multi') end
   },
-  {
-    'andymass/vim-matchup',
-    event = "VeryLazy",
-    config = function() require('avim.config.matchup') end
-  },
 
   -- misc
   { -- space mappings
