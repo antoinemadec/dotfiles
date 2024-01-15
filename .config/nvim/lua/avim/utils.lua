@@ -45,6 +45,10 @@ function _G.sleep(n)
   while clock() - t0 <= n do end
 end
 
+function _G.is_large_file()
+  return vim.api.nvim_buf_line_count(vim.api.nvim_get_current_buf()) > vim.g.large_file_cutoff
+end
+
 ---------------------------------------------------------------
 -- window
 ---------------------------------------------------------------
