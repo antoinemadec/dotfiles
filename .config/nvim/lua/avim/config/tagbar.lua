@@ -9,13 +9,15 @@ vim.g.tagbar_no_status_line = 1
 
 vim.g.tagbar_stl_verilog_systemverilog = true
 
-function _G.tagbar_stl_is_enabled()
+local M = {}
+
+function M.stl_is_enabled()
   return vim.g['tagbar_stl_' .. vim.bo.filetype] ~= nil
 end
 
 local function tagbar_update()
   -- statusline
-  if (not tagbar_stl_is_enabled()) or _G.is_large_file() then
+  if (not M.stl_is_enabled()) or _G.is_large_file() then
     vim.b.stl_current_tag = ""
   else
     local tag_type = vim.fn['tagbar#currenttagtype']('[%s]', '')
@@ -31,6 +33,9 @@ local function tagbar_update()
       vim.fn['tagbar#CloseWindow']()
     end
   end
+  -- lualine bug with CursorHold, see:
+  -- https://github.com/nvim-lualine/lualine.nvim/issues/886
+  vim.cmd('redrawstatus')
 end
 
 vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
@@ -42,3 +47,5 @@ vim.api.nvim_create_autocmd("BufLeave", {
   pattern = "*",
   callback = function() pcall(vim.fn['tagbar#StopAutoUpdate']) end,
 })
+
+return M

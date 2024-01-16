@@ -70,3 +70,9 @@ function _G.ToggleLspVirtualText()
 end
 
 ToggleLspVirtualText()
+
+-- lualine flicker bug, see:
+-- https://github.com/nvim-lualine/lualine.nvim/issues/886
+vim.api.nvim_create_autocmd('LspAttach', {
+  command = 'redrawstatus',
+})

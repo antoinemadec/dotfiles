@@ -6,9 +6,11 @@ local lsp_status = require'lsp-status'
 lsp_status.register_progress()
 
 -- statusline
+local tagbar = require('avim.config.tagbar')
+
 local function get_function_name()
   local info = ''
-  if _G.tagbar_stl_is_enabled() then
+  if tagbar.stl_is_enabled() then
     info = vim.b.stl_current_tag
   elseif vim.b.lsp_current_function and vim.b.lsp_current_function ~= nil then
     info = vim.b.lsp_current_function
