@@ -47,8 +47,7 @@ require("lazy").setup({
   },
   { -- status line
     'nvim-lualine/lualine.nvim',
-    event = "VeryLazy",
-    dependencies = { 'kyazdani42/nvim-web-devicons', 'nvim-lua/lsp-status.nvim', 'nvim-treesitter/nvim-treesitter' },
+    dependencies = { 'kyazdani42/nvim-web-devicons', 'nvim-lua/lsp-status.nvim' },
     cond = not vim.g.man_mode,
     config = function() require('avim.config.statusline') end
   },
