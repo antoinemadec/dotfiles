@@ -106,7 +106,20 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'nvim_lsp' },
     { name = 'path' },
-    { name = 'buffer' },
+    {
+      name = 'buffer',
+      option = {
+        get_bufnrs = function()
+          local buf_list = {}
+          for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+            if vim.api.nvim_buf_line_count(bufnr) < vim.g.large_file_cutoff then
+              table.insert(buf_list, bufnr)
+            end
+          end
+          return buf_list
+        end
+      },
+    },
   },
 }
 
