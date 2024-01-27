@@ -17,6 +17,10 @@ local lspconfig = require('lspconfig')
 local lsp_status = require('lsp-status')
 
 local function on_attach(client, _)
+  if _G.is_large_file() then
+    vim.lsp.get_client_by_id(client.id).stop(true)
+    return
+  end
   lsp_status.on_attach(client)
   vim.bo.tagfunc=nil -- don't overwrite ctags mappings/functions with LSP
 end
@@ -47,12 +51,20 @@ local function get_lsp_settings(lsp_server)
   return {}
 end
 
+local function get_lsp_filetypes(lsp)
+  if lsp == 'verible' then
+    return { 'verilog_systemverilog', 'verilog', 'systemverilog' }
+  else
+    return nil
+  end
+end
+
 for _, lsp in ipairs(_G.lsp_servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = get_lsp_settings(lsp),
-    filetypes = lsp == 'verible' and { 'verilog_systemverilog' } or nil,
+    filetypes = get_lsp_filetypes(lsp),
   }
 end
 
