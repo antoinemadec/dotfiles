@@ -15,6 +15,13 @@ function M.stl_is_enabled()
   return vim.g['tagbar_stl_' .. vim.bo.filetype] ~= nil
 end
 
+function M.toggle()
+  local ok, is_open = pcall(vim.fn['tagbar#IsOpen'])
+  vim.t.tagbar_is_open = ok and is_open == 1
+  vim.cmd("TagbarToggle")
+  vim.t.tagbar_is_open = not vim.t.tagbar_is_open
+end
+
 local function tagbar_update()
   -- statusline
   if (not M.stl_is_enabled()) or _G.is_large_file() then
@@ -25,13 +32,8 @@ local function tagbar_update()
     vim.b.stl_current_tag =  tag_type .. tag_name
   end
   -- side bar
-  local ok, is_open = pcall(vim.fn['tagbar#IsOpen'])
-  if ok and is_open == 1 then
-    if not _G.is_large_file() then
-      vim.fn['tagbar#Update']()
-    else
-      vim.fn['tagbar#CloseWindow']()
-    end
+  if vim.t.tagbar_is_open and not _G.is_large_file() then
+    vim.fn['tagbar#Update']()
   end
   -- lualine bug with CursorHold, see:
   -- https://github.com/nvim-lualine/lualine.nvim/issues/886

@@ -1,3 +1,5 @@
+local tagbar = require('avim.config.tagbar')
+
 -- functions
 local default_opts = { noremap = true, silent = true }
 local map_opts = { noremap = false, silent = true }
@@ -35,7 +37,7 @@ local function navigation_bar()
   elseif vim.bo.filetype == 'help' or vim.t.help_toc_win then
     _G.WUtils.toggle_side_bar("toc_win", function () vim.cmd("normal gO") end)
   else
-    vim.cmd("TagbarToggle")
+    tagbar.toggle()
   end
 end
 
