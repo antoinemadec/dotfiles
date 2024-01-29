@@ -40,6 +40,15 @@ local function tagbar_update()
   vim.cmd('redrawstatus')
 end
 
+local function tagbar_autoclose()
+  -- automatically close tagbar if it's the only window
+  if vim.t.tagbar_is_open then
+    if vim.fn['winnr']('$') == 1 then
+      vim.cmd("q")
+    end
+  end
+end
+
 vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
   pattern = "*",
   callback = tagbar_update,
@@ -48,6 +57,11 @@ vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
 vim.api.nvim_create_autocmd("BufLeave", {
   pattern = "*",
   callback = function() pcall(vim.fn['tagbar#StopAutoUpdate']) end,
+})
+
+vim.api.nvim_create_autocmd("WinEnter", {
+  pattern = "__Tagbar__*",
+  callback = tagbar_autoclose,
 })
 
 return M
