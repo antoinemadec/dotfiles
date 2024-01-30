@@ -47,6 +47,16 @@ local function get_lsp_settings(lsp_server)
         telemetry = { enable = false, },
       },
     }
+  elseif lsp_server == "pyright" then
+    return {
+      python = {
+        analysis = {
+          autoSearchPaths = false,
+          useLibraryCodeForTypes = false,
+          diagnosticMode = 'openFilesOnly',
+        },
+      },
+    }
   end
   return {}
 end
