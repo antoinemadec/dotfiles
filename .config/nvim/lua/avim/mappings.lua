@@ -159,6 +159,8 @@ remap('n', '\\t', ':RunAndTimeCurrentBuffer<cr>', default_opts)
 remap('v', '<LeftRelease>', '"*ygv', default_opts) -- copy/paste with mouse select
 remap('x', 'ga', '<Plug>(EasyAlign)', plug_opts)
 remap('n', 'ga', '<Plug>(EasyAlign)', plug_opts)
+remap('x', 'gm', ':<C-U>lua _G.TUtils.indentation_to_bullets("\'<", "\'>")<CR>', plug_opts)
+remap('n', 'gm', ':<C-U>set opfunc=v:lua.TUtils.indentation_to_bullets_opfunc<CR>g@', plug_opts)
 remap('n', '<C-S-Up>', '<Plug>(VM-Add-Cursor-Up)', plug_opts)
 remap('n', '<C-S-Down>', '<Plug>(VM-Add-Cursor-Down)', plug_opts)
 remap('n', 'dO', ':1,$+1diffget<cr>:diffupdate<cr>', default_opts)

@@ -49,6 +49,38 @@ function _G.is_large_file()
   return vim.api.nvim_buf_line_count(vim.api.nvim_get_current_buf()) > vim.g.large_file_cutoff
 end
 
+
+---------------------------------------------------------------
+-- text
+---------------------------------------------------------------
+_G.TUtils = {}
+
+-- replace indentation spaces with markdown bullets
+function _G.TUtils.indentation_to_bullets(left_mark, right_mark)
+  local line_start = vim.fn.getpos(left_mark)[2]
+  local line_end = vim.fn.getpos(right_mark)[2]
+
+  local lines = vim.fn.getline(line_start, line_end)
+
+  for i, line in ipairs(lines) do
+    local space_count = 0
+    for c in line:gmatch('.') do
+      if c ~= " " then
+        break
+      end
+      space_count = space_count + 1
+      local indent_level = space_count / vim.bo.shiftwidth
+      lines[i] = string.rep(" ", indent_level*2) .. "*" .. line:sub(space_count)
+    end
+  end
+
+  vim.fn.setline(line_start, lines)
+end
+
+function _G.TUtils.indentation_to_bullets_opfunc(type)
+  _G.TUtils.indentation_to_bullets("'[", "']")
+end
+
 ---------------------------------------------------------------
 -- window
 ---------------------------------------------------------------
