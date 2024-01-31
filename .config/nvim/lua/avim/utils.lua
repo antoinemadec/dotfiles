@@ -26,17 +26,17 @@ function _G.string.split(inputstr, sep)
 end
 
 function _G.table.shallowcopy(orig)
-    local orig_type = type(orig)
-    local copy
-    if orig_type == 'table' then
-        copy = {}
-        for orig_key, orig_value in pairs(orig) do
-            copy[orig_key] = orig_value
-        end
-    else -- number, string, boolean, etc
-        copy = orig
+  local orig_type = type(orig)
+  local copy
+  if orig_type == 'table' then
+    copy = {}
+    for orig_key, orig_value in pairs(orig) do
+      copy[orig_key] = orig_value
     end
-    return copy
+  else   -- number, string, boolean, etc
+    copy = orig
+  end
+  return copy
 end
 
 local clock = os.clock
@@ -48,7 +48,6 @@ end
 function _G.is_large_file()
   return vim.api.nvim_buf_line_count(vim.api.nvim_get_current_buf()) > vim.g.large_file_cutoff
 end
-
 
 ---------------------------------------------------------------
 -- text
@@ -70,7 +69,7 @@ function _G.TUtils.indentation_to_bullets(left_mark, right_mark)
       end
       space_count = space_count + 1
       local indent_level = space_count / vim.bo.shiftwidth
-      lines[i] = string.rep(" ", indent_level*2) .. "*" .. line:sub(space_count)
+      lines[i] = string.rep(" ", indent_level * 2) .. "*" .. line:sub(space_count)
     end
   end
 
@@ -88,17 +87,17 @@ _G.WUtils = {}
 
 function _G.WUtils.save_win_opts(win)
   local win_opts = {}
-  for opt, dict in pairs(a.nvim_get_all_options_info()) do
+  for opt_name, dict in pairs(a.nvim_get_all_options_info()) do
     if dict['scope'] == 'win' then
-      win_opts[opt] = a.nvim_win_get_option(win, opt)
+      win_opts[opt_name] = a.nvim_get_option_value(opt_name, { win = win })
     end
   end
   return win_opts
 end
 
 function _G.WUtils.restore_win_opts(win, win_opts)
-  for opt, val in pairs(win_opts) do
-    pcall(a.nvim_win_set_option, win, opt, val)
+  for opt_name, val in pairs(win_opts) do
+    pcall(a.nvim_set_option_value, opt_name, val, { win = win })
   end
 end
 
@@ -189,8 +188,8 @@ function _G.WUtils.quad_win_cycle()
       a.nvim_set_current_win(win_handle)
       vim.cmd("wincmd J")
     end
-    for _, i in ipairs({1,3}) do
-      a.nvim_set_current_win(windows[i+1])
+    for _, i in ipairs({ 1, 3 }) do
+      a.nvim_set_current_win(windows[i + 1])
       vim.cmd("vsplit")
       _G.WUtils.move_win(windows[i], 0)
       if windows[i] == cur_win then

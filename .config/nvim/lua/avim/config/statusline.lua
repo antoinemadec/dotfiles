@@ -115,7 +115,7 @@ function Tabline()
     local modified = false
     for _, win_handle in ipairs(wins) do
       local buf = a.nvim_win_get_buf(win_handle)
-      if a.nvim_buf_get_option(buf, 'modified') then
+      if a.nvim_get_option_value('modified', { buf = buf }) then
         modified = true
       end
     end
