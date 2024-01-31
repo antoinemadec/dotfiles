@@ -3,6 +3,27 @@ local luasnip = require 'luasnip'
 require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.filetype_extend("verilog_systemverilog", { "systemverilog" })
 
+-- AI
+-- local cmp_ai = require('cmp_ai.config')
+--
+-- cmp_ai:setup({
+--   max_lines = 100,
+--   provider = 'Ollama',
+--   provider_options = {
+--     model = 'mistral_dev',
+--   },
+--   notify = true,
+--   notify_callback = function(msg)
+--     vim.notify(msg)
+--   end,
+--   run_on_every_keystroke = true,
+--   ignored_file_types = {
+--     -- default is not to ignore
+--     -- uncomment to ignore in lua:
+--     -- lua = true
+--   },
+-- })
+
 -- nvim-cmp
 local cmp = require 'cmp'
 local cmp_kinds = {
@@ -102,6 +123,7 @@ cmp.setup {
     end,
   },
   sources = {
+    -- { name = 'comp_ai'},
     { name = 'nvim_lsp_signature_help' },
     { name = 'luasnip' },
     { name = 'nvim_lsp' },
