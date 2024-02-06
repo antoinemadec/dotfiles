@@ -68,9 +68,9 @@ function _G.TUtils.indentation_to_bullets(left_mark, right_mark)
         break
       end
       space_count = space_count + 1
-      local indent_level = space_count / vim.bo.shiftwidth
-      lines[i] = string.rep(" ", indent_level * 2) .. "*" .. line:sub(space_count)
     end
+    local indent_level = space_count / vim.bo.shiftwidth
+    lines[i] = string.rep(" ", indent_level * 2) .. "* " .. line:sub(space_count+1)
   end
 
   vim.fn.setline(line_start, lines)
