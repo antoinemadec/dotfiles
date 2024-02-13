@@ -69,12 +69,23 @@ local function get_lsp_filetypes(lsp)
   end
 end
 
+local function get_lsp_cmd(lsp_server)
+  if lsp_server == "clangd" then
+    return {
+      "clangd",
+      "--offset-encoding=utf-16",
+    }
+  end
+  return nil
+end
+
 for _, lsp in ipairs(_G.lsp_servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = get_lsp_settings(lsp),
     filetypes = get_lsp_filetypes(lsp),
+    cmd = get_lsp_cmd(lsp),
   }
 end
 
