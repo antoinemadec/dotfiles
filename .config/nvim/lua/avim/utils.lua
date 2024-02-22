@@ -162,6 +162,19 @@ function _G.WUtils.move_win_to_tab(dest)
   _G.WUtils.move_win(src_win, 0)
 end
 
+-- get non floating/relative windows
+function _G.WUtils.get_normal_windows()
+  local normal_windows = {}
+  for _, window in ipairs(a.nvim_tabpage_list_wins(0)) do
+    local config = a.nvim_win_get_config(window)
+    if config.relative == "" then
+      table.insert(normal_windows, window)
+    end
+  end
+  return normal_windows
+end
+
+
 -- cycle 4 windows
 --    a(1) | b(2) | c(3) | d(4)
 -- into
@@ -171,7 +184,7 @@ end
 --    a(1) | c(2)
 --    b(3) | d(4)
 function _G.WUtils.quad_win_cycle()
-  local windows = a.nvim_tabpage_list_wins(0)
+  local windows = _G.WUtils.get_normal_windows()
   if #windows ~= 4 then
     vim.notify("windows number is different from 4")
     return
@@ -203,7 +216,7 @@ function _G.WUtils.quad_win_cycle()
   end
 
   if vim.t.quad_win_cycle_idx == 2 then
-    windows = a.nvim_tabpage_list_wins(0)
+    windows = _G.WUtils.get_normal_windows()
     for _, win_handle in ipairs(windows) do
       a.nvim_set_current_win(win_handle)
       vim.cmd("wincmd L")
