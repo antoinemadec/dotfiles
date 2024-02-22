@@ -22,15 +22,18 @@ local function term_split(cmd)
 end
 
 local function ui_cycle_number()
-  if vim.o.relativenumber then
-    vim.o.number = true
-    vim.o.relativenumber = false
-  elseif vim.o.number then
-    vim.o.number = false
-    vim.o.relativenumber = false
-  else
-    vim.o.number = true
-    vim.o.relativenumber = true
+  for _, win_handle in ipairs(_G.WUtils.get_normal_windows()) do
+    local win_opt = vim.wo[win_handle]
+    if win_opt.relativenumber then
+      win_opt.number = true
+      win_opt.relativenumber = false
+    elseif win_opt.number then
+      win_opt.number = false
+      win_opt.relativenumber = false
+    else
+      win_opt.number = true
+      win_opt.relativenumber = true
+    end
   end
 end
 
