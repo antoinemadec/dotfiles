@@ -49,6 +49,16 @@ function _G.is_large_file()
   return vim.api.nvim_buf_line_count(vim.api.nvim_get_current_buf()) > vim.g.large_file_cutoff
 end
 
+function _G.dim_color(color, dimming_pct)
+  local b = bit.band(color, 255)
+  local g = bit.band(bit.rshift(color, 8), 255)
+  local r = bit.band(bit.rshift(color, 16), 255)
+  local b_dim = math.floor((b * dimming_pct) / 100);
+  local g_dim = math.floor((g * dimming_pct) / 100);
+  local r_dim = math.floor((r * dimming_pct) / 100);
+  return bit.lshift(r_dim, 16) + bit.lshift(g_dim, 8) + b_dim
+end
+
 ---------------------------------------------------------------
 -- text
 ---------------------------------------------------------------

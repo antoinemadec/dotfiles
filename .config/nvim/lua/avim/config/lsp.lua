@@ -1,3 +1,5 @@
+local a = vim.api
+
 _G.lsp_servers = {
   'bashls',
   'clangd',
@@ -22,14 +24,14 @@ local function on_attach(client, _)
     return
   end
   lsp_status.on_attach(client)
-  vim.bo.tagfunc=nil -- don't overwrite ctags mappings/functions with LSP
+  vim.bo.tagfunc = nil -- don't overwrite ctags mappings/functions with LSP
 end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local function get_lsp_settings(lsp_server)
   if lsp_server == "lua_ls" then
-    local nvim_runtime_dirs = vim.api.nvim_get_runtime_file("", true)
+    local nvim_runtime_dirs = a.nvim_get_runtime_file("", true)
     -- remove .configs path to avoid duplicate with dotfiles/.config
     local i = 1
     while (i <= #nvim_runtime_dirs) do
@@ -90,11 +92,21 @@ for _, lsp in ipairs(_G.lsp_servers) do
 end
 
 -- diagnostics
-local signs = { Error = ">>", Warn = ">>", Hint = ">>", Info = ">>" }
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
+vim.diagnostic.config({ severity_sort = true })
+
+a.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    local signs = { Error = ">>", Warn = ">>", Hint = ">>", Info = ">>" }
+    for type, icon in pairs(signs) do
+      local hl = "DiagnosticSign" .. type
+      local vhl = "DiagnosticVirtualText" .. type
+      local vhl_table = a.nvim_get_hl(0, { name = hl, link = false })
+      vhl_table.fg = _G.dim_color(vhl_table.fg, 80)
+      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+      a.nvim_set_hl(0, vhl, vhl_table)
+    end
+  end
+})
 
 local lsp_virtual_text = true
 function _G.ToggleLspVirtualText()
@@ -106,6 +118,6 @@ ToggleLspVirtualText()
 
 -- lualine flicker bug, see:
 -- https://github.com/nvim-lualine/lualine.nvim/issues/886
-vim.api.nvim_create_autocmd('LspAttach', {
+a.nvim_create_autocmd('LspAttach', {
   command = 'redrawstatus',
 })
