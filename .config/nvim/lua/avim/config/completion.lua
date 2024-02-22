@@ -48,10 +48,10 @@ local cmp_kinds = {
 }
 local function remap_cmp_snip_next()
   return cmp.mapping(function(fallback)
-    if cmp.visible() then
-      cmp.select_next_item()
-    elseif luasnip.expand_or_jumpable() then
+    if luasnip.expand_or_jumpable() then
       luasnip.expand_or_jump()
+    elseif cmp.visible() then
+      cmp.select_next_item()
     else
       fallback()
     end
@@ -59,10 +59,10 @@ local function remap_cmp_snip_next()
 end
 local function remap_cmp_snip_prev()
   return cmp.mapping(function(fallback)
-    if cmp.visible() then
-      cmp.select_prev_item()
-    elseif luasnip.expand_or_jumpable(-1) then
+    if luasnip.expand_or_jumpable(-1) then
       luasnip.expand_or_jump(-1)
+    elseif cmp.visible() then
+      cmp.select_prev_item()
     else
       fallback()
     end
@@ -86,8 +86,8 @@ cmp.setup {
     ['<C-j>'] = remap_cmp_snip_next(),
     ['<C-k>'] = remap_cmp_snip_prev(),
     ['<C-l>'] = cmp.mapping.close(),
-    ['<Tab>'] = remap_cmp_snip_next(),
-    ['<S-Tab>'] = remap_cmp_snip_prev(),
+    ['<Tab>'] = cmp.mapping.select_next_item(),
+    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
   }),
   formatting = {
     format = function(entry, vim_item)
