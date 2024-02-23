@@ -1,10 +1,7 @@
 -- appearance
 vim.g.hg0 = 13
 vim.g.hg1 = 17
-vim.g.gruvbox_material_background = 'soft'
-vim.g.gruvbox_material_better_performance = 1
-vim.g.gruvbox_material_palette = 'mix'
-vim.cmd("colorscheme gruvbox-material")
+vim.opt.termguicolors  = true
 
 vim.opt.expandtab      = true  -- tab expand to space
 vim.opt.tabstop        = 2     -- number of spaces that a <Tab> in the file counts for

@@ -14,3 +14,10 @@ a.nvim_create_autocmd('VimEnter', {
     })
   end
 })
+
+vim.g.gruvbox_material_background = 'soft'
+vim.g.gruvbox_material_better_performance = 1
+vim.g.gruvbox_material_palette = 'mix'
+vim.g.gruvbox_material_show_eob = 0
+
+vim.cmd("colorscheme gruvbox-material")

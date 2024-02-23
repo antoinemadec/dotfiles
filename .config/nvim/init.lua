@@ -1,7 +1,3 @@
-if tonumber(os.getenv("TERM_COLORS")) >= 256 then
-  vim.o.termguicolors = true
-end
-
 -- disable some plugins/options when file is too big
 vim.g.large_file_cutoff = 10000
 
