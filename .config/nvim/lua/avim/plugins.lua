@@ -184,6 +184,10 @@ require("lazy").setup({
   'MTDL9/vim-log-highlighting', -- syntax for log files
 
   -- movement
+  { -- move windows around
+    'antoinemadec/window-movement.nvim',
+    lazy = true,
+  },
   { -- jump to any location specified by two characters
     'folke/flash.nvim',
     event = "VeryLazy",

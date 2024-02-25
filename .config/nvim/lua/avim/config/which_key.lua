@@ -22,7 +22,7 @@ local function term_split(cmd)
 end
 
 local function ui_cycle_number()
-  for _, win_handle in ipairs(_G.WUtils.get_normal_windows()) do
+  for _, win_handle in ipairs(require('window-movement').get_normal_windows()) do
     local win_opt = vim.wo[win_handle]
     if win_opt.relativenumber then
       win_opt.number = true

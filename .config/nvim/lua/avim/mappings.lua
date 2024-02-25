@@ -1,5 +1,3 @@
-local tagbar = require('avim.config.tagbar')
-
 -- functions
 local default_opts = { noremap = true, silent = true }
 local map_opts = { noremap = false, silent = true }
@@ -33,11 +31,11 @@ end
 
 local function navigation_bar()
   if vim.bo.filetype == 'man' or vim.t.man_toc_win then
-    _G.WUtils.toggle_side_bar("toc_win", function () require'man'.show_toc() end)
+    require('window-movement').toggle_side_bar("toc_win", function () require'man'.show_toc() end)
   elseif vim.bo.filetype == 'help' or vim.t.help_toc_win then
-    _G.WUtils.toggle_side_bar("toc_win", function () vim.cmd("normal gO") end)
+    require('window-movement').toggle_side_bar("toc_win", function () vim.cmd("normal gO") end)
   else
-    tagbar.toggle()
+    require('avim.config.tagbar').toggle()
   end
 end
 
@@ -106,16 +104,16 @@ for _, mode in pairs({ 'n', 'i', 't' }) do
   remap_arrow_hjkl(mode, '<A-Down>', esc_chars .. '<C-w>j', default_opts)
   remap_arrow_hjkl(mode, '<A-Up>', esc_chars .. '<C-w>k', default_opts)
   remap_arrow_hjkl(mode, '<A-Right>', esc_chars .. '<C-w>l', default_opts)
-  remap_arrow_hjkl(mode, '<A-S-Left>', function() _G.WUtils.move_win_to_direction("left") end, default_opts)
-  remap_arrow_hjkl(mode, '<A-S-Down>', function() _G.WUtils.move_win_to_direction("down") end, default_opts)
-  remap_arrow_hjkl(mode, '<A-S-Up>', function() _G.WUtils.move_win_to_direction("up") end, default_opts)
-  remap_arrow_hjkl(mode, '<A-S-Right>', function() _G.WUtils.move_win_to_direction("right") end, default_opts)
-  remap_arrow_hjkl(mode, '<A-q>', function () _G.WUtils.quad_win_cycle() end, default_opts)
+  remap_arrow_hjkl(mode, '<A-S-Left>', function() require('window-movement').move_win_to_direction("left") end, default_opts)
+  remap_arrow_hjkl(mode, '<A-S-Down>', function() require('window-movement').move_win_to_direction("down") end, default_opts)
+  remap_arrow_hjkl(mode, '<A-S-Up>', function() require('window-movement').move_win_to_direction("up") end, default_opts)
+  remap_arrow_hjkl(mode, '<A-S-Right>', function() require('window-movement').move_win_to_direction("right") end, default_opts)
+  remap_arrow_hjkl(mode, '<A-q>', function () require('window-movement').quad_win_cycle() end, default_opts)
   -- tab movement
   remap_arrow_hjkl(mode, '<C-A-Left>', esc_chars .. 'gT', default_opts)
   remap_arrow_hjkl(mode, '<C-A-Right>', esc_chars .. 'gt', default_opts)
-  remap_arrow_hjkl(mode, '<C-A-S-Left>', function() _G.WUtils.move_win_to_tab("prev") end, default_opts)
-  remap_arrow_hjkl(mode, '<C-A-S-Right>', function() _G.WUtils.move_win_to_tab("next") end, default_opts)
+  remap_arrow_hjkl(mode, '<C-A-S-Left>', function() require('window-movement').move_win_to_tab("prev") end, default_opts)
+  remap_arrow_hjkl(mode, '<C-A-S-Right>', function() require('window-movement').move_win_to_tab("next") end, default_opts)
 end
 remap_arrow_hjkl('n', '<C-Down>', '<C-e>', default_opts)
 remap_arrow_hjkl('n', '<C-Up>', '<C-y>', default_opts)
