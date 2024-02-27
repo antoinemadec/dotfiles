@@ -48,8 +48,8 @@ local cmp_kinds = {
 }
 local function remap_cmp_snip_next()
   return cmp.mapping(function(fallback)
-    if luasnip.expand_or_jumpable() then
-      luasnip.expand_or_jump()
+    if luasnip.locally_jumpable(1) then
+      luasnip.jump(1)
     elseif cmp.visible() then
       cmp.select_next_item()
     else
@@ -59,8 +59,8 @@ local function remap_cmp_snip_next()
 end
 local function remap_cmp_snip_prev()
   return cmp.mapping(function(fallback)
-    if luasnip.expand_or_jumpable(-1) then
-      luasnip.expand_or_jump(-1)
+    if luasnip.locally_jumpable(-1) then
+      luasnip.jump(-1)
     elseif cmp.visible() then
       cmp.select_prev_item()
     else
