@@ -5,47 +5,7 @@ luasnip.filetype_extend("verilog_systemverilog", { "systemverilog" })
 
 -- nvim-cmp
 local cmp = require 'cmp'
-local cmp_kinds = {
-  Array         = " ",
-  Boolean       = "󰨙 ",
-  Class         = " ",
-  Codeium       = "󰘦 ",
-  Color         = " ",
-  Control       = " ",
-  Collapsed     = " ",
-  Constant      = "󰏿 ",
-  Constructor   = " ",
-  Copilot       = " ",
-  Enum          = " ",
-  EnumMember    = " ",
-  Event         = " ",
-  Field         = " ",
-  File          = " ",
-  Folder        = " ",
-  Function      = "󰊕 ",
-  Interface     = " ",
-  Key           = " ",
-  Keyword       = " ",
-  Method        = "󰊕 ",
-  Module        = " ",
-  Namespace     = "󰦮 ",
-  Null          = " ",
-  Number        = "󰎠 ",
-  Object        = " ",
-  Operator      = " ",
-  Package       = " ",
-  Property      = " ",
-  Reference     = " ",
-  Snippet       = " ",
-  String        = " ",
-  Struct        = "󰆼 ",
-  TabNine       = "󰏚 ",
-  Text          = " ",
-  TypeParameter = " ",
-  Unit          = " ",
-  Value         = " ",
-  Variable      = "󰀫 ",
-}
+local kind_labels = _G.LUtils.kind_labels
 local function remap_cmp_snip_next()
   return cmp.mapping(function(fallback)
     if luasnip.locally_jumpable(1) then
@@ -91,7 +51,7 @@ cmp.setup {
   }),
   formatting = {
     format = function(entry, vim_item)
-      vim_item.kind = (cmp_kinds[vim_item.kind] or vim_item.kind) .. string.lower(string.sub(vim_item.kind, 1, 3))
+      vim_item.kind = _G.LUtils.get_kind_labels(vim_item.kind) .. string.lower(string.sub(vim_item.kind, 1, 3))
       vim_item.menu = ({
         luasnip = "snip",
         nvim_lsp = "lsp",

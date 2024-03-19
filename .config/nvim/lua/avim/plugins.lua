@@ -48,7 +48,7 @@ require("lazy").setup({
   { -- status line
     'nvim-lualine/lualine.nvim',
     event = "VeryLazy",
-    dependencies = { 'kyazdani42/nvim-web-devicons', 'nvim-lua/lsp-status.nvim' },
+    dependencies = { 'kyazdani42/nvim-web-devicons' },
     cond = not vim.g.man_mode,
     config = function() require('avim.config.statusline') end
   },
@@ -80,6 +80,9 @@ require("lazy").setup({
   -- IDE
   { -- lsp
     "neovim/nvim-lspconfig", -- configs for nvim lsp client
+    dependencies = {
+      "j-hui/fidget.nvim", -- lsp progress
+    },
     config = function() require('avim.config.lsp') end
   },
   { -- completion
@@ -100,9 +103,8 @@ require("lazy").setup({
     'williamboman/mason.nvim',
     event = "VeryLazy",
     dependencies = {
-      "williamboman/mason-lspconfig.nvim",   -- bridges gaps between mason and nvim-lspconfig
-      "neovim/nvim-lspconfig",               -- configs for nvim lsp client
-      'nvim-lua/lsp-status.nvim',            -- lsp statusline
+      "williamboman/mason-lspconfig.nvim", -- bridges gaps between mason and nvim-lspconfig
+      "neovim/nvim-lspconfig",             -- configs for nvim lsp client
     },
     config = function() require('avim.config.mason') end
   },

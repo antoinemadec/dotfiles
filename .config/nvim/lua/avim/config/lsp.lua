@@ -16,15 +16,21 @@ vim.env.PATH = mason_bin_path .. ":" .. vim.env.PATH
 
 -- lspconfig
 local lspconfig = require('lspconfig')
-local lsp_status = require('lsp-status')
 
 local function on_attach(client, _)
   if _G.is_large_file() then
     vim.lsp.get_client_by_id(client.id).stop(true)
     return
   end
-  lsp_status.on_attach(client)
   vim.bo.tagfunc = nil -- don't overwrite ctags mappings/functions with LSP
+  if client.server_capabilities.documentSymbolProvider then
+    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+      buffer = 0,
+      callback = _G.LUtils.update_current_function,
+    })
+  else
+    vim.b.lsp_current_function = ''
+  end
 end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -115,6 +121,15 @@ function _G.ToggleLspVirtualText()
 end
 
 ToggleLspVirtualText()
+
+-- lsp progress
+require("fidget").setup {
+  notification = {
+    window = {
+      x_padding = 0,              -- Padding from right edge of window boundary
+    },
+  },
+}
 
 -- lualine flicker bug, see:
 -- https://github.com/nvim-lualine/lualine.nvim/issues/886
