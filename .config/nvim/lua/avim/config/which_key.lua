@@ -80,6 +80,7 @@ wk.register(
     [';'] = {'<cmd>Telescope commands<cr>',                  'commands'},
     ['y'] = {'<cmd>Telescope neoclip<cr>',                   'clipboard manager'},
     ['h'] = {'<cmd>Telescope help_tags<cr>',                 'vim help'},
+    ['m'] = {'<cmd>MarkdownPreviewToggle<cr>',               'markdown preview'},
     -- nvim UI
     ['u'] = {
       name = 'change UI',

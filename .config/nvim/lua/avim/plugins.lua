@@ -244,4 +244,10 @@ require("lazy").setup({
     event = "VeryLazy",
     config = function() require('colorizer').setup() end
   },
+  { -- mardown preview
+    'iamcco/markdown-preview.nvim',
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
+  }
 }, lazy_opts)
