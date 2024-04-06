@@ -224,11 +224,6 @@ require("lazy").setup({
     event = "VeryLazy",
     config = function() require('avim.config.asyncrun') end
   },
-  { -- comment stuff out
-    'numToStr/Comment.nvim',
-    event = "VeryLazy",
-    config = function() require('avim.config.comment') end
-  },
   'tpope/vim-repeat', -- remaps '.' in a way that plugins can tap into it
   { -- delete, change and add surroundings in pairs
     'tpope/vim-surround',
