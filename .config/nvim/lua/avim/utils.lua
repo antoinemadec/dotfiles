@@ -275,3 +275,11 @@ function _G.LUtils.update_current_function()
   local params = { textDocument = { uri = vim.uri_from_bufnr(0) } }
   vim.lsp.buf_request(0, 'textDocument/documentSymbol', params, current_function_callback)
 end
+
+function _G.LUtils.format()
+  if vim.o.filetype == "python" then
+    vim.cmd("%!black --line-length 100 -")
+  else
+    vim.lsp.buf.format({ async = true })
+  end
+end
