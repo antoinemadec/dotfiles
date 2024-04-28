@@ -126,7 +126,7 @@ ToggleLspVirtualText()
 require("fidget").setup {
   notification = {
     window = {
-      x_padding = 0,              -- Padding from right edge of window boundary
+      x_padding = 0, -- Padding from right edge of window boundary
     },
   },
 }

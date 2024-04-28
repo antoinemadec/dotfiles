@@ -4,6 +4,10 @@ require("ibl").setup {
     buftypes = {'help', 'terminal'},
     filetypes = {'startify', 'which_key', 'packer', 'mason'},
   },
+  scope = {
+    show_start = false,
+    show_end = false,
+  }
 }
 
 local hooks = require "ibl.hooks"
