@@ -5,7 +5,6 @@ luasnip.filetype_extend("verilog_systemverilog", { "systemverilog" })
 
 -- nvim-cmp
 local cmp = require 'cmp'
-local kind_labels = _G.LUtils.kind_labels
 local function remap_cmp_snip_next()
   return cmp.mapping(function(fallback)
     if luasnip.locally_jumpable(1) then
@@ -29,6 +28,21 @@ local function remap_cmp_snip_prev()
   end, { 'i', 's' })
 end
 
+local cmp_confirm = cmp.mapping.confirm({
+  behavior = cmp.ConfirmBehavior.Replace,
+  select = false,
+})
+
+-- don't confirm for signature help to allow new line without selecting argument name
+local confirm = cmp.sync(function(fallback)
+  local e = cmp.core.view:get_selected_entry()
+  if e and e.source.name == "nvim_lsp_signature_help" then
+    fallback()
+  else
+    cmp_confirm(fallback)
+  end
+end)
+
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -39,10 +53,7 @@ cmp.setup {
     ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
     ['<C-d>'] = cmp.mapping.scroll_docs(4),  -- Down
     ['<C-Space>'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = false,
-    },
+    ['<CR>'] = confirm,
     ['<C-j>'] = remap_cmp_snip_next(),
     ['<C-k>'] = remap_cmp_snip_prev(),
     ['<C-l>'] = cmp.mapping.close(),
