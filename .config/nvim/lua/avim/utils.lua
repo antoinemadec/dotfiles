@@ -33,7 +33,7 @@ function _G.table.shallowcopy(orig)
     for orig_key, orig_value in pairs(orig) do
       copy[orig_key] = orig_value
     end
-  else   -- number, string, boolean, etc
+  else -- number, string, boolean, etc
     copy = orig
   end
   return copy
@@ -80,7 +80,7 @@ function _G.TUtils.indentation_to_bullets(left_mark, right_mark)
       space_count = space_count + 1
     end
     local indent_level = space_count / vim.bo.shiftwidth
-    lines[i] = string.rep(" ", indent_level * 2) .. "* " .. line:sub(space_count+1)
+    lines[i] = string.rep(" ", indent_level * 2) .. "* " .. line:sub(space_count + 1)
   end
 
   vim.fn.setline(line_start, lines)
@@ -278,7 +278,7 @@ end
 
 function _G.LUtils.format()
   if vim.o.filetype == "python" then
-    vim.cmd("%!black --line-length 100 -")
+    vim.cmd("!black --line-length 100 %")
   else
     vim.lsp.buf.format({ async = true })
   end
