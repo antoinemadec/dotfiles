@@ -94,7 +94,6 @@ require("lazy").setup({
         build = 'make',
       },
       'antoinemadec/telescope-git-browse.nvim',
-      'AckslD/nvim-neoclip.lua',
     },
     config = function() require('avim.config.telescope') end
   },
