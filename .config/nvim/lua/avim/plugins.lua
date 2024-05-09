@@ -59,7 +59,7 @@ require("lazy").setup({
   },
   { -- completion
     "hrsh7th/nvim-cmp",
-    event = "VeryLazy",
+    event = "InsertEnter",
     dependencies = {
       "antoinemadec/cmp-nvim-lsp-signature-help", -- display function signature
       'hrsh7th/cmp-buffer',                       -- buffer source for nvim-cmp
