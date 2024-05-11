@@ -29,7 +29,9 @@ require("lazy").setup({
     main = "ibl",
     config = function() require('avim.config.indent_blankline') end
   },
-  'antoinemadec/vim-indentcolor-filetype', -- make notes more readable
+  { -- make notes more readable
+    'antoinemadec/vim-indentcolor-filetype',
+  },
   { -- start screen for vim
     'mhinz/vim-startify',
     config = function() require('avim.config.vim-startify') end
@@ -51,7 +53,7 @@ require("lazy").setup({
 
   -- IDE
   { -- lsp
-    "neovim/nvim-lspconfig", -- configs for nvim lsp client
+    "neovim/nvim-lspconfig",
     dependencies = {
       "j-hui/fidget.nvim", -- lsp progress
     },
@@ -184,7 +186,9 @@ require("lazy").setup({
     keys = { "<space>" },
     config = function() require('avim.config.which_key') end
   },
-  'antoinemadec/vim-highlight-groups', -- add words in highlight groups on the fly
+  { -- add words in highlight groups on the fly
+    'antoinemadec/vim-highlight-groups',
+  },
   { -- file explorer
     'stevearc/oil.nvim',
     config = function() require('avim.config.oil') end
@@ -194,7 +198,9 @@ require("lazy").setup({
     event = "VeryLazy",
     config = function() require('avim.config.asyncrun') end
   },
-  'tpope/vim-repeat', -- remaps '.' in a way that plugins can tap into it
+  { -- remaps '.' in a way that plugins can tap into it
+    'tpope/vim-repeat',
+  },
   { -- delete, change and add surroundings in pairs
     'tpope/vim-surround',
     event = "VeryLazy",
