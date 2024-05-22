@@ -98,17 +98,31 @@ for _, lsp in ipairs(_G.lsp_servers) do
 end
 
 -- diagnostics
-vim.diagnostic.config({ severity_sort = true })
+vim.diagnostic.config({
+  severity_sort = true,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '>>',
+      [vim.diagnostic.severity.WARN] = '>>',
+      [vim.diagnostic.severity.HINT] = '>>',
+      [vim.diagnostic.severity.INFO] = '>>',
+    },
+    numhl = {
+      [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
+      [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
+      [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
+      [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
+    },
+  },
+})
 
 a.nvim_create_autocmd('VimEnter', {
   callback = function()
-    local signs = { Error = ">>", Warn = ">>", Hint = ">>", Info = ">>" }
-    for type, icon in pairs(signs) do
+    for _, type in pairs({ 'Error', 'Warn', 'Hint', 'Info' }) do
       local hl = "DiagnosticSign" .. type
       local vhl = "DiagnosticVirtualText" .. type
       local vhl_table = a.nvim_get_hl(0, { name = hl, link = false })
       vhl_table.fg = _G.dim_color(vhl_table.fg, 80)
-      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
       a.nvim_set_hl(0, vhl, vhl_table)
     end
   end
