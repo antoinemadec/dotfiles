@@ -136,10 +136,6 @@ require("lazy").setup({
     config = function() require('avim.config.treesitter') end
   },
   {
-    'nvim-treesitter/playground',
-    cmd = { 'TSPlaygroundToggle', 'TSCaptureUnderCursor' }
-  },
-  {
     'nvim-treesitter/nvim-treesitter-context',
     event = "VeryLazy",
     config = function() require('avim.config.treesitter_context') end
@@ -198,11 +194,9 @@ require("lazy").setup({
     event = "VeryLazy",
     config = function() require('avim.config.asyncrun') end
   },
-  { -- remaps '.' in a way that plugins can tap into it
-    'tpope/vim-repeat',
-  },
   { -- delete, change and add surroundings in pairs
     'tpope/vim-surround',
+    dependencies = { 'tpope/vim-repeat' },
     event = "VeryLazy",
     config = function() require('avim.config.surround') end
   },

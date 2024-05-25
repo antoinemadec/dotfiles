@@ -118,12 +118,17 @@ vim.diagnostic.config({
 
 a.nvim_create_autocmd('VimEnter', {
   callback = function()
+    -- set diagnostic virtual text highlight
     for _, type in pairs({ 'Error', 'Warn', 'Hint', 'Info' }) do
       local hl = "DiagnosticSign" .. type
       local vhl = "DiagnosticVirtualText" .. type
       local vhl_table = a.nvim_get_hl(0, { name = hl, link = false })
       vhl_table.fg = _G.dim_color(vhl_table.fg, 80)
       a.nvim_set_hl(0, vhl, vhl_table)
+    end
+    -- hide all semantic highlights
+    for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
+      vim.api.nvim_set_hl(0, group, {})
     end
   end
 })

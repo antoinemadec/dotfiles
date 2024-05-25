@@ -42,4 +42,7 @@ require("oil").setup({
       { "name", "asc" },
     },
   },
+  preview = {
+    update_on_cursor_moved = false, -- avoid bug with fugitive
+  },
 })
