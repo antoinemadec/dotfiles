@@ -73,6 +73,10 @@ require("lazy").setup({
     },
     config = function() require('avim.config.completion') end
   },
+  { -- formatter
+    'stevearc/conform.nvim',
+    opts = { formatters_by_ft = { python = { "black" }, } },
+  },
   { -- package manager
     'williamboman/mason.nvim',
     event = "VeryLazy",

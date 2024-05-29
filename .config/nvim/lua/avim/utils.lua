@@ -277,10 +277,5 @@ function _G.LUtils.update_current_function()
 end
 
 function _G.LUtils.format()
-  if vim.o.filetype == "python" then
-    vim.cmd("w")
-    vim.cmd("!black --line-length 100 %")
-  else
-    vim.lsp.buf.format({ async = true })
-  end
+  require("conform").format({ lsp_fallback = true, async = true })
 end
