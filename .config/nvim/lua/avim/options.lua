@@ -1,6 +1,6 @@
 -- appearance
-vim.g.hg0 = 13
-vim.g.hg1 = 17
+vim.g.hg0              = 13
+vim.g.hg1              = 17
 vim.opt.termguicolors  = true
 
 vim.opt.expandtab      = true  -- tab expand to space
@@ -15,18 +15,22 @@ vim.opt.title          = true  -- change terminal title
 vim.opt.wrap           = false -- when on, lines longer than the width of the window will wrap
 
 -- other options
-vim.opt.updatetime     = 100                                                 -- delay for CursorHold
-vim.opt.cb             = 'unnamed,unnamedplus'                               -- use * and + registers for yank
-vim.opt.complete       = '.,w,b,u'                                           -- specifies how keyword completion works when CTRL-P or CTRL-N are used
+vim.opt.updatetime     = 100                   -- delay for CursorHold
+vim.opt.cb             = 'unnamed,unnamedplus' -- use * and + registers for yank
+vim.opt.complete       =
+'.,w,b,u'                                      -- specifies how keyword completion works when CTRL-P or CTRL-N are used
 vim.opt.completeopt    = vim.opt.completeopt + { 'menuone,longest' }
 vim.opt.foldenable     = false
 vim.opt.foldmethod     = 'indent'
 vim.opt.ignorecase     = true                                                -- ignore case in pattern by default...
 vim.opt.smartcase      = true                                                -- ... except if it features at least one uppercase character
-vim.opt.isfname        = vim.opt.isfname - { ',', '=' }                      -- don't try to match certain characters in filename
-vim.opt.mouse          = 'a'                                                 -- allow to resize and copy/paste without selecting text outside of the window
+vim.opt.isfname        = vim.opt.isfname -
+{ ',', '=' }                                                                 -- don't try to match certain characters in filename
+vim.opt.mouse          =
+'a'                                                                          -- allow to resize and copy/paste without selecting text outside of the window
 vim.opt.sessionoptions = vim.opt.sessionoptions + { 'localoptions,globals' } -- all options and mappings
-vim.opt.tags           = vim.opt.tags + { '../tags;' }                       -- get tags even if the current file is a symbolic/hard link
+vim.opt.tags           = vim.opt.tags +
+{ '../tags;' }                                                               -- get tags even if the current file is a symbolic/hard link
 vim.opt.timeoutlen     = 500                                                 -- time in milliseconds to wait for a mapped sequence to complete
 vim.opt.ttimeoutlen    = 50                                                  -- ms waited for a key code/sequence to complete. Allow faster insert to normal mode
 vim.opt.undofile       = true                                                -- when on, vim automatically saves undo history to an undo file
@@ -36,4 +40,25 @@ vim.opt.cmdheight      = 0                                                   -- 
 -- man_mode: no status line
 if vim.g.man_mode then
   vim.opt.laststatus = 0
+end
+
+-- always use localhost:0 for copy/paste, even when DISPLAY is set, this allows to both have:
+--   - DISPLAY set to VNC for instance
+--   - copy/paste accross different vim instances/hosts
+--
+-- primary: middle click buffer
+-- clipboard: ctrl+v buffer
+if os.getenv("SSH_CLIENT") then
+  vim.g.clipboard = {
+    name = 'myClipboard',
+    copy = {
+      ['+'] = { 'xclip', '-display', ':10', '-selection', 'primary', '-in' },
+      ['*'] = { 'xclip', '-display', ':10', '-selection', 'clipboard', '-in' },
+    },
+    paste = {
+      ['+'] = { 'xclip', '-display', ':10', '-selection', 'primary', '-out' },
+      ['*'] = { 'xclip', '-display', ':10', '-selection', 'clipboard', '-out' },
+    },
+    cache_enabled = 1,
+  }
 end
