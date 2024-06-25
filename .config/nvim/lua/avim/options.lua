@@ -42,22 +42,23 @@ if vim.g.man_mode then
   vim.opt.laststatus = 0
 end
 
--- always use localhost:0 for copy/paste, even when DISPLAY is set, this allows to both have:
+-- always use ssh X11 forwarding for copy/paste, even when DISPLAY is set, this allows to both have:
 --   - DISPLAY set to VNC for instance
 --   - copy/paste accross different vim instances/hosts
 --
 -- primary: middle click buffer
 -- clipboard: ctrl+v buffer
-if os.getenv("SSH_CLIENT") then
+local ssh_display = os.getenv("SSH_DISPLAY")
+if ssh_display ~= nil then
   vim.g.clipboard = {
     name = 'myClipboard',
     copy = {
-      ['+'] = { 'xclip', '-display', ':10', '-selection', 'primary', '-in' },
-      ['*'] = { 'xclip', '-display', ':10', '-selection', 'clipboard', '-in' },
+      ['+'] = { 'xclip', '-display', ssh_display, '-selection', 'primary', '-in' },
+      ['*'] = { 'xclip', '-display', ssh_display, '-selection', 'clipboard', '-in' },
     },
     paste = {
-      ['+'] = { 'xclip', '-display', ':10', '-selection', 'primary', '-out' },
-      ['*'] = { 'xclip', '-display', ':10', '-selection', 'clipboard', '-out' },
+      ['+'] = { 'xclip', '-display', ssh_display, '-selection', 'primary', '-out' },
+      ['*'] = { 'xclip', '-display', ssh_display, '-selection', 'clipboard', '-out' },
     },
     cache_enabled = 1,
   }
