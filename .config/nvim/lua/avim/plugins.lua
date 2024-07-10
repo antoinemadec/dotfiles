@@ -75,7 +75,14 @@ require("lazy").setup({
   },
   { -- formatter
     'stevearc/conform.nvim',
-    opts = { formatters_by_ft = { python = { "black" }, } },
+    opts = {
+      formatters_by_ft = {
+        python = { "black" },
+      },
+      formatters = {
+        black = { prepend_args = { "--line-length", "100" } },
+      },
+    },
   },
   { -- package manager
     'williamboman/mason.nvim',
