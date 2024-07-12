@@ -19,12 +19,15 @@ function _G.ToggleGstatus ()
     if gs_tab == a.nvim_get_current_tabpage() then
       -- git_status is current tab: close it
       vim.cmd('tabclose')
+      vim.cmd('tabn ' .. a.nvim_tabpage_get_number(vim.g.git_status_previous_tab))
     else
       -- git_status is not current tab: jump
+      vim.g.git_status_previous_tab = a.nvim_get_current_tabpage()
       vim.cmd('tabn ' .. a.nvim_tabpage_get_number(gs_tab))
     end
   else
     -- git_status does not exist: create it
+    vim.g.git_status_previous_tab = a.nvim_get_current_tabpage()
     vim.cmd([[
     Gtabedit :
     set previewwindow
