@@ -189,8 +189,7 @@ require("lazy").setup({
   -- misc
   { -- space mappings
     'folke/which-key.nvim',
-    lazy = true,
-    keys = { "<space>" },
+    event = "VeryLazy",
     config = function() require('avim.config.which_key') end
   },
   { -- add words in highlight groups on the fly

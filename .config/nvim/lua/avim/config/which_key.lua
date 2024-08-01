@@ -80,96 +80,75 @@ local wrap = function(func, opts)
   end
 end
 
-wk.register(
-  {
-    -- top-level mappings
-    ['/'] = { '<cmd>Telescope current_buffer_fuzzy_find previewer=false<cr>', 'search in file' },
-    [';'] = { '<cmd>Telescope commands<cr>', 'commands' },
-    ['h'] = { '<cmd>Telescope help_tags<cr>', 'vim help' },
-    ['m'] = { '<cmd>MarkdownPreviewToggle<cr>', 'markdown preview' },
-    -- nvim UI
-    ['u'] = {
-      name = 'change UI',
-      c    = { ui_toggle_cmdheight, 'toggle cmdline height' },
-      n    = { ui_cycle_number, 'cycle trough relative, norelative, nonumber' },
-      l    = { ui_toggle_large_file_cutoff, 'toggle large file cutoff' },
-      t    = { ui_toggle_trailing_space, 'toggle trailing space display' },
-    },
-    -- find file
-    ['f'] = {
-      name = 'find file',
-      f    = { '<cmd>Telescope find_files follow=true<cr>', 'all files' },
-      b    = { '<cmd>Telescope buffers<cr>', 'buffers' },
-      g    = { function() wrap(require("telescope.builtin").git_files, { show_untracked = false }) end, 'git files' },
-    },
-    -- find word
-    ['w'] = {
-      name = 'find word',
-      w    = { '<cmd>Telescope live_grep<cr>', 'all words' },
-      g    = { function() wrap(require("telescope").extensions.git_browse.live_grep, {}) end, 'git grep' },
-      c    = { function() wrap(require("telescope").extensions.git_browse.grep_string, {}) end, 'current word git grep' },
-    },
-    -- split file
-    ['s'] = {
-      name = 'split file',
-      s = { '<C-w>s', 'horizontal' },
-      v = { '<C-w>v', 'vertical' },
-      t = { '<cmd>tab split<cr>', 'tab split' },
-    },
-    -- split dir
-    ['d'] = {
-      name = 'split dir',
-      w = { function() cmd_on_buffer_dir("e") end, 'current window' },
-      s = { function() cmd_on_buffer_dir("sp") end, 'horizontal' },
-      v = { function() cmd_on_buffer_dir("vsp") end, 'vertical' },
-      t = { function() cmd_on_buffer_dir("tabe") end, 'tab split' },
-    },
-    -- cd in buffer's dir
-    ['c'] = {
-      name = 'cd buffer dir',
-      c = { function() cmd_on_buffer_dir('cd') end, 'global cd' },
-      w = { function() cmd_on_buffer_dir('lcd') end, 'window cd' },
-      t = { function() cmd_on_buffer_dir('tcd') end, 'tab cd' },
-    },
-    -- terminal
-    ['t'] = {
-      name = 'terminal',
-      w = { function() term_split("T") end, 'current window' },
-      s = { function() term_split("TS") end, 'horizontal' },
-      v = { function() term_split("TV") end, 'vertical' },
-      t = { function() term_split("TT") end, 'tab split' },
-    },
-    -- git
-    ['g'] = {
-      name = 'git',
-      s = { ToggleGstatus, 'git status' },
-      d = { '<cmd>Gdiffsplit<cr>', 'git diff' },
-      b = { '<cmd>Git blame<cr>', 'git blame' },
-      i = { '<cmd>Gitsigns preview_hunk<cr>', 'chunk info' },
-      u = { '<cmd>Gitsigns reset_hunk<cr>', 'chunk undo' },
-      cc = { function() wrap(require("telescope").extensions.git_browse.commit_msgs, {}) end, 'git commits' },
-      cb = { function() wrap(require("telescope").extensions.git_browse.bcommit_msgs, {}) end, 'git commits current buf only' },
-      cd = { function() wrap(require("telescope").extensions.git_browse.ccommit_msgs, {}) end, 'git commits current dir only' },
-    },
-    -- lsp
-    ['l'] = {
-      name = 'lsp',
-      d    = { '<cmd>Telescope diagnostics<cr>', 'all diagnostics' },
-      s    = { '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', 'symbols' },
-      t    = { '<cmd>Telescope git_browse live_tags<cr>', 'tags' },
-      v    = { ToggleLspVirtualText, 'toggle virtual text' },
-      wa   = { vim.lsp.buf.add_workspace_folder, 'add workspace folder' },
-      wr   = { vim.lsp.buf.remove_workspace_folder, 'remove workspace folder' },
-      wl   = { function() put(vim.lsp.buf.list_workspace_folders()) end, 'list workspace folders' },
-    },
-    -- DAP
-    ['b'] = {
-      name = 'debug',
-      B = { '<cmd>lua require"dap".set_breakpoint(vim.fn.input("Breakpoint condition: "))<cr>', 'breakpoint condition' },
-      b = { '<cmd>lua require"dap".toggle_breakpoint()<cr>', 'breakpoint' },
-      e = { '<cmd>lua require"dapui".eval()<cr>', 'eval' },
-      l = { '<cmd>lua require"dap".run_last()<cr>', 'run last' },
-      p = { '<cmd>lua require"dap".set_breakpoint(nil, nil, vim.fn.input("Log point message: "))<cr>', 'log point message' },
-      r = { '<cmd>lua require"dap".continue()<cr>', 'run' },
-    },
-  }, { prefix = "<leader>" })
+wk.add({
+  { "<leader>/",   "<cmd>Telescope current_buffer_fuzzy_find previewer=false<cr>",                            desc = "search in file" },
+  { "<leader>;",   "<cmd>Telescope commands<cr>",                                                             desc = "commands" },
+
+  { "<leader>b",   group = "debug" },
+  { "<leader>bB",  '<cmd>lua require"dap".set_breakpoint(vim.fn.input("Breakpoint condition: "))<cr>',        desc = "breakpoint condition" },
+  { "<leader>bb",  '<cmd>lua require"dap".toggle_breakpoint()<cr>',                                           desc = "breakpoint" },
+  { "<leader>be",  '<cmd>lua require"dapui".eval()<cr>',                                                      desc = "eval" },
+  { "<leader>bl",  '<cmd>lua require"dap".run_last()<cr>',                                                    desc = "run last" },
+  { "<leader>bp",  '<cmd>lua require"dap".set_breakpoint(nil, nil, vim.fn.input("Log point message: "))<cr>', desc = "log point message" },
+  { "<leader>br",  '<cmd>lua require"dap".continue()<cr>',                                                    desc = "run" },
+
+  { "<leader>c",   group = "cd buffer dir" },
+  { "<leader>cc",  function() cmd_on_buffer_dir('cd') end,                                                    desc = "global cd" },
+  { "<leader>ct",  function() cmd_on_buffer_dir('tcd') end,                                                   desc = "tab cd" },
+  { "<leader>cw",  function() cmd_on_buffer_dir('lcd') end,                                                   desc = "window cd" },
+
+  { "<leader>d",   group = "split dir" },
+  { "<leader>ds",  function() cmd_on_buffer_dir("sp") end,                                                    desc = "horizontal" },
+  { "<leader>dt",  function() cmd_on_buffer_dir("tabe") end,                                                  desc = "tab split" },
+  { "<leader>dv",  function() cmd_on_buffer_dir("vsp") end,                                                   desc = "vertical" },
+  { "<leader>dw",  function() cmd_on_buffer_dir("e") end,                                                     desc = "current window" },
+
+  { "<leader>f",   group = "find file" },
+  { "<leader>fb",  "<cmd>Telescope buffers<cr>",                                                              desc = "buffers" },
+  { "<leader>ff",  "<cmd>Telescope find_files follow=true<cr>",                                               desc = "all files" },
+  { "<leader>fg",  function() wrap(require("telescope.builtin").git_files, { show_untracked = false }) end,   desc = "git files" },
+
+  { "<leader>g",   group = "git" },
+  { "<leader>gb",  "<cmd>Git blame<cr>",                                                                      desc = "git blame" },
+  { "<leader>gc",  group = "commit" },
+  { "<leader>gcb", function() wrap(require("telescope").extensions.git_browse.bcommit_msgs, {}) end,          desc = "git commits current buf only" },
+  { "<leader>gcc", function() wrap(require("telescope").extensions.git_browse.commit_msgs, {}) end,           desc = "git commits" },
+  { "<leader>gcd", function() wrap(require("telescope").extensions.git_browse.ccommit_msgs, {}) end,          desc = "git commits current dir only" },
+  { "<leader>gd",  "<cmd>Gdiffsplit<cr>",                                                                     desc = "git diff" },
+  { "<leader>gi",  "<cmd>Gitsigns preview_hunk<cr>",                                                          desc = "chunk info" },
+  { "<leader>gs",  function() ToggleGstatus() end,                                                            desc = "git status" },
+  { "<leader>gu",  "<cmd>Gitsigns reset_hunk<cr>",                                                            desc = "chunk undo" },
+  { "<leader>h",   "<cmd>Telescope help_tags<cr>",                                                            desc = "vim help" },
+
+  { "<leader>l",   group = "lsp" },
+  { "<leader>ld",  "<cmd>Telescope diagnostics<cr>",                                                          desc = "all diagnostics" },
+  { "<leader>ls",  "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",                                        desc = "symbols" },
+  { "<leader>lt",  "<cmd>Telescope git_browse live_tags<cr>",                                                 desc = "tags" },
+  { "<leader>lv",  function() ToggleLspVirtualText() end,                                                     desc = "toggle virtual text" },
+  { "<leader>lwa", vim.lsp.buf.add_workspace_folder,                                                          desc = "add workspace folder" },
+  { "<leader>lwl", function() put(vim.lsp.buf.list_workspace_folders()) end,                                  desc = "list workspace folders" },
+  { "<leader>lwr", vim.lsp.buf.remove_workspace_folder,                                                       desc = "remove workspace folder" },
+  { "<leader>m",   "<cmd>MarkdownPreviewToggle<cr>",                                                          desc = "markdown preview" },
+
+  { "<leader>s",   group = "split file" },
+  { "<leader>ss",  "<C-w>s",                                                                                  desc = "horizontal" },
+  { "<leader>st",  "<cmd>tab split<cr>",                                                                      desc = "tab split" },
+  { "<leader>sv",  "<C-w>v",                                                                                  desc = "vertical" },
+
+  { "<leader>t",   group = "terminal" },
+  { "<leader>ts",  function() term_split("TS") end,                                                           desc = "horizontal" },
+  { "<leader>tt",  function() term_split("TT") end,                                                           desc = "tab split" },
+  { "<leader>tv",  function() term_split("TV") end,                                                           desc = "vertical" },
+  { "<leader>tw",  function() term_split("T") end,                                                            desc = "current window" },
+
+  { "<leader>u",   group = "change UI" },
+  { "<leader>uc",  ui_toggle_cmdheight,                                                                       desc = "toggle cmdline height" },
+  { "<leader>ul",  ui_toggle_large_file_cutoff,                                                               desc = "toggle large file cutoff" },
+  { "<leader>un",  ui_cycle_number,                                                                           desc = "cycle trough relative, norelative, nonumber" },
+  { "<leader>ut",  ui_toggle_trailing_space,                                                                  desc = "toggle trailing space display" },
+
+  { "<leader>w",   group = "find word" },
+  { "<leader>wc",  function() wrap(require("telescope").extensions.git_browse.grep_string, {}) end,           desc = "current word git grep" },
+  { "<leader>wg",  function() wrap(require("telescope").extensions.git_browse.live_grep, {}) end,             desc = "git grep" },
+  { "<leader>ww",  "<cmd>Telescope live_grep<cr>",                                                            desc = "all words" },
+})

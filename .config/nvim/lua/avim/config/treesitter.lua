@@ -1,7 +1,3 @@
-require 'nvim-treesitter.install'.command_extra_args = {
-  cc = { "-std=c99" }
-}
-
 local function disable(lang, bufnr)
   return vim.api.nvim_buf_line_count(bufnr) > vim.g.large_file_cutoff
 end
