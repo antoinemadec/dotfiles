@@ -1,4 +1,5 @@
 require('gitsigns').setup {
+  signs_staged_enable = false,
   signs = {
     add          = {text = '│'},
     change       = {text = '│'},
