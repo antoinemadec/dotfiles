@@ -224,5 +224,32 @@ require("lazy").setup({
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     ft = { "markdown" },
     build = function() vim.fn["mkdp#util#install"]() end,
-  }
+  },
+  { -- gitlab ls
+    "jrmsgr/gitlab-ls",
+    cond = os.getenv("GITLAB_API_TOKEN") and os.getenv("GITLAB_URL") and os.getenv("GITLAB_PROJECTS"),
+    dependencies = { "neovim/nvim-lspconfig", "hrsh7th/nvim-cmp" },
+    opts = { -- Plugin's config
+      max_txt_len = 20,
+      open_icon = "",
+      closed_icon = "",
+      override_cmp_items_highlight = true,
+      server_config = {
+        name = "gitlab-ls",
+        filetypes = { "text" },
+        handlers = {
+          ["textDocument/diagnostic"] = vim.lsp.with(vim.lsp.diagnostic.on_diagnostic, {
+            signs = false,
+            underline = false,
+          }),
+        },
+        -- /!\ MANDATORY INIT OPTIONS
+        init_options = {
+          url = os.getenv("GITLAB_URL"),
+          private_token = os.getenv("GITLAB_API_TOKEN"),
+          projects = { os.getenv("GITLAB_PROJECTS") },
+        },
+      },
+    },
+  },
 })
