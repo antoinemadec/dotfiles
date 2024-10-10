@@ -5,8 +5,8 @@ _G.lsp_servers = {
   'clangd',
   'lua_ls',
   'pyright',
-  'rust_analyzer',
-  'tsserver',
+  -- 'rust_analyzer',
+  -- 'ts_ls',
   'verible',
 }
 
