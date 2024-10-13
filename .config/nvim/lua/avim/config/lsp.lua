@@ -38,14 +38,17 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local function get_lsp_settings(lsp_server)
   if lsp_server == "lua_ls" then
     local nvim_runtime_dirs = a.nvim_get_runtime_file("", true)
-    -- remove .configs path to avoid duplicate with dotfiles/.config
+    -- add plugins manually in case they are not loaded yet
     local i = 1
     while (i <= #nvim_runtime_dirs) do
-      if string.find(nvim_runtime_dirs[i], '/.config/') then
+      if string.find(nvim_runtime_dirs[i], '/nvim/lazy/') then
         table.remove(nvim_runtime_dirs, i)
       else
         i = i + 1
       end
+    end
+    for _, plugin in ipairs(vim.fn.globpath(vim.fn.stdpath("data") .. "/lazy", "*", true, true)) do
+      table.insert(nvim_runtime_dirs, plugin)
     end
     return {
       Lua = {
