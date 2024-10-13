@@ -187,7 +187,8 @@ bindsym $mod+Shift+t  exec --no-startup-id ~/.config/i3/bin/toggle_gaps "toggle_
 #------------------------------
 # shortcuts
 #------------------------------
-bindsym $mod+backslash workspace back_and_forth
+bindsym $mod+backslash exec --no-startup-id ~/.config/i3/bin/ipc_focus_previous_window --switch
+bindsym $mod+Shift+backslash workspace back_and_forth
 bindsym $mod+c  exec --no-startup-id gnome-calculator
 # use rofi instead of dmenu,
 # add equivalent of "alt+Tab functionality"
@@ -261,6 +262,7 @@ exec --no-startup-id exec ~/.i3_startup.sh
 exec --no-startup-id exec nm-applet
 exec --no-startup-id exec blueman-applet
 exec --no-startup-id exec start-pulseaudio-x11
+exec --no-startup-id exec ~/.config/i3/bin/ipc_focus_previous_window
 exec_always --no-startup-id exec numlockx on
 exec_always --no-startup-id exec xset r rate 150 50
 #==============================================================

@@ -50,6 +50,7 @@ sudo pacman --noconfirm -S py3status i3status feh rofi jq picom arandr scrot i3l
 sudo pacman --noconfirm -S i3-gaps
 
 print_banner "python packages"
+sudo pamac --noconfirm install python-i3ipc
 sudo pip3 install setuptools
 sudo pip3 install pynvim
 sudo pip3 install rope
