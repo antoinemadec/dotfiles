@@ -181,9 +181,10 @@ require("lazy").setup({
     event = "VeryLazy",
   },
   { -- multiple cursors
-    'mg979/vim-visual-multi',
+    "jake-stewart/multicursor.nvim",
     event = "VeryLazy",
-    config = function() require('avim.config.vim_visual_multi') end
+    branch = "1.0",
+    config = function() require('avim.config.multicursor') end
   },
 
   -- misc

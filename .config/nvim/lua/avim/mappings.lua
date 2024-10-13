@@ -125,8 +125,8 @@ for _, mode in pairs({ 'n', 'i', 't' }) do
   map_arrow_hjkl(mode, '<C-A-S-Left>', function() require('window-movement').move_win_to_tab("prev") end)
   map_arrow_hjkl(mode, '<C-A-S-Right>', function() require('window-movement').move_win_to_tab("next") end)
 end
-map_arrow_hjkl('n', '<C-Down>', '<C-e>')
-map_arrow_hjkl('n', '<C-Up>', '<C-y>')
+map('n', '<C-j>', '<C-e>')
+map('n', '<C-k>', '<C-y>')
 
 -- tab split
 map('n', '<C-w><C-t>', ':tab split<cr>')
@@ -182,8 +182,8 @@ map('t', '\\cd', 'nvim_server_cmd "cd $PWD" -i<cr>')
 -- LSP mappings
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 map('n', '\\d', vim.diagnostic.open_float)
-map('n', '[d', vim.diagnostic.goto_prev)
-map('n', ']d', vim.diagnostic.goto_next)
+map('n', '[d', function() vim.diagnostic.jump({count=1, float=true}) end)
+map('n', ']d', function() vim.diagnostic.jump({count=-1, float=true}) end)
 -- remap('n', '<space>q', vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to only map the following keys
@@ -201,7 +201,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map('n', 'gd', require 'telescope.builtin'.lsp_definitions, opts)
     map('n', 'K', vim.lsp.buf.hover, opts)
     map('n', 'gi', require 'telescope.builtin'.lsp_implementations, opts)
-    map('n', '<C-s>', vim.lsp.buf.signature_help, opts)
+    -- map('n', '<C-s>', vim.lsp.buf.signature_help, opts)
     -- remap('n', '<space>D', vim.lsp.buf.type_definition, opts)
     map('n', '\\rn', vim.lsp.buf.rename, opts)
     map({ 'n', 'v' }, '\\ac', vim.lsp.buf.code_action, opts)
