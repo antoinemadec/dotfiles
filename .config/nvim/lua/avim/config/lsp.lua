@@ -49,8 +49,12 @@ local function get_lsp_settings(lsp_server)
         i = i + 1
       end
     end
-    for _, plugin in ipairs(vim.fn.globpath(vim.fn.stdpath("data") .. "/lazy", "*", true, true)) do
-      table.insert(nvim_runtime_dirs, plugin)
+    -- only add lazy plugins if we are in dotfiles or nvim config dir
+    local cwd = vim.fn.getcwd()
+    if string.find(cwd, '/dotfiles') or string.find(cwd, '/.config/nvim') then
+      for _, plugin in ipairs(vim.fn.globpath(vim.fn.stdpath("data") .. "/lazy", "*", true, true)) do
+        table.insert(nvim_runtime_dirs, plugin)
+      end
     end
     return {
       Lua = {

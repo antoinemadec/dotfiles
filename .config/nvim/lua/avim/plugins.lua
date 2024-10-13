@@ -256,6 +256,6 @@ require("lazy").setup({
   { -- nicer command line
     'Sam-programs/cmdline-hl.nvim',
     event = 'VimEnter',
-    opts = {}
+    config = function() require('avim.config.cmdline') end
   },
 })
