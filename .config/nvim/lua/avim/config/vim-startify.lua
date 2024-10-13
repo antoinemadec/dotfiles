@@ -32,8 +32,6 @@ function _G.StartifyPluginClean()
 end
 
 function _G.StartifyPluginUpdate()
-  vim.cmd([[
-  Lazy! sync
-  MasonUpdate
-  ]])
+  vim.cmd([[ Lazy! sync ]])
+  require('avim.config.mason').update_all()
 end
