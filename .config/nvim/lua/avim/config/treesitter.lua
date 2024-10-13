@@ -3,7 +3,7 @@ local function disable(lang, bufnr)
 end
 
 require 'nvim-treesitter.configs'.setup {
-  ensure_installed = { 'lua', 'cpp', 'python', 'bash', 'rust', 'vim', 'vimdoc', 'query' },
+  ensure_installed = { 'lua', 'cpp', 'python', 'bash', 'rust', 'vim', 'vimdoc', 'query' , 'regex'},
   highlight = {
     enable = true,
     disable = disable,
