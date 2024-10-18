@@ -1,20 +1,26 @@
 -- avoid extra statusline line when in cmdline
 vim.api.nvim_create_autocmd("CmdlineEnter", {
   callback = function()
-    require('lualine').hide()
-    vim.opt.laststatus = 0
-    vim.cmd [[
+    local ok, mod = pcall(require, 'lualine')
+    if ok then
+      mod.hide()
+      vim.opt.laststatus = 0
+      vim.cmd [[
 set laststatus=0
 hi! link StatusLine WinSeparator
 hi! link StatusLineNC WinSeparator
 set statusline=%{repeat('─',winwidth('.'))}
-    ]]
+]]
+    end
   end,
 })
 vim.api.nvim_create_autocmd("CmdlineLeave", {
   callback = function()
-    require('lualine').hide({ unhide = true })
-    vim.opt.laststatus = 3
+    local ok, mod = pcall(require, 'lualine')
+    if ok then
+      mod.hide({ unhide = true })
+      vim.opt.laststatus = 3
+    end
   end,
 })
 
@@ -39,4 +45,11 @@ vim.api.nvim_create_autocmd('CmdwinEnter', {
   end
 })
 
-require("cmdline-hl").setup()
+require("cmdline-hl").setup(
+  {
+    custom_types = {
+      ["help"] = { icon = "? ", show_cmd = true },
+      ["H"] = { icon = "? ", show_cmd = true },
+    }
+  }
+)
