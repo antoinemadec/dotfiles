@@ -17,9 +17,11 @@ vim.env.PATH = mason_bin_path .. ":" .. vim.env.PATH
 -- lspconfig
 local lspconfig = require('lspconfig')
 
-local function on_attach(client, _)
+local function on_attach(client, bufnr)
   if _G.is_large_file() then
-    vim.lsp.get_client_by_id(client.id).stop(true)
+    vim.schedule(function()
+      vim.lsp.buf_detach_client(bufnr, client.id)
+    end)
     return
   end
   vim.bo.tagfunc = nil -- don't overwrite ctags mappings/functions with LSP
