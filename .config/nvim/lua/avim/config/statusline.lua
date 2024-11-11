@@ -30,6 +30,20 @@ local function treesitter_status()
   return vim.treesitter.highlighter.active[buf] and "🌳" or ""
 end
 
+local function searchcount()
+  if vim.v.hlsearch == 0 or _G.is_large_file() then
+    return ''
+  end
+
+  local ok, result = pcall(vim.fn.searchcount, { maxcount = 999, timeout = 500 })
+  if not ok or next(result) == nil then
+    return ''
+  end
+
+  local denominator = math.min(result.total, result.maxcount)
+  return string.format('[%d/%d]', result.current, denominator)
+end
+
 require 'lualine'.setup {
   options = {
     globalstatus = true,
@@ -71,7 +85,7 @@ require 'lualine'.setup {
       path = 1 -- relative path
     } },
     lualine_x = { large_file, treesitter_status, 'filetype' },
-    lualine_y = { 'searchcount', 'progress' },
+    lualine_y = { searchcount, 'progress' },
     lualine_z = { location_or_selected_lines }
   },
   inactive_sections = {
