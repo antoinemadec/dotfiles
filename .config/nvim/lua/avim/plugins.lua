@@ -244,7 +244,6 @@ require("lazy").setup({
             underline = false,
           }),
         },
-        -- /!\ MANDATORY INIT OPTIONS
         init_options = {
           url = os.getenv("GITLAB_URL"),
           private_token = os.getenv("GITLAB_API_TOKEN"),
@@ -258,4 +257,8 @@ require("lazy").setup({
     event = 'VimEnter',
     config = function() require('avim.config.cmdline') end
   },
+  { -- profile lua code
+    'stevearc/profile.nvim',
+    cond = false, -- handled in init.lua with NVIM_PROFILE env var
+  }
 })
