@@ -259,6 +259,6 @@ require("lazy").setup({
   },
   { -- profile lua code
     'stevearc/profile.nvim',
-    cond = false, -- handled in init.lua with NVIM_PROFILE env var
+    lazy = true, -- handled in init.lua with NVIM_PROFILE env var
   }
 })
