@@ -141,6 +141,7 @@ wk.add({
   { "<leader>tt",  function() term_split("TT") end,                                                           desc = "tab split" },
   { "<leader>tv",  function() term_split("TV") end,                                                           desc = "vertical" },
   { "<leader>tw",  function() term_split("T") end,                                                            desc = "current window" },
+  { "<leader>tf",  _G.toggle_floating_terminal,                                                               desc = "toggle float", mode = {"n", "t"} },
 
   { "<leader>u",   group = "change UI" },
   { "<leader>uc",  ui_toggle_cmdheight,                                                                       desc = "toggle cmdline height" },

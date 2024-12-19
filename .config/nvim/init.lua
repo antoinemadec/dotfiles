@@ -16,6 +16,7 @@ if should_profile then
 end
 
 require('avim.utils')
+require('avim.floaterm')
 require('avim.options')
 require('avim.plugins')
 require('avim.mappings')
