@@ -13,7 +13,7 @@ _G.lsp_servers = {
 local mason_bin_path = vim.fn.stdpath("data") .. "/mason/bin"
 vim.env.PATH = mason_bin_path .. ":" .. vim.env.PATH
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local capabilities = require('blink.cmp').get_lsp_capabilities()
 
 local function on_attach(client, bufnr)
   if _G.is_large_file() then
