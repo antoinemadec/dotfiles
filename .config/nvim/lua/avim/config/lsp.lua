@@ -154,6 +154,11 @@ ToggleLspVirtualText()
 
 -- lsp progress
 require("fidget").setup {
+  progress = {
+    suppress_on_insert = true,   -- Suppress new messages while in insert mode
+    ignore_done_already = true,  -- Ignore new tasks that are already complete
+    ignore_empty_message = true, -- Ignore new tasks that don't contain a message
+  },
   notification = {
     window = {
       x_padding = 0, -- Padding from right edge of window boundary
