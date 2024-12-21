@@ -81,15 +81,9 @@ require("blink-cmp").setup(
       list = {
         selection = "auto_insert"
       },
-      accept = {
-        auto_brackets = {
-          semantic_token_resolution = {
-            enabled = false,
-          },
-        },
-      },
       menu = {
         draw = {
+          treesitter = { 'lsp' },
           columns = { { 'label' }, { 'kind_icon_and_name' }, { 'source_name_short' } },
           components = {
             kind_icon_and_name = {
