@@ -64,8 +64,26 @@ require("blink-cmp").setup(
       end,
       jump = function(direction) require('luasnip').jump(direction) end,
     },
+
     sources = {
       default = { 'lsp', 'path', 'luasnip', 'buffer' },
+      providers = {
+        buffer = {
+          name = 'Buffer',
+          module = 'blink.cmp.sources.buffer',
+          score_offset = -3,
+          opts = {
+            get_bufnrs = function()
+              return vim
+                  .iter(vim.api.nvim_list_wins())
+                  :map(function(win) return vim.api.nvim_win_get_buf(win) end)
+                  :filter(function(buf) return vim.bo[buf].buftype ~= 'nofile' end)
+                  :filter(function(buf) return vim.api.nvim_buf_line_count(buf) < vim.g.large_file_cutoff end)
+                  :totable()
+            end,
+          }
+        },
+      },
     },
 
     signature = { enabled = true },
