@@ -102,9 +102,41 @@ require("blink-cmp").setup(
       },
       menu = {
         draw = {
-          treesitter = { 'lsp' },
           columns = { { 'label' }, { 'kind_icon_and_name' }, { 'source_name_short' } },
           components = {
+            -- trimmed label implementation
+            label = {
+              text = function(ctx) return ctx.label:gsub("^%s+", "") .. ctx.label_detail end,
+              highlight = function(ctx)
+                -- label and label details
+                local trimmed_label = ctx.label:gsub("^%s+", "")
+                local label_delta = #ctx.label - #trimmed_label
+                for i, idx in ipairs(ctx.label_matched_indices) do
+                  idx = idx - label_delta
+                  ctx.label_matched_indices[i] = idx
+                end
+                ctx.label = trimmed_label
+                local label = ctx.label
+                local highlights = {
+                  { 0, #label, group = ctx.deprecated and 'BlinkCmpLabelDeprecated' or 'BlinkCmpLabel' },
+                }
+                if ctx.label_detail then
+                  table.insert(highlights, { #label, #label + #ctx.label_detail, group = 'Grey' })
+                end
+
+                if vim.list_contains(ctx.self.treesitter, ctx.source_id) then
+                  -- add treesitter highlights
+                  vim.list_extend(highlights, require('blink.cmp.completion.windows.render.treesitter').highlight(ctx))
+                end
+
+                -- characters matched on the label by the fuzzy matcher
+                for _, idx in ipairs(ctx.label_matched_indices) do
+                  table.insert(highlights, { idx , idx + 1 , group = 'BlinkCmpLabelMatch' })
+                end
+
+                return highlights
+              end,
+            },
             kind_icon_and_name = {
               ellipsis = false,
               text = function(ctx)
