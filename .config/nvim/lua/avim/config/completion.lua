@@ -68,6 +68,7 @@ require("blink-cmp").setup(
     sources = {
       default = { 'lsp', 'path', 'luasnip', 'buffer' },
       providers = {
+        lsp = { fallbacks = {} }, -- avoid blocking buffer suggestions
         buffer = {
           name = 'Buffer',
           module = 'blink.cmp.sources.buffer',
