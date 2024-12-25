@@ -1,8 +1,3 @@
--- luasnip
-local luasnip = require 'luasnip'
-require('luasnip.loaders.from_vscode').lazy_load()
-luasnip.filetype_extend("verilog_systemverilog", { "systemverilog" })
-
 local source_to_short_name = {
   Buffer = "buf",
   Luasnip = "snip",
@@ -54,19 +49,8 @@ require("blink-cmp").setup(
       nerd_font_variant = 'mono'
     },
 
-    snippets = {
-      expand = function(snippet) require('luasnip').lsp_expand(snippet) end,
-      active = function(filter)
-        if filter and filter.direction then
-          return require('luasnip').jumpable(filter.direction)
-        end
-        return require('luasnip').in_snippet()
-      end,
-      jump = function(direction) require('luasnip').jump(direction) end,
-    },
-
     sources = {
-      default = { 'lsp', 'path', 'luasnip', 'buffer' },
+      default = { 'lsp', 'path', 'snippets', 'buffer' },
       providers = {
         lsp = { fallbacks = {} }, -- avoid blocking buffer suggestions
         buffer = {
@@ -131,7 +115,7 @@ require("blink-cmp").setup(
 
                 -- characters matched on the label by the fuzzy matcher
                 for _, idx in ipairs(ctx.label_matched_indices) do
-                  table.insert(highlights, { idx , idx + 1 , group = 'BlinkCmpLabelMatch' })
+                  table.insert(highlights, { idx, idx + 1, group = 'BlinkCmpLabelMatch' })
                 end
 
                 return highlights
