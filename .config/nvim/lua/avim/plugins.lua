@@ -65,10 +65,7 @@ require("lazy").setup({
   { -- completion
     'saghen/blink.cmp',
     version = 'v0.*',
-    -- !Important! Make sure you're using the latest release of LuaSnip
-    -- `main` does not work at the moment
     dependencies = {
-      { 'L3MON4D3/LuaSnip', version = 'v2.*' },
       "rafamadriz/friendly-snippets", -- snippet collection
     },
     config = function() require('avim.config.completion') end
