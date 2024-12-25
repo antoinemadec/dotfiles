@@ -53,6 +53,13 @@ require("blink-cmp").setup(
       default = { 'lsp', 'path', 'snippets', 'buffer' },
       providers = {
         lsp = { fallbacks = {} }, -- avoid blocking buffer suggestions
+        snippets = {
+          opts = {
+            extended_filetypes = {
+              verilog_systemverilog = { 'systemverilog' },
+            },
+          }
+        },
         buffer = {
           name = 'Buffer',
           module = 'blink.cmp.sources.buffer',
