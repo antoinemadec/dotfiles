@@ -1,21 +1,20 @@
 local source_to_short_name = {
   Buffer = "buf",
-  Luasnip = "snip",
-  mt = {
-    __index = function(table, key)
-      return string.lower(string.sub(key, 1, 4))
-    end
-  }
 }
-setmetatable(source_to_short_name, source_to_short_name.mt)
+setmetatable(source_to_short_name, {
+  __index = function(table, key)
+    return string.lower(string.sub(key, 1, 4))
+  end
+})
 
 require("blink-cmp").setup(
   {
+    enabled = function() return vim.bo.buftype ~= "prompt" and vim.b.completion ~= false and _G.is_large_file() ~= true end,
+
     keymap = {
       ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
       ['<C-e>'] = { 'hide', 'fallback' },
       ['<CR>'] = { 'accept', 'fallback' },
-
       ['<C-k>'] = { 'select_prev', 'fallback' },
       ['<C-j>'] = { 'select_next', 'fallback' },
       ['<S-Tab>'] = {
@@ -34,7 +33,6 @@ require("blink-cmp").setup(
             return cmp.select_next()
           end
         end, 'select_next', 'fallback' },
-
       ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
       ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
     },
@@ -83,10 +81,7 @@ require("blink-cmp").setup(
     completion = {
       documentation = {
         auto_show = true,
-        auto_show_delay_ms = 50,
-        -- Delay before updating the documentation window when selecting a new item,
-        -- while an existing item is still visible
-        update_delay_ms = 50,
+        auto_show_delay_ms = 0,
       },
       list = {
         selection = "auto_insert"
@@ -134,7 +129,7 @@ require("blink-cmp").setup(
                 return _G.LUtils.get_kind_labels(ctx.kind) .. ctx.icon_gap .. string.lower(string.sub(ctx.kind, 1, 3))
               end,
               highlight = function(ctx)
-                return require('blink.cmp.completion.windows.render.tailwind').get_hl(ctx) or 'BlinkCmpKind' .. ctx.kind
+                return require('blink.cmp.completion.windows.render.tailwind').get_hl(ctx) or ('BlinkCmpKind' .. ctx.kind)
               end,
             },
             source_name_short = {
