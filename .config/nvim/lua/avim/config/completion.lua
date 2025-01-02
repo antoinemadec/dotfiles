@@ -48,7 +48,7 @@ require("blink-cmp").setup(
     },
 
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer' },
+      default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
       providers = {
         lsp = { fallbacks = {} }, -- avoid blocking buffer suggestions
         snippets = {
@@ -72,6 +72,12 @@ require("blink-cmp").setup(
                   :totable()
             end,
           }
+        },
+        lazydev = {
+          name = "LazyDev",
+          module = "lazydev.integrations.blink",
+          -- make lazydev completions top priority (see `:h blink.cmp`)
+          score_offset = 100,
         },
       },
     },
@@ -129,7 +135,8 @@ require("blink-cmp").setup(
                 return _G.LUtils.get_kind_labels(ctx.kind) .. ctx.icon_gap .. string.lower(string.sub(ctx.kind, 1, 3))
               end,
               highlight = function(ctx)
-                return require('blink.cmp.completion.windows.render.tailwind').get_hl(ctx) or ('BlinkCmpKind' .. ctx.kind)
+                return require('blink.cmp.completion.windows.render.tailwind').get_hl(ctx) or
+                    ('BlinkCmpKind' .. ctx.kind)
               end,
             },
             source_name_short = {
