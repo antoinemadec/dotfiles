@@ -38,35 +38,7 @@ end
 local capabilities = require('blink.cmp').get_lsp_capabilities()
 
 local function get_lsp_settings(lsp_server)
-  if lsp_server == "lua_ls" then
-    local nvim_runtime_dirs = a.nvim_get_runtime_file("", true)
-    -- add plugins manually in case they are not loaded yet,
-    -- and remove .configs path to avoid duplicate matches
-    local i = 1
-    while (i <= #nvim_runtime_dirs) do
-      if string.find(nvim_runtime_dirs[i], '/nvim/lazy/') or
-          string.find(nvim_runtime_dirs[i], '/.config/') then
-        table.remove(nvim_runtime_dirs, i)
-      else
-        i = i + 1
-      end
-    end
-    -- only add lazy plugins if we are in dotfiles or nvim config dir
-    local cwd = vim.fn.getcwd()
-    if string.find(cwd, '/dotfiles') or string.find(cwd, '/.config/nvim') then
-      for _, plugin in ipairs(vim.fn.globpath(vim.fn.stdpath("data") .. "/lazy", "*", true, true)) do
-        table.insert(nvim_runtime_dirs, plugin)
-      end
-    end
-    return {
-      Lua = {
-        runtime = { version = "LuaJIT", },
-        diagnostics = { globals = { "vim" }, },
-        workspace = { library = nvim_runtime_dirs, },
-        telemetry = { enable = false, },
-      },
-    }
-  elseif lsp_server == "pyright" then
+  if lsp_server == "pyright" then
     return {
       python = {
         analysis = {
