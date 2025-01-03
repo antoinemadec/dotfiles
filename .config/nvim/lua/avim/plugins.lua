@@ -59,17 +59,20 @@ require("lazy").setup({
     },
     config = function() require('avim.config.lsp') end
   },
+  { -- nvim lua development
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
+  },
   { -- completion
-    "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
+    'saghen/blink.cmp',
+    version = 'v0.*',
     dependencies = {
-      "antoinemadec/cmp-nvim-lsp-signature-help", -- display function signature
-      'hrsh7th/cmp-buffer',                       -- buffer source for nvim-cmp
-      'hrsh7th/cmp-path',                         -- path source for nvim-cmp
-      "hrsh7th/cmp-nvim-lsp",                     -- LSP source for nvim-cmp
-      "saadparwaiz1/cmp_luasnip",                 -- snippets source for nvim-cmp
-      "L3MON4D3/LuaSnip",                         -- snippets plugin
-      "rafamadriz/friendly-snippets",             -- snippet collection
+      "rafamadriz/friendly-snippets", -- snippet collection
     },
     config = function() require('avim.config.completion') end
   },
@@ -229,12 +232,12 @@ require("lazy").setup({
   { -- gitlab ls
     "jrmsgr/gitlab-ls",
     cond = (os.getenv("GITLAB_API_TOKEN") and os.getenv("GITLAB_URL") and os.getenv("GITLAB_PROJECTS")) ~= nil,
-    dependencies = { "neovim/nvim-lspconfig", "hrsh7th/nvim-cmp" },
+    dependencies = { "neovim/nvim-lspconfig" },
     opts = { -- Plugin's config
       max_txt_len = 20,
       open_icon = "",
       closed_icon = "",
-      override_cmp_items_highlight = true,
+      override_cmp_items_highlight = false,
       server_config = {
         name = "gitlab-ls",
         filetypes = { "text" },
@@ -257,7 +260,7 @@ require("lazy").setup({
     event = 'VimEnter',
     config = function() require('avim.config.cmdline') end
   },
-  { -- profile lua code
+  {              -- profile lua code
     'stevearc/profile.nvim',
     lazy = true, -- handled in init.lua with NVIM_PROFILE env var
   }
