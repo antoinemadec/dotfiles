@@ -1,4 +1,4 @@
-local palette = {bg_yellow={'#e9b143', '214'}, bg_visual_red={'#543937', '52'}, bg_visual_blue={'#404946', '17'}, bg_diff_green={'#3d4220', '22'}, bg_current_word={'#45403d', '238'}, fg0={'#e2cca9', '223'}, fg1={'#e2cca9', '223'}, purple={'#d3869b', '175'}, grey2={'#a89984', '246'}, aqua={'#8bba7f', '108'}, bg_visual_yellow={'#574833', '94'}, none={'NONE', 'NONE'}, bg_diff_red={'#472322', '52'}, orange={'#f28534', '208'}, bg_dim={'#252423', '233'}, bg_red={'#db4740', '167'}, bg0={'#32302f', '236'}, bg1={'#3c3836', '237'}, bg2={'#3c3836', '237'}, bg3={'#504945', '239'}, bg4={'#504945', '239'}, bg5={'#665c54', '241'}, grey0={'#7c6f64', '243'}, grey1={'#928374', '245'}, bg_statusline1={'#3c3836', '237'}, bg_statusline2={'#46413e', '237'}, bg_statusline3={'#5b534d', '241'}, bg_visual_green={'#424a3e', '22'}, green={'#b0b846', '142'}, bg_diff_blue={'#0f3a42', '17'}, bg_green={'#b0b846', '142'}, blue={'#80aa9e', '109'}, red={'#f2594b', '167'}, yellow={'#e9b143', '214'}}
+local palette = { bg_yellow = { '#e9b143', '214' }, bg_visual_red = { '#543937', '52' }, bg_visual_blue = { '#404946', '17' }, bg_diff_green = { '#3d4220', '22' }, bg_current_word = { '#45403d', '238' }, fg0 = { '#e2cca9', '223' }, fg1 = { '#e2cca9', '223' }, purple = { '#d3869b', '175' }, grey2 = { '#a89984', '246' }, aqua = { '#8bba7f', '108' }, bg_visual_yellow = { '#574833', '94' }, none = { 'NONE', 'NONE' }, bg_diff_red = { '#472322', '52' }, orange = { '#f28534', '208' }, bg_dim = { '#252423', '233' }, bg_red = { '#db4740', '167' }, bg0 = { '#32302f', '236' }, bg1 = { '#3c3836', '237' }, bg2 = { '#3c3836', '237' }, bg3 = { '#504945', '239' }, bg4 = { '#504945', '239' }, bg5 = { '#665c54', '241' }, grey0 = { '#7c6f64', '243' }, grey1 = { '#928374', '245' }, bg_statusline1 = { '#3c3836', '237' }, bg_statusline2 = { '#46413e', '237' }, bg_statusline3 = { '#5b534d', '241' }, bg_visual_green = { '#424a3e', '22' }, green = { '#b0b846', '142' }, bg_diff_blue = { '#0f3a42', '17' }, bg_green = { '#b0b846', '142' }, blue = { '#80aa9e', '109' }, red = { '#f2594b', '167' }, yellow = { '#e9b143', '214' } }
 local a = vim.api
 
 -- statusline
@@ -22,7 +22,7 @@ local function location_or_selected_lines()
 end
 
 local function large_file()
-  return _G.is_large_file() and "🛑"  or ""
+  return _G.is_large_file() and "🛑" or ""
 end
 
 local function treesitter_status()
@@ -140,11 +140,11 @@ vim.cmd([[set tabline=%!v:lua.Tabline()]])
 
 
 -- winbar
-vim.api.nvim_create_autocmd({"FileType"}, {
-  pattern = {"oil"},
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "oil" },
   callback = function()
     pcall(vim.api.nvim_set_option_value, "winbar",
-    '%#Grey#' .. (require'oil'.get_current_dir() or vim.fn.expand('%:b')),
-    { scope = "local" })
+      '%#Grey#' .. (require 'oil'.get_current_dir() or vim.fn.expand('%:b')),
+      { scope = "local" })
   end
 })
