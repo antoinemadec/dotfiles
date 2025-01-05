@@ -42,6 +42,10 @@ require("lazy").setup({
     lazy = false,
     config = function() require('avim.config.snacks') end
   },
+  { -- fancy vim.ui.select and input
+    'stevearc/dressing.nvim',
+    event = "VeryLazy",
+  },
 
   -- IDE
   { -- lsp

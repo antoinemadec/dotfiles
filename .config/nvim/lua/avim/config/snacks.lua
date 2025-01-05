@@ -8,7 +8,6 @@ require("snacks").setup({
           vim.bo[buf].filetype ~= "startify"
     end,
   },
-  input = { enabled = true },
   notifier = {},
   words = { enabled = true },
 })
