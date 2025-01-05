@@ -137,9 +137,3 @@ require("fidget").setup {
     },
   },
 }
-
--- lualine flicker bug, see:
--- https://github.com/nvim-lualine/lualine.nvim/issues/886
-a.nvim_create_autocmd('LspAttach', {
-  command = 'redrawstatus',
-})
