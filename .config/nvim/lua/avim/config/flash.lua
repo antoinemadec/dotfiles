@@ -1,6 +1,12 @@
 local M = {}
 
-M.opts = { modes = { search = { enabled = false } } }
+M.opts = {
+  highlight = { backdrop = false, },
+  modes = {
+    char = { highlight = { backdrop = false } },
+    search = { enabled = false }
+  }
+}
 
 M.keys = {
   {
