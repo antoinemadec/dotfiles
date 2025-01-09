@@ -91,7 +91,10 @@ require("blink-cmp").setup(
         update_delay_ms = 0,
       },
       list = {
-        selection = "auto_insert"
+        selection = {
+          preselect = false,
+          auto_insert = true,
+        }
       },
       menu = {
         draw = {
