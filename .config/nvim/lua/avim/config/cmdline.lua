@@ -28,7 +28,7 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
 vim.api.nvim_create_autocmd("CmdwinEnter", {
   callback = function(ev)
     local opts = { buffer = ev.buf }
-    vim.keymap.set('n', '<CR>', '<CR>' , opts)
+    vim.keymap.set('n', '<CR>', '<CR>', opts)
   end,
 })
 
@@ -37,7 +37,7 @@ vim.api.nvim_create_autocmd('CmdwinEnter', {
   pattern = '[:>]',
   desc = 'If the treesitter vim parser is installed, set the syntax again to get highlighting in the command window',
   group = vim.api.nvim_create_augroup('cmdwin_syntax', {}),
-  callback = function ()
+  callback = function()
     local is_loadable, _ = pcall(vim.treesitter.language.add, 'vim')
     if is_loadable then
       vim.cmd('set syntax=vim')

@@ -69,15 +69,9 @@ local function toggle_diff()
 end
 
 local function mapping_func_key_help()
-  local notify = require('notify')
-  local opts = { title = "Function Keys", timeout = false, }
+  local opts = { title = "Function Keys", }
   local level = nil
-  if vim.g.mapping_func_key_help then
-    vim.g.mapping_func_key_help = false
-    notify.dismiss()
-  else
-    vim.g.mapping_func_key_help = true
-    notify.notify([[
+  vim.notify([[
 <F1>      Help            toggle
 <F2>      Debugger
 <F3>      Indent          toggle
@@ -87,7 +81,6 @@ local function mapping_func_key_help()
 <F8>      Quickfix        toggle
 <F9>      Spell           toggle
 <F10>     Diff            toggle]], level, opts)
-  end
 end
 
 -- leader
@@ -182,8 +175,8 @@ map('t', '\\cd', 'nvim_server_cmd "cd $PWD" -i<cr>')
 -- LSP mappings
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 map('n', '\\d', vim.diagnostic.open_float)
-map('n', '[d', function() vim.diagnostic.jump({count=1, float=true}) end)
-map('n', ']d', function() vim.diagnostic.jump({count=-1, float=true}) end)
+map('n', '[d', function() vim.diagnostic.jump({ count = 1, float = true }) end)
+map('n', ']d', function() vim.diagnostic.jump({ count = -1, float = true }) end)
 -- remap('n', '<space>q', vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to only map the following keys

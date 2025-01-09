@@ -15,6 +15,18 @@ a.nvim_create_autocmd('VimEnter', {
   end
 })
 
+vim.api.nvim_create_autocmd("TextYankPost", {
+  pattern = "*",
+  callback = function()
+    if not _G.is_large_file() then
+      vim.hl.on_yank({
+        higroup = "Visual",
+        timeout = 200
+      })
+    end
+  end
+})
+
 vim.g.gruvbox_material_background = 'soft'
 vim.g.gruvbox_material_better_performance = 1
 vim.g.gruvbox_material_palette = 'mix'

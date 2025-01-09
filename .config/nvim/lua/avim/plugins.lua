@@ -24,11 +24,6 @@ require("lazy").setup({
     cond = not vim.g.man_mode,
     config = function() require('avim.config.statusline') end
   },
-  { -- display thin vertical lines at each indentation level
-    'lukas-reineke/indent-blankline.nvim',
-    main = "ibl",
-    config = function() require('avim.config.indent_blankline') end
-  },
   { -- make notes more readable
     'antoinemadec/vim-indentcolor-filetype',
   },
@@ -36,15 +31,16 @@ require("lazy").setup({
     'mhinz/vim-startify',
     config = function() require('avim.config.vim-startify') end
   },
-  { -- highlight current word under the cursor
-    'RRethy/vim-illuminate',
-    event = "VeryLazy",
-    config = function() require('avim.config.illuminate') end
+  { -- nicer command line
+    'Sam-programs/cmdline-hl.nvim',
+    event = 'VimEnter',
+    config = function() require('avim.config.cmdline') end
   },
-  { -- fancy notification manager for NeoVim
-    'rcarriga/nvim-notify',
-    event = "VeryLazy",
-    config = function() vim.notify = require('notify') end
+  { -- misc quality of life plugins
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    config = function() require('avim.config.snacks') end
   },
   { -- fancy vim.ui.select and input
     'stevearc/dressing.nvim',
@@ -61,7 +57,7 @@ require("lazy").setup({
   },
   { -- nvim lua development
     "folke/lazydev.nvim",
-    ft = "lua", -- only load on lua files
+    ft = "lua",
     opts = {
       library = {
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
@@ -138,9 +134,9 @@ require("lazy").setup({
     config = function() require('avim.config.gitsigns') end
   },
   { -- autopair
-    'windwp/nvim-autopairs',
-    event = "InsertEnter",
-    config = function() require('avim.config.nvim-autopairs') end
+    "echasnovski/mini.pairs",
+    event = "VeryLazy",
+    config = function() require("avim.config.mini-pairs") end
   },
 
   -- languages
@@ -175,7 +171,6 @@ require("lazy").setup({
   { -- jump to any location specified by two characters
     'folke/flash.nvim',
     event = "VeryLazy",
-    ---@type Flash.Config
     opts = require('avim.config.flash').opts,
     keys = require('avim.config.flash').keys,
   },
@@ -254,11 +249,6 @@ require("lazy").setup({
         },
       },
     },
-  },
-  { -- nicer command line
-    'Sam-programs/cmdline-hl.nvim',
-    event = 'VimEnter',
-    config = function() require('avim.config.cmdline') end
   },
   {              -- profile lua code
     'stevearc/profile.nvim',
