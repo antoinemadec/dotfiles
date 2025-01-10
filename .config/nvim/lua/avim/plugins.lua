@@ -65,10 +65,16 @@ require("lazy").setup({
     },
   },
   { -- completion
-    'saghen/blink.cmp',
-    version = 'v0.*',
+    "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
     dependencies = {
-      "rafamadriz/friendly-snippets", -- snippet collection
+      "antoinemadec/cmp-nvim-lsp-signature-help", -- display function signature
+      'hrsh7th/cmp-buffer',                       -- buffer source for nvim-cmp
+      'hrsh7th/cmp-path',                         -- path source for nvim-cmp
+      "hrsh7th/cmp-nvim-lsp",                     -- LSP source for nvim-cmp
+      "saadparwaiz1/cmp_luasnip",                 -- snippets source for nvim-cmp
+      "L3MON4D3/LuaSnip",                         -- snippets plugin
+      "rafamadriz/friendly-snippets",             -- snippet collection
     },
     config = function() require('avim.config.completion') end
   },
