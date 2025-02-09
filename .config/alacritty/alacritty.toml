@@ -45,6 +45,5 @@ family = "monospace"
 x = 1
 y = 1
 
-
 [terminal]
 osc52 = "CopyPaste"

@@ -227,6 +227,7 @@ tput ritm && export TERM_ITALICS=true
 export TERM_COLORS="$(tput colors)"
 export TERM_FANCY_CURSOR=true     # can be modified in .bashrc.local
 export TERM_BRACKETED_PASTE=true  # can be modified in .bashrc.local
+export TERM_OSC52=true
 
 # tmux
 TMUX_SESSION=""
