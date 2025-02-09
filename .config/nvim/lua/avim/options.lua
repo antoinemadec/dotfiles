@@ -43,27 +43,17 @@ if vim.g.man_mode then
   vim.opt.laststatus = 0
 end
 
--- always use ssh X11 forwarding for copy/paste, even when DISPLAY is set, this allows to both have:
---   - DISPLAY set to VNC for instance
---   - copy/paste accross different vim instances/hosts
---
--- primary: middle click buffer
--- clipboard: ctrl+v buffer
-local ssh_display = os.getenv("SSH_DISPLAY")
-if ssh_display ~= nil then
-  vim.g.clipboard = {
-    name = 'myClipboard',
-    copy = {
-      ['+'] = { 'xclip', '-display', ssh_display, '-selection', 'primary', '-in' },
-      ['*'] = { 'xclip', '-display', ssh_display, '-selection', 'clipboard', '-in' },
-    },
-    paste = {
-      ['+'] = { 'xclip', '-display', ssh_display, '-selection', 'primary', '-out' },
-      ['*'] = { 'xclip', '-display', ssh_display, '-selection', 'clipboard', '-out' },
-    },
-    cache_enabled = 1,
-  }
-end
+vim.g.clipboard = {
+  name = 'OSC 52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+  },
+  paste = {
+    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+  },
+}
 
 -- downgrade options when file is too big
 --- Set window-local options.
