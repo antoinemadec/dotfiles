@@ -184,6 +184,11 @@ map('n', ']d', function() vim.diagnostic.jump({ count = -1, float = true }) end)
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
+    -- return when buffer type is copilot-chat
+    if vim.bo.filetype == 'copilot-chat' then
+      return
+    end
+
     -- Enable completion triggered by <c-x><c-o>
     vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 

@@ -98,7 +98,11 @@ require("lazy").setup({
     config = function() require('avim.config.mason') end
   },
   {
-    'github/copilot.vim',
+    "CopilotC-Nvim/CopilotChat.nvim",
+    dependencies = {
+      { "github/copilot.vim" },
+      { "nvim-lua/plenary.nvim", branch = "master" },
+    },
     event = "VeryLazy",
     init = function() require('avim.config.copilot') end
   },

@@ -141,7 +141,7 @@ wk.add({
   { "<leader>tt",  function() term_split("TT") end,                                                           desc = "tab split" },
   { "<leader>tv",  function() term_split("TV") end,                                                           desc = "vertical" },
   { "<leader>tw",  function() term_split("T") end,                                                            desc = "current window" },
-  { "<leader>tf",  _G.toggle_floating_terminal,                                                               desc = "toggle float", mode = {"n", "t"} },
+  { "<leader>tf",  _G.toggle_floating_terminal,                                                               desc = "toggle float",                               mode = { "n", "t" } },
 
   { "<leader>u",   group = "change UI" },
   { "<leader>uc",  ui_toggle_cmdheight,                                                                       desc = "toggle cmdline height" },
@@ -153,4 +153,19 @@ wk.add({
   { "<leader>wc",  function() wrap(require("telescope").extensions.git_browse.grep_string, {}) end,           desc = "current word git grep" },
   { "<leader>wg",  function() wrap(require("telescope").extensions.git_browse.live_grep, {}) end,             desc = "git grep" },
   { "<leader>ww",  "<cmd>Telescope live_grep<cr>",                                                            desc = "all words" },
+
+  { "<leader>a",   group = "AI assistant" },
+  { "<leader>aa",  "<cmd>CopilotChatToggle<cr>",                                                              desc = "CopilotChat - Toggle" },
+  {
+    "<leader>aq",
+    function()
+      local input = vim.fn.input("Quick Chat: ")
+      if input ~= "" then
+        require("CopilotChat").ask(input, {
+          selection = require("CopilotChat.select").buffer
+        })
+      end
+    end,
+    desc = "CopilotChat - Quick chat"
+  },
 })
