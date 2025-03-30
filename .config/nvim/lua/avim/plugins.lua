@@ -49,10 +49,7 @@ require("lazy").setup({
 
   -- IDE
   { -- lsp
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      "j-hui/fidget.nvim", -- lsp progress
-    },
+    "j-hui/fidget.nvim",
     config = function() require('avim.config.lsp') end
   },
   { -- nvim lua development
@@ -92,9 +89,6 @@ require("lazy").setup({
   { -- package manager
     'williamboman/mason.nvim',
     event = "VeryLazy",
-    dependencies = {
-      "neovim/nvim-lspconfig",
-    },
     config = function() require('avim.config.mason') end
   },
   {
@@ -237,7 +231,7 @@ require("lazy").setup({
   { -- gitlab ls
     "jrmsgr/gitlab-ls",
     cond = (os.getenv("GITLAB_API_TOKEN") and os.getenv("GITLAB_URL") and os.getenv("GITLAB_PROJECTS")) ~= nil,
-    dependencies = { "neovim/nvim-lspconfig", "hrsh7th/nvim-cmp" },
+    dependencies = { "hrsh7th/nvim-cmp" },
     opts = { -- Plugin's config
       max_txt_len = 20,
       open_icon = "",
