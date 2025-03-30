@@ -78,7 +78,7 @@ a.nvim_create_autocmd('VimEnter', {
 local lsp_virtual_text = true
 function _G.ToggleLspVirtualText()
   lsp_virtual_text = not lsp_virtual_text
-  vim.diagnostic.config({ virtual_text = lsp_virtual_text })
+  vim.diagnostic.config({ virtual_lines = lsp_virtual_text })
 end
 
 ToggleLspVirtualText()
