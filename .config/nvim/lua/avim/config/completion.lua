@@ -15,9 +15,9 @@ require("blink-cmp").setup(
       ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
       ['<C-e>'] = { 'hide', 'fallback' },
       ['<CR>'] = { 'accept', 'fallback' },
-      ['<C-k>'] = { 'select_prev', 'fallback' },
-      ['<C-j>'] = { 'select_next', 'fallback' },
-      ['<S-Tab>'] = {
+      ['<S-Tab>'] = { 'select_prev', 'fallback' },
+      ['<Tab>'] = { 'select_next', 'fallback' },
+      ['<C-k>'] = {
         function(cmp)
           if cmp.snippet_active() then
             return cmp.snippet_backward()
@@ -25,7 +25,7 @@ require("blink-cmp").setup(
             return cmp.select_prev()
           end
         end, 'select_prev', 'fallback' },
-      ['<Tab>'] = {
+      ['<C-j>'] = {
         function(cmp)
           if cmp.snippet_active() then
             return cmp.snippet_forward()
