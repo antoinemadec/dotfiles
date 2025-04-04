@@ -112,6 +112,32 @@ require("blink-cmp").setup(
               text = function(ctx) return source_to_short_name[ctx.source_name] end,
               highlight = 'Grey',
             },
+            label = {
+              width = { fill = true, max = 60 },
+              text = function(ctx) return ctx.label .. ctx.label_detail end,
+              highlight = function(ctx)
+                -- label and label details
+                local label = ctx.label
+                local highlights = {
+                  { 0, #label, group = ctx.deprecated and 'BlinkCmpLabelDeprecated' or 'BlinkCmpLabel' },
+                }
+                if ctx.label_detail then
+                  table.insert(highlights, { #label, #label + #ctx.label_detail, group = 'Grey' })
+                end
+
+                if vim.list_contains(ctx.self.treesitter, ctx.source_id) and not ctx.deprecated then
+                  -- add treesitter highlights
+                  vim.list_extend(highlights, require('blink.cmp.completion.windows.render.treesitter').highlight(ctx))
+                end
+
+                -- characters matched on the label by the fuzzy matcher
+                for _, idx in ipairs(ctx.label_matched_indices) do
+                  table.insert(highlights, { idx, idx + 1, group = 'BlinkCmpLabelMatch' })
+                end
+
+                return highlights
+              end,
+            },
           }
         },
       }
