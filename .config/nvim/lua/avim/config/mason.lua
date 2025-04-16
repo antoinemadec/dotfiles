@@ -14,11 +14,14 @@ local server_to_package = {
   ["lua_ls"] = "lua-language-server",
   ["rust_analyzer"] = "rust-analyzer",
   ["tsserver"] = "typescript-language-server",
+  ["gitlab-ls"] = "SKIP",
 }
 
 for _, server in ipairs(_G.lsp_servers) do
   local package_name = server_to_package[server] or server
-  install_package(package_name)
+  if package_name ~= "SKIP" then
+    install_package(package_name)
+  end
 end
 
 -- install other

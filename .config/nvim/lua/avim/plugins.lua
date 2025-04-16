@@ -31,11 +31,12 @@ require("lazy").setup({
     'mhinz/vim-startify',
     config = function() require('avim.config.vim-startify') end
   },
-  { -- nicer command line
-    'Sam-programs/cmdline-hl.nvim',
-    event = 'VimEnter',
-    config = function() require('avim.config.cmdline') end
-  },
+  -- FIXME: nvim 0.11 redraw bug when laststatus=0 and cmdheight=0
+  -- { -- nicer command line
+  --   'Sam-programs/cmdline-hl.nvim',
+  --   event = 'VimEnter',
+  --   config = function() require('avim.config.cmdline') end
+  -- },
   { -- misc quality of life plugins
     "folke/snacks.nvim",
     priority = 1000,
@@ -228,34 +229,13 @@ require("lazy").setup({
     ft = { "markdown" },
     build = function() vim.fn["mkdp#util#install"]() end,
   },
-  { -- gitlab ls
-    "jrmsgr/gitlab-ls",
-    cond = (os.getenv("GITLAB_API_TOKEN") and os.getenv("GITLAB_URL") and os.getenv("GITLAB_PROJECTS")) ~= nil,
-    dependencies = { "hrsh7th/nvim-cmp", "neovim/nvim-lspconfig" },
-    opts = { -- Plugin's config
-      max_txt_len = 20,
-      open_icon = "",
-      closed_icon = "",
-      override_cmp_items_highlight = false,
-      server_config = {
-        name = "gitlab-ls",
-        filetypes = { "text" },
-        handlers = {
-          ["textDocument/diagnostic"] = vim.lsp.with(vim.lsp.diagnostic.on_diagnostic, {
-            signs = false,
-            underline = false,
-          }),
-        },
-        init_options = {
-          url = os.getenv("GITLAB_URL"),
-          private_token = os.getenv("GITLAB_API_TOKEN"),
-          projects = { os.getenv("GITLAB_PROJECTS") },
-        },
-      },
-    },
-  },
   {              -- profile lua code
     'stevearc/profile.nvim',
     lazy = true, -- handled in init.lua with NVIM_PROFILE env var
-  }
+  },
+
+  -- LSP not managed by Mason
+  { -- gitlab ls
+    "antoinemadec/gitlab-ls",
+  },
 })

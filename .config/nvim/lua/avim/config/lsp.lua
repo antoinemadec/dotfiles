@@ -4,6 +4,7 @@ _G.lsp_servers = {
   'bashls',
   'clangd',
   'lua_ls',
+  'gitlab-ls',
   'pyright',
   'verible',
 }
@@ -63,10 +64,12 @@ a.nvim_create_autocmd('VimEnter', {
     -- set diagnostic virtual text highlight
     for _, type in pairs({ 'Error', 'Warn', 'Hint', 'Info' }) do
       local hl = "DiagnosticSign" .. type
-      local vhl = "DiagnosticVirtualText" .. type
+      local vt_hl = "DiagnosticVirtualText" .. type
+      local vl_hl = "DiagnosticVirtualLines" .. type
       local vhl_table = a.nvim_get_hl(0, { name = hl, link = false })
       vhl_table.fg = _G.dim_color(vhl_table.fg, 80)
-      a.nvim_set_hl(0, vhl, vhl_table)
+      a.nvim_set_hl(0, vt_hl, vhl_table)
+      a.nvim_set_hl(0, vl_hl, vhl_table)
     end
     -- hide all semantic highlights
     for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
@@ -75,13 +78,11 @@ a.nvim_create_autocmd('VimEnter', {
   end
 })
 
-local lsp_virtual_text = true
+local lsp_virtual_text = false
 function _G.ToggleLspVirtualText()
   lsp_virtual_text = not lsp_virtual_text
   vim.diagnostic.config({ virtual_lines = lsp_virtual_text })
 end
-
-ToggleLspVirtualText()
 
 -- lsp progress
 require("fidget").setup {
