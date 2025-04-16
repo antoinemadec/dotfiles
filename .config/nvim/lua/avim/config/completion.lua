@@ -87,7 +87,7 @@ require("blink-cmp").setup(
     cmdline = {
       enabled = true,
       completion = {
-        menu = { auto_show = true },
+        menu = { auto_show = false },
         list = {
           selection = {
             auto_insert = true,
