@@ -84,6 +84,19 @@ require("blink-cmp").setup(
 
     signature = { enabled = true },
 
+    cmdline = {
+      enabled = true,
+      completion = {
+        menu = { auto_show = true },
+        list = {
+          selection = {
+            auto_insert = true,
+            preselect = false,
+          }
+        },
+      },
+    },
+
     completion = {
       documentation = {
         auto_show = true,
