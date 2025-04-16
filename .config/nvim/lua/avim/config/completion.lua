@@ -127,7 +127,12 @@ require("blink-cmp").setup(
             },
             label = {
               width = { fill = true, max = 60 },
-              text = function(ctx) return ctx.label .. ctx.label_detail end,
+              text = function(ctx)
+                if ctx.label_detail then
+                  return ctx.label .. ' ' .. ctx.label_detail
+                end
+                return ctx.label
+              end,
               highlight = function(ctx)
                 -- label and label details
                 local label = ctx.label
@@ -135,7 +140,7 @@ require("blink-cmp").setup(
                   { 0, #label, group = ctx.deprecated and 'BlinkCmpLabelDeprecated' or 'BlinkCmpLabel' },
                 }
                 if ctx.label_detail then
-                  table.insert(highlights, { #label, #label + #ctx.label_detail, group = 'Grey' })
+                  table.insert(highlights, { #label + 1, #label + 1 + #ctx.label_detail, group = 'Grey' })
                 end
 
                 if vim.list_contains(ctx.self.treesitter, ctx.source_id) and not ctx.deprecated then
