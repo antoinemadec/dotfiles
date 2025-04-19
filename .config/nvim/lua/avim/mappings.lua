@@ -158,7 +158,6 @@ map('n', ']l', ':silent! lnext<cr>')
 map('n', '[l', ':silent! lprev<cr>')
 map('n', '[t', function() next_sidebar_location(-1) end)
 map('n', ']t', function() next_sidebar_location(1) end)
-map('n', '[t', function() next_sidebar_location(-1) end)
 
 -- misc
 map('n', '\\r', ':RunCurrentBuffer<cr>')
