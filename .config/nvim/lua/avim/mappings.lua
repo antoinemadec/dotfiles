@@ -175,8 +175,8 @@ map('t', '\\cd', 'nvim_server_cmd "cd $PWD" -i<cr>')
 -- LSP mappings
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 map('n', '\\d', vim.diagnostic.open_float)
-map('n', '[d', function() vim.diagnostic.jump({ count = 1, float = true }) end)
-map('n', ']d', function() vim.diagnostic.jump({ count = -1, float = true }) end)
+map('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end)
+map('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end)
 -- remap('n', '<space>q', vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to only map the following keys
