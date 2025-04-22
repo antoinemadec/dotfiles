@@ -9,6 +9,7 @@ require("snacks").setup({
     end,
   },
   notifier = {},
+  words = { enabled = true },
 })
 
 vim.api.nvim_create_user_command("Notifications",
