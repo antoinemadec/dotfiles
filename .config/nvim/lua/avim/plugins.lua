@@ -31,12 +31,11 @@ require("lazy").setup({
     'mhinz/vim-startify',
     config = function() require('avim.config.vim-startify') end
   },
-  -- FIXME: nvim 0.11 redraw bug when laststatus=0 and cmdheight=0
-  -- { -- nicer command line
-  --   'Sam-programs/cmdline-hl.nvim',
-  --   event = 'VimEnter',
-  --   config = function() require('avim.config.cmdline') end
-  -- },
+  { -- nicer command line and messages
+    "OXY2DEV/ui.nvim",
+    lazy = false,
+    config = function() require('avim.config.ui') end
+  },
   { -- misc quality of life plugins
     "folke/snacks.nvim",
     priority = 1000,

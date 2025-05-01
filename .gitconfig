@@ -1,14 +1,14 @@
 [color]
   ui = auto
-; [push]
-;   default = simple
+[push]
+  autoSetupRemote = true
 [user]
-	name = antoinemadec
-	email = ajamadec@gmail.com
-	signingkey = 2FA3CC716FEB6DD9
+  name = antoinemadec
+  email = ajamadec@gmail.com
+  signingkey = 2FA3CC716FEB6DD9
 ; [commit]
-; 	gpgsign = true
+;   gpgsign = true
 [rebase]
-	autoStash = true
+  autoStash = true
 [pull]
-	rebase = true
+  rebase = true

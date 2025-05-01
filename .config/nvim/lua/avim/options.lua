@@ -15,11 +15,10 @@ vim.opt.title          = true  -- change terminal title
 vim.opt.wrap           = false -- when on, lines longer than the width of the window will wrap
 
 -- other options
-vim.opt.shortmess:append({ W = true, I = true, c = true, C = true })
-vim.opt.updatetime     = 100                   -- delay for CursorHold
-vim.opt.cb             = 'unnamed,unnamedplus' -- use * and + registers for yank
-vim.opt.complete       =
-'.,w,b,u'                                      -- specifies how keyword completion works when CTRL-P or CTRL-N are used
+vim.opt.shortmess:append({ W = true, I = true, c = true, C = true, S = true }) -- don't show certain messages
+vim.opt.updatetime     = 100                                                   -- delay for CursorHold
+vim.opt.cb             = 'unnamed,unnamedplus'                                 -- use * and + registers for yank
+vim.opt.complete       = '.,w,b,u'                                             -- specifies how keyword completion works when CTRL-P or CTRL-N are used
 vim.opt.completeopt    = vim.opt.completeopt + { 'menuone,longest' }
 vim.opt.foldenable     = false
 vim.opt.foldmethod     = 'indent'
