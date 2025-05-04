@@ -30,5 +30,8 @@ require("ui").setup({
   message = {
     enable = true,
     history_preference = "ui",
+    ignore = function(kind, content)
+      return kind == "search_cmd"
+    end
   }
 })

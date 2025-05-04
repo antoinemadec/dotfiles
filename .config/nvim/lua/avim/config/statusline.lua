@@ -115,7 +115,13 @@ function Tabline()
     local current_buf = a.nvim_win_get_buf(current_win)
     local current_name = a.nvim_buf_get_name(current_buf)
     -- info about all tab's windows
-    local wins = a.nvim_tabpage_list_wins(tab_handle)
+    local wins = {} -- get non floating/relative windows
+    for _, window in ipairs(a.nvim_tabpage_list_wins(tab_handle)) do
+      local config = a.nvim_win_get_config(window)
+      if config.relative == "" then
+        table.insert(wins, window)
+      end
+    end
     local wins_nb = #wins
     local modified = false
     for _, win_handle in ipairs(wins) do
