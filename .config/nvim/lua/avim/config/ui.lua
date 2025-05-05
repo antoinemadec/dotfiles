@@ -30,6 +30,21 @@ require("ui").setup({
   message = {
     enable = true,
     history_preference = "ui",
+    msg_styles = {
+      default = {
+        duration = function(msg, lines)
+          local duration = 2500;
+          if msg.kind == "write" then
+            duration = 2000;
+          elseif msg.kind == "confirm" then
+            duration = 3000;
+          elseif vim.list_contains({ "emsg", "echoerr", "lua_error", "rpc_error", "shell_err" }, msg.kind) then
+            duration = 3500;
+          end
+          return duration
+        end
+      }
+    },
     ignore = function(kind, content)
       return kind == "search_cmd"
     end
