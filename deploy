@@ -23,6 +23,7 @@ deploy_core(){
 deploy_core .bash_profile
 deploy_core .bashrc
 deploy_core bin
+deploy_core .clang-format
 deploy_core .config/alacritty
 deploy_core .config/compton.conf
 deploy_core .config/compton.conf .config/picom.conf
@@ -41,6 +42,5 @@ deploy_core .screenrc
 deploy_core .tigrc
 deploy_core .tmux.conf
 deploy_core .toprc
-deploy_core .vim
 deploy_core .vimrc
 deploy_core .Xresources
