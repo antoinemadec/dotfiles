@@ -68,6 +68,23 @@ local function toggle_diff()
   vim.api.nvim_set_current_win(current_win)
 end
 
+local function toggle_quickfix()
+  local quickfix_is_open = false
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    local buftype = vim.api.nvim_get_option_value("buftype", { buf = buf })
+    if buftype == "quickfix" then
+      quickfix_is_open = true
+      break
+    end
+  end
+  if quickfix_is_open then
+    vim.cmd("cclose")
+  else
+    vim.cmd("copen")
+  end
+end
+
 local function mapping_func_key_help()
   local opts = { title = "Function Keys", }
   local level = nil
@@ -134,7 +151,7 @@ map('n', '<F5>', ':exe "HighlightGroupsAddWord " . hg0 . " 1"<cr>')
 map('n', '\\<F5>', ':exe "HighlightGroupsClearGroup " . hg0 . " 1"<cr>')
 map('n', '<F6>', ':exe "HighlightGroupsAddWord " . hg1 . " 1"<cr>')
 map('n', '\\<F6>', ':exe "HighlightGroupsClearGroup " . hg1 . " 1"<cr>')
-map('n', '<F8>', ':call asyncrun#quickfix_toggle(8)<cr>')
+map('n', '<F8>', toggle_quickfix)
 map('n', '<F9>', ':set spell!<cr>')
 map('i', '<F9>', '<C-o> :set spell!<cr>')
 map('n', '<F10>', toggle_diff)

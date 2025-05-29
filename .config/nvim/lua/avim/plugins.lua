@@ -196,11 +196,6 @@ require("lazy").setup({
     'stevearc/oil.nvim',
     config = function() require('avim.config.oil') end
   },
-  { -- run asynchronous bash commands
-    'skywind3000/asyncrun.vim',
-    event = "VeryLazy",
-    config = function() require('avim.config.asyncrun') end
-  },
   { -- delete, change and add surroundings in pairs
     'tpope/vim-surround',
     dependencies = { 'tpope/vim-repeat' },
