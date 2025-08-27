@@ -31,11 +31,6 @@ require("lazy").setup({
     'mhinz/vim-startify',
     config = function() require('avim.config.vim-startify') end
   },
-  { -- nicer command line and messages
-    "OXY2DEV/ui.nvim",
-    lazy = false,
-    config = function() require('avim.config.ui') end
-  },
   { -- misc quality of life plugins
     "folke/snacks.nvim",
     priority = 1000,
@@ -227,3 +222,6 @@ require("lazy").setup({
     "antoinemadec/gitlab-ls",
   },
 })
+
+-- enable experimental built-in UI
+require('vim._extui').enable({})
