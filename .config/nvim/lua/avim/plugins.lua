@@ -210,7 +210,11 @@ require("lazy").setup({
     'iamcco/markdown-preview.nvim',
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     ft = { "markdown" },
-    build = function() vim.fn["mkdp#util#install"]() end,
+    build = function()
+      local markdown_path = vim.fn.stdpath("data") .. "/lazy/markdown-preview.nvim"
+      vim.opt.rtp:prepend(markdown_path)
+      vim.fn["mkdp#util#install"]()
+    end,
   },
   {              -- profile lua code
     'stevearc/profile.nvim',
