@@ -2,8 +2,10 @@ local function disable(lang, bufnr)
   return vim.api.nvim_buf_line_count(bufnr) > vim.g.large_file_cutoff
 end
 
+vim.treesitter.language.register('verilog', { 'verilog', 'systemverilog', 'verilog_systemverilog' })
+
 require 'nvim-treesitter.configs'.setup {
-  ensure_installed = { 'lua', 'cpp', 'python', 'bash', 'rust', 'vim', 'vimdoc', 'query' , 'regex'},
+  ensure_installed = { 'lua', 'cpp', 'python', 'bash', 'verilog', 'rust', 'vim', 'vimdoc', 'query' , 'regex'},
   highlight = {
     enable = true,
     disable = disable,
