@@ -19,7 +19,6 @@ vim.opt.shortmess:append({ W = true, I = true, c = true, C = true, S = true }) -
 vim.opt.updatetime     = 100                                                   -- delay for CursorHold
 vim.opt.cb             = 'unnamed,unnamedplus'                                 -- use * and + registers for yank
 vim.opt.complete       = '.,w,b,u'                                             -- specifies how keyword completion works when CTRL-P or CTRL-N are used
-vim.opt.completeopt    = vim.opt.completeopt + { 'menuone,longest' }
 vim.opt.foldenable     = false
 vim.opt.foldmethod     = 'indent'
 vim.opt.ignorecase     = true                                                -- ignore case in pattern by default...

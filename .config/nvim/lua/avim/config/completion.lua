@@ -45,6 +45,12 @@ require("blink-cmp").setup(
     sources = {
       default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
       providers = {
+        path = {
+          -- Path sources triggered by "/" interfere with CopilotChat commands
+          enabled = function()
+            return not(vim.bo.filetype == "copilot-chat" and vim.fn.col('.') <= 2)
+          end,
+        },
         lsp = { fallbacks = {} }, -- avoid blocking buffer suggestions
         snippets = {
           opts = {
