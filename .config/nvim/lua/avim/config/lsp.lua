@@ -16,7 +16,7 @@ vim.env.PATH = mason_bin_path .. ":" .. vim.env.PATH
 local capabilities = require('blink.cmp').get_lsp_capabilities()
 
 local function on_attach(client, bufnr)
-  if _G.is_large_file() then
+  if _G.is_large_file(bufnr) then
     vim.schedule(function()
       vim.lsp.buf_detach_client(bufnr, client.id)
     end)
@@ -37,6 +37,12 @@ vim.lsp.config('*', {
   on_attach = on_attach,
   capabilities = capabilities,
   root_markers = { '.git' },
+  root_dir = function(bufnr, on_dir)
+    -- disable LSP for large files
+    if not _G.is_large_file(bufnr) then
+      on_dir(vim.fn.getcwd())
+    end
+  end,
 })
 vim.lsp.enable(_G.lsp_servers)
 

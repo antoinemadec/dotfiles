@@ -45,8 +45,11 @@ function _G.sleep(n)
   while clock() - t0 <= n do end
 end
 
-function _G.is_large_file()
-  return vim.api.nvim_buf_line_count(vim.api.nvim_get_current_buf()) > vim.g.large_file_cutoff
+function _G.is_large_file(bufnr)
+  if bufnr == nil then
+    bufnr = vim.api.nvim_get_current_buf()
+  end
+  return vim.api.nvim_buf_line_count(bufnr) > vim.g.large_file_cutoff
 end
 
 function _G.dim_color(color, dimming_pct)
