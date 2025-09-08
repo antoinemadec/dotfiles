@@ -24,7 +24,11 @@ local function on_attach(client, bufnr)
   end
   vim.bo.tagfunc = nil -- don't overwrite ctags mappings/functions with LSP
   if client.server_capabilities.documentSymbolProvider then
+    local id = vim.api.nvim_create_augroup("update_current_function__" .. client.id, {
+      clear = false
+    })
     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+      group = id,
       buffer = 0,
       callback = _G.LUtils.update_current_function,
     })
@@ -105,12 +109,41 @@ require("fidget").setup {
 }
 
 -- lsp commands
+local function lsp_stop_client(client)
+  client:stop()
+  vim.api.nvim_del_augroup_by_name("update_current_function__" .. client.id)
+  vim.b.lsp_current_function = ''
+end
+
+local function lsp_start_client(name, bufs)
+  local client_id = vim.lsp.start(vim.lsp.config[name], { attach = bufs == nil })
+  if client_id and bufs then
+    for _, buf in ipairs(bufs) do
+      vim.lsp.buf_attach_client(buf, client_id)
+    end
+  end
+end
+
+vim.api.nvim_create_user_command(
+  'LspStart',
+  function(kwargs)
+    local name = kwargs.fargs[1]
+    lsp_start_client(name)
+  end,
+  {
+    nargs = "?",
+    complete = function()
+      return vim.tbl_map(function(c) return c end, _G.lsp_servers)
+    end
+  }
+)
+
 vim.api.nvim_create_user_command(
   'LspStop',
   function(kwargs)
     local name = kwargs.fargs[1]
     for _, client in ipairs(vim.lsp.get_clients({ name = name })) do
-      client:stop()
+      lsp_stop_client(client)
     end
   end,
   {
@@ -127,16 +160,11 @@ vim.api.nvim_create_user_command(
     local name = kwargs.fargs[1]
     for _, client in ipairs(vim.lsp.get_clients({ name = name })) do
       local bufs = vim.lsp.get_buffers_by_client_id(client.id)
-      client:stop()
+      lsp_stop_client(client)
       vim.wait(1000, function()
         return vim.lsp.get_client_by_id(client.id) == nil
       end)
-      local client_id = vim.lsp.start(client.config, { attach = false })
-      if client_id then
-        for _, buf in ipairs(bufs) do
-          vim.lsp.buf_attach_client(buf, client_id)
-        end
-      end
+      lsp_start_client(client.name, bufs)
     end
   end,
   {
