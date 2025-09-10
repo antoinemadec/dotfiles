@@ -1,7 +1,4 @@
 require("snacks").setup({
-  bigfile = {
-    notify = false,
-  },
   indent = {
     animate = { enabled = false },
     enabled = true,
@@ -25,9 +22,13 @@ vim.api.nvim_create_autocmd('BufEnter', {
     if _G.is_large_file() then
       vim.b.snacks_indent = false
       vim.b.snacks_words = false
+      require("snacks").indent.disable()
+      require("snacks").words.disable()
     else
       vim.b.snacks_indent = true
       vim.b.snacks_words = true
+      require("snacks").indent.enable()
+      require("snacks").words.enable()
     end
   end
 })
