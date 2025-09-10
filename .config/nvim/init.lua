@@ -35,6 +35,7 @@ if should_profile then
         end
       end)
     else
+      vim.notify("Started profiling")
       prof.start("*")
     end
   end
