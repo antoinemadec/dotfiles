@@ -5,7 +5,7 @@ end
 vim.treesitter.language.register('verilog', { 'verilog', 'systemverilog', 'verilog_systemverilog' })
 
 require 'nvim-treesitter.configs'.setup {
-  ensure_installed = { 'lua', 'cpp', 'python', 'bash', 'verilog', 'rust', 'vim', 'vimdoc', 'query' , 'regex'},
+  ensure_installed = { 'lua', 'cpp', 'python', 'bash', 'verilog', 'vhdl', 'rust', 'vim', 'vimdoc', 'query', 'regex' },
   highlight = {
     enable = true,
     disable = disable,

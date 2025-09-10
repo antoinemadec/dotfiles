@@ -1,5 +1,5 @@
 -- disable some plugins/options when file is too big
-vim.g.large_file_cutoff = 10000
+vim.g.large_file_cutoff = 1000000
 
 -- profile lua funcitons
 --  startup: NVIM_PROFILE=start nvim

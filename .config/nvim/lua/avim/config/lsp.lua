@@ -23,18 +23,6 @@ local function on_attach(client, bufnr)
     return
   end
   vim.bo.tagfunc = nil -- don't overwrite ctags mappings/functions with LSP
-  if client.server_capabilities.documentSymbolProvider then
-    local id = vim.api.nvim_create_augroup("update_current_function__" .. client.id, {
-      clear = false
-    })
-    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-      group = id,
-      buffer = 0,
-      callback = _G.LUtils.update_current_function,
-    })
-  else
-    vim.b.lsp_current_function = ''
-  end
 end
 
 vim.lsp.config('*', {
@@ -111,7 +99,6 @@ require("fidget").setup {
 -- lsp commands
 local function lsp_stop_client(client)
   client:stop()
-  vim.api.nvim_del_augroup_by_name("update_current_function__" .. client.id)
   vim.b.lsp_current_function = ''
 end
 

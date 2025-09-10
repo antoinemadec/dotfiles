@@ -39,28 +39,6 @@ local function smart_line_motion(key)
   return vim.v.count > 1 and "m'" .. vim.v.count .. key or key
 end
 
-local function navigation_bar()
-  if vim.bo.filetype == 'man' or vim.t.man_toc_win then
-    require('window-movement').toggle_side_bar("toc_win", function() require 'man'.show_toc() end)
-  elseif vim.bo.filetype == 'help' or vim.t.help_toc_win then
-    require('window-movement').toggle_side_bar("toc_win", function() vim.cmd("normal gO") end)
-  else
-    require('avim.config.tagbar').toggle()
-  end
-end
-
-local function next_sidebar_location(direction)
-  if vim.t.toc_win then
-    if direction == 1 then
-      vim.cmd("lnext")
-    else
-      vim.cmd("lprev")
-    end
-  else
-    vim.fn['tagbar#jumpToNearbyTag'](direction, "nearest", "s")
-  end
-end
-
 local function toggle_diff()
   local current_win = vim.api.nvim_get_current_win()
   local command = vim.o.diff and "diffoff" or "diffthis"
@@ -146,7 +124,7 @@ map('n', '<C-w>t', ':tab split<cr>')
 map('n', '<F1>', mapping_func_key_help)
 map('n', '<F2>', function() require("dapui").toggle() end)
 map('n', '<F3>', ':ToggleIndent<cr>')
-map('n', '<F4>', navigation_bar)
+map('n', '<F4>', function() require('aerial').toggle({ focus = false, }) end)
 map('n', '<F5>', ':exe "HighlightGroupsAddWord " . hg0 . " 1"<cr>')
 map('n', '\\<F5>', ':exe "HighlightGroupsClearGroup " . hg0 . " 1"<cr>')
 map('n', '<F6>', ':exe "HighlightGroupsAddWord " . hg1 . " 1"<cr>')
@@ -173,8 +151,8 @@ map('n', ']c', ':silent! cnext<cr>')
 map('n', '[c', ':silent! cprev<cr>')
 map('n', ']l', ':silent! lnext<cr>')
 map('n', '[l', ':silent! lprev<cr>')
-map('n', '[t', function() next_sidebar_location(-1) end)
-map('n', ']t', function() next_sidebar_location(1) end)
+map('n', '[t', function() require('aerial').prev() end)
+map('n', ']t', function() require('aerial').next() end)
 
 -- misc
 map('n', '\\r', ':RunCurrentBuffer<cr>')

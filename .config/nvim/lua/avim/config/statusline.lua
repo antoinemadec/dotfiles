@@ -3,13 +3,7 @@ local a = vim.api
 
 -- statusline
 local function get_function_name()
-  local info
-  if require('avim.config.tagbar').stl_is_enabled() then
-    info = vim.b.stl_current_tag
-  else
-    info = vim.b.lsp_current_function
-  end
-  return info or ''
+  return vim.b.aerial_current_function or ''
 end
 
 local function location_or_selected_lines()

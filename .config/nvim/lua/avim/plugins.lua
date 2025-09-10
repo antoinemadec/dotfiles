@@ -110,10 +110,14 @@ require("lazy").setup({
       config = function() require('avim.config.nvim-dap') end
     },
   },
-  { -- display buffer's classes/functions/vars based on ctags
-    'preservim/tagbar',
+  {
+    'stevearc/aerial.nvim',
     event = "VeryLazy",
-    config = function() require('avim.config.tagbar') end
+    dependencies = {
+       "nvim-treesitter/nvim-treesitter",
+       "nvim-tree/nvim-web-devicons"
+    },
+    config = function() require('avim.config.aerial') end
   },
   { -- git wrapper
     'tpope/vim-fugitive',
