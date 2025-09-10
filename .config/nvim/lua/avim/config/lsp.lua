@@ -99,7 +99,6 @@ require("fidget").setup {
 -- lsp commands
 local function lsp_stop_client(client)
   client:stop()
-  vim.b.lsp_current_function = ''
 end
 
 local function lsp_start_client(name, bufs)
