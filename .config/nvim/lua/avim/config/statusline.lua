@@ -65,7 +65,7 @@ require 'lualine'.setup {
       },
       {
         'diagnostics',
-        sources = { 'nvim_lsp' },
+        sources = { 'nvim_diagnostic' },
         diagnostics_color = {
           error = { bg = palette.red[1], fg = palette.bg0[1] },
           warn  = { bg = palette.yellow[1], fg = palette.bg0[1] },
