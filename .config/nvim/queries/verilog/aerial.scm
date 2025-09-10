@@ -15,23 +15,21 @@
 
 (package_declaration
   name: (simple_identifier) @name
-  (#set! "kind" "Package")) @type
-
-(function_declaration
-  (_)*
-  (function_body_declaration
-    (_)*
-    name: (simple_identifier) @name
-  (#set! "kind" "Function"))) @type
-
-(task_declaration
-  (_)*
-  (task_body_declaration
-    name: (simple_identifier) @name
-  (#set! "kind" "Function"))) @type
+  (#set! "kind" "Module")) @type
 
 ;--------------------------------------------------------------
-; Class/Property etc
+; generate constructs
+;--------------------------------------------------------------
+(generate_block
+  name: (simple_identifier) @name
+  (#set! "kind" "Namespace")) @type
+
+(generate_block
+  !name
+  (#set! "kind" "Namespace")) @type
+
+;--------------------------------------------------------------
+; Class/Property/Function etc
 ;--------------------------------------------------------------
 (class_declaration
   name: (simple_identifier) @name
@@ -49,3 +47,16 @@
       (variable_decl_assignment
         name: (simple_identifier) @name
         (#set! "kind" "Property"))))) @type
+
+(function_declaration
+  (_)*
+  (function_body_declaration
+    (_)*
+    name: (simple_identifier) @name
+  (#set! "kind" "Function"))) @type
+
+(task_declaration
+  (_)*
+  (task_body_declaration
+    name: (simple_identifier) @name
+  (#set! "kind" "Function"))) @type
