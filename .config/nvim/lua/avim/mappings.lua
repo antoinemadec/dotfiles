@@ -151,8 +151,8 @@ map('n', ']c', ':silent! cnext<cr>')
 map('n', '[c', ':silent! cprev<cr>')
 map('n', ']l', ':silent! lnext<cr>')
 map('n', '[l', ':silent! lprev<cr>')
-map('n', '[t', function() require('aerial').prev() end)
-map('n', ']t', function() require('aerial').next() end)
+map('n', '[[', function() require('aerial').prev() end, { desc = "aerial: prev symbol" })
+map('n', ']]', function() require('aerial').next() end, { desc = "aerial: next symbol" })
 
 -- misc
 map('n', '\\r', ':RunCurrentBuffer<cr>')

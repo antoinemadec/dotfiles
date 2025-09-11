@@ -36,6 +36,9 @@ vim.opt.undofile       = true                                                -- 
 vim.opt.wildmode       = 'longest:full,full'                                 -- wildchar completion mode
 vim.opt.cmdheight      = 0                                                   -- height of the command bar
 
+-- disable mappings in default ftplugins
+vim.g.no_plugin_maps = true
+
 -- man_mode: no status line
 if vim.g.man_mode then
   vim.opt.laststatus = 0

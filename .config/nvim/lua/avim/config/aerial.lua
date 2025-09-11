@@ -2,6 +2,7 @@ require("aerial").setup({
   filter_kind = false, -- show all symbols
   disable_max_lines = vim.g.large_file_cutoff,
   backends = { "treesitter", "markdown", "asciidoc", "man" },
+  highlight_on_jump = false,
 })
 
 local function aerial_update()
