@@ -7,5 +7,5 @@ end
 
 vim.api.nvim_create_autocmd(
   'FileType',
-  { pattern = 'verilog_systemverilog', callback = unmap_sv }
+  { pattern = 'systemverilog', callback = unmap_sv }
 )

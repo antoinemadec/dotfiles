@@ -2,7 +2,13 @@ local function disable(lang, bufnr)
   return vim.api.nvim_buf_line_count(bufnr) > vim.g.large_file_cutoff
 end
 
-vim.treesitter.language.register('verilog', { 'verilog', 'systemverilog', 'verilog_systemverilog' })
+vim.filetype.add({
+  extension = {
+    v = 'systemverilog',
+    svh = 'systemverilog',
+    sv = 'systemverilog',
+  }
+})
 
 ---@diagnostic disable: missing-fields
 require('nvim-treesitter.configs').setup({

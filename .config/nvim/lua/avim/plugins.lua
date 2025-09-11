@@ -151,13 +151,6 @@ require("lazy").setup({
     'antoinemadec/vim-verilog-instance',
     event = "VeryLazy",
   },
-  { -- vim syntax plugin for verilog and systemverilog
-    'vhda/verilog_systemverilog.vim',
-    lazy = true,
-    ft = 'verilog_systemverilog',
-    init = require('avim.config.verilog_systemverilog').setup,
-    config = require('avim.config.verilog_systemverilog').config
-  },
   'MTDL9/vim-log-highlighting', -- syntax for log files
 
   -- movement
