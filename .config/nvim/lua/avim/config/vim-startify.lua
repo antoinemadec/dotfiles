@@ -34,4 +34,5 @@ end
 function _G.StartifyPluginUpdate()
   vim.cmd([[ Lazy! sync ]])
   require('avim.config.mason').update_all()
+  vim.cmd([[ TSUpdate ]])
 end

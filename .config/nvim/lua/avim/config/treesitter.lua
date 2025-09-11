@@ -4,8 +4,23 @@ end
 
 vim.treesitter.language.register('verilog', { 'verilog', 'systemverilog', 'verilog_systemverilog' })
 
-require 'nvim-treesitter.configs'.setup {
-  ensure_installed = { 'lua', 'cpp', 'python', 'bash', 'verilog', 'vhdl', 'rust', 'vim', 'vimdoc', 'query', 'regex' },
+---@diagnostic disable: missing-fields
+require('nvim-treesitter.configs').setup({
+  ensure_installed = {
+    'bash',
+    'cpp',
+    'cmake',
+    'lua',
+    'make',
+    'python',
+    'query',
+    'regex',
+    'rust',
+    'verilog',
+    'vhdl',
+    'vim',
+    'vimdoc',
+  },
   highlight = {
     enable = true,
     disable = disable,
@@ -25,4 +40,4 @@ require 'nvim-treesitter.configs'.setup {
       node_decremental = '<S-TAB>',
     },
   },
-}
+})

@@ -13,7 +13,16 @@
             (name_of_instance)  @name
   (#set! "kind" "Module"))) @type
 
+(interface_declaration
+  (_
+    name: (simple_identifier) @name
+    (#set! "kind" "Module"))) @type
+
 (package_declaration
+  name: (simple_identifier) @name
+  (#set! "kind" "Module")) @type
+
+(clocking_declaration
   name: (simple_identifier) @name
   (#set! "kind" "Module")) @type
 

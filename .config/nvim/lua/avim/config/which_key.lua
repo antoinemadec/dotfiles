@@ -63,6 +63,20 @@ local function ui_toggle_cmdheight()
   end
 end
 
+local function jump_in_verilog_module(follow_port)
+  local ts = require("avim.treesitter")
+  local verilog_module_port = ts.verilog_return_module_and_port()
+  if verilog_module_port.module == nil then
+    vim.notify("cannot find verilog module", vim.log.levels.WARN)
+    return
+  end
+  vim.cmd("silent! tjump! " .. verilog_module_port.module)
+  if follow_port and verilog_module_port.port ~= nil then
+    local enter = vim.api.nvim_replace_termcodes("<CR>", true, false, true)
+    vim.api.nvim_feedkeys("/\\<" .. verilog_module_port.port .. "\\>" .. enter, 'n', false)
+  end
+end
+
 local wk = require("which-key")
 
 wk.setup({
@@ -82,6 +96,9 @@ local wrap = function(func, opts)
 end
 
 wk.add({
+  { "<leader>i",   function() jump_in_verilog_module() end, desc = "verilog: jump in module" },
+  { "<leader>I",   function() jump_in_verilog_module(true) end, desc = "verilog: jump in module + follow port" },
+
   { "<leader>/",   "<cmd>Telescope current_buffer_fuzzy_find previewer=false<cr>",                            desc = "search in file" },
   { "<leader>;",   "<cmd>Telescope commands<cr>",                                                             desc = "commands" },
 
