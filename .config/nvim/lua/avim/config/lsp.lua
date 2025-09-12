@@ -98,11 +98,18 @@ require("fidget").setup {
 
 -- lsp commands
 local function lsp_stop_client(client)
+  print("LSP: stop", client.name)
   client:stop()
 end
 
-local function lsp_start_client(name, bufs)
-  local client_id = vim.lsp.start(vim.lsp.config[name], { attach = bufs == nil })
+local function lsp_start_client(client, bufs)
+  print("LSP: start", client.name)
+  -- special case for GitHub Copilot
+  if client.name == "GitHub Copilot" then
+    vim.cmd("silent Copilot restart")
+    return
+  end
+  local client_id = vim.lsp.start(client.config, { attach = bufs == nil })
   if client_id and bufs then
     for _, buf in ipairs(bufs) do
       vim.lsp.buf_attach_client(buf, client_id)
@@ -150,7 +157,7 @@ vim.api.nvim_create_user_command(
       vim.wait(1000, function()
         return vim.lsp.get_client_by_id(client.id) == nil
       end)
-      lsp_start_client(client.name, bufs)
+      lsp_start_client(client, bufs)
     end
   end,
   {
