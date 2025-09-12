@@ -98,12 +98,12 @@ require("fidget").setup {
 
 -- lsp commands
 local function lsp_stop_client(client)
-  print("LSP: stop", client.name)
+  print("LSP:", client.name, "stop")
   client:stop()
 end
 
 local function lsp_start_client(client, bufs)
-  print("LSP: start", client.name)
+  print("LSP:", client.name, "start")
   -- special case for GitHub Copilot
   if client.name == "GitHub Copilot" then
     vim.cmd("silent Copilot restart")
