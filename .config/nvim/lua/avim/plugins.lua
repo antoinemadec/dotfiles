@@ -114,8 +114,8 @@ require("lazy").setup({
     'stevearc/aerial.nvim',
     event = "VeryLazy",
     dependencies = {
-       "nvim-treesitter/nvim-treesitter",
-       "nvim-tree/nvim-web-devicons"
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons"
     },
     config = function() require('avim.config.aerial') end
   },
