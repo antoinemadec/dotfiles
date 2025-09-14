@@ -1,10 +1,15 @@
 #!/usr/bin/env bash
+# TMUX server: fzf helper to attach or create new session if not exists
 
 set -e
 
-if ! tmux ls &> /dev/null; then
-  tmux start-server
-fi
+output="$(tmux ls 2> /dev/null | fzf --print-query)" || true
 
-session="$(tmux ls | sed 's/:.*//' | fzf)"
-tmux attach-session -t "$session"
+attach_session=""
+[ $(echo "$output" | wc -l) = 2 ] && attach_session="$(echo "$output" | tail -n1 | awk '{print $1}')"
+
+if [ "$attach_session" = "" ]; then
+  NVIM="" tmux new-session -s "$output"
+else
+  tmux attach-session -t "$attach_session"
+fi
