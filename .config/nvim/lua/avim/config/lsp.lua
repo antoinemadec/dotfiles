@@ -30,8 +30,10 @@ vim.lsp.config('*', {
   capabilities = capabilities,
   root_markers = { '.git' },
   root_dir = function(bufnr, on_dir)
-    -- disable LSP for large files
-    if not _G.is_large_file(bufnr) then
+    -- disable LSP for
+    --    - large files
+    --    - fugitve buffers
+    if not (_G.is_large_file(bufnr) or vim.api.nvim_buf_get_name(bufnr):match('^fugitive://')) then
       on_dir(vim.fn.getcwd())
     end
   end,
