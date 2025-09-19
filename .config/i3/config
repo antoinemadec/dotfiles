@@ -173,7 +173,7 @@ client.urgent           $red   $red      $white $aqua     $red
 #------------------------------
 # i3-gaps
 #------------------------------
-set $inner_gaps 8
+set $inner_gaps 4
 set $outer_gaps 0
 set $border 2
 for_window [class="^.*"] border pixel $border
@@ -219,9 +219,10 @@ bindsym $mod+minus scratchpad show
 bindsym $mod+t exec --no-startup-id ~/.config/i3/bin/scratchpad "vim_todo" --toggle
 bindsym $mod+m exec --no-startup-id ~/.config/i3/bin/scratchpad "Thunar" --toggle
 # terminals
-bindsym $mod+Return exec [ -f ~/remote_machine.txt ] && exec alacritty -e ssh -X $(cat ~/remote_machine.txt) \
+bindsym $mod+Return exec [ -f ~/remote_machine.txt ] && source ~/.bashrc.proxy && exec alacritty -e ssh -X $(cat ~/remote_machine.txt) \
   || notify-send 'i3' 'please populate ~/remote_machine.txt'
 bindsym $mod+Shift+Return exec --no-startup-id exec alacritty
+bindsym $mod+Mod1+Shift+Return exec --no-startup-id exec alacritty -e ssh -X amadec@10.4.1.10
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume

@@ -12,10 +12,18 @@ $shut_down" | rofi -dmenu -p "power menu")"
 
 case "$choice" in
   "$lock")
-    i3lock -i ~/.config/i3/wallpaper/warm_poly.png -t
+    if [[ $DESKTOP_SESSION =~ "hyprland" ]]; then
+      hyprlock
+    else
+      i3lock -i ~/.config/i3/wallpaper/warm_poly.png -t
+    fi
     ;;
   "$logout")
-    loginctl terminate-session $XDG_SESSION_ID
+    if [[ $DESKTOP_SESSION =~ "hyprland" ]]; then
+      hyprctl dispatch exit
+    else
+      i3-msg exit
+    fi
     ;;
   "$reboot")
     systemctl reboot
