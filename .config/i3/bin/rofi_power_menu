@@ -13,7 +13,8 @@ $shut_down" | rofi -dmenu -p "power menu")"
 case "$choice" in
   "$lock")
     if [[ $DESKTOP_SESSION =~ "hyprland" ]]; then
-      hyprlock
+      sleep 0.5
+      __NV_PRIME_RENDER_OFFLOAD=0 hyprlock
     else
       i3lock -i ~/.config/i3/wallpaper/warm_poly.png -t
     fi

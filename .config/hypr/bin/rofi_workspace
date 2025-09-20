@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Hyprland Workspace Switcher with Rofi
+
+# Get all existing workspaces and their names
+get_workspaces_names() {
+  hyprctl workspaces -j | jq -r '.[] | select(.name != "special") | .name' | sort -n 2>/dev/null || hyprctl workspaces -j | jq -r '.[] | select(.name != "special") | .name' | sort
+}
+
+get_workspaces_ids() {
+  hyprctl workspaces -j | jq -r '.[] | select(.name != "special") | .id' | sort -n 2>/dev/null || hyprctl workspaces -j | jq -r '.[] | select(.name != "special") | .name' | sort
+}
+
+get_current_workspace_id() {
+  hyprctl activeworkspace -j | jq -r '.id'
+}
+
+# Main function
+main() {
+  # Show rofi menu
+  name="$(get_workspaces_names | rofi -dmenu -p "workspace")"
+
+  # Exit if nothing selected or ESC pressed
+  [ -z "$name" ] && exit 0
+
+  if get_workspaces_names | grep -q "^${name}$"; then
+    # Workspace exists, switch to it
+    hyprctl dispatch workspace "$name"
+  elif (echo "$name" | grep -q '^r ') then
+    # Rename current workspace
+    hyprctl dispatch renameworkspace $(get_current_workspace_id) "${name:2}"
+  else
+    # Workspace doesn't exist, find first available id, create ws and name it
+    for ((id=1; id<=10; id++)); do
+      if ! get_workspaces_ids | grep -q "^${id}$"; then
+        hyprctl dispatch workspace $id
+        hyprctl dispatch renameworkspace $id "$name"
+        break
+      fi
+    done
+  fi
+}
+
+main

@@ -187,18 +187,17 @@ bindsym $mod+Shift+t  exec --no-startup-id ~/.config/i3/bin/toggle_gaps "toggle_
 #------------------------------
 # shortcuts
 #------------------------------
-bindsym $mod+backslash exec --no-startup-id ~/.config/i3/bin/ipc_focus_previous_window --switch
-bindsym $mod+Shift+backslash workspace back_and_forth
+bindsym $mod+p exec --no-startup-id ~/.config/i3/bin/ipc_focus_previous_window --switch
+bindsym $mod+Shift+p workspace back_and_forth
 bindsym $mod+c  exec --no-startup-id gnome-calculator
 # use rofi instead of dmenu,
 # add equivalent of "alt+Tab functionality"
 bindsym $mod+d       exec "PATH=~/bin:~/bin_local:$PATH rofi -show drun"
 bindsym $mod+Shift+d exec "PATH=~/bin:~/bin_local:$PATH rofi -show drun -run-command 'gksu {cmd}'"
 bindsym $mod+Tab     exec "exec rofi -show window"
-bindsym $mod+Shift+s exec "exec rofi -show ssh"
-bindsym $mod+Shift+w  exec --no-startup-id ~/.config/i3/bin/rofi_workspace
-bindsym $mod+Shift+u  exec --no-startup-id ~/.config/i3/bin/rofi_unicode
-bindsym $mod+Shift+a  exec --no-startup-id ~/.config/i3/bin/rofi_accent
+bindsym $mod+n       exec --no-startup-id ~/.config/i3/bin/rofi_workspace
+bindsym $mod+Shift+u exec --no-startup-id ~/.config/i3/bin/rofi_unicode
+bindsym $mod+Shift+a exec --no-startup-id ~/.config/i3/bin/rofi_accent
 # changing workspaces
 bindsym $mod+Control+h           exec --no-startup-id ~/.config/i3/bin/change_workspace 0
 bindsym $mod+Control+l           exec --no-startup-id ~/.config/i3/bin/change_workspace 1
