@@ -75,9 +75,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# disable the bell
-xset b off
-
 # xterm title
 eval_xterm_title() {
   local XTERM_TITLE='${USER}@${HOSTNAME/.*}:${PWD/$HOME/\~}'
