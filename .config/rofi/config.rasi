@@ -2,6 +2,11 @@
  */
 
 configuration {
+  display-ssh:    "";
+  display-run:    "";
+  display-drun:   "";
+  display-window: "";
+  display-combi:  "";
   lenvenshtein-sort: true;
   matching: "fuzzy";
   modi: "window,drun,run,ssh";
@@ -15,4 +20,4 @@ configuration {
   kb-row-down: "Down,Control+n,Control+j";
 }
 
-@theme "gruvbox-dark-soft"
+@theme "~/.config/rofi/gruvbox-material.rasi"
