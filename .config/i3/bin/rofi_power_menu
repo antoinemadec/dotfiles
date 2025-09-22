@@ -21,7 +21,7 @@ case "$choice" in
     ;;
   "$logout")
     if [[ $DESKTOP_SESSION =~ "hyprland" ]]; then
-      hyprctl dispatch exit
+      uwsm stop
     else
       i3-msg exit
     fi

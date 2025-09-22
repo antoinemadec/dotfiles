@@ -2,18 +2,7 @@
 
 # Hyprland Workspace Switcher with Rofi
 
-# Get all existing workspaces and their names
-get_workspaces_names() {
-  hyprctl workspaces -j | jq -r '.[] | select(.name != "special") | .name' | sort -n 2>/dev/null || hyprctl workspaces -j | jq -r '.[] | select(.name != "special") | .name' | sort
-}
-
-get_workspaces_ids() {
-  hyprctl workspaces -j | jq -r '.[] | select(.name != "special") | .id' | sort -n 2>/dev/null || hyprctl workspaces -j | jq -r '.[] | select(.name != "special") | .name' | sort
-}
-
-get_current_workspace_id() {
-  hyprctl activeworkspace -j | jq -r '.id'
-}
+source "$HOME/.config/hypr/bin/utils.sh"
 
 # Main function
 main() {

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Hyprland vim_todo toggle script
+
+source "$HOME/.config/hypr/bin/utils.sh"
+
+toggle_special_workspace 'alacritty -t vim_todo -e bash -ic "nvim ~/org/todo_*.txt -p"' vim_todo

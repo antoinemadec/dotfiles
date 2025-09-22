@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+source "$HOME/.config/hypr/bin/utils.sh"
+
+toggle_special_workspace thunar file_manager
