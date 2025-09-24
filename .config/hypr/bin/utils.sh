@@ -16,6 +16,24 @@ special_workspace_exists() {
   hyprctl workspaces | grep -q special:"$1"
 }
 
+current_window_is_not_in_group() {
+  hyprctl activewindow | grep -q 'grouped: 0$'
+}
+
+current_window_is_group_left() {
+  win_id="$(hyprctl activewindow | grep Window | cut -f 2 -d ' ')"
+  hyprctl activewindow | grep -q "grouped: $win_id"
+}
+
+current_window_is_group_right() {
+  win_id="$(hyprctl activewindow | grep Window | cut -f 2 -d ' ')"
+  hyprctl activewindow | grep -q "grouped: .*$win_id\$"
+}
+
+current_workspace_has_no_window() {
+  hyprctl activeworkspace | grep -q 'windows: 0$'
+}
+
 toggle_special_workspace() {
   local cmd="$1"
   local special_ws_name="$2"
