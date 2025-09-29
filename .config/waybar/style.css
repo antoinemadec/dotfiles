@@ -4,7 +4,7 @@
     border: none;
     border-radius: 0;
     font-family: "DejaVuSansM Nerd Font Mono";
-    font-size: 13px;
+    font-size: 11px;
     min-height: 0;
 }
 
@@ -19,7 +19,6 @@ window#waybar {
 /* Workspaces */
 #workspaces {
     background-color: #504945;
-    margin: 5px 5px 5px 5px;
     padding: 0px 5px;
     border-radius: 15px;
 }
@@ -73,7 +72,6 @@ window#waybar {
     padding: 0 10px;
     color: #e2cca9;
     background-color: #7c6f64;
-    margin: 5px 0px;
     border-radius: 15px;
 }
 
