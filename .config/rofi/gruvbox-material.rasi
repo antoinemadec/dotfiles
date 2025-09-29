@@ -5,8 +5,8 @@
  */
 
 * {
-    bg0: #50494555;
-    bg1: #50494555;
+    bg0: #504945;
+    bg1: #504945;
     grey0: #7c6f64;
     fg0: #e2cca9;
 
@@ -14,7 +14,6 @@
     red: #ea6962;
     orange: #e78a4e;
     green: #a9b665;
-    bgStatusline3: #504945;
 
     background-color: @bg0;
 }
@@ -25,7 +24,7 @@ window {
 
     border: 1;
     border-radius: 10;
-    border-color: @bgStatusline3;
+    border-color: @fg0;
 }
 
 mainbox {
