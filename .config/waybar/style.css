@@ -3,7 +3,6 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: "DejaVuSansM Nerd Font Mono";
     font-size: 11px;
     min-height: 0;
 }
@@ -21,6 +20,13 @@ window#waybar {
     background-color: #504945;
     padding: 0px 5px;
     border-radius: 15px;
+}
+
+#workspaces button:hover {
+    box-shadow: inherit;
+    text-shadow: inherit;
+    background: #e2cca9;
+    color: #404946;
 }
 
 #workspaces button {
@@ -81,8 +87,14 @@ window#waybar {
 
 /* Tooltip styling */
 tooltip {
-    background: #504945;
-    border: 1px solid #7c6f64;
+    background: #404946;
+    border: 1px solid #80aa9e;
     color: #e2cca9;
+    text-shadow: none;
     border-radius: 5px;
+    font-family: "monospace";
+}
+
+tooltip label {
+  color: #e2cca9;
 }

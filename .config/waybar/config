@@ -43,9 +43,21 @@
         // }
     },
     "clock": {
-        // "timezone": "America/New_York",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+      "format": "{:%a %d %b %Y, %R}",
+      "tooltip": true,
+      "tooltip-format": "{calendar}",
+      "calendar": {
+        "mode"          : "month",
+        "mode-mon-col"  : 3,
+        "weeks-pos"     : "left",
+        "format": {
+          "months":     "<span color='#80aa9e'><b>{}</b></span>",
+          "days":       "<span color='#e2cca9'><b>{}</b></span>",
+          "weeks":      "<span color='#8bba7f'><b>W{}</b></span>",
+          "weekdays":   "<span color='#e9b143'><b>{}</b></span>",
+          "today":      "<span color='#f2594b'><b><u>{}</u></b></span>"
+        }
+      }
     },
     "cpu": {
       "format": "{usage}% ",
@@ -69,11 +81,11 @@
             "warning": 30,
             "critical": 15
       },
-      "format": "{capacity}% {icon}",
-      "format-full": "{capacity}% {icon}",
-      "format-charging": "{capacity}% ",
-      "format-plugged": "{capacity}% ",
-      "format-alt": "{time} {icon}",
+      "format": "{capacity}% {icon} ",
+      "format-full": "{capacity}% {icon} ",
+      "format-charging": "{capacity}%  ",
+      "format-plugged": "{capacity}%  ",
+      "format-alt": "{time} {icon} ",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
         "format-icons": ["", "", "", "", ""]
