@@ -73,10 +73,10 @@ if [[ ! -d "$dir" ]]; then
 fi
 
 screenshot_choices=()
-screenshot_choices+=("🖥️ Fullscreen")
-screenshot_choices+=("🪟 Window")
 screenshot_choices+=("🔳 Area")
-screenshot_choices+=("📝 With Edition")
+screenshot_choices+=("📝 Area With Edition")
+screenshot_choices+=("🪟 Window")
+screenshot_choices+=("🖥️ Fullscreen")
 
 screenshot_mode=$(printf "%s\n" "${screenshot_choices[@]}" | rofi -dmenu)
 
