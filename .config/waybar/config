@@ -56,7 +56,12 @@
           "weeks":      "<span color='#8bba7f'><b>W{}</b></span>",
           "weekdays":   "<span color='#e9b143'><b>{}</b></span>",
           "today":      "<span color='#f2594b'><b><u>{}</u></b></span>"
-        }
+        },
+      },
+      "actions":  {
+        "on-click-right": "mode",
+        "on-scroll-up": "shift_down",
+        "on-scroll-down": "shift_up"
       }
     },
     "cpu": {
@@ -67,8 +72,8 @@
       "format": "{}% "
     },
     "temperature": {
-        "critical-threshold": 80,
-        "format": "{temperatureC}°C",
+      "critical-threshold": 80,
+      "format": "{temperatureC}°C",
     },
     "backlight": {
         // "device": "acpi_video1",
