@@ -87,7 +87,7 @@ require("lazy").setup({
       { "nvim-lua/plenary.nvim", branch = "master" },
     },
     event = "VeryLazy",
-    init = function() require('avim.config.copilot') end
+    config = function() require('avim.config.copilot') end
   },
   {
     'nvim-telescope/telescope.nvim',
