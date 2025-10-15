@@ -22,6 +22,7 @@ deploy_core(){
 
 deploy_core .bash_profile
 deploy_core .bashrc
+deploy_core .bashrc.proxy
 deploy_core bin
 deploy_core .clang-format
 deploy_core .config/alacritty
