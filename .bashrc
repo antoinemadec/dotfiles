@@ -46,7 +46,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 # # less/man colors
 if (type nvim &> /dev/null); then
-  export MANPAGER='nvim --cmd "let g:man_mode=1" +Man!'
+  export MANPAGER='nvim +Man!'
   export MANWIDTH=999
 else
   export MANROFFOPT="-c"

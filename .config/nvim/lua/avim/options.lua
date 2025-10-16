@@ -39,11 +39,6 @@ vim.opt.cmdheight      = 0                                                   -- 
 -- disable mappings in default ftplugins
 vim.g.no_plugin_maps = true
 
--- man_mode: no status line
-if vim.g.man_mode then
-  vim.opt.laststatus = 0
-end
-
 if os.getenv("TERM_OSC52") then
   vim.g.clipboard = 'osc52'
 else

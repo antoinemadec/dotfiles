@@ -21,7 +21,6 @@ require("lazy").setup({
     'nvim-lualine/lualine.nvim',
     event = "VeryLazy",
     dependencies = { 'kyazdani42/nvim-web-devicons' },
-    cond = not vim.g.man_mode,
     config = function() require('avim.config.statusline') end
   },
   { -- make notes more readable
@@ -178,6 +177,7 @@ require("lazy").setup({
   -- misc
   { -- space mappings
     'folke/which-key.nvim',
+    cond = not os.getenv("NVIM_WHICH_KEY_DISABLE"),
     event = "VeryLazy",
     config = function() require('avim.config.which_key') end
   },
