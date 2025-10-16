@@ -28,4 +28,4 @@ vim.keymap.set("n", "<leader>I", function() jump_in_verilog_module(true) end, {
   buffer = true, desc = "verilog: jump in module and follow port" })
 
 local buf = vim.api.nvim_get_current_buf()
-vim.bo[buf].tags = vim.o.tags .. ",~/.vim/tags/UVM_CDNS-1.2"
+vim.bo[buf].tags = vim.o.tags .. ",".. vim.fn.stdpath("config") .. "/tags/etc_uvm-1.2"

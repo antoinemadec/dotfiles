@@ -12,3 +12,7 @@
   autoStash = true
 [pull]
   rebase = true
+[difftool "nvim_difftool"]
+  cmd = nvim -c \"packadd nvim.difftool\" -c \"DiffTool $LOCAL $REMOTE\"
+[diff]
+  tool = nvim_difftool
