@@ -33,7 +33,7 @@ vim.lsp.config('*', {
     -- disable LSP for
     --    - large files
     --    - fugitve buffers
-    if not (_G.is_large_file(bufnr) or vim.api.nvim_buf_get_name(bufnr):match('^fugitive://')) then
+    if not (vim.g.lsp_disabled or _G.is_large_file(bufnr) or vim.api.nvim_buf_get_name(bufnr):match('^fugitive://')) then
       on_dir(vim.fn.getcwd())
     end
   end,
