@@ -46,6 +46,7 @@
       "format": "{:%a %d %b %Y, %R}",
       "tooltip": true,
       "tooltip-format": "{calendar}",
+      "locale"        : "en_GB.UTF-8", // so the calendar starts on Monday
       "calendar": {
         "mode"          : "month",
         "mode-mon-col"  : 3,
