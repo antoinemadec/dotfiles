@@ -70,7 +70,7 @@ require 'lualine'.setup {
           error = { bg = palette.red[1], fg = palette.bg0[1] },
           warn  = { bg = palette.yellow[1], fg = palette.bg0[1] },
           info  = { bg = palette.blue[1], fg = palette.bg0[1] },
-          hint  = { bg = palette.aqua[1], fg = palette.bg0[1] },
+          hint  = { bg = palette.purple[1], fg = palette.bg0[1] },
         },
       }
     },
