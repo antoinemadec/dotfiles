@@ -62,6 +62,13 @@ function _G.dim_color(color, dimming_pct)
   return bit.lshift(r_dim, 16) + bit.lshift(g_dim, 8) + b_dim
 end
 
+function _G.dim_hex_color (hex_color, dimming_pct)
+  local color = tonumber(hex_color:sub(2), 16)
+  local dimmed_color = _G.dim_color(color, dimming_pct)
+  local hex_dimmed_color = string.format("#%06x", dimmed_color)
+  return hex_dimmed_color
+end
+
 ---------------------------------------------------------------
 -- text
 ---------------------------------------------------------------

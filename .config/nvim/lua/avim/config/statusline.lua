@@ -60,10 +60,6 @@ require 'lualine'.setup {
         },
       },
       {
-        get_function_name,
-        color = { bg = palette.bg_visual_blue[1] }
-      },
-      {
         'diagnostics',
         sources = { 'nvim_diagnostic' },
         diagnostics_color = {
@@ -72,7 +68,11 @@ require 'lualine'.setup {
           info  = { bg = palette.blue[1], fg = palette.bg0[1] },
           hint  = { bg = palette.purple[1], fg = palette.bg0[1] },
         },
-      }
+      },
+      {
+        get_function_name,
+        color = { bg = palette.bg_visual_blue[1] }
+      },
     },
     lualine_c = { {
       'filename',
