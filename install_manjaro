@@ -51,33 +51,42 @@ sudo pacman --noconfirm -S i3-gaps
 
 print_banner "python packages"
 sudo pamac --noconfirm install python-i3ipc
-sudo pip3 install setuptools
+# sudo pip3 install setuptools
 sudo pip3 install pynvim
-sudo pip3 install rope
+# sudo pip3 install rope
 sudo pip3 install demucs # music source separation
 
-print_banner "handle touchpad"
-sudo mkdir -p /etc/X11/xorg.conf.d
-sudo touch /etc/X11/xorg.conf.d/90-touchpad.conf
-sudo tee <<'EOF' /etc/X11/xorg.conf.d/90-touchpad.conf 1> /dev/null
-Section "InputClass"
-        Identifier "touchpad"
-        MatchIsTouchpad "on"
-        Driver "libinput"
-        Option "Tapping" "on"
-        Option "TappingButtonMap" "lrm"
-        Option "NaturalScrolling" "on"
-        Option "ScrollMethod" "twofinger"
-EndSection
-EOF
+# hyprland
+sudo pacman --noconfirm -S hyprland
+sudo pacman --noconfirm -S uwsm
+sudo pacman --noconfirm -S waybar
+sudo pacman --noconfirm -S hyprpaper
+sudo pacman --noconfirm -S hypridle
+sudo pacman --noconfirm -S hyprlock
 
-print_banner "fix intel Graphics"
-sudo mkdir -p /etc/X11/xorg.conf.d
-sudo touch /etc/X11/xorg.conf.d/20-intel.conf
-sudo tee <<'EOF' /etc/X11/xorg.conf.d/20-intel.conf 1> /dev/null
-Section "Device"
-  Identifier "Intel Graphics"
-  Driver "intel"
-  Option "DRI" "2"
-EndSection
-EOF
+# TODO: still needed?
+# print_banner "handle touchpad"
+# sudo mkdir -p /etc/X11/xorg.conf.d
+# sudo touch /etc/X11/xorg.conf.d/90-touchpad.conf
+# sudo tee <<'EOF' /etc/X11/xorg.conf.d/90-touchpad.conf 1> /dev/null
+# Section "InputClass"
+#         Identifier "touchpad"
+#         MatchIsTouchpad "on"
+#         Driver "libinput"
+#         Option "Tapping" "on"
+#         Option "TappingButtonMap" "lrm"
+#         Option "NaturalScrolling" "on"
+#         Option "ScrollMethod" "twofinger"
+# EndSection
+# EOF
+#
+# print_banner "fix intel Graphics"
+# sudo mkdir -p /etc/X11/xorg.conf.d
+# sudo touch /etc/X11/xorg.conf.d/20-intel.conf
+# sudo tee <<'EOF' /etc/X11/xorg.conf.d/20-intel.conf 1> /dev/null
+# Section "Device"
+#   Identifier "Intel Graphics"
+#   Driver "intel"
+#   Option "DRI" "2"
+# EndSection
+# EOF
