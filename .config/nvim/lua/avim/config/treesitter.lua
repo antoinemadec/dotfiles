@@ -24,6 +24,8 @@ local ts_languages = {
 
 require('nvim-treesitter').install(ts_languages)
 
+vim.treesitter.language.register('bash', { 'sh' })
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = ts_languages,
   callback = function(ev)
