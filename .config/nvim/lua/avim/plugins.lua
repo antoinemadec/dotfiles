@@ -225,4 +225,7 @@ require("lazy").setup({
 })
 
 -- enable experimental built-in UI
-require('vim._extui').enable({})
+local ok, mod = pcall(require, 'vim._extui')
+if ok then
+  mod.enable({})
+end

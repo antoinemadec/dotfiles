@@ -30,31 +30,24 @@ sudo pacman --noconfirm -S alacritty libreoffice tig the_silver_searcher
 sudo pacman --noconfirm -S ripgrep fd btop fzf
 sudo pacman --noconfirm -S baobab libnotify dunst audacity xdotool lshw
 sudo pacman --noconfirm -S rust rust-src python-pip gksu
-sudo pamac build --no-confirm tzupdate google-chrome deezer
+sudo pacman --noconfirm -S cmake
+sudo pamac build --no-confirm google-chrome
 
 # tmux
 sudo pacman --noconfirm -S tmux
-sudo pamac build --no-confirm tmux-bash-completion-git
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # vim
 sudo pacman --noconfirm -S nodejs npm yarn
 sudo pacman --noconfirm -S xclip bat
 sudo pacman --noconfirm -S luarocks ctags autopep8
-sudo pamac  build --no-confirm neovim-nightly-bin
+sudo pacman --noconfirm -S nvim
 sudo pacman --noconfirm -S neovim-qt
 
 # i3
-sudo pacman --noconfirm -S gsimplecal gnome-calculator pinta
+sudo pacman --noconfirm -S gsimplecal gnome-calculator
+pamac build --no-confirm pinta
 sudo pacman --noconfirm -S py3status i3status feh rofi jq picom arandr scrot i3lock
 sudo pacman --noconfirm -S i3-gaps
-
-print_banner "python packages"
-sudo pamac --noconfirm install python-i3ipc
-# sudo pip3 install setuptools
-sudo pip3 install pynvim
-# sudo pip3 install rope
-sudo pip3 install demucs # music source separation
 
 # hyprland
 sudo pacman --noconfirm -S hyprland
@@ -63,30 +56,3 @@ sudo pacman --noconfirm -S waybar
 sudo pacman --noconfirm -S hyprpaper
 sudo pacman --noconfirm -S hypridle
 sudo pacman --noconfirm -S hyprlock
-
-# TODO: still needed?
-# print_banner "handle touchpad"
-# sudo mkdir -p /etc/X11/xorg.conf.d
-# sudo touch /etc/X11/xorg.conf.d/90-touchpad.conf
-# sudo tee <<'EOF' /etc/X11/xorg.conf.d/90-touchpad.conf 1> /dev/null
-# Section "InputClass"
-#         Identifier "touchpad"
-#         MatchIsTouchpad "on"
-#         Driver "libinput"
-#         Option "Tapping" "on"
-#         Option "TappingButtonMap" "lrm"
-#         Option "NaturalScrolling" "on"
-#         Option "ScrollMethod" "twofinger"
-# EndSection
-# EOF
-#
-# print_banner "fix intel Graphics"
-# sudo mkdir -p /etc/X11/xorg.conf.d
-# sudo touch /etc/X11/xorg.conf.d/20-intel.conf
-# sudo tee <<'EOF' /etc/X11/xorg.conf.d/20-intel.conf 1> /dev/null
-# Section "Device"
-#   Identifier "Intel Graphics"
-#   Driver "intel"
-#   Option "DRI" "2"
-# EndSection
-# EOF
