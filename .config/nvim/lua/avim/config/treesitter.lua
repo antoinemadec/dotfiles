@@ -16,7 +16,7 @@ local ts_languages = {
   'query',
   'regex',
   'rust',
-  'verilog',
+  'systemverilog',
   'vhdl',
   'vim',
   'vimdoc',
