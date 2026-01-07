@@ -21,12 +21,12 @@ current_window_is_not_in_group() {
 }
 
 current_window_is_group_left() {
-  win_id="$(hyprctl activewindow | grep Window | cut -f 2 -d ' ')"
+  win_id="$(hyprctl activewindow | grep ^Window | cut -f 2 -d ' ')"
   hyprctl activewindow | grep -q "grouped: $win_id"
 }
 
 current_window_is_group_right() {
-  win_id="$(hyprctl activewindow | grep Window | cut -f 2 -d ' ')"
+  win_id="$(hyprctl activewindow | grep ^Window | cut -f 2 -d ' ')"
   hyprctl activewindow | grep -q "grouped: .*$win_id\$"
 }
 
