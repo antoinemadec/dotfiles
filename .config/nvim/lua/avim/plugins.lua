@@ -213,6 +213,10 @@ require("lazy").setup({
       vim.fn["mkdp#util#install"]()
     end,
   },
+  { -- automatically follow the symlinks (fix git diff issues)
+    'aymericbeaumet/vim-symlink',
+    dependencies = { 'moll/vim-bbye' }
+  },
   {              -- profile lua code
     'stevearc/profile.nvim',
     lazy = true, -- handled in init.lua with NVIM_PROFILE env var
