@@ -2,4 +2,4 @@
 
 # proxy
 # call variable LC_* to be able to pass it to ssh
-export LC_LAPTOP_HOST_IP="$(ip addr | grep 10.1.6 | sed -e 's/.*10.1.6/10.1.6/' -e 's#/.*##')"
+export LC_LAPTOP_HOST_IP="$(ip addr | grep 10.1.6 | sed -e 's/.*inet 10.1.6/10.1.6/' -e 's#/.*##')"
