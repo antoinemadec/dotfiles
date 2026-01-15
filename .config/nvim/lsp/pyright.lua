@@ -34,7 +34,7 @@ return {
     python = {
       analysis = {
         autoSearchPaths = false,
-        useLibraryCodeForTypes = false,
+        -- useLibraryCodeForTypes = false,
         diagnosticMode = 'openFilesOnly',
       },
     },
