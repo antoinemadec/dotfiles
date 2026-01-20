@@ -10,5 +10,5 @@ require'treesitter-context'.setup{
   -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
   separator = nil,
   zindex = 20, -- The Z-index of the context window
-  on_attach = function(buf) return vim.api.nvim_buf_line_count(buf) < vim.g.large_file_cutoff end, -- (fun(buf: integer): boolean) return false to disable attaching
+  on_attach = function(buf) return not _G.is_large_file(buf) end, -- (fun(buf: integer): boolean) return false to disable attaching
 }

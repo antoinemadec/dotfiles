@@ -28,7 +28,7 @@ local is_old_nvim_treesitter, old_nvim_treesitter = pcall(require, 'nvim-treesit
 
 if is_old_nvim_treesitter then
   local function disable(lang, bufnr)
-    return vim.api.nvim_buf_line_count(bufnr) > vim.g.large_file_cutoff
+    return _G.is_large_file(bufnr)
   end
 
   for index, value in ipairs(ts_languages) do
@@ -66,7 +66,7 @@ else
   vim.api.nvim_create_autocmd('FileType', {
     pattern = ts_filetypes,
     callback = function(ev)
-      if vim.api.nvim_buf_line_count(ev.buf) > vim.g.large_file_cutoff then
+      if _G.is_large_file(ev.buf) then
         return
       end
       vim.treesitter.start()

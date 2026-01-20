@@ -49,7 +49,11 @@ function _G.is_large_file(bufnr)
   if bufnr == nil then
     bufnr = vim.api.nvim_get_current_buf()
   end
-  return vim.api.nvim_buf_line_count(bufnr) > vim.g.large_file_cutoff
+  local ok, buf_line_count = pcall(vim.api.nvim_buf_line_count, bufnr)
+  if not ok then
+    return false
+  end
+  return buf_line_count > vim.g.large_file_cutoff
 end
 
 function _G.dim_color(color, dimming_pct)
@@ -62,7 +66,7 @@ function _G.dim_color(color, dimming_pct)
   return bit.lshift(r_dim, 16) + bit.lshift(g_dim, 8) + b_dim
 end
 
-function _G.dim_hex_color (hex_color, dimming_pct)
+function _G.dim_hex_color(hex_color, dimming_pct)
   local color = tonumber(hex_color:sub(2), 16)
   local dimmed_color = _G.dim_color(color, dimming_pct)
   local hex_dimmed_color = string.format("#%06x", dimmed_color)
