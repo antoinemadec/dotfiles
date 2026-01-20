@@ -31,6 +31,12 @@ if is_old_nvim_treesitter then
     return vim.api.nvim_buf_line_count(bufnr) > vim.g.large_file_cutoff
   end
 
+  for index, value in ipairs(ts_languages) do
+    if value == "systemverilog" then
+      ts_languages[index] = "verilog"
+    end
+  end
+
   ---@diagnostic disable: missing-fields
   old_nvim_treesitter.setup({
     ensure_installed = ts_languages,
