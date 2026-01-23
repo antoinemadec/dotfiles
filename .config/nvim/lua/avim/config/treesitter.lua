@@ -1,5 +1,6 @@
 local ts_languages = {
   'bash',
+  'c',
   'cpp',
   'cmake',
   'lua',
