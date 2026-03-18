@@ -1,6 +1,12 @@
 local url = os.getenv("GITLAB_URL")
 local private_token = os.getenv("GITLAB_API_TOKEN")
-local projects = { os.getenv("GITLAB_PROJECTS") }
+local projects = {}
+local projects_str = os.getenv("GITLAB_PROJECTS")
+if projects_str then
+  for proj in string.gmatch(projects_str, "[^ ]*") do
+    table.insert(projects, proj)
+  end
+end
 
 if not url or not private_token or #projects == 0 then
   return {}
@@ -22,6 +28,5 @@ return {
       virtual_lines = false,
       virtual_text = true,
     }, diagnostic_ns)
-
   end,
 }

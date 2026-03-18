@@ -56,3 +56,5 @@ sudo pacman --noconfirm -S waybar
 sudo pacman --noconfirm -S hyprpaper
 sudo pacman --noconfirm -S hypridle
 sudo pacman --noconfirm -S hyprlock
+sudo pacman --noconfirm -S hyprcursor
+pamac build --no-confirm rose-pine-hyprcursor
