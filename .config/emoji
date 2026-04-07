@@ -16,7 +16,7 @@
 🤩 star-struck; U+1F929
 😘 face blowing a kiss; U+1F618
 😗 kissing face; U+1F617
-☺ smiling face; U+263A
+☺️ smiling face; U+263A
 😚 kissing face with closed eyes; U+1F61A
 😙 kissing face with smiling eyes; U+1F619
 😋 face savoring food; U+1F60B
@@ -63,7 +63,7 @@
 😕 confused face; U+1F615
 😟 worried face; U+1F61F
 🙁 slightly frowning face; U+1F641
-☹ frowning face; U+2639
+☹️ frowning face; U+2639
 😮 face with open mouth; U+1F62E
 😯 hushed face; U+1F62F
 😲 astonished face; U+1F632
@@ -121,9 +121,9 @@
 💞 revolving hearts; U+1F49E
 💕 two hearts; U+1F495
 💟 heart decoration; U+1F49F
-❣ heavy heart exclamation; U+2763
+❣️ heavy heart exclamation; U+2763
 💔 broken heart; U+1F494
-❤ red heart; U+2764
+❤️ red heart; U+2764
 🧡 orange heart; U+1F9E1
 💛 yellow heart; U+1F49B
 💚 green heart; U+1F49A
@@ -899,9 +899,9 @@
 🎖 military medal; U+1F396
 🏆 trophy; U+1F3C6
 🏅 sports medal; U+1F3C5
-1st place medal; U+1F947 🥇
-2nd place medal; U+1F948 🥈
-3rd place medal; U+1F949 🥉
+🥇 1st place medal; U+1F947
+🥈 2nd place medal; U+1F948
+🥉 3rd place medal; U+1F949
 ⚽ soccer ball; U+26BD
 ⚾ baseball; U+26BE
 🥎 softball; U+1F94E
@@ -938,10 +938,10 @@
 🎲 game die; U+1F3B2
 🧩 jigsaw; U+1F9E9
 🧸 teddy bear; U+1F9F8
-♠ spade suit; U+2660
-♥ heart suit; U+2665
-♦ diamond suit; U+2666
-♣ club suit; U+2663
+♠️ spade suit; U+2660
+♥️ heart suit; U+2665
+♦️ diamond suit; U+2666
+♣️ club suit; U+2663
 ♟ chess pawn; U+265F
 🃏 joker; U+1F0CF
 🀄 mahjong red dragon; U+1F004
@@ -1087,8 +1087,8 @@
 📭 open mailbox with lowered flag; U+1F4ED
 📮 postbox; U+1F4EE
 🗳 ballot box with ballot; U+1F5F3
-✏ pencil; U+270F
-✒ black nib; U+2712
+✏️ pencil; U+270F
+✒️ black nib; U+2712
 🖋 fountain pen; U+1F58B
 🖊 pen; U+1F58A
 🖌 paintbrush; U+1F58C
@@ -1125,10 +1125,10 @@
 🗝 old key; U+1F5DD
 🔨 hammer; U+1F528
 ⛏ pick; U+26CF
-⚒ hammer and pick; U+2692
+⚒️ hammer and pick; U+2692
 🛠 hammer and wrench; U+1F6E0
 🗡 dagger; U+1F5E1
-⚔ crossed swords; U+2694
+⚔️ crossed swords; U+2694
 🔫 pistol; U+1F52B
 🏹 bow and arrow; U+1F3F9
 🛡 shield; U+1F6E1
@@ -1141,7 +1141,7 @@
 ⛓ chains; U+26D3
 🧰 toolbox; U+1F9F0
 🧲 magnet; U+1F9F2
-⚗ alembic; U+2697
+⚗️ alembic; U+2697
 🧪 test tube; U+1F9EA
 🧫 petri dish; U+1F9EB
 🧬 dna; U+1F9EC
@@ -1166,8 +1166,8 @@
 🧯 fire extinguisher; U+1F9EF
 🛒 shopping cart; U+1F6D2
 🚬 cigarette; U+1F6AC
-⚰ coffin; U+26B0
-⚱ funeral urn; U+26B1
+⚰️ coffin; U+26B0
+⚱️ funeral urn; U+26B1
 🗿 moai; U+1F5FF
 🏧 ATM sign; U+1F3E7
 🚮 litter in bin sign; U+1F6AE
@@ -1193,7 +1193,7 @@
 🚷 no pedestrians; U+1F6B7
 📵 no mobile phones; U+1F4F5
 🔞 no one under eighteen; U+1F51E
-☢ radioactive; U+2622
+☢️ radioactive; U+2622
 ☣ biohazard; U+2623
 ⬆ up arrow; U+2B06
 ↗ up-right arrow; U+2197
