@@ -42,6 +42,7 @@ sudo pacman --noconfirm -S xclip bat
 sudo pacman --noconfirm -S luarocks ctags autopep8
 sudo pacman --noconfirm -S nvim
 sudo pacman --noconfirm -S neovim-qt
+sudo pacman --noconfirm -S tree-sitter-cli
 
 # i3
 sudo pacman --noconfirm -S gsimplecal gnome-calculator
