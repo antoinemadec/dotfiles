@@ -21,7 +21,7 @@ return {
     projects = projects,
   },
   on_attach = function(client, bufnr)
-    local diagnostic_ns = vim.lsp.diagnostic.get_namespace(client.id, true)
+    local diagnostic_ns = vim.lsp.diagnostic.get_namespace(client.id, true, "gitlab-ls")
     vim.diagnostic.config({
       signs = false,
       underline = false,
