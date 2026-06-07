@@ -39,8 +39,8 @@ toggle_special_workspace() {
   local special_ws_name="$2"
 
   if special_workspace_exists "$special_ws_name"; then
-    hyprctl dispatch togglespecialworkspace "$special_ws_name"
+    hyprctl dispatch "hl.dsp.workspace.toggle_special('$special_ws_name')"
   else
-    hyprctl dispatch exec "[workspace special:$special_ws_name; float]" "$cmd"
+    hyprctl dispatch "hl.dsp.exec_cmd('$cmd', {float = true, workspace = 'special:$special_ws_name'})"
   fi
 }

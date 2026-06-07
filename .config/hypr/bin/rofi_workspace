@@ -14,16 +14,16 @@ main() {
 
   if get_workspaces_names | grep -q "^${name}$"; then
     # Workspace exists, switch to it
-    hyprctl dispatch workspace "$name"
+    hyprctl dispatch "hl.dsp.focus({workspace = '$name'})"
   elif (echo "$name" | grep -q '^r ') then
     # Rename current workspace
-    hyprctl dispatch renameworkspace $(get_current_workspace_id) "${name:2}"
+    hyprctl dispatch "hl.dsp.workspace.rename({workspace = '$(get_current_workspace_id)', name = '${name:2}'})"
   else
     # Workspace doesn't exist, find first available id, create ws and name it
     for ((id=1; id<=10; id++)); do
       if ! get_workspaces_ids | grep -q "^${id}$"; then
-        hyprctl dispatch workspace $id
-        hyprctl dispatch renameworkspace $id "$name"
+        hyprctl dispatch "hl.dsp.focus({workspace = '$id'})"
+        hyprctl dispatch "hl.dsp.workspace.rename({workspace = '$id', name = '$name'})"
         break
       fi
     done
