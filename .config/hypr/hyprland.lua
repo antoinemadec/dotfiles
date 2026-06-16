@@ -179,7 +179,7 @@ hl.config({
             },
             text_color          = "rgba(404946ee)",
             text_color_inactive = "rgba(e2cca9aa)",
-            font_family         = "monospace",
+            font_family         = "",
             indicator_height    = 0,
             keep_upper_gap      = false,
         },
