@@ -23,6 +23,9 @@ require("aerial").setup({
       require("aerial.tree").set_collapse_level(bufnr, 0)
     end
   end,
+  indent = {
+    update_delay = 300, -- Delay in ms to update the indent when the cursor moves
+  },
 })
 
 local function aerial_update()
