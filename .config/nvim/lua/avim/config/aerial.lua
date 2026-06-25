@@ -15,8 +15,14 @@ require("aerial").setup({
     python = filter_kind_no_clutter
   },
   disable_max_lines = vim.g.large_file_cutoff,
-  backends = { "treesitter", "markdown", "asciidoc", "man" },
+  backends = { "treesitter", "markdown", "asciidoc", "man", "indent" },
   highlight_on_jump = false,
+  on_first_symbols = function(bufnr)
+    -- Collapse the whole outline by default for indentation-based files.
+    if vim.bo[bufnr].filetype == "indentcolor" then
+      require("aerial.tree").set_collapse_level(bufnr, 0)
+    end
+  end,
 })
 
 local function aerial_update()
