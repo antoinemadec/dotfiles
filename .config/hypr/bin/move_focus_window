@@ -12,27 +12,26 @@ if [ "$action" == "move" ]; then
     (current_window_is_group_right && [ "$direction" == "r" ]) ||
     (current_window_is_group_left && [ "$direction" == "l" ]) ||
     [ "$direction" == "u" ] || [ "$direction" == "d" ]; then
-    hyprctl dispatch movewindoworgroup $direction
+    hyprctl dispatch "hl.dsp.window.move({ direction = '$direction', group_aware = true })"
   else
     if [ "$direction" == "l" ]; then
-      direction="b"
+      hyprctl dispatch "hl.dsp.group.move_window({ forward = false })"
     else
-      direction="f"
+      hyprctl dispatch "hl.dsp.group.move_window({ forward = true })"
     fi
-    hyprctl dispatch movegroupwindow $direction
   fi
 else
   if current_workspace_has_no_window || current_window_is_not_in_group ||
     (current_window_is_group_right && [ "$direction" == "r" ]) ||
     (current_window_is_group_left && [ "$direction" == "l" ]) ||
     [ "$direction" == "u" ] || [ "$direction" == "d" ]; then
-    hyprctl dispatch movefocus $direction
+    hyprctl dispatch "hl.dsp.focus({ direction = '$direction' })"
   else
     if [ "$direction" == "l" ]; then
       direction="b"
+      hyprctl dispatch "hl.dsp.group.prev()"
     else
-      direction="f"
+      hyprctl dispatch "hl.dsp.group.next()"
     fi
-    hyprctl dispatch changegroupactive $direction
   fi
 fi
