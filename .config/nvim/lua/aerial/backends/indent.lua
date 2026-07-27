@@ -71,15 +71,22 @@ M.fetch_symbols_sync = function(bufnr)
         table.remove(stack)
       end
       local parent = stack[#stack] and stack[#stack].item or nil
+      local expand = false
+      if line:match("%[expand%]") then
+        expand = true
+        -- Remove the [expand] marker from the line for the symbol name.
+        line = line:gsub("%[expand%]", "")
+      end
       local item = {
         kind = parent == nil and "Struct" or "Field",
         name = vim.trim(line),
         level = #stack,
         parent = parent,
+        expand = expand,
         lnum = lnum,
         col = 0,
       }
-      if item.level < 2 then
+      if item.level < 2 or item.expand or (parent and parent.expand) then
         if parent then
           parent.children = parent.children or {}
           table.insert(parent.children, item)
