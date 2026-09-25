@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
 lock="🔒 lock screen"
 logout="🚪 log out"

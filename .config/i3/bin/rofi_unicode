@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Give dmenu list of all unicode characters to copy.
 
