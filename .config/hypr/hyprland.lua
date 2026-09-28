@@ -256,8 +256,8 @@ hl.bind(mainMod .. " + G", hl.dsp.group.toggle())
 
 -- Terminals and apps
 hl.bind(mainMod .. " + SHIFT + Return",       hl.dsp.exec_cmd(terminal))
-hl.bind(mainMod .. " + Return",               hl.dsp.exec_cmd("source ~/.bashrc.proxy && " .. terminal .. " -e ssh $(cat ~/remote_machine.txt)"))
-hl.bind(mainMod .. " + SHIFT + ALT + Return", hl.dsp.exec_cmd(terminal .. " -e ssh amadec@10.4.1.10"))
+hl.bind(mainMod .. " + Return",               hl.dsp.exec_cmd(terminal .. " -e ssh $(cat ~/remote_machine.txt)"))
+hl.bind(mainMod .. " + SHIFT + ALT + Return", hl.dsp.exec_cmd(terminal .. " -e ssh amadec@10.8.68.51"))
 hl.bind(mainMod .. " + SHIFT + Q",            hl.dsp.window.close())
 hl.bind(mainMod .. " + M",                    hl.dsp.exec_cmd("~/.config/hypr/bin/file_manager"))
 hl.bind(mainMod .. " + T",                    hl.dsp.exec_cmd("~/.config/hypr/bin/vim_todo"))

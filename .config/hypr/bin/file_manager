@@ -2,4 +2,4 @@
 
 source "$HOME/.config/hypr/bin/utils.sh"
 
-toggle_special_workspace thunar file_manager
+toggle_special_workspace nautilus file_manager
