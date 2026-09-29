@@ -21,7 +21,11 @@ case "$choice" in
     ;;
   "$logout")
     if [[ $DESKTOP_SESSION =~ "hyprland" ]]; then
-      uwsm stop
+      if command -v uwsm >/dev/null 2>&1 && uwsm check is-active; then
+        uwsm stop
+      else
+        hyprctl dispatch 'hl.dsp.exit()'
+      fi
     else
       i3-msg exit
     fi

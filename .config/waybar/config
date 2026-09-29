@@ -18,6 +18,7 @@
       "backlight",
       "battery",
       "clock",
+      "bluetooth",
       "tray",
     ],
     // Modules configuration
@@ -41,6 +42,17 @@
         //   "blueman": "bluetooth",
         //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
         // }
+    },
+    "bluetooth": {
+      "format": "",
+      "format-disabled": "󰂲",
+      "format-off": "󰂲",
+      "format-connected": " {num_connections}",
+      "tooltip-format": "{controller_alias}\t{controller_address}",
+      "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+      "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+      "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+      "on-click": "env XDG_CURRENT_DESKTOP=GNOME gnome-control-center bluetooth"
     },
     "clock": {
       "format": "{:%a %d %b %Y, %R}",
