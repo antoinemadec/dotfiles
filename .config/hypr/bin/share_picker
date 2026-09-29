@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Wrapper for hyprland-share-picker (used by xdph via custom_picker_binary)
+# the picker segfaults on window titles with some unicode chars (e.g. ✳, ◐, CJK, emoji),
+# so strip non-ASCII chars from the window list before calling it
+XDPH_WINDOW_SHARING_LIST=$(printf '%s' "$XDPH_WINDOW_SHARING_LIST" | LC_ALL=C tr -cd '\11\12\15\40-\176')
+export XDPH_WINDOW_SHARING_LIST
+exec /usr/bin/hyprland-share-picker "$@"
