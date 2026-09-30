@@ -75,6 +75,7 @@ window#waybar {
 #mode,
 #idle_inhibitor,
 #scratchpad,
+#custom-wallpaper,
 #mpd {
     padding: 0 10px;
     color: #e2cca9;
@@ -91,6 +92,15 @@ window#waybar {
 
 #clock {
     border: 4px solid #e2cca9;
+}
+
+#custom-wallpaper {
+    font-size: 13px;
+}
+
+#custom-wallpaper:hover {
+    background-color: #e2cca9;
+    color: #404946;
 }
 
 /* Tooltip styling */

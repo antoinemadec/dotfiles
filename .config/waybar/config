@@ -19,6 +19,7 @@
       "battery",
       "clock",
       "bluetooth",
+      "custom/wallpaper",
       "tray",
     ],
     // Modules configuration
@@ -127,5 +128,17 @@
           "default": ["", "", ""]
         },
         "on-click": "pavucontrol"
+    },
+    "custom/wallpaper": {
+      "exec": "~/.config/hypr/bin/wallpaper status",
+      "return-type": "json",
+      "interval": "once",
+      "signal": 8,
+      "format": "{}",
+      "tooltip": true,
+      "on-click": "~/.config/hypr/bin/wallpaper pick",
+      "on-click-right": "~/.config/hypr/bin/wallpaper random",
+      "on-scroll-up": "~/.config/hypr/bin/wallpaper prev",
+      "on-scroll-down": "~/.config/hypr/bin/wallpaper next"
     },
 }

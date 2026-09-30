@@ -1,0 +1,107 @@
+#!/bin/bash
+
+# Wallpaper switcher for hyprpaper, driven from waybar (custom/wallpaper).
+#
+#   wallpaper pick          rofi menu with thumbnails
+#   wallpaper next|prev     cycle through the wallpaper dir (sorted by name)
+#   wallpaper random        pick a random one (never the current)
+#   wallpaper set <image>   apply a given image (name in wallpaper dir or path)
+#   wallpaper status        json for the waybar custom module
+#
+# The chosen wallpaper is persisted via the "default" symlink that
+# hyprpaper.conf (and the i3 config) point to.
+
+WALLPAPER_DIR="$HOME/.config/i3/wallpaper"
+DEFAULT_LINK="$WALLPAPER_DIR/default"
+WAYBAR_SIGNAL=8
+ICON="󰋩"
+
+list_wallpapers() {
+  find -L "$WALLPAPER_DIR" -maxdepth 1 -type f \
+    \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) \
+    ! -name default -printf '%f\n' | sort
+}
+
+current_wallpaper() {
+  local active
+  active="$(hyprctl hyprpaper listactive 2>/dev/null | head -n1 | sed 's/^[^:]*: //')"
+  if [ -n "$active" ] && [ -f "$active" ]; then
+    basename "$active"
+  else
+    basename "$(readlink -f "$DEFAULT_LINK")"
+  fi
+}
+
+set_wallpaper() {
+  local image="$1"
+  [ -f "$image" ] || image="$WALLPAPER_DIR/$image"
+  if [ ! -f "$image" ]; then
+    notify-send -u critical "Wallpaper" "not found: $1"
+    exit 1
+  fi
+  image="$(realpath "$image")"
+
+  # apply live on every monitor
+  local monitor
+  for monitor in $(hyprctl monitors -j | jq -r '.[].name'); do
+    hyprctl hyprpaper wallpaper "$monitor,$image" >/dev/null
+  done
+
+  # persist for next session
+  if [ "$(dirname "$image")" = "$(realpath "$WALLPAPER_DIR")" ]; then
+    ln -sfn "$(basename "$image")" "$DEFAULT_LINK"
+  else
+    ln -sfn "$image" "$DEFAULT_LINK"
+  fi
+
+  pkill -RTMIN+$WAYBAR_SIGNAL waybar
+}
+
+cycle() {
+  local step="$1"
+  local current idx n
+  mapfile -t wallpapers < <(list_wallpapers)
+  n=${#wallpapers[@]}
+  [ "$n" -eq 0 ] && exit 1
+  current="$(current_wallpaper)"
+  idx=0
+  for i in "${!wallpapers[@]}"; do
+    [ "${wallpapers[$i]}" = "$current" ] && idx=$i && break
+  done
+  set_wallpaper "${wallpapers[$(( (idx + step + n) % n ))]}"
+}
+
+pick() {
+  local current choice
+  current="$(current_wallpaper)"
+  choice="$(list_wallpapers | while read -r name; do
+      printf '%s\0icon\x1f%s\n' "$name" "$WALLPAPER_DIR/$name"
+    done | rofi -dmenu -i -p "wallpaper" -show-icons -select "$current")"
+  [ -n "$choice" ] && set_wallpaper "$choice"
+}
+
+random_wallpaper() {
+  local current
+  current="$(current_wallpaper)"
+  choice="$(list_wallpapers | grep -vx "$current" | shuf -n1)"
+  [ -n "$choice" ] && set_wallpaper "$choice"
+}
+
+status() {
+  local current
+  current="$(current_wallpaper)"
+  jq -cn --arg text "$ICON" --arg current "$current" \
+    '{text: $text,
+      tooltip: ("wallpaper: " + $current + "\n\nclick: pick\nright click: random\nscroll: next / previous"),
+      class: "wallpaper"}'
+}
+
+case "$1" in
+  pick)   pick ;;
+  next)   cycle 1 ;;
+  prev)   cycle -1 ;;
+  random) random_wallpaper ;;
+  set)    set_wallpaper "$2" ;;
+  status) status ;;
+  *)      echo "usage: $(basename "$0") pick|next|prev|random|set <image>|status" >&2; exit 2 ;;
+esac
