@@ -18,11 +18,17 @@
       "backlight",
       "battery",
       "clock",
-      "bluetooth",
-      "custom/wallpaper",
-      "tray",
+      "group/applets",
     ],
     // Modules configuration
+    "group/applets": {
+      "orientation": "inherit",
+      "modules": [
+        "bluetooth",
+        "custom/wallpaper",
+        "tray",
+      ],
+    },
     "hyprland/workspaces": {
       "format": "{id} {name}",
     },

@@ -94,11 +94,27 @@ window#waybar {
     border: 4px solid #e2cca9;
 }
 
+/* Applets group: bluetooth, wallpaper, tray in one bubble */
+#applets {
+    background-color: #7c6f64;
+    border-radius: 15px;
+    padding: 0 4px;
+}
+
+#applets #bluetooth,
+#applets #custom-wallpaper,
+#applets #tray {
+    background-color: transparent;
+    border-radius: 15px;
+    padding: 0 6px;
+}
+
 #custom-wallpaper {
     font-size: 13px;
 }
 
-#custom-wallpaper:hover {
+#applets #bluetooth:hover,
+#applets #custom-wallpaper:hover {
     background-color: #e2cca9;
     color: #404946;
 }
