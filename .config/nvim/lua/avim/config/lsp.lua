@@ -99,31 +99,19 @@ require("fidget").setup {
 }
 
 -- lsp commands
-local function lsp_stop_client(client)
-  print("LSP:", client.name, "stop")
-  client:stop()
-end
-
-local function lsp_start_client(client, bufs)
-  print("LSP:", client.name, "start")
-  -- special case for GitHub Copilot
-  if client.name == "GitHub Copilot" then
-    vim.cmd("silent Copilot restart")
-    return
-  end
-  local client_id = vim.lsp.start(client.config, { attach = bufs == nil })
-  if client_id and bufs then
-    for _, buf in ipairs(bufs) do
-      vim.lsp.buf_attach_client(buf, client_id)
-    end
-  end
+local function lsp_client_names(name)
+  return vim.iter(vim.lsp.get_clients({ name = name }))
+      :map(function(c) return c.name end)
+      :unique()
+      :totable()
 end
 
 vim.api.nvim_create_user_command(
   'LspStart',
   function(kwargs)
+    -- re-enabling fires FileType on loaded buffers, (re)starting missing clients
     local name = kwargs.fargs[1]
-    lsp_start_client(name)
+    vim.lsp.enable(name or _G.lsp_servers)
   end,
   {
     nargs = "?",
@@ -138,13 +126,14 @@ vim.api.nvim_create_user_command(
   function(kwargs)
     local name = kwargs.fargs[1]
     for _, client in ipairs(vim.lsp.get_clients({ name = name })) do
-      lsp_stop_client(client)
+      print("LSP:", client.name, "stop")
+      client:stop()
     end
   end,
   {
     nargs = "?",
     complete = function()
-      return vim.tbl_map(function(c) return c.name end, vim.lsp.get_clients())
+      return lsp_client_names()
     end
   }
 )
@@ -152,22 +141,30 @@ vim.api.nvim_create_user_command(
 vim.api.nvim_create_user_command(
   "LspRestart",
   function(kwargs)
-    local name = kwargs.fargs[1]
-    for _, client in ipairs(vim.lsp.get_clients({ name = name })) do
-      local bufs = vim.lsp.get_buffers_by_client_id(client.id)
-      lsp_stop_client(client)
-      vim.wait(1000, function()
-        return vim.lsp.get_client_by_id(client.id) == nil
-      end)
-      lsp_start_client(client, bufs)
+    for _, name in ipairs(lsp_client_names(kwargs.fargs[1])) do
+      print("LSP:", name, "restart")
+      -- copilot.vim tracks its client id, let it restart its own client
+      if name == "GitHub Copilot" then
+        vim.cmd("silent Copilot restart")
+      else
+        vim.cmd.lsp({ args = { "restart", name } })
+      end
     end
   end,
   {
     nargs = "?",
     complete = function()
-      return vim.tbl_map(function(c) return c.name end, vim.lsp.get_clients())
+      return lsp_client_names()
     end
   }
+)
+
+vim.api.nvim_create_user_command(
+  "LspInfo",
+  function()
+    vim.cmd('checkhealth vim.lsp')
+  end,
+  {}
 )
 
 vim.api.nvim_create_user_command(
