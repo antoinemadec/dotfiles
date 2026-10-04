@@ -29,13 +29,20 @@ local function searchcount()
     return ''
   end
 
-  local ok, result = pcall(vim.fn.searchcount, { maxcount = 999, timeout = 500 })
+  -- evaluated on every cursor move: keep the scan short
+  local ok, result = pcall(vim.fn.searchcount, { maxcount = 99, timeout = 20 })
   if not ok or next(result) == nil then
     return ''
   end
 
-  local denominator = math.min(result.total, result.maxcount)
-  return string.format('[%d/%d]', result.current, denominator)
+  -- same display as builtin search count: timed out => [?/??], past maxcount => >99
+  if result.incomplete == 1 then
+    return '[?/??]'
+  end
+  local function fmt(n)
+    return n > result.maxcount and '>' .. result.maxcount or tostring(n)
+  end
+  return string.format('[%s/%s]', fmt(result.current), fmt(result.total))
 end
 
 require 'lualine'.setup {
