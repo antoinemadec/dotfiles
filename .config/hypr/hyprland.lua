@@ -12,6 +12,7 @@ local terminal     = "__NV_PRIME_RENDER_OFFLOAD=0 alacritty"
 local menu         = "rofi -show drun"
 local menu_power   = "~/.config/i3/bin/rofi_power_menu"
 local menu_ws      = "~/.config/hypr/bin/rofi_workspace"
+local menu_window  = "~/.config/hypr/bin/rofi_window"
 local menu_unicode = "~/.config/i3/bin/rofi_unicode"
 local menu_accent  = "~/.config/i3/bin/rofi_accent"
 
@@ -52,6 +53,13 @@ hl.on("hyprland.start", function()
     -- authentication
     hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
 end)
+
+-- window previews for the window switcher (see menu_window)
+local function capture_thumbnails()
+    hl.exec_cmd("~/.config/hypr/bin/window_thumbnails")
+end
+hl.on("window.active", capture_thumbnails)
+hl.on("workspace.active", capture_thumbnails)
 
 
 -----------------------------
@@ -250,6 +258,7 @@ hl.device({
 -- Menus
 hl.bind(mainMod .. " + D",           hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + N",           hl.dsp.exec_cmd(menu_ws))
+hl.bind(mainMod .. " + Tab",         hl.dsp.exec_cmd(menu_window))
 hl.bind(mainMod .. " + SHIFT + E",   hl.dsp.exec_cmd(menu_power))
 hl.bind(mainMod .. " + SHIFT + U",   hl.dsp.exec_cmd(menu_unicode))
 hl.bind(mainMod .. " + SHIFT + A",   hl.dsp.exec_cmd(menu_accent))

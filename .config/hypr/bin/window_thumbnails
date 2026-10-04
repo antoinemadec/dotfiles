@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Capture thumbnails of all windows, including the ones on hidden workspaces,
+# used as previews by rofi_window
+
+cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/hypr"
+thumbnails_dir="$cache_dir/thumbnails"
+src_dir="$HOME/.config/hypr/src/window_capture"
+capture="$cache_dir/window_capture"
+mkdir -p "$thumbnails_dir"
+
+# Debounce: let animations settle, then only the latest call captures
+echo $$ >"$thumbnails_dir/.latest"
+sleep 0.3
+[ "$(cat "$thumbnails_dir/.latest")" == "$$" ] || exit 0
+exec 9>"$thumbnails_dir/.lock"
+flock 9
+
+# Build the capture tool on first use, and when its sources change
+if ! make -s -C "$src_dir" OUT="$capture" >"$cache_dir/window_capture.log" 2>&1; then
+  notify-send -u critical "window_thumbnails" "Build failed, see $cache_dir/window_capture.log"
+  exit 1
+fi
+
+addresses="$(hyprctl clients -j | jq -r '.[] | select(.mapped) | .address')"
+[ -n "$addresses" ] && "$capture" 400 "$thumbnails_dir" $addresses
+
+# Drop thumbnails of closed windows
+for file in "$thumbnails_dir"/*.png; do
+  [ -e "$file" ] || continue
+  grep -qx "$(basename "$file" .png)" <<<"$addresses" || rm -f "$file"
+done

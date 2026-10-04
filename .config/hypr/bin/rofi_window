@@ -1,0 +1,72 @@
+#!/bin/bash
+
+# Hyprland Window Switcher with Rofi
+# Window previews are captured by window_thumbnails
+
+thumbnails_dir="${XDG_CACHE_HOME:-$HOME/.cache}/hypr/thumbnails"
+
+# Print "priority<TAB>key<TAB>icon" for each desktop entry, keys being its
+# lowercased StartupWMClass (1), file name (2) and its last dot-separated part (3)
+get_icons() {
+  local dirs=() d
+  for d in "${XDG_DATA_HOME:-$HOME/.local/share}" ${XDG_DATA_DIRS//:/ }; do
+    [ -d "$d/applications" ] && dirs+=("$d/applications")
+  done
+  find "${dirs[@]}" -name '*.desktop' 2>/dev/null | xargs -d '\n' awk '
+    FNR == 1 { flush(); icon = ""; wmclass = ""; file = FILENAME; main = 0 }
+    /^\[/ { main = ($0 == "[Desktop Entry]") }
+    main && /^Icon=/ && icon == "" { icon = substr($0, 6) }
+    main && /^StartupWMClass=/ && wmclass == "" { wmclass = substr($0, 16) }
+    function flush(  name, n, parts) {
+      if (icon == "") return
+      name = file; sub(/.*\//, "", name); sub(/\.desktop$/, "", name)
+      n = split(name, parts, ".")
+      if (wmclass != "") print 1 "\t" tolower(wmclass) "\t" icon
+      print 2 "\t" tolower(name) "\t" icon
+      print 3 "\t" tolower(parts[n]) "\t" icon
+    }
+    END { flush() }'
+}
+
+# Main function
+main() {
+  # class -> icon map, best priority wins, then first desktop entry found
+  icons="$(get_icons | jq -Rn '
+    [inputs | split("\t")] | to_entries
+    | sort_by(.value[0], .key) | reverse
+    | map({(.value[1]): .value[2]}) | add // {}')"
+
+  # Most recently used first, current window last
+  clients="$(hyprctl clients -j | jq -c '
+    [.[] | select(.mapped)]
+    | sort_by(if .focusHistoryID == 0 then 1e9 else .focusHistoryID end)
+    | .[]')"
+  [ -z "$clients" ] && exit 0
+
+  # Addresses of the windows having a thumbnail
+  thumbnails="$(find "$thumbnails_dir" -name '*.png' -printf '%f\n' 2>/dev/null |
+    jq -Rn '[inputs | rtrimstr(".png")]')"
+
+  # Show rofi menu, rows: "workspace  class  title" with preview, or app icon
+  index="$(echo "$clients" | jq -sj --argjson icons "$icons" \
+    --argjson thumbnails "$thumbnails" --arg dir "$thumbnails_dir" '
+    def icon: if (.address as $a | $thumbnails | index($a))
+      then "\($dir)/\(.address).png"
+      else .class | ascii_downcase | $icons[.] // . end;
+    def pad($n): . + " " * ($n - length + 2);
+    map(.ws = (.workspace.name | sub("^special:"; "*")))
+    | (map(.ws | length) | max) as $ws_w
+    | (map(.class | length) | max) as $class_w
+    | .[]
+    | "\(.ws | pad($ws_w))\(.class | pad($class_w))\(.title)\u0000icon\u001f\(icon)\n"' |
+    rofi -dmenu -i -show-icons -format i -p "window" \
+      -theme-str 'element-icon { size: 4em; } listview { lines: 8; }')"
+
+  # Exit if nothing selected or ESC pressed
+  [ -z "$index" ] && exit 0
+
+  address="$(echo "$clients" | sed -n "$((index + 1))p" | jq -r '.address')"
+  hyprctl dispatch "hl.dsp.focus({ window = 'address:$address' })"
+}
+
+main
