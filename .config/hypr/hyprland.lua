@@ -255,7 +255,67 @@ hl.bind(mainMod .. " + SHIFT + U",   hl.dsp.exec_cmd(menu_unicode))
 hl.bind(mainMod .. " + SHIFT + A",   hl.dsp.exec_cmd(menu_accent))
 
 -- Groups
-hl.bind(mainMod .. " + G", hl.dsp.group.toggle())
+-- Sort windows by layout position: left to right, then top to bottom
+local function sort_by_position(windows)
+    table.sort(windows, function(a, b)
+        if a.at.x ~= b.at.x then return a.at.x < b.at.x end
+        return a.at.y < b.at.y
+    end)
+    return windows
+end
+
+-- Dissolve the active group, laying its windows out in tab order
+local function ungroup_in_order(active)
+    local members = {}
+    for _, w in ipairs(active.group.members) do
+        table.insert(members, w)
+    end
+    hl.dispatch(hl.dsp.group.toggle())
+    -- Swap windows into place, slot by slot
+    for i, w in ipairs(members) do
+        local occupant = sort_by_position({ table.unpack(members) })[i]
+        if occupant.address ~= w.address then
+            hl.dispatch(hl.dsp.window.swap({ window = w, target = occupant }))
+        end
+    end
+    hl.dispatch(hl.dsp.focus({ window = active }))
+end
+
+-- Group all tiled windows of the workspace, keeping their layout order
+local function group_all(ws, active)
+    hl.dispatch(hl.dsp.group.toggle())
+    local group = hl.get_active_window().group
+    if not group then
+        return
+    end
+    local tiled = {}
+    for _, w in ipairs(hl.get_workspace_windows(ws)) do
+        if not w.floating then
+            table.insert(tiled, w)
+        end
+    end
+    for i, w in ipairs(sort_by_position(tiled)) do
+        if w.address ~= active.address then
+            group:add(w, i)
+        end
+    end
+    hl.dispatch(hl.dsp.focus({ window = active }))
+end
+
+-- No group in workspace: group all tiled windows; otherwise: regular toggle
+hl.bind(mainMod .. " + G", function()
+    local ws = hl.get_active_workspace()
+    local active = hl.get_active_window()
+    if not ws or not active then
+        hl.dispatch(hl.dsp.group.toggle())
+    elseif active.group then
+        ungroup_in_order(active)
+    elseif (ws.groups or 0) == 0 and not active.floating then
+        group_all(ws, active)
+    else
+        hl.dispatch(hl.dsp.group.toggle())
+    end
+end)
 
 -- Terminals and apps
 hl.bind(mainMod .. " + SHIFT + Return",       hl.dsp.exec_cmd(terminal))
