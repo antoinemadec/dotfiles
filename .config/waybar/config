@@ -25,6 +25,7 @@
       "orientation": "inherit",
       "modules": [
         "bluetooth",
+        "custom/displays",
         "custom/wallpaper",
         "tray",
       ],
@@ -64,25 +65,9 @@
     "clock": {
       "format": "{:%a %d %b %Y, %R}",
       "tooltip": true,
-      "tooltip-format": "{calendar}",
-      "locale"        : "en_GB.UTF-8", // so the calendar starts on Monday
-      "calendar": {
-        "mode"          : "month",
-        "mode-mon-col"  : 3,
-        "weeks-pos"     : "left",
-        "format": {
-          "months":     "<span color='#80aa9e'><b>{}</b></span>",
-          "days":       "<span color='#e2cca9'><b>{}</b></span>",
-          "weeks":      "<span color='#8bba7f'><b>W{}</b></span>",
-          "weekdays":   "<span color='#e9b143'><b>{}</b></span>",
-          "today":      "<span color='#f2594b'><b><u>{}</u></b></span>"
-        },
-      },
-      "actions":  {
-        "on-click-right": "mode",
-        "on-scroll-up": "shift_down",
-        "on-scroll-down": "shift_up"
-      }
+      "tooltip-format": "<b>{:%A %d %B %Y}</b>\nWeek {:%V}  ·  Day {:%j}\n\n<small>click: calendar</small>",
+      "locale": "en_GB.UTF-8",
+      "on-click": "~/.config/hypr/bin/calendar"
     },
     "cpu": {
       "format": "{usage}% ",
@@ -134,6 +119,14 @@
           "default": ["", "", ""]
         },
         "on-click": "pavucontrol"
+    },
+    "custom/displays": {
+      "exec": "~/.config/hypr/bin/displays status",
+      "return-type": "json",
+      "interval": 10,
+      "format": "{}",
+      "tooltip": true,
+      "on-click": "~/.config/hypr/bin/displays"
     },
     "custom/wallpaper": {
       "exec": "~/.config/hypr/bin/wallpaper status",

@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Display settings (resolution, refresh rate, scale, position, rotation,
+# mirroring, on/off), driven from waybar (custom/displays).
+#
+#   displays            open nwg-displays; Hyprland reloads on "Apply"
+#   displays status     json for the waybar custom module
+#
+# nwg-displays saves ~/.config/hypr/monitors.conf (hyprlang syntax), which
+# hyprland.lua loads on (re)load. It doesn't reach Hyprland by itself with a
+# Lua config, so the file is watched and Hyprland reloaded when it changes.
+# nwg-displays then asks to keep the new layout, and restores the previous file
+# (reloaded the same way) if not confirmed.
+
+MONITORS_CONF="$HOME/.config/hypr/monitors.conf"
+ICON="󰍹"
+
+status() {
+  local tooltip
+  tooltip="$(hyprctl monitors all -j | jq -r '
+    .[] | if .disabled then "\(.name)  \(.description)\n    disabled"
+          else "\(.name)  \(.description)\n    \(.width)x\(.height)@\(.refreshRate | floor)Hz  scale \(.scale * 100 | round / 100)  at \(.x),\(.y)"
+               + (if .transform != 0 then "  rotated" else "" end)
+          end' | sed -z 's/\n$//; s/\n/\\n/g; s/"/\\"/g')"
+  printf '{"text": "%s", "tooltip": "%s\\n\\nclick: display settings"}\n' "$ICON" "$tooltip"
+}
+
+mtime() { stat -c %Y.%Z "$MONITORS_CONF" 2>/dev/null; }
+
+open_settings() {
+  if pgrep -x nwg-displays >/dev/null; then
+    hyprctl dispatch focuswindow class:nwg-displays >/dev/null
+    exit 0
+  fi
+  nwg-displays &
+  local pid=$! last
+  last="$(mtime)"
+  while kill -0 "$pid" 2>/dev/null; do
+    sleep 0.5
+    if [ "$(mtime)" != "$last" ]; then
+      last="$(mtime)"
+      hyprctl reload >/dev/null
+    fi
+  done
+}
+
+case "${1:-}" in
+  status) status ;;
+  "") open_settings ;;
+  *) echo "usage: displays [status]" >&2; exit 1 ;;
+esac

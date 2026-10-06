@@ -1,0 +1,485 @@
+#!/usr/bin/env python3
+"""Popup calendar for the waybar clock (GTK3 + gtk-layer-shell).
+
+    calendar            toggle the popup (single instance: a second call closes it)
+
+Features:
+  - live clock, full date, ISO week and day of year
+  - month view with week numbers, Monday first; days with events are marked
+  - details for the selected day: relative date ("in 3 days") and its events,
+    read from Evolution Data Server (the M365 calendar set up by davmail-setup)
+  - double-click a day / "Open" button: open GNOME Calendar on that date
+
+Keys: Esc/q close, t today, arrows move day, PgUp/PgDn month,
+      Shift+PgUp/PgDn year, Enter open in GNOME Calendar.
+Mouse: scroll over the month to change month.
+
+Events need gir1.2-ecal-2.0 (optional; without it the event list is hidden).
+"""
+
+import datetime as dt
+import json
+import locale
+import os
+import shutil
+import subprocess
+import threading
+import time
+from pathlib import Path
+
+import gi
+
+# GtkCalendar takes the first day of the week from LC_TIME: start on Monday.
+os.environ["LC_TIME"] = "en_GB.UTF-8"
+try:
+    locale.setlocale(locale.LC_TIME, "en_GB.UTF-8")
+except locale.Error:
+    pass
+
+gi.require_version("Gtk", "3.0")
+gi.require_version("Gdk", "3.0")
+gi.require_version("GtkLayerShell", "0.1")
+from gi.repository import Gdk, Gio, GLib, Gtk, GtkLayerShell  # noqa: E402
+
+try:
+    gi.require_version("ECal", "2.0")
+    gi.require_version("EDataServer", "1.2")
+    gi.require_version("ICalGLib", "3.0")
+    from gi.repository import ECal, EDataServer, ICalGLib  # noqa: E402
+    HAVE_EDS = True
+except (ValueError, ImportError):
+    HAVE_EDS = False
+
+APP_ID = "dotfiles.waybar.calendar"
+WIDTH = 330
+# A click on the clock while the popup is open first unfocuses it (closing it),
+# then relaunches it: ignore launches that closely follow a focus-out close.
+CLOSED_STAMP = Path(GLib.get_user_runtime_dir()) / "waybar-calendar.closed"
+REOPEN_GUARD_S = 0.4
+
+CSS = b"""
+window.calendar-popup {
+    background-color: rgba(50, 48, 47, 0.97);
+    border: 2px solid #e2cca9;
+    border-radius: 15px;
+    color: #e2cca9;
+}
+.calendar-popup * { font-family: "JetBrainsMonoNL Nerd Font Propo", monospace; }
+.clock { font-size: 30px; font-weight: bold; color: #e2cca9; }
+.date { font-size: 13px; color: #e9b143; font-weight: bold; }
+.sub { font-size: 11px; color: #a89984; }
+.section { font-size: 12px; font-weight: bold; color: #80aa9e; }
+.event-time { font-size: 11px; color: #8bba7f; }
+.event-title { font-size: 11px; color: #e2cca9; }
+.event-loc { font-size: 10px; color: #a89984; }
+.events-empty { font-size: 11px; color: #7c6f64; font-style: italic; }
+
+calendar {
+    background-color: transparent;
+    color: #e2cca9;
+    border: none;
+    padding: 4px;
+    font-size: 12px;
+}
+calendar.header { color: #e9b143; font-weight: bold; }
+calendar.button { color: #e2cca9; }
+calendar.button:hover { color: #e9b143; }
+calendar.highlight { color: #8bba7f; font-weight: bold; }
+calendar:indeterminate { color: #665c54; }
+calendar:selected {
+    background-color: #e2cca9;
+    color: #32302f;
+    border-radius: 6px;
+}
+
+button.flat-btn {
+    background: #504945;
+    color: #e2cca9;
+    border: none;
+    border-radius: 10px;
+    padding: 2px 12px;
+    box-shadow: none;
+    text-shadow: none;
+    background-image: none;
+}
+button.flat-btn:hover { background: #7c6f64; }
+separator { background-color: #504945; min-height: 1px; }
+"""
+
+
+def relative_day(day: dt.date) -> str:
+    delta = (day - dt.date.today()).days
+    if delta == 0:
+        return "Today"
+    if delta == 1:
+        return "Tomorrow"
+    if delta == -1:
+        return "Yesterday"
+    if delta > 0:
+        return f"in {delta} days"
+    return f"{-delta} days ago"
+
+
+class EventSource:
+    """Reads events from all enabled EDS calendars (runs in a worker thread)."""
+
+    def __init__(self):
+        self.clients = None
+
+    def _connect(self):
+        if self.clients is not None:
+            return
+        self.clients = []
+        registry = EDataServer.SourceRegistry.new_sync(None)
+        for source in registry.list_enabled(EDataServer.SOURCE_EXTENSION_CALENDAR):
+            try:
+                client = ECal.Client.connect_sync(
+                    source, ECal.ClientSourceType.EVENTS, 10, None
+                )
+                self.clients.append((source.get_display_name(), client))
+            except GLib.Error:
+                pass  # offline / unreachable calendar: skip it
+
+    @staticmethod
+    def _to_local(client, itime):
+        """ICalGLib.Time -> (local datetime, is_all_day)."""
+        if itime.is_date():
+            return dt.datetime(itime.get_year(), itime.get_month(), itime.get_day()), True
+        zone = itime.get_timezone()
+        if zone is None and not itime.is_utc():
+            tzid = itime.get_tzid() if hasattr(itime, "get_tzid") else None
+            if tzid:
+                try:
+                    zone = client.get_timezone_sync(tzid, None)
+                except GLib.Error:
+                    zone = None
+        if itime.is_utc():
+            zone = ICalGLib.Timezone.get_utc_timezone()
+        if zone is None:  # floating time
+            return dt.datetime(itime.get_year(), itime.get_month(), itime.get_day(),
+                               itime.get_hour(), itime.get_minute()), False
+        epoch = itime.as_timet_with_zone(zone)
+        return dt.datetime.fromtimestamp(epoch), False
+
+    def events(self, start: dt.date, end: dt.date):
+        """Events overlapping [start, end): list of dicts, recurrences expanded."""
+        self._connect()
+        t0 = int(time.mktime(start.timetuple()))
+        t1 = int(time.mktime(end.timetuple()))
+        found = []
+        for cal_name, client in self.clients:
+            def on_instance(icomp, istart, iend, *_args):
+                begin, all_day = self._to_local(client, istart)
+                finish, _ = self._to_local(client, iend) if iend else (begin, all_day)
+                found.append({
+                    "summary": icomp.get_summary() or "(no title)",
+                    "location": icomp.get_location() or "",
+                    "start": begin,
+                    "end": finish,
+                    "all_day": all_day,
+                    "calendar": cal_name,
+                })
+                return True
+
+            try:
+                client.generate_instances_sync(t0, t1, None, on_instance)
+            except (GLib.Error, TypeError):
+                pass
+        found.sort(key=lambda e: (not e["all_day"], e["start"]))
+        return found
+
+
+class CalendarPopup(Gtk.Window):
+    def __init__(self, app):
+        super().__init__(application=app)
+        self.app = app
+        self.events_by_day = {}
+        self.loaded_month = None
+        self.event_source = EventSource() if HAVE_EDS else None
+        self.closing = False
+
+        self.get_style_context().add_class("calendar-popup")
+        self.set_default_size(WIDTH, -1)
+        self._setup_layer_shell()
+
+        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        box.set_border_width(14)
+        self.add(box)
+
+        # header: clock + date
+        self.clock = Gtk.Label(xalign=0)
+        self.clock.get_style_context().add_class("clock")
+        self.date = Gtk.Label(xalign=0)
+        self.date.get_style_context().add_class("date")
+        self.date_sub = Gtk.Label(xalign=0)
+        self.date_sub.get_style_context().add_class("sub")
+        for w in (self.clock, self.date, self.date_sub):
+            box.pack_start(w, False, False, 0)
+        box.pack_start(Gtk.Separator(), False, False, 4)
+
+        # month view
+        self.calendar = Gtk.Calendar()
+        self.calendar.set_display_options(
+            Gtk.CalendarDisplayOptions.SHOW_HEADING
+            | Gtk.CalendarDisplayOptions.SHOW_DAY_NAMES
+            | Gtk.CalendarDisplayOptions.SHOW_WEEK_NUMBERS
+        )
+        self.calendar.connect("day-selected", self.on_day_selected)
+        self.calendar.connect("month-changed", self.on_month_changed)
+        self.calendar.connect("day-selected-double-click", lambda *_: self.open_app())
+        self.calendar.add_events(Gdk.EventMask.SCROLL_MASK | Gdk.EventMask.SMOOTH_SCROLL_MASK)
+        self.calendar.connect("scroll-event", self.on_scroll)
+        box.pack_start(self.calendar, False, False, 0)
+
+        # buttons
+        buttons = Gtk.Box(spacing=6, halign=Gtk.Align.CENTER)
+        actions = [("󰃭  Today", lambda *_: self.go_today())]
+        if shutil.which("gnome-calendar"):
+            actions.append(("  Open", lambda *_: self.open_app()))
+        for label, cb in actions:
+            b = Gtk.Button(label=label)
+            b.get_style_context().add_class("flat-btn")
+            b.set_can_focus(False)
+            b.connect("clicked", cb)
+            buttons.pack_start(b, False, False, 0)
+        box.pack_start(buttons, False, False, 2)
+        box.pack_start(Gtk.Separator(), False, False, 4)
+
+        # selected day details
+        self.day_title = Gtk.Label(xalign=0)
+        self.day_title.get_style_context().add_class("section")
+        box.pack_start(self.day_title, False, False, 0)
+        self.events_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
+        scroller = Gtk.ScrolledWindow()
+        scroller.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        scroller.set_propagate_natural_height(True)
+        scroller.set_max_content_height(220)
+        scroller.add(self.events_box)
+        box.pack_start(scroller, False, False, 0)
+
+        self.connect("key-press-event", self.on_key)
+        self.connect("focus-out-event", self.on_focus_out)
+
+        self.tick()
+        GLib.timeout_add_seconds(1, self.tick)
+        self.on_month_changed(self.calendar)
+        self.on_day_selected(self.calendar)
+
+    # --- placement -------------------------------------------------------
+    def _setup_layer_shell(self):
+        GtkLayerShell.init_for_window(self)
+        GtkLayerShell.set_namespace(self, "waybar-calendar")
+        GtkLayerShell.set_layer(self, GtkLayerShell.Layer.OVERLAY)
+        GtkLayerShell.set_keyboard_mode(self, GtkLayerShell.KeyboardMode.ON_DEMAND)
+        GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.TOP, True)
+        GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.RIGHT, True)
+        GtkLayerShell.set_margin(self, GtkLayerShell.Edge.TOP, 6)
+        GtkLayerShell.set_margin(self, GtkLayerShell.Edge.RIGHT, self._right_margin())
+
+    @staticmethod
+    def _right_margin():
+        """Center the popup under the mouse (i.e. under the clock just clicked)."""
+        try:
+            cursor = json.loads(subprocess.check_output(["hyprctl", "cursorpos", "-j"]))
+            monitors = json.loads(subprocess.check_output(["hyprctl", "monitors", "-j"]))
+            mon = next(m for m in monitors if m.get("focused"))
+            scale = mon.get("scale", 1) or 1
+            mon_width = mon["width"] / scale
+            if mon.get("transform", 0) % 2:
+                mon_width = mon["height"] / scale
+            x = cursor["x"] - mon["x"]
+            return int(max(6, min(mon_width - WIDTH - 6, mon_width - x - WIDTH / 2)))
+        except Exception:
+            return 6
+
+    # --- updates ---------------------------------------------------------
+    def tick(self):
+        now = dt.datetime.now()
+        self.clock.set_text(now.strftime("%H:%M:%S"))
+        self.date.set_text(now.strftime("%A %-d %B %Y"))
+        days_in_year = 366 if now.year % 4 == 0 and (now.year % 100 or now.year % 400 == 0) else 365
+        self.date_sub.set_text(
+            f"Week {now.isocalendar()[1]}  ·  Day {now.timetuple().tm_yday}/{days_in_year}"
+            f"  ·  {now.astimezone().tzname()}"
+        )
+        return True
+
+    def selected_date(self) -> dt.date:
+        y, m, d = self.calendar.get_date()
+        return dt.date(y, m + 1, d)
+
+    def on_day_selected(self, _cal):
+        day = self.selected_date()
+        rel = relative_day(day)
+        week = day.isocalendar()[1]
+        label = day.strftime("%a %-d %b")
+        self.day_title.set_text(f"{label}  ·  {rel}  ·  W{week}" if rel != "Today"
+                                else f"Today  ·  {label}")
+        self.render_events()
+
+    def on_month_changed(self, _cal):
+        self.calendar.clear_marks()
+        y, m, _ = self.calendar.get_date()
+        today = dt.date.today()
+        if (y, m + 1) == (today.year, today.month):
+            self.calendar.mark_day(today.day)
+        self.load_month(y, m + 1)
+
+    def load_month(self, year, month):
+        if self.event_source is None:
+            return
+        key = (year, month)
+        self.loaded_month = key
+        start = dt.date(year, month, 1)
+        end = dt.date(year + month // 12, month % 12 + 1, 1)
+
+        def worker():
+            try:
+                events = self.event_source.events(start, end)
+            except Exception:
+                events = []
+            GLib.idle_add(self.on_events_loaded, key, events)
+
+        threading.Thread(target=worker, daemon=True).start()
+
+    def on_events_loaded(self, key, events):
+        if key != self.loaded_month:
+            return False  # month changed meanwhile
+        by_day = {}
+        for ev in events:
+            day = ev["start"].date()
+            last = ev["end"].date()
+            if ev["all_day"] or (ev["end"].time() == dt.time(0) and last > day):
+                last -= dt.timedelta(days=1)  # end is exclusive
+            while day <= max(last, ev["start"].date()):
+                by_day.setdefault(day, []).append(ev)
+                day += dt.timedelta(days=1)
+        self.events_by_day = by_day
+        for day in by_day:
+            if (day.year, day.month) == key:
+                self.calendar.mark_day(day.day)
+        self.render_events()
+        return False
+
+    def render_events(self):
+        for child in self.events_box.get_children():
+            child.destroy()
+        if self.event_source is None:
+            self._add_label("Install gir1.2-ecal-2.0 to see events", "events-empty")
+        else:
+            events = self.events_by_day.get(self.selected_date(), [])
+            if not events:
+                self._add_label("No events", "events-empty")
+            for ev in events:
+                when = "all day" if ev["all_day"] else \
+                    f'{ev["start"]:%H:%M}–{ev["end"]:%H:%M}'
+                row = Gtk.Box(spacing=8)
+                t = Gtk.Label(label=when, xalign=0)
+                t.set_width_chars(11)
+                t.get_style_context().add_class("event-time")
+                col = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+                title = Gtk.Label(label=ev["summary"], xalign=0)
+                title.set_line_wrap(True)
+                title.set_max_width_chars(28)
+                title.get_style_context().add_class("event-title")
+                col.pack_start(title, False, False, 0)
+                if ev["location"]:
+                    loc = Gtk.Label(label=ev["location"], xalign=0)
+                    loc.set_ellipsize(3)  # Pango.EllipsizeMode.END
+                    loc.set_max_width_chars(28)
+                    loc.get_style_context().add_class("event-loc")
+                    col.pack_start(loc, False, False, 0)
+                row.pack_start(t, False, False, 0)
+                row.pack_start(col, True, True, 0)
+                self.events_box.pack_start(row, False, False, 0)
+        self.events_box.show_all()
+
+    def _add_label(self, text, css_class):
+        label = Gtk.Label(label=text, xalign=0)
+        label.get_style_context().add_class(css_class)
+        self.events_box.pack_start(label, False, False, 0)
+
+    # --- actions ---------------------------------------------------------
+    def go_today(self):
+        today = dt.date.today()
+        self.calendar.select_month(today.month - 1, today.year)
+        self.calendar.select_day(today.day)
+
+    def shift_month(self, delta):
+        y, m, d = self.calendar.get_date()
+        m += delta
+        y, m = y + m // 12, m % 12
+        self.calendar.select_day(1)  # avoid invalid dates (e.g. 31 Feb)
+        self.calendar.select_month(m, y)
+
+    def open_app(self):
+        if shutil.which("gnome-calendar"):
+            day = self.selected_date()
+            subprocess.Popen(["gnome-calendar", "--date", day.strftime("%Y-%m-%d")],
+                             start_new_session=True)
+            self.close_popup()
+
+    def close_popup(self, from_focus_out=False):
+        if self.closing:
+            return
+        self.closing = True
+        if from_focus_out:
+            try:
+                CLOSED_STAMP.write_text(str(time.time()))
+            except OSError:
+                pass
+        self.app.quit()
+
+    def on_scroll(self, _w, event):
+        direction = event.direction
+        if direction == Gdk.ScrollDirection.SMOOTH:
+            _ok, _dx, dy = event.get_scroll_deltas()
+            if dy == 0:
+                return True
+            direction = Gdk.ScrollDirection.DOWN if dy > 0 else Gdk.ScrollDirection.UP
+        self.shift_month(1 if direction == Gdk.ScrollDirection.DOWN else -1)
+        return True
+
+    def on_key(self, _w, event):
+        key = Gdk.keyval_name(event.keyval)
+        if key in ("Escape", "q"):
+            self.close_popup()
+        elif key == "t":
+            self.go_today()
+        elif key in ("Return", "KP_Enter"):
+            self.open_app()
+        else:
+            return False
+        return True
+
+    def on_focus_out(self, *_):
+        self.close_popup(from_focus_out=True)
+        return False
+
+
+class App(Gtk.Application):
+    def __init__(self):
+        super().__init__(application_id=APP_ID, flags=Gio.ApplicationFlags.FLAGS_NONE)
+        self.window = None
+
+    def do_activate(self):
+        if self.window is not None:  # second launch: toggle off
+            self.window.close_popup()
+            return
+        try:
+            if time.time() - float(CLOSED_STAMP.read_text()) < REOPEN_GUARD_S:
+                return
+        except (OSError, ValueError):
+            pass
+        provider = Gtk.CssProvider()
+        provider.load_from_data(CSS)
+        Gtk.StyleContext.add_provider_for_screen(
+            Gdk.Screen.get_default(), provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        self.window = CalendarPopup(self)
+        self.window.show_all()
+        self.window.present()
+
+
+if __name__ == "__main__":
+    App().run(None)

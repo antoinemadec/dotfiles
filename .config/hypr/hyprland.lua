@@ -32,6 +32,42 @@ hl.monitor({
     scale    = 1.666667,
 })
 
+-- Per-machine layout saved by nwg-displays (~/.config/hypr/bin/displays), in
+-- hyprlang syntax: "monitor=NAME,WxH@HZ,XxY,SCALE[,mirror,M][,bitdepth,10]",
+-- "monitor=NAME,transform,T", "monitor=NAME,disable". Not tracked in git.
+-- Loaded last so it takes precedence (the last matching rule wins).
+local function load_monitors_conf(path)
+    local f = io.open(path, "r")
+    if not f then return end
+    for line in f:lines() do
+        local spec = line:match("^%s*monitor%s*=%s*(.-)%s*$")
+        if spec then
+            local fields = {}
+            for field in (spec .. ","):gmatch("(.-),") do
+                fields[#fields + 1] = field:match("^%s*(.-)%s*$")
+            end
+            local rule = { output = fields[1] }
+            if fields[2] == "disable" then
+                rule.disabled = true
+            elseif fields[2] == "transform" then
+                rule.transform = tonumber(fields[3])
+            elseif fields[2] then
+                rule.mode, rule.position, rule.scale = fields[2], fields[3], fields[4]
+                for i = 5, #fields - 1, 2 do
+                    if fields[i] == "mirror" then
+                        rule.mirror = fields[i + 1]
+                    elseif fields[i] == "bitdepth" then
+                        rule.bitdepth = tonumber(fields[i + 1])
+                    end
+                end
+            end
+            hl.monitor(rule)
+        end
+    end
+    f:close()
+end
+load_monitors_conf(os.getenv("HOME") .. "/.config/hypr/monitors.conf")
+
 
 --------------------
 ---- AUTOSTART ----
