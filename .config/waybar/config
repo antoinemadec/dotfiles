@@ -11,6 +11,7 @@
     ],
     "modules-center": ["hyprland/window"],
     "modules-right": [
+      "custom/jeanmich",
       "pulseaudio",
       "cpu",
       "memory",
@@ -119,6 +120,15 @@
           "default": ["", "", ""]
         },
         "on-click": "pavucontrol"
+    },
+    "custom/jeanmich": {
+      "exec": "~/axelera/jeanmich/interrupteur etat",
+      "return-type": "json",
+      "interval": 2,
+      "signal": 9,
+      "format": "{}",
+      "tooltip": true,
+      "on-click": "~/axelera/jeanmich/interrupteur"
     },
     "custom/displays": {
       "exec": "~/.config/hypr/bin/displays status",

@@ -8,3 +8,5 @@
 __pycache__
 .config/i3/wallpaper/avg_val_*.txt
 .config/nvim/tags
+.config/hypr/monitors.conf
+.config/hypr/workspaces.conf

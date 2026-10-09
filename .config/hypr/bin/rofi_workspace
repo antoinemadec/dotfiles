@@ -24,7 +24,7 @@ main() {
       if ! get_workspaces_ids | grep -q "^${id}$"; then
         hyprctl dispatch "hl.dsp.focus({workspace = '$id'})"
         # let waybar register the new workspace, otherwise it misses the rename
-        sleep 0.01
+        sleep 0.02
         hyprctl dispatch "hl.dsp.workspace.rename({workspace = '$id', name = '$name'})"
         break
       fi

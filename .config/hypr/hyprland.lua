@@ -370,6 +370,7 @@ hl.bind(mainMod .. " + SHIFT + Q",            hl.dsp.window.close())
 hl.bind(mainMod .. " + M",                    hl.dsp.exec_cmd("~/.config/hypr/bin/file_manager"))
 hl.bind(mainMod .. " + T",                    hl.dsp.exec_cmd("~/.config/hypr/bin/vim_todo"))
 hl.bind(mainMod .. " + C",                    hl.dsp.exec_cmd("~/.config/hypr/bin/calculator"))
+hl.bind(mainMod .. " + semicolon",            hl.dsp.exec_cmd("~/axelera/jeanmich/interrupteur"))  -- Jean-Mich : lancer / pause / reprise
 hl.bind("Print",                              hl.dsp.exec_cmd("~/.config/hypr/bin/screenshot.sh"))
 hl.bind(mainMod .. " + Space",                hl.dsp.exec_cmd("~/.config/hypr/bin/toggle_focus_floating"))
 hl.bind(mainMod .. " + SHIFT + Space",        hl.dsp.window.float({ action = "toggle" }))
