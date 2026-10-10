@@ -47,6 +47,8 @@
     "tray": {
         // "icon-size": 21,
         "spacing": 10,
+        // blueman-tray doublonne le module "bluetooth" (blueman-manager le relance via blueman-applet)
+        "ignore-list": ["blueman"],
         // "icons": {
         //   "blueman": "bluetooth",
         //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
@@ -61,7 +63,7 @@
       "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
       "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
       "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
-      "on-click": "env XDG_CURRENT_DESKTOP=GNOME gnome-control-center bluetooth"
+      "on-click": "blueman-manager"
     },
     "clock": {
       "format": "{:%a %d %b %Y, %R}",
@@ -122,13 +124,13 @@
         "on-click": "pavucontrol"
     },
     "custom/jeanmich": {
-      "exec": "~/axelera/jeanmich/interrupteur etat",
+      "exec": "~/axelera/jeanmich/bin/interrupteur etat",
       "return-type": "json",
       "interval": 2,
       "signal": 9,
       "format": "{}",
       "tooltip": true,
-      "on-click": "~/axelera/jeanmich/interrupteur"
+      "on-click": "~/axelera/jeanmich/bin/interrupteur"
     },
     "custom/displays": {
       "exec": "~/.config/hypr/bin/displays status",
