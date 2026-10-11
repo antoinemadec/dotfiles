@@ -26,6 +26,15 @@ HISTFILESIZE=4000000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+# enable programmable completion
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -236,7 +245,7 @@ fi
 
 # expand $VAR when VAR is a directory
 shopt -s direxpand
-compopt -o nospace ls
+# compopt -o nospace ls
 
 # bat default style: used for FZF preview in vim
 export BAT_THEME="1337"
