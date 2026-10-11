@@ -152,6 +152,10 @@ tooltip label {
     background-image: url("/home/antoine/axelera/jeanmich/assets/waybar/jeanmich-actif.png");
 }
 
+#custom-jeanmich.reunion {
+    background-image: url("/home/antoine/axelera/jeanmich/assets/waybar/jeanmich-reunion.png");
+}
+
 #custom-jeanmich.silencieux {
     background-image: url("/home/antoine/axelera/jeanmich/assets/waybar/jeanmich-silencieux.png");
 }
