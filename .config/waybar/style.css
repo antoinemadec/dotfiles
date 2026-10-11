@@ -140,7 +140,7 @@ tooltip label {
   color: #e2cca9;
 }
 
-/* Jean-Mich : sa tête quand il écoute, grise en silencieux, grise avec ⏸ rouge en pause, grise barrée de rouge arrêté (assets générés par scripts/icones_waybar.py) */
+/* Jean-Mich : sa tête quand il écoute, grise en silencieux, grise avec ⏸ gris foncé en pause, grise barrée de rouge arrêté (assets générés par scripts/icones_waybar.py) */
 #custom-jeanmich {
     min-width: 20px;
     background-repeat: no-repeat;
