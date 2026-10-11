@@ -140,7 +140,7 @@ tooltip label {
   color: #e2cca9;
 }
 
-/* Jean-Mich : sa tête quand il écoute, grise en silencieux, grise avec ⏸ gris foncé en pause, grise barrée de rouge arrêté (assets générés par scripts/icones_waybar.py) */
+/* Jean-Mich : sa tête quand il écoute, avec une caméra en réunion, un haut-parleur barré en silencieux, grise avec ⏸ gris foncé en pause, grise avec ⏹ gris foncé arrêté (assets générés par scripts/icones_waybar.py) */
 #custom-jeanmich {
     min-width: 20px;
     background-repeat: no-repeat;
@@ -164,6 +164,6 @@ tooltip label {
     background-image: url("/home/antoine/axelera/jeanmich/assets/waybar/jeanmich-pause.png");
 }
 
-#custom-jeanmich.arrete {
-    background-image: url("/home/antoine/axelera/jeanmich/assets/waybar/jeanmich-inactif.png");
+#custom-jeanmich.stop {
+    background-image: url("/home/antoine/axelera/jeanmich/assets/waybar/jeanmich-stop.png");
 }
