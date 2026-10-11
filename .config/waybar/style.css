@@ -139,3 +139,24 @@ tooltip {
 tooltip label {
   color: #e2cca9;
 }
+
+/* Jean-Mich : sa tête quand il écoute, grise en silencieux, grise barrée de rouge en pause ou arrêté (assets générés par scripts/icones_waybar.py) */
+#custom-jeanmich {
+    min-width: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+#custom-jeanmich.actif {
+    background-image: url("/home/antoine/axelera/jeanmich/assets/waybar/jeanmich-actif.png");
+}
+
+#custom-jeanmich.silencieux {
+    background-image: url("/home/antoine/axelera/jeanmich/assets/waybar/jeanmich-silencieux.png");
+}
+
+#custom-jeanmich.pause,
+#custom-jeanmich.arrete {
+    background-image: url("/home/antoine/axelera/jeanmich/assets/waybar/jeanmich-inactif.png");
+}
