@@ -140,7 +140,7 @@ tooltip label {
   color: #e2cca9;
 }
 
-/* Jean-Mich : sa tête quand il écoute, avec une caméra en réunion, un haut-parleur barré en silencieux, grise avec ⏸ gris foncé en pause, grise avec ⏹ gris foncé arrêté (assets générés par scripts/icones_waybar.py) */
+/* Jean-Mich : sa tête quand il écoute, avec une caméra en réunion, un haut-parleur barré en silencieux, grise avec ⏸ gris foncé en pause, grise et un peu plus petite avec ⏹ gris foncé arrêté (assets générés par scripts/icones_waybar.py) */
 #custom-jeanmich {
     min-width: 20px;
     background-repeat: no-repeat;
