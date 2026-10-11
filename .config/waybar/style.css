@@ -1,5 +1,8 @@
 /* Gruvbox Material Waybar Theme - Custom Color Palette */
 
+/* workspaces jaunes où Jean-Mich veille un terminal (généré par ~/axelera/jeanmich/src/marquage.py) */
+@import "jeanmich-veille.css";
+
 * {
     border: none;
     border-radius: 0;

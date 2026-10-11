@@ -5,6 +5,7 @@
     "height": 0, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
     "spacing": 2, // Gaps between modules (4px)
+    "reload_style_on_change": true, // recharge aussi jeanmich-veille.css (jaune des veilles de Jean-Mich)
     // Choose the order of the modules
     "modules-left": [
       "hyprland/workspaces",

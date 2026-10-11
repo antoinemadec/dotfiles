@@ -10,3 +10,4 @@ __pycache__
 .config/nvim/tags
 .config/hypr/monitors.conf
 .config/hypr/workspaces.conf
+.config/waybar/jeanmich-veille.css

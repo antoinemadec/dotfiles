@@ -460,4 +460,12 @@ hl.window_rule({
     border_color = "rgba(80aa9eee)",
 })
 
+-- terminals Jean-Mich is watching (tag set/cleared by ~/axelera/jeanmich/src/marquage.py); last so it wins
+hl.window_rule({
+    name         = "jeanmich-veille",
+    match        = { tag = "jeanmich-veille" },
+    border_color = "rgba(ffdb73ff) rgba(ffdb73ff)",  -- opaque, jaune du halo content de Jean-Mich (= bouton Waybar)
+    border_size  = 5,
+})
+
 -- See https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/ for workspace rules
