@@ -131,7 +131,8 @@
       "signal": 9,
       "format": "{}",
       "tooltip": true,
-      "on-click": "~/axelera/jeanmich/bin/interrupteur"
+      "on-click": "~/axelera/jeanmich/bin/menu",
+      "on-click-right": "~/axelera/jeanmich/bin/pause"
     },
     "custom/displays": {
       "exec": "~/.config/hypr/bin/displays status",
