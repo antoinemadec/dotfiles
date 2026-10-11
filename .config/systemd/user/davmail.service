@@ -1,0 +1,18 @@
+[Unit]
+Description=DavMail gateway: Microsoft 365 calendar (Graph API) exposed as CalDAV for GNOME Calendar
+Documentation=https://davmail.sourceforge.net/
+After=network-online.target
+Wants=network-online.target
+# first login must be done with ~/bin/davmail-setup, which creates this file
+ConditionPathExists=%h/.config/davmail/davmail.properties
+
+[Service]
+Type=simple
+ExecStart=%h/.local/opt/davmail/davmail -server %h/.config/davmail/davmail.properties
+Restart=on-failure
+RestartSec=5
+# no GUI, no tray: keep it headless
+Environment="JAVA_OPTS=-Xmx256M -Djava.awt.headless=true"
+
+[Install]
+WantedBy=default.target

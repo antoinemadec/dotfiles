@@ -1,0 +1,200 @@
+#!/bin/bash
+#
+# davmail-setup: show the Microsoft 365 (Outlook / Teams) calendar in GNOME Calendar.
+#
+# DavMail talks to Microsoft 365 over the Graph API and exposes the calendar as
+# CalDAV on localhost; Evolution Data Server (the backend of GNOME Calendar) is
+# pointed at it.  It runs as the user service davmail.service.
+#
+# Microsoft login uses the device-code flow: this script prints a URL and a code,
+# you log in with your browser, and DavMail stores a refresh token in
+# ~/.config/davmail/token.properties, encrypted with a random local password that
+# lives in the GNOME keyring (where GNOME Calendar also reads it from).
+#
+#   davmail-setup <you@company.com>             full setup, idempotent (re-run to re-login)
+#   davmail-setup --prepare <you@company.com>   write config only, no Microsoft login
+#
+# Requires: ~/.local/opt/davmail (standalone bundle from davmail.sourceforge.net),
+#           java, gnome-calendar, python3-gi + gir1.2-secret-1 (keyring access).
+
+set -euo pipefail
+
+DAVMAIL="$HOME/.local/opt/davmail/davmail"
+CONF_DIR="$HOME/.config/davmail"
+CONF="$CONF_DIR/davmail.properties"
+TOKEN_FILE="$CONF_DIR/token.properties"
+LOG_DIR="$HOME/.cache/davmail"
+PORT=1080
+SOURCE_UID="davmail-m365-calendar"
+SOURCE_FILE="$HOME/.config/evolution/sources/$SOURCE_UID.source"
+export JAVA_OPTS="-Xmx256M -Djava.awt.headless=true"
+
+die() { echo "ERROR: $*" >&2; exit 1; }
+
+prepare_only=0
+if [ "${1:-}" = "--prepare" ]; then prepare_only=1; shift; fi
+EMAIL="${1:-}"
+[ -n "$EMAIL" ] || read -rp "Microsoft 365 account (email): " EMAIL
+[ -n "$EMAIL" ] || die "an email address is required"
+
+[ -x "$DAVMAIL" ] || die "DavMail not found at $DAVMAIL"
+command -v java >/dev/null || die "java not found (sudo apt install default-jre)"
+command -v gnome-calendar >/dev/null || echo "WARNING: gnome-calendar not installed (sudo apt install gnome-calendar)"
+
+# ---------------------------------------------------------------------------
+# local password: kept in the GNOME keyring under the Evolution source uid, so
+# GNOME Calendar sends it as the CalDAV password without ever prompting, and
+# DavMail uses it to encrypt the stored Microsoft token.
+keyring() {  # keyring lookup|store <uid> [password]
+  python3 - "$@" <<'PY'
+import sys, gi
+gi.require_version("Secret", "1")
+from gi.repository import Secret
+op, uid = sys.argv[1], sys.argv[2]
+schema = Secret.Schema.new(
+    "org.gnome.Evolution.Data.Source", Secret.SchemaFlags.DONT_MATCH_NAME,
+    {"e-source-uid": Secret.SchemaAttributeType.STRING,
+     "eds-origin": Secret.SchemaAttributeType.STRING})
+if op == "lookup":
+    pw = Secret.password_lookup_sync(schema, {"e-source-uid": uid}, None)
+    if pw:
+        print(pw)
+elif op == "store":
+    ok = Secret.password_store_sync(
+        schema, {"e-source-uid": uid, "eds-origin": "eds"}, Secret.COLLECTION_DEFAULT,
+        "Evolution Data Source %s (DavMail local password)" % uid, sys.argv[3], None)
+    sys.exit(0 if ok else 1)
+PY
+}
+
+LOCAL_PW="$(keyring lookup "$SOURCE_UID")"
+if [ -z "$LOCAL_PW" ]; then
+  LOCAL_PW="$(head -c 24 /dev/urandom | base64 | tr -d '/+=')"
+  keyring store "$SOURCE_UID" "$LOCAL_PW" || die "could not store the password in the GNOME keyring"
+  rm -f "$TOKEN_FILE"  # a previous token would have been encrypted with another password
+  echo "* generated a local DavMail password and stored it in the GNOME keyring"
+fi
+
+# ---------------------------------------------------------------------------
+# DavMail configuration (CalDAV only, Graph API, device-code login)
+mkdir -p "$CONF_DIR" "$LOG_DIR"
+if [ ! -f "$CONF" ]; then
+  cat > "$CONF" <<EOF
+# DavMail: Microsoft 365 (Graph API) -> CalDAV on 127.0.0.1:$PORT. Written by davmail-setup.
+davmail.server=true
+davmail.mode=O365Graph
+davmail.authentication=O365DeviceCode
+davmail.oauth.tenantId=common
+davmail.oauth.persistToken=true
+davmail.oauth.tokenFilePath=$TOKEN_FILE
+
+# CalDAV only: an empty port disables that service
+davmail.caldavPort=$PORT
+davmail.imapPort=
+davmail.smtpPort=
+davmail.popPort=
+davmail.ldapPort=
+davmail.bindAddress=127.0.0.1
+davmail.allowRemote=false
+
+davmail.enableTray=false
+davmail.showStartupBanner=false
+davmail.disableUpdateCheck=true
+davmail.logFilePath=$LOG_DIR/davmail.log
+davmail.logFileSize=1MB
+log4j.rootLogger=WARN
+log4j.logger.davmail=WARN
+EOF
+  chmod 600 "$CONF"
+  echo "* wrote $CONF"
+fi
+
+# ---------------------------------------------------------------------------
+# Evolution Data Server calendar source, i.e. what GNOME Calendar displays
+mkdir -p "$(dirname "$SOURCE_FILE")"
+cat > "$SOURCE_FILE" <<EOF
+[Data Source]
+DisplayName=Microsoft 365 ($EMAIL)
+Enabled=true
+Parent=
+
+[Authentication]
+Host=localhost
+Port=$PORT
+Method=plain/password
+User=$EMAIL
+RememberPassword=true
+ProxyUid=system-proxy
+
+[Security]
+Method=none
+
+[Calendar]
+BackendName=caldav
+Color=#80aa9e
+Selected=true
+
+[WebDAV Backend]
+ResourcePath=/users/$EMAIL/calendar/
+EmailAddress=$EMAIL
+CalendarAutoSchedule=false
+SslTrust=
+
+[Offline]
+StaySynchronized=true
+
+[Refresh]
+Enabled=true
+IntervalMinutes=15
+EOF
+echo "* wrote $SOURCE_FILE"
+# the (dbus-activated) source registry re-reads the directory when restarted
+if pgrep -f evolution-source-registry >/dev/null && ! pgrep -x gnome-calendar >/dev/null; then
+  pkill -f evolution-source-registry || true
+fi
+
+if [ "$prepare_only" = 1 ]; then
+  echo "prepared; run 'davmail-setup $EMAIL' to log in to Microsoft and start the service"
+  exit 0
+fi
+
+# ---------------------------------------------------------------------------
+# Microsoft login (device code), unless a token is already stored
+if grep -qs "refreshToken" "$TOKEN_FILE"; then
+  echo "* Microsoft token already stored in $TOKEN_FILE"
+else
+  systemctl --user stop davmail.service 2>/dev/null || true
+  echo "* starting DavMail for the first login"
+  : > "$LOG_DIR/setup.log"
+  "$DAVMAIL" -server "$CONF" >"$LOG_DIR/setup.log" 2>&1 &
+  DM_PID=$!
+  trap 'kill $DM_PID 2>/dev/null' EXIT
+  for _ in $(seq 1 40); do (echo >"/dev/tcp/127.0.0.1/$PORT") 2>/dev/null && break; sleep 0.5; done
+  (echo >"/dev/tcp/127.0.0.1/$PORT") 2>/dev/null || die "DavMail did not start, see $LOG_DIR/setup.log"
+
+  # a CalDAV request makes DavMail start the authentication
+  curl -s -o /dev/null -w '%{http_code}' --max-time 900 -u "$EMAIL:$LOCAL_PW" \
+       -X PROPFIND -H 'Depth: 0' "http://127.0.0.1:$PORT/users/$EMAIL/calendar/" \
+       >"$LOG_DIR/setup.http" &
+  CURL_PID=$!
+
+  echo
+  echo "================ Microsoft login ================"
+  # DavMail repeats the device-code message every 5 s: show it once
+  timeout 90 tail -n +1 -f "$LOG_DIR/setup.log" | grep -m1 -i "devicelogin" \
+    || die "no device code was shown, see $LOG_DIR/setup.log"
+  echo "================================================="
+  echo "waiting for the browser login to complete (15 min max)..."
+  wait "$CURL_PID" || true
+  code="$(cat "$LOG_DIR/setup.http")"
+  kill "$DM_PID" 2>/dev/null || true
+  trap - EXIT
+  wait "$DM_PID" 2>/dev/null || true
+  [ "$code" = 207 ] || die "CalDAV check returned HTTP ${code:-none}, see $LOG_DIR/setup.log"
+  echo "* login OK, token stored in $TOKEN_FILE"
+fi
+
+systemctl --user daemon-reload
+systemctl --user enable --now davmail.service
+echo "* davmail.service enabled and started"
+echo "Done: click the clock in waybar (or run gnome-calendar)."
