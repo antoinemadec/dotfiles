@@ -1,0 +1,46 @@
+/* Notifications discrètes : le style par défaut de swaync, en plus petit et semi-transparent */
+@import url("/etc/xdg/swaync/style.css");
+
+@define-color noti-bg rgba(30, 30, 30, 0.75);
+@define-color noti-bg-hover rgba(45, 45, 45, 0.85);
+@define-color noti-border-color rgba(255, 255, 255, 0.08);
+
+.notification {
+  border-radius: 8px;
+  margin: 4px 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.notification-content {
+  padding: 4px 6px;
+  border-radius: 8px;
+}
+
+.notification-default-action {
+  padding: 2px;
+  border-radius: 8px;
+}
+
+.image {
+  margin-right: 4px;
+}
+
+.summary,
+.time {
+  font-size: 12px;
+}
+
+.time {
+  margin-right: 10px;
+}
+
+.body {
+  font-size: 11px;
+}
+
+.close-button {
+  min-width: 18px;
+  min-height: 18px;
+  margin-top: 6px;
+  margin-right: 8px;
+}
