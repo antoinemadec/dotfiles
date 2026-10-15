@@ -1,24 +1,71 @@
-/* Notifications discrètes : le style par défaut de swaync, en plus petit et semi-transparent */
+/* Notifications discrètes aux couleurs de la Waybar (Gruvbox Material) : le style par défaut de swaync, en plus
+   petit, avec la palette et la police de ~/.config/waybar/style.css. Les popups s'alignent sur une fenêtre tuilée
+   de Hyprland (~/.config/hypr/hyprland.lua) : gaps_out 2, border_size 2, rounding 5, mêmes couleurs de bordure */
 @import url("/etc/xdg/swaync/style.css");
 
-@define-color noti-bg rgba(30, 30, 30, 0.75);
-@define-color noti-bg-hover rgba(45, 45, 45, 0.85);
-@define-color noti-border-color rgba(255, 255, 255, 0.08);
+/* palette de la Waybar */
+@define-color wb-bg rgba(69, 64, 61, 0.97);       /* fond de la barre (0.5 là-bas), presque opaque pour lire */
+@define-color wb-bg-hover rgba(80, 73, 69, 1.0);  /* #504945, fond des workspaces */
+@define-color wb-fg #e2cca9;                       /* texte crème */
+@define-color wb-fg-dim rgba(226, 204, 169, 0.7); /* titre de fenêtre */
+@define-color wb-grey #7c6f64;                     /* bulles des modules */
+@define-color wb-aqua #80aa9e;                     /* workspace actif */
+@define-color wb-red #f2594b;                      /* urgent */
 
+/* bordures des fenêtres Hyprland (general.col) */
+@define-color hl-active rgba(226, 204, 169, 0.933);   /* active_border   rgba(e2cca9ee) */
+@define-color hl-inactive rgba(102, 92, 84, 0.667);   /* inactive_border rgba(665c54aa) */
+
+@define-color noti-bg @wb-bg;
+@define-color noti-bg-hover @wb-bg-hover;
+@define-color noti-bg-darker rgba(64, 73, 70, 0.97);
+@define-color noti-border-color @wb-grey;
+@define-color noti-close-bg rgba(124, 111, 100, 0.5);
+@define-color noti-close-bg-hover @wb-grey;
+@define-color text-color @wb-fg;
+@define-color cc-bg rgba(69, 64, 61, 0.95);
+
+/* comme une fenêtre tuilée en haut à droite : gaps_out = 2 px entre le bord extérieur de la bordure et la Waybar,
+   et le bord droit de l'écran ; 4 px entre deux notifications (2 × gaps_in, comme entre deux fenêtres) ; pas
+   d'ombre (decoration.shadow désactivée) */
 .notification {
-  border-radius: 8px;
-  margin: 4px 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  border-radius: 7px;
+  margin: 2px 2px 2px 2px;
+  box-shadow: none;
+}
+
+/* rien au-dessus de la première notification : la fenêtre de swaync est déjà collée à la Waybar */
+.floating-notifications,
+.floating-notifications .notification-row {
+  margin: 0;
+  padding: 0;
 }
 
 .notification-content {
-  padding: 4px 6px;
-  border-radius: 8px;
+  padding: 4px 8px;
+  border-radius: 5px;
 }
 
+/* border_size 2 ; rayon extérieur 7 px = rounding 5 + bordure 2, comme Hyprland qui arrondit la bordure autour
+   d'un contenu arrondi à 5 px */
 .notification-default-action {
   padding: 2px;
-  border-radius: 8px;
+  border-radius: 7px;
+  border: 2px solid @hl-inactive;
+}
+
+/* urgence : bordure de fenêtre inactive (low), active (normal), rouge urgent de la Waybar (critical) */
+.notification.low .notification-default-action {
+  border-color: @hl-inactive;
+}
+
+.notification.normal .notification-default-action {
+  border-color: @hl-active;
+}
+
+.notification.critical .notification-default-action {
+  border-color: @wb-red;
+  background: rgba(112, 70, 65, 0.97); /* le rouge #f2594b à 25 % sur le fond, sans transparence */
 }
 
 .image {
@@ -26,16 +73,30 @@
 }
 
 .summary,
-.time {
+.time,
+.body {
+  font-family: "Cantarell", sans-serif;
+  color: @wb-fg;
+}
+
+.summary {
   font-size: 12px;
 }
 
 .time {
+  font-size: 10px;
+  font-weight: normal;
+  color: @wb-fg-dim;
   margin-right: 10px;
 }
 
 .body {
   font-size: 11px;
+  color: @wb-fg-dim;
+}
+
+.notification.low .summary {
+  font-weight: normal;
 }
 
 .close-button {
@@ -43,4 +104,29 @@
   min-height: 18px;
   margin-top: 6px;
   margin-right: 8px;
+  color: @wb-fg;
+}
+
+/* coins peu arrondis (6 px au lieu de 12 px par défaut) : boutons, centre de notifications */
+.notification-action:first-child {
+  border-bottom-left-radius: 6px;
+}
+
+.notification-action:last-child {
+  border-bottom-right-radius: 6px;
+}
+
+.inline-reply-entry,
+.inline-reply-button,
+.body-image,
+.widget-title > button,
+.widget-dnd > switch,
+.widget-dnd > switch slider,
+.widget-buttons-grid,
+.widget-buttons-grid > flowbox > flowboxchild > button,
+.widget-volume,
+.per-app-volume,
+.widget-backlight,
+.widget-inhibitors > button {
+  border-radius: 6px;
 }
