@@ -461,12 +461,29 @@ hl.window_rule({
     border_color = "rgba(80aa9eee)",
 })
 
--- terminals Jean-Mich is watching (tag set/cleared by ~/axelera/jeanmich/src/marquage.py); last so it wins
+-- terminals Jean-Mich is watching (tag set/cleared by ~/axelera/jeanmich/src/marquage.py); last so they win.
+-- Order matters, the last matching rule wins: plain yellow < focused (yellow -> general.col.active_border) < maximized
+-- (yellow -> maximized-window-border-color): same colors as windows Jean-Mich does not watch, keep them in sync.
+-- Don't put "active gradient + inactive color" in one border_color ("c1 c2 45deg c3"): Hyprland 0.56 reports the
+-- inactive color with getprop but draws the global gray instead. Use a separate focus = true rule.
 hl.window_rule({
     name         = "jeanmich-veille",
     match        = { tag = "jeanmich-veille" },
     border_color = "rgba(ffdb73ff) rgba(ffdb73ff)",  -- opaque, jaune du halo content de Jean-Mich (= bouton Waybar)
     border_size  = 5,
+})
+
+hl.window_rule({
+    name         = "jeanmich-veille-focused",
+    match        = { tag = "jeanmich-veille", focus = true },
+    border_color = "rgba(ffdb73ff) rgba(e2cca9ee) 45deg",  -- yellow -> general.col.active_border
+})
+
+-- maximized (Super+F) or fullscreen, focused or not: yellow -> maximized-window-border-color (active and inactive)
+hl.window_rule({
+    name         = "jeanmich-veille-maximized",
+    match        = { tag = "jeanmich-veille", fullscreen = true },
+    border_color = "rgba(ffdb73ff) rgba(80aa9eee) 45deg rgba(ffdb73ff) rgba(80aa9eee) 45deg",
 })
 
 -- See https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/ for workspace rules
